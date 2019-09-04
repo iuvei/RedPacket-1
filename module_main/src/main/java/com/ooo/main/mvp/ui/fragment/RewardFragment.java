@@ -4,29 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ConvertUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.mvp.model.entity.RewardBean;
-import com.ooo.main.mvp.ui.adapter.RewardAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-
-import com.ooo.main.mvp.ui.activity.LongImageActivity;
-import me.jessyan.armscomponent.commonres.view.recyclerview.SpaceItemDecoration;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -43,18 +36,35 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArms/wiki">See me</a>
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
+ * 发现模块
  */
 public class RewardFragment extends BaseSupportFragment {
 
     @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.recyclerView)
-    RecyclerView recyclerView;
-
-    private RewardAdapter mAdapter;
+    @BindView(R2.id.layout_scan)
+    LinearLayout layoutScan;
+    @BindView(R2.id.layout_promote)
+    LinearLayout layoutPromote;
+    @BindView(R2.id.layout_underline_query)
+    LinearLayout layoutUnderlineQuery;
+    @BindView(R2.id.layout_underline_list)
+    LinearLayout layoutUnderlineList;
+    @BindView(R2.id.layout_luck)
+    LinearLayout layoutLuck;
+    @BindView(R2.id.layout_ommission_list)
+    LinearLayout layoutOmmissionList;
+    @BindView(R2.id.layout_ommission_ranking)
+    LinearLayout layoutOmmissionRanking;
+    @BindView(R2.id.layout_game_reward_info)
+    LinearLayout layoutGameRewardInfo;
+    @BindView(R2.id.layout_ommission_reward_info)
+    LinearLayout layoutOmmissionRewardInfo;
+    @BindView(R2.id.layout_game_control_info)
+    LinearLayout layoutGameControlInfo;
 
     public static RewardFragment newInstance() {
-        RewardFragment fragment = new RewardFragment();
+        RewardFragment fragment = new RewardFragment ();
         return fragment;
     }
 
@@ -64,38 +74,13 @@ public class RewardFragment extends BaseSupportFragment {
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reward, container, false);
+        return inflater.inflate ( R.layout.fragment_reward, container, false );
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        tvTitle.setText(R.string.reward);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(layoutManager);
-        int sspace = ConvertUtils.dp2px(8);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(sspace,SpaceItemDecoration.ALL));
-        mAdapter = new RewardAdapter(getRewardBeans());
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                launchActivity(new Intent(mContext, LongImageActivity.class));
-            }
-        });
+        tvTitle.setText ( R.string.discover );
     }
-
-    private List<RewardBean> getRewardBeans(){
-        List<RewardBean> rewardBeans = new ArrayList<>();
-        rewardBeans.add(new RewardBean(R.drawable.ic_recharge_reward,R.drawable.ic_recharge_reward));
-        rewardBeans.add(new RewardBean(R.drawable.ic_send_redpacket_reward,R.drawable.ic_send_redpacket_reward));
-        rewardBeans.add(new RewardBean(R.drawable.ic_grab_redpacket_reward,R.drawable.ic_grab_redpacket_reward));
-        rewardBeans.add(new RewardBean(R.drawable.ic_water_commission_reward,R.drawable.ic_water_commission_reward));
-        rewardBeans.add(new RewardBean(R.drawable.ic_straight_reward,R.drawable.ic_straight_reward));
-        rewardBeans.add(new RewardBean(R.drawable.ic_invite_friend_reward,R.drawable.ic_invite_friend_reward));
-        return rewardBeans;
-    }
-
 
     @Override
     public void setData(@Nullable Object data) {
@@ -103,7 +88,57 @@ public class RewardFragment extends BaseSupportFragment {
     }
 
     public void launchActivity(@NonNull Intent intent) {
-        checkNotNull(intent);
-        ArmsUtils.startActivity(intent);
+        checkNotNull ( intent );
+        ArmsUtils.startActivity ( intent );
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView ( inflater, container, savedInstanceState );
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView ();
+    }
+
+    @OnClick({R2.id.layout_scan, R2.id.layout_promote, R2.id.layout_underline_query, R2.id.layout_underline_list,
+            R2.id.layout_luck, R2.id.layout_ommission_list, R2.id.layout_ommission_ranking, R2.id.layout_game_reward_info,
+            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info})
+    public void onViewClicked(View view) {
+        switch (view.getId ()) {
+            case R2.id.layout_scan:
+                //扫一扫
+                break;
+            case R2.id.layout_promote:
+                //推广海报
+                break;
+            case R2.id.layout_underline_query:
+                //下线查询
+                break;
+            case R2.id.layout_underline_list:
+                //下线列表
+                break;
+            case R2.id.layout_luck:
+                //幸运大转盘
+                break;
+            case R2.id.layout_ommission_list:
+                //佣金列表
+                break;
+            case R2.id.layout_ommission_ranking:
+                //佣金排行榜
+                break;
+            case R2.id.layout_game_reward_info:
+                //扫雷游戏奖励说明
+                break;
+            case R2.id.layout_ommission_reward_info:
+                //佣金排行榜奖励说明
+                break;
+            case R2.id.layout_game_control_info:
+                //禁抢游戏说明
+                break;
+        }
     }
 }

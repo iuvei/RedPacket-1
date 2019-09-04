@@ -25,18 +25,181 @@
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             android:orientation="vertical">
+            <View style="@style/discover_style_view" />
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
+                android:id="@+id/layout_scan"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="扫一扫"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_style_view" />
+            <LinearLayout
+                android:id="@+id/layout_promote"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="推广海报"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_underline_query"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="下线查询"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_underline_list"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="下线列表"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_style_view"></View>
+            <LinearLayout
+                android:id="@+id/layout_luck"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="幸运大转盘"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_style_view"></View>
+            <LinearLayout
+                android:id="@+id/layout_ommission_list"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="佣金列表"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_ommission_ranking"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="佣金排行榜"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_style_view"></View>
+            <LinearLayout
+                android:id="@+id/layout_game_reward_info"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="扫雷游戏奖励说明"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_ommission_reward_info"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="佣金排行榜奖励说明"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+            </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_game_control_info"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="禁抢游戏说明"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

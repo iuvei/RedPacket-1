@@ -30,6 +30,7 @@
 
     <!-- 奖励页 -->
     <string name="reward">奖励</string>
+    <string name="discover">发现</string>
 
     <!-- 个人中心 -->
     <string name="proxy_center">代理中心</string>
