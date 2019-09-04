@@ -99,6 +99,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus(this);
+        StatusBarUtils.setStatusBarDarkTheme ( this,true );
         initFragments();
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();

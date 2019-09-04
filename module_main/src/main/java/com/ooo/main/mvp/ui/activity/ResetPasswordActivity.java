@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.CountDownUtils;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> implements LoginContract.View {
 
@@ -60,7 +61,8 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 
-
+        StatusBarUtils.setTranslucentStatus(this);
+        StatusBarUtils.setStatusBarDarkTheme ( this,true );
         mCountDownUtils = new CountDownUtils(tvGetCode);
         mCountDownUtils.setOnClickListener(new View.OnClickListener() {
             @Override

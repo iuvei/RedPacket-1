@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -79,7 +80,8 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        StatusBarUtils.setTranslucentStatus(this);
+        StatusBarUtils.setStatusBarDarkTheme ( this,true );
         /*
          * 获取到焦点的监听
          */
