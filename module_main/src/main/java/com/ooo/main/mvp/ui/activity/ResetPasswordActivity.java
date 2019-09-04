@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -37,8 +38,8 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     EditText etAuthCode;
     @BindView(R2.id.et_password)
     EditText etPassword;
-    @BindView(R2.id.et_confirm_password)
-    EditText etConfirmPassword;
+    @BindView(R2.id.iv_back)
+    ImageView ivBack;
 
     private CountDownUtils mCountDownUtils;
     private ProgressDialogUtils progressDialogUtils;
@@ -72,7 +73,7 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     }
 
 
-    @OnClick({R2.id.btn_register, R2.id.iv_contact_custom})
+    @OnClick({R2.id.btn_register, R2.id.iv_contact_custom,R2.id.iv_back})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.btn_register) {
@@ -80,6 +81,8 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
 
         } else if (i == R.id.iv_contact_custom) {
             showNotescontactPopupWindow(view);
+        }else if (i==R.id.iv_back){
+            finish ();
         }
     }
 
@@ -99,10 +102,11 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     private void sendSms(){
         String phoneNumber = etPhone.getText().toString();
         if(!RegexUtils.isMobileSimple(phoneNumber)){
-            showMessage("手机号不能为空!");
+            showMessage("手机号不能为空/不可用!");
             etPhone.requestFocus();
             return;
         }
+        mCountDownUtils.start ();
         mPresenter.sendSms(phoneNumber,true);
     }
 
@@ -123,16 +127,6 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
         if (TextUtils.isEmpty(password)) {
             etPassword.requestFocus();
             showMessage("密码不能为空/不可用!");
-            return;
-        }
-        String confirmPassword = etConfirmPassword.getText().toString();
-        if (TextUtils.isEmpty(confirmPassword)) {
-            etConfirmPassword.requestFocus();
-            showMessage("确认密码不能为空/不可用!");
-            return;
-        }
-        if(!password.equals(confirmPassword)){
-            showMessage("确认密码不一致!");
             return;
         }
         hideSoftInput();

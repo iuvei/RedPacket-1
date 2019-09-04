@@ -27,7 +27,7 @@ public class CountDownUtils {
     /**
      * 提示文字
      */
-    private String mHintText = "重新获取";
+    private String mHintText = "获取验证码";
 
     /**
      * 剩余倒计时时间
@@ -46,7 +46,7 @@ public class CountDownUtils {
     /**
      * 不可用状态下字体颜色Id
      */
-    private int unusableColorId = R.color.common_text_light;
+    private int unusableColorId = R.color.public_white;
 
 
     private Handler mHandler = new Handler() {
@@ -106,7 +106,7 @@ public class CountDownUtils {
                     mTextView.setEnabled(usable);
                     mTextView.setTextColor(mTextView.getResources().getColor(unusableColorId));
                 }
-                String content = mLastMillis / 1000 + "秒后重发";
+                String content = "("+(mLastMillis / 1000) + "S)";
                 mTextView.setText(content);
 
             }
@@ -141,7 +141,7 @@ public class CountDownUtils {
                 @Override
                 public void onClick(View v) {
                     mHandler.removeMessages(MSG_WHAT_START);
-                    start();
+                    //start();
                     onClickListener.onClick(v);
                 }
             });

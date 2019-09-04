@@ -12,10 +12,12 @@
     <string name="password_cannot_be_empty">密码不能为空！</string>
     <string name="Is_landing">正在登录...</string>
     <string name="login_phone_num">手机号</string>
+    <string name="code">验证码</string>
+    <string name="new_password">新密码</string>
 
     <string name="enter_nickname">请输入昵称</string>
     <string name="enter_phone_number">请输入手机号码</string>
-    <string name="enter_password">请输入密码</string>
+    <string name="enter_password">请输入密码(6-20位)</string>
     <string name="enter_confirm_password">请确认密码</string>
     <string name="enter_auth_code">请输入验证码</string>
     <string name="enter_invite_code">请输入邀请码</string>

@@ -15,6 +15,7 @@
     <string name="public_hide">隐藏</string>
     <string name="public_confirm">确认</string>
     <string name="public_cancel">取消</string>
+    <string name="public_sure">确定</string>
 
     <!-- 自定义视频录制 -->
     <string name="public_video_recorder">视频录制</string>
