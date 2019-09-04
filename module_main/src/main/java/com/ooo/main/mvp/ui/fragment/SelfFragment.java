@@ -143,8 +143,8 @@ public class SelfFragment extends BaseSupportFragment<SelfPresenter> implements 
     @Override
     public void logoutSuccess() {
         UserPreferenceManager.getInstance().removeCurrentUserInfo();
-        launchActivity(new Intent(_mActivity, LoginAdActivity.class));
-        mAppManager.killAll(LoginAdActivity.class);
+        launchActivity(new Intent(_mActivity, LoginActivity.class));
+        mAppManager.killAll(LoginActivity.class);
     }
 
     private void showEditDialog(){
