@@ -17,9 +17,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -108,37 +106,28 @@ public class RewardFragment extends BaseSupportFragment {
             R2.id.layout_luck, R2.id.layout_ommission_list, R2.id.layout_ommission_ranking, R2.id.layout_game_reward_info,
             R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info})
     public void onViewClicked(View view) {
-        switch (view.getId ()) {
-            case R2.id.layout_scan:
-                //扫一扫
-                break;
-            case R2.id.layout_promote:
-                //推广海报
-                break;
-            case R2.id.layout_underline_query:
-                //下线查询
-                break;
-            case R2.id.layout_underline_list:
-                //下线列表
-                break;
-            case R2.id.layout_luck:
-                //幸运大转盘
-                break;
-            case R2.id.layout_ommission_list:
-                //佣金列表
-                break;
-            case R2.id.layout_ommission_ranking:
-                //佣金排行榜
-                break;
-            case R2.id.layout_game_reward_info:
-                //扫雷游戏奖励说明
-                break;
-            case R2.id.layout_ommission_reward_info:
-                //佣金排行榜奖励说明
-                break;
-            case R2.id.layout_game_control_info:
-                //禁抢游戏说明
-                break;
+        int i = view.getId ();
+        if (i == R.id.layout_scan) {
+            //扫一扫
+        } else if (i == R.id.layout_promote) {
+            //推广海报
+        } else if (i == R.id.layout_underline_query) {
+            //下线查询
+            ToastUtils.showShort ( getString ( R.string.discover_coming_soon ) );
+        } else if (i == R.id.layout_underline_list) {
+            //下线列表
+        } else if (i == R.id.layout_luck) {
+            //幸运大转盘
+        } else if (i == R.id.layout_ommission_list) {
+            //佣金列表
+        } else if (i == R.id.layout_ommission_ranking) {
+            //佣金排行榜
+        } else if (i == R.id.layout_game_reward_info) {
+            //扫雷游戏奖励说明
+        } else if (i == R.id.layout_ommission_reward_info) {
+            //佣金排行榜奖励说明
+        } else if (i == R.id.layout_game_control_info) {
+            //禁抢游戏说明
         }
     }
 }

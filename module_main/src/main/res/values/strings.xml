@@ -32,6 +32,9 @@
     <string name="reward">奖励</string>
     <string name="discover">发现</string>
 
+    <!--发现-->
+    <string name="discover_coming_soon">敬请期待</string>
+
     <!-- 个人中心 -->
     <string name="proxy_center">代理中心</string>
     <string name="share_make_money">分享赚钱</string>
