@@ -6,11 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,14 +19,12 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerLoginComponent;
 import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.presenter.LoginPresenter;
-import com.ooo.main.view.dialog.NotescontactDialog;
-import com.ooo.main.view.popupwindow.NotescontactPopupWindow;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonres.utils.CountDownUtils;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -46,8 +42,10 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
     EditText etPassword;
     @BindView(R2.id.et_confirm_password)
     EditText etConfirmPassword;
-    @BindView(R2.id.et_invite_code)
-    EditText etInviteCode;
+    @BindView(R2.id.et_nickname)
+    EditText etNickName;
+    @BindView(R2.id.tv_agreement)
+    TextView tvAgreement;
 
     @Inject
     AppManager mAppManager;
@@ -84,14 +82,17 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
     }
 
 
-    @OnClick({R2.id.btn_register, R2.id.iv_contact_custom})
+    @OnClick({R2.id.btn_register, R2.id.tv_agreement,R2.id.iv_back})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.btn_register) {
             register();
 
-        } else if (i == R.id.iv_contact_custom) {
-            showNotescontactPopupWindow(view);
+        } else if (i == R.id.tv_agreement) {
+            //用户协议
+          WebviewActivity.start ( this,getString ( R.string.agreement ),"https://blog.csdn.net/weixin_40536539/article/details/78705904" );
+        }else if (i==R.id.iv_back){
+            finish ();
         }
     }
 
@@ -100,13 +101,6 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             KeyboardUtils.hideSoftInput(this);
     }
 
-    private NotescontactPopupWindow mNotescontactPopupWindow;
-    private void showNotescontactPopupWindow(View view){
-        if( null == mNotescontactPopupWindow ){
-            mNotescontactPopupWindow = new NotescontactPopupWindow(mContext);
-        }
-        mNotescontactPopupWindow.openPopWindow(view);
-    }
 
     private void sendSms(){
         String phoneNumber = etPhone.getText().toString();
@@ -115,6 +109,7 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             etPhone.requestFocus();
             return;
         }
+        mCountDownUtils.start ();
         mPresenter.sendSms(phoneNumber,true);
     }
 
@@ -130,27 +125,26 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             showMessage("验证码不能为空/不可用!");
             return;
         }
-
+        String inviteCode = etNickName.getText().toString();
+        if (TextUtils.isEmpty(inviteCode)) {
+            etNickName.requestFocus();
+            showMessage("昵称不能为空");
+            return;
+        }
         String password = etPassword.getText().toString();
         if (TextUtils.isEmpty(password)) {
             etPassword.requestFocus();
-            showMessage("密码不能为空/不可用!");
+            showMessage("密码不能为空");
             return;
         }
         String confirmPassword = etConfirmPassword.getText().toString();
         if (TextUtils.isEmpty(confirmPassword)) {
             etConfirmPassword.requestFocus();
-            showMessage("确认密码不能为空/不可用!");
+            showMessage("确认密码不能为空");
             return;
         }
         if(!password.equals(confirmPassword)){
             showMessage("确认密码不一致!");
-            return;
-        }
-        String inviteCode = etInviteCode.getText().toString();
-        if (TextUtils.isEmpty(inviteCode)) {
-            etInviteCode.requestFocus();
-            showMessage("邀请码不能为空/不可用!");
             return;
         }
         hideSoftInput();

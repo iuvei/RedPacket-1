@@ -11,8 +11,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.LongImageActivity"></activity>
-        <activity android:name=".mvp.ui.activity.BillRecordActivity"></activity>
+        <activity android:name=".mvp.ui.activity.WebViewActivity"></activity>
+        <activity android:name=".mvp.ui.activity.LongImageActivity" />
+        <activity android:name=".mvp.ui.activity.BillRecordActivity" />
         <activity
             android:name=".mvp.ui.activity.BillListActivity"
             android:label="@string/bill_records" />

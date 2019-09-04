@@ -2,170 +2,154 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/text_black_66"
     android:orientation="vertical">
-
-    <include layout="@layout/public_include_title" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_m"
-        android:background="@color/public_white"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:drawableLeft="@drawable/ic_phone"
-                android:drawablePadding="@dimen/spacing_m"
-                android:hint="@string/enter_phone_number"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:maxLength="13"
-                android:maxLines="1"
-                android:padding="@dimen/spacing_l"
-                android:textColor="@color/common_text"
-                android:textSize="@dimen/text_sub_title" />
-
-            <TextView
-                android:id="@+id/tv_get_code"
-                style="@style/public_CommonPadding_s"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/spacing_l"
-                android:background="@drawable/btn_orange1_selector"
-                android:text="@string/get_auth_code"
-                android:textColor="@color/public_white"
-                android:textSize="@dimen/text_small"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <View style="@style/public_CommonLine" />
-
-        <EditText
-            android:id="@+id/et_auth_code"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/ic_auth"
-            android:drawablePadding="@dimen/spacing_m"
-            android:hint="@string/enter_auth_code"
-            android:imeOptions="actionNext"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:padding="@dimen/spacing_l"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_sub_title" />
-
-        <View style="@style/public_CommonLine" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/ic_pwd"
-            android:drawablePadding="@dimen/spacing_m"
-            android:hint="@string/enter_password"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="@dimen/spacing_l"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_sub_title" />
-
-        <View style="@style/public_CommonLine" />
-
-        <EditText
-            android:id="@+id/et_confirm_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/ic_pwd"
-            android:drawablePadding="@dimen/spacing_m"
-            android:hint="@string/enter_confirm_password"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="@dimen/spacing_l"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_sub_title" />
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/et_invite_code"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_m"
-        android:background="@color/public_white"
-        android:drawableLeft="@drawable/ic_recommend"
-        android:drawablePadding="@dimen/spacing_m"
-        android:hint="@string/enter_invite_code"
-        android:imeOptions="actionDone"
-        android:maxLines="1"
-        android:padding="@dimen/spacing_l"
-        android:textColor="@color/common_text"
-        android:textSize="@dimen/text_sub_title" />
-
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_xl"
-        android:layout_marginTop="@dimen/spacing_xxl"
-        android:layout_marginEnd="@dimen/spacing_xl"
-        android:background="@drawable/btn_ad_shape"
-        android:text="@string/register"
-        android:textColor="@color/public_white"
-        android:textSize="@dimen/text_sub_title" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_l"
-        android:layout_marginTop="@dimen/spacing_xxl"
-        android:layout_marginEnd="@dimen/spacing_l"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0.0dip"
-            android:layout_height="1dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.0"
-            android:background="@color/divider_color" />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_xl"
+            android:src="@drawable/public_ic_arrow_back_white_24dp"/>
         <TextView
+            android:text="@string/title_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_m"
-            android:layout_marginEnd="@dimen/spacing_m"
-            android:text="@string/register_custom"
-            android:textColor="@color/common_text_light"
-            android:textSize="@dimen/text_small"
-            android:textStyle="bold" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_title"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_xl"
+            android:layout_marginEnd="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="0.0dip"
-            android:layout_height="1dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.0"
-            android:background="@color/divider_color" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/et_input_shape"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/login_phone_num"
+                    style="@style/input_tag" />
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:hint="@string/enter_phone_number"
+                    style="@style/input_style" />
 
-    <ImageView
-        android:id="@+id/iv_contact_custom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/spacing_xxl"
-        android:src="@drawable/ic_contact_custom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/et_input_shape"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/code"
+                    style="@style/input_tag" />
+                <EditText
+                    android:id="@+id/et_auth_code"
+                    style="@style/input_style"
+                    android:hint="@string/enter_auth_code"
+                    />
+                <TextView
+                    android:id="@+id/tv_get_code"
+                    style="@style/public_CommonPadding_s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/spacing_l"
+                    android:background="@drawable/btn_ad_shape"
+                    android:text="@string/get_auth_code"
+                    android:textColor="@color/public_white"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/et_input_shape"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/nickname"
+                    style="@style/input_tag" />
+                <EditText
+                    android:id="@+id/et_nickname"
+                    android:hint="@string/enter_nickname"
+                    style="@style/input_style" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/et_input_shape"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/password"
+                    style="@style/input_tag" />
+                <EditText
+                    android:id="@+id/et_password"
+                    android:hint="@string/enter_password"
+                    style="@style/input_style" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/et_input_shape"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/confirm_password"
+                    style="@style/input_tag" />
+                <EditText
+                    android:id="@+id/et_confirm_password"
+                    android:hint="@string/enter_confirm_password"
+                    style="@style/input_style"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/btn_ad_shape"
+                android:text="@string/register"
+                android:textColor="@color/public_white"
+                android:textSize="@dimen/text_sub_title" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agress_agreement"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agreement"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/public_color_06CB7E"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

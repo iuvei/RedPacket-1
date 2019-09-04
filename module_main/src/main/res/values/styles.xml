@@ -20,4 +20,28 @@
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:textColor">@color/common_text_light</item>
     </style>
+
+    <style name="input_tag">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textSize">@dimen/text_sub_title</item>
+    </style>
+
+    <style name="input_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLength">13</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">@dimen/spacing_m</item>
+        <item name="android:textColorHint">@color/text_black_99</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_sub_title</item>
+    </style>
 </resources>

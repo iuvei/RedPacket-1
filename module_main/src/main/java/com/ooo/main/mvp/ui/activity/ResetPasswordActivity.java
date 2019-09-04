@@ -1,9 +1,8 @@
 package com.ooo.main.mvp.ui.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerLoginComponent;
 import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.presenter.LoginPresenter;
-import com.ooo.main.view.popupwindow.NotescontactPopupWindow;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,15 +71,13 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     }
 
 
-    @OnClick({R2.id.btn_register, R2.id.iv_contact_custom,R2.id.iv_back})
+    @OnClick({R2.id.btn_register, R2.id.iv_back})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.btn_register) {
             register();
 
-        } else if (i == R.id.iv_contact_custom) {
-            showNotescontactPopupWindow(view);
-        }else if (i==R.id.iv_back){
+        } else if (i==R.id.iv_back){
             finish ();
         }
     }
@@ -89,14 +85,6 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     public void hideSoftInput(){
         if(KeyboardUtils.isSoftInputVisible(this))
             KeyboardUtils.hideSoftInput(this);
-    }
-
-    private NotescontactPopupWindow mNotescontactPopupWindow;
-    private void showNotescontactPopupWindow(View view){
-        if( null == mNotescontactPopupWindow ){
-            mNotescontactPopupWindow = new NotescontactPopupWindow(mContext);
-        }
-        mNotescontactPopupWindow.openPopWindow(view);
     }
 
     private void sendSms(){
