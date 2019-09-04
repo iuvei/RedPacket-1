@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">module_easeim</string>
+
+    <string name="at_your_in_group">%s在群聊中@了你</string>
+    <string name="msg_recall_by_self">您撤回了一条消息</string>
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
+
+    <string name="call_cancelled">已取消通话</string>
+    <string name="chat_top_hint">要求到其他平台交流都是诈骗行为，<a>请举报，举报有奖</a>\n加微信、裸聊、要求转账约会都是诈骗行为！请勿相信！</string>
+
+    <string name="attention">关注</string>
+    <string name="canle_attention">取消关注</string>
+    <string name="report">举报</string>
+    <string name="add_blacklist">加入黑名单</string>
+    <string name="clear_chat_record">清除聊天记录</string>
+    <string name="personal_homepage">个人主页</string>
+
+    <string name="chat_video">视频</string>
+    <string name="chat_voice">语音</string>
+    <string name="chat_gift">打赏</string>
+    <string name="chat_photo">照片</string>
+    <string name="chat_shoot">拍摄</string>
+    <string name="chat_camera">拍照</string>
+    <string name="chat_welfare">福利</string>
+    <string name="chat_league">加盟</string>
+    <string name="chat_redpacket">红包</string>
+    <string name="chat_recharge">充值</string>
+    <string name="chat_game_rules">玩法</string>
+    <string name="chat_group_rules">群规</string>
+    <string name="chat_help">帮助</string>
+    <string name="chat_customer_service">客服</string>
+    <string name="chat_make_money">客服</string>
+
+    <!-- 会话 -->
+    <string name="no_unread_messages">暂无未读消息</string>
+    <string name="has_unread_mssages">[%s条未读消息]</string>
+    <string name="mark_all_conversations_as_read">是否将所有消息标记为已读？</string>
+    <string name="clear_all_conversations">是否删除所有消息？</string>
+
+    <string name="system_message">系统消息</string>
+    <string name="network_unstable">网络不稳定</string>
+    <string name="no_call_data">没有通话数据</string>
+    <string name="network_unavailable">网络连接不可用，请检查网络</string>
+    <string name="is_connecting">正在接通中...</string>
+    <string name="have_connected_with">已经和对方建立连接</string>
+    <string name="call_version_inconsistent">通话协议版本不一致</string>
+    <string name="consume_coins_per_minute">消耗 %d 爱豆/分钟</string>
+    <string name="income_coins_per_minute">收入 %d 爱豆/分钟</string>
+    <string name="cancel">取消</string>
+    <string name="reject">拒接</string>
+    <string name="answer">接听</string>
+
+    <string name="redpacket">红包</string>
+
+    <!-- 通讯录 -->
+    <string name="official_customer_service">官方客服</string>
+    <string name="invite_my_friend">邀请我的好友</string>
+    <string name="my_invite_friend">我邀请的好友</string>
+    <string name="contact">通讯录</string>
+
+    <!-- 群信息 -->
+    <string name="room_info">群信息</string>
+    <string name="group_affiche">群公告</string>
+    <string name="group_notice">须知</string>
+    <string name="group_rules">群规</string>
+    <string name="game_rules">玩法</string>
+    <string name="voice_notify">声音免打扰</string>
+    <string name="delete_and_exit">删除并退出</string>
+
+    <!-- -->
+    <string name="friend_conversation_list">好友会话列表</string>
+
+
+    <!-- 个人信息页 -->
+    <string name="personality_signature">个性签名</string>
+    <string name="default_signature">本宝宝暂时没有想到个性的签名!~</string>
+    <string name="price_of_chat">聊天价格</string>
+    <string name="gifts_given">送出礼物</string>
+    <string name="gifts_received">收到打赏</string>
+    <!--<string name="contact">联系方式</string>-->
+    <string name="view_phone_number">查看手机</string>
+    <string name="view_wx_number">查看微信</string>
+    <string name="view_qq_number">查看ＱＱ</string>
+    <string name="server_point">评价值:%.2f</string>
+    <string name="res_tate">接通率:%d%%</string>
+
+    <string name="check_and_pay_coins">继续查看并支付 %d爱豆</string>
+
+</resources>

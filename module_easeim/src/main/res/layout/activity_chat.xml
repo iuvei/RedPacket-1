@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include layout="@layout/public_include_title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_alert_kicked_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        style="@style/public_CommonPadding_s"
+        android:background="@drawable/ease_alert_click_bg"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alert_kicked_for_offline"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/input_menu">
+
+            <com.hyphenate.easeui.widget.EaseChatMessageList
+                android:id="@+id/message_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.hyphenate.easeui.widget.EaseVoiceRecorderView
+                android:id="@+id/voice_recorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+        </RelativeLayout>
+        <com.haisheng.easeim.mvp.ui.widget.ChatInputMenu
+            android:id="@+id/input_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/tv_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_web_rechange"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/public_recharge"/>
+
+        <TextView
+            android:id="@+id/tv_game_rules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_recharge"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_how_play"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/chat_game_rules"/>
+
+        <TextView
+            android:id="@+id/tv_league"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_game_rules"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_jiameng"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/chat_league"/>
+
+    </RelativeLayout>
+</LinearLayout>

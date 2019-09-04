@@ -1,0 +1,10 @@
+<resources>
+    
+    <!-- -->
+    <dimen name="member_header_height">122dp</dimen>
+
+    <dimen name="grid_icon_size">50dp</dimen>
+    <dimen name="ad_banner_height">85dp</dimen>
+    <dimen name="notice_icon_size">18dp</dimen>
+
+</resources>

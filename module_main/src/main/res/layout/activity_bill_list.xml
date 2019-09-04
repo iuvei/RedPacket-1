@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/public_include_title"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/public_white"/>
+
+    <!--<android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/public_white"
+        android:divider="@drawable/table_h_divider"
+        app:orientation="horizontal"
+        app:columnCount="2">
+
+        <TextView
+            android:id="@+id/tv_all_record"
+            android:drawableTop="@drawable/icon_all_record"
+            app:layout_columnWeight="1"
+            style="@style/grid_item_style"
+            android:text="@string/all_record"/>
+        <TextView
+            android:id="@+id/tv_reward_record"
+            android:drawableTop="@drawable/icon_reward_record"
+            app:layout_columnWeight="1"
+            style="@style/grid_item_style"
+            android:text="@string/reward_record"/>
+
+        <TextView
+            android:id="@+id/tv_recharge_record"
+            android:drawableTop="@drawable/icon_cz_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/recharge_record"/>
+        <TextView
+            android:id="@+id/tv_withdraw_record"
+            android:drawableTop="@drawable/icon_tx_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/withdraw_record"/>
+
+        <TextView
+            android:id="@+id/tv_send_redpacket_record"
+            android:drawableTop="@drawable/icon_send_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/send_redpacket_record"/>
+        <TextView
+            android:id="@+id/tv_grab_redpacket_record"
+            android:drawableTop="@drawable/icon_grab_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/grab_redpacket_record"/>
+
+        <TextView
+            android:id="@+id/tv_profit_loss_record"
+            android:drawableTop="@drawable/icon_yk_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/profit_loss_record"/>
+        <TextView
+            android:id="@+id/tv_commission_income"
+            android:drawableTop="@drawable/icon_yj_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/commission_income"/>
+
+        <TextView
+            android:id="@+id/tv_fruit_machine_record"
+            android:drawableTop="@drawable/icon_fruit_record"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/fruit_machine_record"/>
+        <TextView
+            android:drawableTop="@drawable/icon_wait_update"
+            app:layout_gravity="fill"
+            style="@style/grid_item_style"
+            android:text="@string/coming_soon"/>
+
+    </android.support.v7.widget.GridLayout>-->
+
+</LinearLayout>

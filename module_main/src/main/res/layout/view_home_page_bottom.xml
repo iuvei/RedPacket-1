@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_chat"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/spacing_l"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_icon_chat"
+                style="@style/home_tab_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_msg_nor" />
+
+                <ImageView
+                    android:id="@+id/iv_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_msg_sel"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_unread_msg"
+                android:layout_width="8.0dip"
+                android:layout_height="8.0dip"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:layout_toRightOf="@id/rl_icon_chat"
+                android:background="@drawable/red_point"
+                android:visibility="gone" />
+
+            <RadioButton
+                android:id="@+id/tv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_icon_chat"
+                android:button="@null"
+                android:clickable="false"
+                android:text="消息"
+                android:textColor="@drawable/bottom_bar_text_selector"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_group"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/home_tab_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_group_nor" />
+
+                <ImageView
+                    android:id="@+id/iv_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_group_sel"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RadioButton
+                android:id="@+id/tv_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:clickable="false"
+                android:text="群组"
+                android:textColor="@drawable/bottom_bar_text_selector"
+                android:textSize="12.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_reward"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.7"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/ll_discover"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/home_tab_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="-1dp"
+                    android:src="@drawable/ic_contact_nor" />
+
+                <ImageView
+                    android:id="@+id/iv_discover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_contact_sel"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RadioButton
+                android:id="@+id/tv_discover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:clickable="false"
+                android:text="通讯录"
+                android:textColor="@drawable/bottom_bar_text_selector"
+                android:textSize="12.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/spacing_l"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/home_tab_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_me_nor" />
+
+                <ImageView
+                    android:id="@+id/iv_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_me_sel"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RadioButton
+                android:id="@+id/tv_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:clickable="false"
+                android:text="我的"
+                android:textColor="@drawable/bottom_bar_text_selector"
+                android:textSize="12.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

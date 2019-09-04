@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/public_include_title" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/public_height_550px"
+        android:layout_margin="@dimen/spacing_xl"
+        android:background="@color/white">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/banner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="@dimen/spacing_m"/>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/tv_go_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:layout_marginLeft="@dimen/spacing_xl"
+        android:layout_marginRight="@dimen/spacing_xl"
+        android:background="@drawable/btn_ad_shape"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_normal" />
+
+    <Button
+        android:id="@+id/tv_go_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_xl"
+        android:background="@drawable/btn_ad_white_shape"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/common_text"
+        android:textSize="@dimen/text_normal" />
+</LinearLayout>

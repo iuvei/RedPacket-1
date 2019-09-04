@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ooo.main">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application>
+        <activity android:name=".mvp.ui.activity.LongImageActivity"></activity>
+        <activity android:name=".mvp.ui.activity.BillRecordActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.BillListActivity"
+            android:label="@string/bill_records" />
+        <activity
+            android:name=".mvp.ui.activity.GuideActivity"
+            android:theme="@style/WelcomeTheme" />
+        <activity
+            android:name=".mvp.ui.activity.QrcodeCardActivity"
+            android:label="@string/qr_code_card" />
+        <activity
+            android:name=".mvp.ui.activity.EditNicknameActivity"
+            android:label="@string/nickname"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.MemberInfoActivity"
+            android:label="@string/personal_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.ResetPasswordActivity"
+            android:label="@string/reset_password"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.RegisterActivity"
+            android:label="@string/register"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.LoginActivity"
+            android:label="@string/login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.LoginAdActivity"
+            android:label="@string/login_register"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".mvp.ui.activity.WelcomeActivity"
+            android:theme="@style/WelcomeTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- arms配置 -->
+        <meta-data
+            android:name="com.ooo.main.app.GlobalConfiguration"
+            android:value="ConfigModule" />
+    </application>
+
+</manifest>

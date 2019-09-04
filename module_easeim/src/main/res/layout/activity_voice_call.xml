@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:keepScreenOn="true"
+    android:background="@mipmap/videochat_bg">
+
+    <RelativeLayout
+        android:id="@+id/viewControl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="35.0dp"
+        android:paddingBottom="35.0dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/viewUserInfo"
+            android:layout_width="205.0dip"
+            android:layout_height="40.0dip"
+            android:layout_marginTop="2.5dip"
+            android:background="@mipmap/videochat_bg_black">
+
+            <ImageView
+                android:id="@+id/imgHead"
+                android:layout_width="35.0dip"
+                android:layout_height="35.0dip"
+                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tvUsername2"
+                android:layout_width="72.0dip"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imgHead"
+                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_marginTop="2.5dip"
+                android:textSize="@dimen/text_sub_title"
+                android:textColor="@color/public_white"
+                android:ellipsize="end"  android:lines="1" android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/tvLikeNum"
+                android:layout_width="60.0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_toRightOf="@id/imgHead"
+                android:layout_below="@id/tvUsername2"
+                android:drawableLeft="@mipmap/videochat_icon_love"
+                android:drawablePadding="5.5dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/common_text_light"
+                android:ellipsize="end" android:lines="1" android:maxLength="6" />
+
+            <ImageView
+                android:id="@+id/imgState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing_l"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/personalhomepage_btn_follow_act"/>
+        </RelativeLayout>
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_l"
+            android:layout_below="@id/viewUserInfo"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/theme_color"/>
+
+        <ImageView
+            android:id="@+id/imgHangUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/videochat_icon_hangup"  />
+
+        <ImageButton
+            android:id="@+id/btn_hands_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38.0dip"
+            android:layout_alignParentBottom="true"
+            android:background="@null"
+            android:src="@drawable/btn_hands_free_selector"/>
+
+        <ImageButton
+            android:id="@+id/btn_nowheat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="38.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@null"
+            android:src="@drawable/btn_nowheat_selector"/>
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_show_giftselect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="38.0dip"
+        android:layout_marginBottom="120.5dip"
+        android:background="@null"
+        android:src="@mipmap/videochat_btn_sendgift"/>
+
+    <TextView
+        android:id="@+id/tvNetBadHit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/public_CommonPadding_m"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/public_white"
+        android:background="@drawable/bg_msg_bubble"
+        android:text="当前网络差,通话质量不佳" />
+
+    <ImageView
+        android:id="@+id/iv_gift_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:scaleType="center" />
+
+    <me.jessyan.armscomponent.commonres.view.GiftSendSelectView
+        android:id="@+id/giftSendSelectView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+    <!--<com.daao.aipeng.widget.GiftAnimView android:id="@id/giftAnimView" android:layout_width="fill_parent" android:layout_height="fill_parent" />-->
+    <!--<com.daao.aipeng.faceunitymodule.beautycontrolview.ApBeautyControlView android:id="@id/faceunityControl" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />-->
+    <include layout="@layout/activity_call_wait"/>
+</RelativeLayout>

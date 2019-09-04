@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- item包含menu表示该menu是item下的子菜单 -->
+    <item
+        android:id="@+id/item_shortcut_recharge"
+        android:title="@string/shortcut_recharge"
+        android:icon="@drawable/icon_shortcut_recharge"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_shortcut_proxy_center"
+        android:title="@string/shortcut_proxy_center"
+        android:icon="@drawable/icon_shortcut_dl"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_shortcut_help"
+        android:title="@string/shortcut_help"
+        android:icon="@drawable/icon_shortcut_help"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_shortcut_game_rules"
+        android:title="@string/shortcut_game_rules"
+        android:icon="@drawable/icon_shortcut_rp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_shortcut_create_group"
+        android:title="@string/shortcut_create_group"
+        android:icon="@drawable/icon_shortcut_share"
+        app:showAsAction="always" />
+</menu>

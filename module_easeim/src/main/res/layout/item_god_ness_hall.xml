@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="160dp"
+    android:layout_margin="@dimen/spacing_l"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/viewAll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:id="@+id/imdGodNess"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tools:src="@mipmap/holder"/>
+
+        <ImageView
+            android:id="@+id/imgIsGodness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/home_icon_littercrown" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="25.0dip"
+            android:layout_alignParentBottom="true"
+            style="@style/public_CommonPadding_m"
+            android:background="@color/public_translucent" >
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/imgType"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/public_white"
+                android:ellipsize="end" android:lines="1"/>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/public_white" />
+
+            <ImageView android:id="@+id/imgType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing_l"
+                android:layout_toLeftOf="@id/tvPrice"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/choice_icon_video"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

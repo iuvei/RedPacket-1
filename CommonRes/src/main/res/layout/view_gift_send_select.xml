@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewBottom"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/public_white"
+    android:orientation="vertical"
+    android:divider="@drawable/public_divider_bg"
+    android:showDividers = "middle|beginning|end">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tvRecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@mipmap/chat_icon_forward_charge"
+            android:drawablePadding="4.0dip"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/theme_color"
+            android:text="@string/public_recharge"  />
+
+        <TextView
+            android:id="@+id/tvRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tvRecharge"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text"/>
+    </RelativeLayout>
+
+    <!--<me.jessyan.armscomponent.commonres.view.recyclerview.PageRecyclerView-->
+        <!--android:id="@+id/pageGridView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+    <me.jessyan.armscomponent.commonres.view.AutoHeightViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <!--<android.support.v4.view.ViewPager android:id="@+id/viewPager" android:layout_width="fill_parent" android:layout_height="194.0dip" />-->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:clickable="true" >
+
+        <me.jessyan.armscomponent.commonres.view.recyclerview.PageIndicatorView
+            android:id="@+id/circleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/tvSend"
+            android:layout_width="70.0dip"
+            android:layout_height="35.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_common_selector"
+            android:gravity="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/public_white"
+            android:text="@string/public_send" />
+    </RelativeLayout>
+</LinearLayout>

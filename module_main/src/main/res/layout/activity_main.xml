@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/viewBottom"/>
+    <include
+        android:id="@+id/viewBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/view_home_page_bottom" />
+
+    <RelativeLayout
+        android:id="@+id/rl_animation"
+        android:layout_width="110dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:clickable="false">
+
+        <ImageView
+            android:id="@+id/iv_A"
+            android:layout_width="30dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/a" />
+
+        <ImageView
+            android:id="@+id/iv_B"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/b" />
+
+        <ImageView
+            android:id="@+id/iv_C"
+            android:layout_width="30dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="14dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/c" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg" />
+    </RelativeLayout>
+</RelativeLayout>

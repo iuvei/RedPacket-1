@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5.0dip"
+    android:paddingBottom="5.0dip"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvVideo"
+        android:layout_height="wrap_content"
+        android:layout_width="0.0dip"
+        android:layout_weight="1.0"
+        android:drawablePadding="5.0dip"
+        android:gravity="center"
+        android:drawableTop="@mipmap/message_icon_video_act"
+        android:textSize="@dimen/text_small_little"
+        android:textColor="@color/common_text_light"
+        android:text="@string/chat_video"/>
+
+    <TextView
+        android:id="@+id/tvVoice"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:drawablePadding="5.0dip"
+        android:gravity="center"
+        android:drawableTop="@mipmap/message_icon_call_act"
+        android:textSize="@dimen/text_small_little"
+        android:textColor="@color/common_text_light"
+        android:text="@string/chat_voice"/>
+
+    <TextView
+        android:id="@+id/tvGift"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:drawablePadding="5.0dip"
+        android:gravity="center"
+        android:drawableTop="@mipmap/message_icon_gift_act"
+        android:textSize="@dimen/text_small_little"
+        android:textColor="@color/common_text_light"
+        android:text="@string/chat_gift"/>
+
+    <TextView
+        android:id="@+id/tvPhoto"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:drawablePadding="5.0dip"
+        android:gravity="center"
+        android:drawableTop="@mipmap/message_icon_photo_act"
+        android:textSize="@dimen/text_small_little"
+        android:textColor="@color/common_text_light"
+        android:text="@string/chat_photo"/>
+
+    <TextView
+        android:id="@+id/tvShot"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:drawablePadding="5.0dip"
+        android:gravity="center"
+        android:drawableTop="@mipmap/message_icon_shot_act"
+        android:textSize="@dimen/text_small_little"
+        android:textColor="@color/common_text_light"
+        android:text="@string/chat_shoot"/>
+
+</LinearLayout>

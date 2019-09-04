@@ -1,0 +1,57 @@
+<resources>
+    <string name="public_app_name">红包</string>
+    <string name="public_module_name">app</string>
+    <string name="public_loading">加载中...</string>
+    <string name="public_load_success">加载成功~~</string>
+    <string name="public_load_fail">加载失败~~</string>
+    <string name="public_name_zhihu">知乎日报</string>
+    <string name="public_name_gank">干货集中营</string>
+    <string name="public_name_gold">稀土掘金</string>
+
+    <string name="public_hint">提示</string>
+    <string name="public_submit">提交</string>
+    <string name="public_share">分享</string>
+    <string name="public_show">显示</string>
+    <string name="public_hide">隐藏</string>
+    <string name="public_confirm">确认</string>
+    <string name="public_cancel">取消</string>
+
+    <!-- 自定义视频录制 -->
+    <string name="public_video_recorder">视频录制</string>
+    <string name="public_open_equipment_failure">打开设备失败!</string>
+    <string name="public_recording_error">记录错误,停止记录!</string>
+    <string name="public_start_video">录像开始</string>
+    <string name="public_whether_to_make">是否使用？</string>
+
+    <!-- 礼物 -->
+    <string name="public_recharge">充值</string>
+    <string name="public_coin">爱豆</string>
+    <string name="public_photo_charge">图片收费</string>
+    <string name="public_video_charge">视频收费</string>
+    <string name="public_to_his_charge">向他收费</string>
+    <string name="public_coins_per_minute">%d爱豆/分钟</string>
+    <string name="public_coins_per_article">%d爱豆/条</string>
+    <string name="public_send">发送</string>
+    <string name="public_please_enjoy">求赏</string>
+    <string name="public_rest_coin">剩余爱豆:%d</string>
+    <string name="public_please_select_gift">请选择礼物~~</string>
+
+    <string name="public_login_success">登录成功,欢迎使用~~</string>
+    <string name="public_login_fail">登录失败,请稍后重试~~</string>
+    <string name="public_edit_digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:</string>
+
+    <string name="public_settings">设置</string>
+    <string name="public_help">帮助</string>
+    <string name="public_string_help_text">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。\n\n最后点击两次后退按钮，即可返回。</string>
+    <string name="public_quit">退出</string>
+    <string name="public_lack_of_permissions">缺少必要权限,此应用程序可能无法正常工作~~</string>
+
+    <!-- -->
+    <string name="public_phone_number">手机号码</string>
+    <string name="public_password">密码</string>
+    <string name="public_wx_number">微信号码</string>
+    <string name="public_qq_number">ＱＱ号码</string>
+    <string name="public_save">保存</string>
+    <string name="public_switch">切换</string>
+
+</resources>

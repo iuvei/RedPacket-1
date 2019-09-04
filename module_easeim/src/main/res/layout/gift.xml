@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@id/imgHead"
+        android:layout_width="35.0dip"
+        android:layout_height="35.0dip"
+        android:layout_below="@id/tvTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8.0dip"
+        android:layout_marginRight="20.0dip" />
+
+    <TextView
+        android:id="@id/tvTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="12.0sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTime"
+        android:layout_marginLeft="35.0dip"
+        android:layout_marginTop="13.0dip"
+        android:layout_marginRight="6.0dip"
+        android:layout_toLeftOf="@id/imgHead">
+
+        <ImageView
+            android:id="@+id/imgError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/message_icon_warn_full" />
+
+        <ProgressBar
+            android:id="@+id/pbLoad"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="15.0dip"
+            android:layout_height="15.0dip"
+            android:layout_centerVertical="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5.0dip"
+            android:layout_toRightOf="@+id/pbLoad"
+            android:background="@drawable/chat_bubble_yellow">
+
+            <ImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_marginTop="3.0dip"
+                android:layout_marginBottom="3.0dip"
+                android:background="@drawable/bg_ffffff_5"
+                android:src="@mipmap/chat_send_red_packet" />
+
+            <TextView
+                android:id="@+id/tvHongB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10.0dip"
+                android:layout_toRightOf="@id/imgIcon"
+                android:text="向对方求赏一个礼物！"
+                android:textColor="@color/common_text"
+                android:textSize="15.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

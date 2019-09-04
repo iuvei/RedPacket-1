@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/public_white"
+    style="@style/public_CommonPadding_m">
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/public_red"
+        tools:text="支出"/>
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/public_red"
+        tools:text="0.00"/>
+
+    <TextView
+        android:id="@+id/tv_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_status"
+        android:layout_marginTop="@dimen/spacing_xxs"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/common_text"
+        tools:text="测试测试"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_describe"
+        android:layout_marginTop="@dimen/spacing_xxs"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/common_text_light"
+        tools:text="2020-01-01 12:00:00"/>
+
+</RelativeLayout>

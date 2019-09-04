@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- item包含menu表示该menu是item下的子菜单 -->
+    <item
+        android:id="@+id/item_redpacket"
+        android:title="@string/redpacket"
+        android:icon="@drawable/ic_reward"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/item_room_info"
+        android:title="@string/room_info"
+        android:icon="@drawable/ic_group_info"
+        app:showAsAction="always"/>
+</menu>

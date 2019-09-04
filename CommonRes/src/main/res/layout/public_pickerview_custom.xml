@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/public_dialog_bg">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginTop="@dimen/public_mar_right_30px"
+        android:layout_marginRight="5.0dip"
+        android:gravity="center"
+        style="@style/public_CommonTitleText" />
+    <!--此部分需要完整复制过去，删减或者更改ID会导致初始化找不到内容而报空-->
+    <LinearLayout
+        android:id="@+id/optionspicker"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/public_pickerview_height"
+        android:layout_marginTop="@dimen/public_mar_right_30px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/options1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/options2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/options3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <View style="@style/public_CommonLine" android:layout_marginTop="@dimen/public_mar_right_30px" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/public_height_120px"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip">
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:textSize="16.0sp"
+            android:textColor="@color/common_text"
+            android:text="@string/public_cancel"/>
+
+        <View android:background="@color/divider_color" android:layout_width="1.0px" android:layout_height="fill_parent" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:textSize="16.0sp"
+            android:textColor="@color/theme_color"
+            android:text="@string/public_confirm"/>
+
+    </LinearLayout>
+
+</LinearLayout>

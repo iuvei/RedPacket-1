@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+    <me.jessyan.armscomponent.commonres.view.StatusBarHeightView
+        android:id="@+id/viewStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color">
+
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/tab_im"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            app:tl_bar_color="@color/theme_color"
+            app:tl_indicator_color="@color/common_text"
+            app:tl_indicator_corner_radius="50dp"
+            app:tl_tab_padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/imgClearAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="15.0dip"
+            android:src="@mipmap/news_icon_delete"  />
+
+        <ImageView android:id="@+id/imgReadAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15.0dip"
+            android:src="@mipmap/message_icon_read"  />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/viewBanner"
+        android:layout_width="fill_parent"
+        android:layout_height="65.0dip"
+        android:visibility="visible">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:banner_pageChangeDuration="1000"
+            app:banner_pointAutoPlayAble="false"
+            app:banner_pointContainerBackground="@android:color/transparent"
+            app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+            app:banner_pointTopBottomMargin="10dp"
+            app:banner_transitionEffect="alpha" />
+
+        <ImageView android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="6.0dip"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/message_banner_icon_close" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+</LinearLayout>

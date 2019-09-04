@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_online_customer_service"
+        style="@style/public_CommonPadding_m"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_customer_service"
+            android:layout_width="@dimen/room_icon_size"
+            android:layout_height="@dimen/room_icon_size"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_custom_friendg" />
+
+        <TextView
+            android:id="@+id/tv_customer_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_customer_service"
+            android:layout_marginTop="@dimen/spacing_xxs"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_normal"
+            android:text="在线客服"/>
+
+        <TextView
+            android:id="@+id/tv_customer_service_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_customer_service"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_toRightOf="@id/iv_customer_service"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/common_text_light"
+            android:textSize="@dimen/text_small"
+            android:text="有问题,找客服"/>
+    </RelativeLayout>
+
+    <View style="@style/public_CommonLine"/>
+    <RelativeLayout
+        android:id="@+id/rl_my_friends"
+        style="@style/public_CommonPadding_m"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_my_friends"
+            android:layout_width="@dimen/room_icon_size"
+            android:layout_height="@dimen/room_icon_size"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_custom_mineg" />
+
+        <TextView
+            android:id="@+id/tv_my_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_my_friends"
+            android:layout_marginTop="@dimen/spacing_xxs"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_normal"
+            android:text="我的好友"/>
+
+        <TextView
+            android:id="@+id/tv_friends_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_my_friends"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_toRightOf="@id/iv_my_friends"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/common_text_light"
+            android:textSize="@dimen/text_small"
+            android:text="@string/no_unread_messages"/>
+    </RelativeLayout>
+
+</LinearLayout>

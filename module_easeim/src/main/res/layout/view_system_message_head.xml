@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewSystem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/spacing_m">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/public_white">
+        <ImageView
+            android:id="@+id/imgSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:src="@mipmap/news_icon_news"
+            android:layout_centerVertical="true" />
+
+
+        <TextView
+            android:id="@+id/tvSystemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imgSystem"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_alignTop="@id/imgSystem"
+            android:textSize="@dimen/text_sub_title"
+            android:textStyle="bold"
+            android:textColor="@color/common_text"
+            android:text="@string/system_message" />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imgSystem"
+            android:layout_below="@id/tvSystemName"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_l"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:ellipsize="end" android:lines="1"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/common_text_light"
+            android:text="adasdadadadsada"/>
+
+        <ImageView
+            android:id="@+id/imgforword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:src="@mipmap/forward"/>
+
+        <TextView
+            android:id="@+id/tvMegNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imgforword"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spacing_m"
+            style="@style/public_unReadCountText"/>
+
+    </RelativeLayout>
+</LinearLayout>

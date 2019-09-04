@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">module_main</string>
+
+    <string name="login_register">登录注册</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="username">用户名</string>
+    <string name="forgot_pwd">忘记密码?</string>
+    <string name="reset_password">重置密码</string>
+    <string name="password">密码</string>
+    <string name="user_name_cannot_be_empty">用户名不能为空！</string>
+    <string name="password_cannot_be_empty">密码不能为空！</string>
+    <string name="Is_landing">正在登录...</string>
+
+    <string name="enter_nickname">请输入昵称</string>
+    <string name="enter_phone_number">请输入手机号码</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="enter_confirm_password">请确认密码</string>
+    <string name="enter_auth_code">请输入验证码</string>
+    <string name="enter_invite_code">请输入邀请码</string>
+    <string name="get_auth_code">获取验证码</string>
+    <string name="register_custom">没有邀请码请联系客服</string>
+
+    <!-- 奖励页 -->
+    <string name="reward">奖励</string>
+
+    <!-- 个人中心 -->
+    <string name="proxy_center">代理中心</string>
+    <string name="share_make_money">分享赚钱</string>
+    <string name="invite_code">邀请码</string>
+    <string name="recharge_center">充值中心</string>
+    <string name="withdraw_center">提现中心</string>
+    <string name="bill_records">账单记录</string>
+    <string name="help_center">帮助中心</string>
+    <string name="version">版本</string>
+    <string name="setting">设置</string>
+    <string name="exit">退出</string>
+
+    <string name="personal_info">个人信息</string>
+    <string name="head_portrait">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="sex">性别</string>
+    <string name="qr_code">二维码</string>
+    <string name="qr_code_card">二维码名片</string>
+
+    <!--  账单详情 -->
+    <string name="all_record">全部记录</string>
+    <string name="reward_record">奖励记录</string>
+    <string name="recharge_record">充值记录</string>
+    <string name="withdraw_record">提现记录</string>
+    <string name="send_redpacket_record">发包记录</string>
+    <string name="grab_redpacket_record">抢包记录</string>
+    <string name="profit_loss_record">盈亏记录</string>
+    <string name="commission_income_record">佣金收入</string>
+    <string name="fruit_machine_record">水果机记录</string>
+    <string name="coming_soon">敬请期待</string>
+
+    <string name="balance_money">余额：%.2f元</string>
+    <string name="total_reward_money">累计奖励收入：%.2f元</string>
+    <string name="total_recharge_money">累计充值：%.2f元</string>
+    <string name="total_withdraw_money">累计提现：%.2f元</string>
+    <string name="total_send_redpacket_money">累计发包：%.2f元</string>
+    <string name="total_grab_redpacket_money">累计抢包：%.2f元</string>
+    <string name="total_profit_loss_money">累计盈亏：%.2f元</string>
+    <string name="total_commission_income_money">累计佣金收入：%.2f元</string>
+    <string name="total_fruit_machine_money">累计奖励收入：%.2f元</string>
+    <string name="start_time">开始时间：%s</string>
+    <string name="end_time">开始时间：%s</string>
+
+    <!--   -->
+    <string name="shortcut_recharge">快速充值</string>
+    <string name="shortcut_proxy_center">代理中心</string>
+    <string name="shortcut_help">帮助中心</string>
+    <string name="shortcut_game_rules">玩法规则</string>
+    <string name="shortcut_create_group">创建群组</string>
+
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_m"
+    android:background="@color/public_white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_set_mode_voice"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@mipmap/message_icon_voice_"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_set_mode_keyboard"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@mipmap/message_icon_keyboard"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_weight="1" >
+            <TextView
+                android:id="@+id/btn_press_to_speak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_frame_button"
+                style="@style/public_CommonPadding_m"
+                android:gravity="center"
+                android:text="@string/button_pushtotalk"
+                android:textColor="@color/common_text"
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/et_sendmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/public_CommonPadding_m"
+                android:background="@drawable/bg_chat_edit_message"
+                android:maxLines="3"
+                android:textColor="@color/common_text"
+                android:textSize="@dimen/text_normal"
+                android:imeOptions="actionSend"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_face"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_m">
+
+        <ImageView
+            android:id="@+id/iv_face_normal"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/message_icon_emoticon"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_face_checked"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/message_icon_keyboard"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_face"-->
+            <!--android:layout_width="32dip"-->
+            <!--android:layout_height="32dip"-->
+            <!--android:layout_marginLeft="@dimen/spacing_l"-->
+            <!--android:background="@mipmap/message_icon_emoticon" />-->
+
+        <Button
+            android:id="@+id/btn_more"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:background="@drawable/ease_type_select_btn" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="@dimen/public_width_176px"
+            android:layout_height="@dimen/public_height_88px"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:background="@drawable/btn_common_selector"
+            android:visibility="gone"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_normal"
+            android:text="asdad"/>
+</LinearLayout>

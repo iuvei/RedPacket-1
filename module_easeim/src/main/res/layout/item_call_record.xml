@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView android:id="@+id/imgHead"
+        android:layout_width="40.0dip"
+        android:layout_height="40.0dip"
+        android:layout_margin="10.0dip"
+        android:src="@drawable/ease_default_avatar"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imgHead"
+        android:layout_toLeftOf="@id/tvTime"
+        android:layout_toRightOf="@id/imgHead"
+        android:maxWidth="160.0dip"
+        android:textColor="@color/common_text"
+        android:textSize="@dimen/text_normal"
+        android:ellipsize="end"
+        android:lines="1" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/imgType"
+        android:layout_marginRight="10.0dip"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/common_text_light"
+        android:lines="1"  />
+
+    <ImageView
+        android:id="@+id/imgType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10.0dip"
+        android:src="@mipmap/news_icon_call"/>
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/common_text_light"
+        android:layout_marginLeft="@dimen/spacing_m"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:layout_toRightOf="@id/imgHead"
+        android:layout_below="@id/tvUsername" />
+</RelativeLayout>

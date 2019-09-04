@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_reset_error_page"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:visibility="gone"
+    android:descendantFocusability="blocksDescendants">
+    <ImageView
+        android:id="@+id/imgNoWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/nowifi"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgNoWifi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12.5dip"
+        android:textSize="@dimen/public_font_18sp"
+        android:textColor="@color/common_text_light"
+        android:text="点击屏幕，重新加载"  />
+</RelativeLayout>

@@ -1,0 +1,275 @@
+package com.ooo.main.mvp.ui.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
+import com.ooo.main.R;
+import com.ooo.main.R2;
+import com.ooo.main.di.component.DaggerAdNoticeComponent;
+import com.ooo.main.mvp.contract.AdNoticeContract;
+import com.ooo.main.mvp.presenter.AdNoticePresenter;
+import com.ooo.main.view.popupwindow.SwitchShortcutPopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.bingoogolapple.bgabanner.BGABanner;
+import me.jessyan.armscomponent.commonres.utils.ImageLoader;
+import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
+import me.jessyan.armscomponent.commonsdk.core.Constants;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.entity.AdBannerInfo;
+import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
+import pl.droidsonroids.gif.GifImageView;
+
+import static com.jess.arms.utils.Preconditions.checkNotNull;
+
+
+/**
+ * ================================================
+ * Description:
+ * <p>
+ * Created by MVPArmsTemplate on 08/31/2019 10:38
+ * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
+ * <a href="https://github.com/JessYanCoding">Follow me</a>
+ * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
+ * <a href="https://github.com/JessYanCoding/MVPArms/wiki">See me</a>
+ * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
+ * ================================================
+ */
+public class GameFragment extends BaseSupportFragment<AdNoticePresenter> implements AdNoticeContract.View {
+
+    @BindView(R2.id.banner)
+    BGABanner banner;
+    @BindView(R2.id.tv_notices)
+    TextView tvNotices;
+    @BindView(R2.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R2.id.giv_game_redpacket)
+    GifImageView givGameRedpacket;
+    @BindView(R2.id.tv_game_redpacket)
+    TextView tvGameRedpacket;
+    @BindView(R2.id.giv_game_electronic)
+    GifImageView givGameElectronic;
+    @BindView(R2.id.tv_game_electronic)
+    TextView tvGameElectronic;
+    @BindView(R2.id.giv_game_chess)
+    GifImageView givGameChess;
+    @BindView(R2.id.tv_game_chess)
+    TextView tvGameChess;
+    @BindView(R2.id.giv_game_leisure)
+    GifImageView givGameLeisure;
+    @BindView(R2.id.tv_game_leisure)
+    TextView tvGameLeisure;
+
+    @BindView(R2.id.ll_game_redpacket)
+    LinearLayout llGameRedpacket;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
+    @BindView(R2.id.btn_switch_shortcut)
+    ImageButton btnSwitchShortcut;
+
+    private View mCurrentSelectedView;
+    private TextView mCurrentSelectedTextView;
+
+    private List<Fragment> mFragments;
+
+    public static GameFragment newInstance() {
+        GameFragment fragment = new GameFragment();
+        return fragment;
+    }
+
+    @Override
+    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerAdNoticeComponent //如找不到该类,请编译一下项目
+                .builder()
+                .appComponent(appComponent)
+                .view(this)
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_game, container, false);
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        tvTitle.setText("群组");
+
+        initBanner();
+        mCurrentSelectedView = llGameRedpacket;
+        mCurrentSelectedTextView = tvGameRedpacket;
+        mCurrentSelectedTextView.setSelected(true);
+        btnSwitchShortcut.setOnClickListener(mOnClickListener);
+
+        initFragments();
+        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), mFragments));
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.addOnPageChangeListener(mOnPageChangeListener);
+    }
+
+    private void initBanner() {
+        banner.setAdapter(new BGABanner.Adapter<ImageView, BannerEntity>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, ImageView itemView, BannerEntity model, int position) {
+                ImageLoader.displayImage(mContext, model.getImageUrl(), itemView);
+            }
+        });
+        banner.setDelegate(new BGABanner.Delegate<ImageView, BannerEntity>() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, ImageView itemView, @Nullable BannerEntity model, int position) {
+
+            }
+        });
+    }
+
+    private void initFragments(){
+        mFragments = new ArrayList<>();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.IM.TYPE,Constants.IM.TYPE_ROOM);
+
+        mFragments.add((Fragment) ARouter.getInstance()
+                .build(RouterHub.IM_ROOMLISTFRAGMENT).with(bundle).navigation());
+        mFragments.add((Fragment) ARouter.getInstance().build(RouterHub.IM_ROOMLISTFRAGMENT).navigation());
+        mFragments.add((Fragment) ARouter.getInstance().build(RouterHub.IM_ROOMLISTFRAGMENT).navigation());
+        mFragments.add((Fragment) ARouter.getInstance().build(RouterHub.IM_ROOMLISTFRAGMENT).navigation());
+    }
+
+    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showSwitchShortcutPopupWindow(v);
+        }
+    };
+
+    @OnClick({R2.id.ll_game_redpacket, R2.id.ll_game_electronic, R2.id.ll_game_chess, R2.id.ll_game_leisure})
+    public void onViewClicked(View view) {
+        int i = view.getId();
+        if (i == mCurrentSelectedView.getId())
+            return;
+        mCurrentSelectedView = view;
+        mCurrentSelectedTextView.setSelected(false);
+
+        View currentAnimView = null;
+        if (i == R.id.ll_game_redpacket) {
+            currentAnimView = givGameRedpacket;
+            mCurrentSelectedTextView = tvGameRedpacket;
+
+        } else if (i == R.id.ll_game_electronic) {
+            currentAnimView = givGameElectronic;
+            mCurrentSelectedTextView = tvGameElectronic;
+
+        } else if (i == R.id.ll_game_chess) {
+            currentAnimView = givGameChess;
+            mCurrentSelectedTextView = tvGameChess;
+
+        } else if (i == R.id.ll_game_leisure) {
+            currentAnimView = givGameLeisure;
+            mCurrentSelectedTextView = tvGameLeisure;
+        }
+        mCurrentSelectedTextView.setSelected(true);
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.scale_in_out);
+        currentAnimView.startAnimation(animation);
+    }
+
+    ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i1) {
+
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        mPresenter.initDatas();
+    }
+
+    @Override
+    public void setAdBannerInfo(AdBannerInfo adBannerInfo) {
+        List<BannerEntity> bannerEntities = adBannerInfo.getRoomAdBanners();
+        if (null != bannerEntities)
+            banner.setData(adBannerInfo.getRoomAdBanners(), null);
+
+        List<String> notices = adBannerInfo.getNotices();
+        StringBuilder sbNotices = new StringBuilder();
+        if (notices != null && notices.size() > 0) {
+            for (String notice : notices) {
+                sbNotices.append(notice);
+                sbNotices.append("   ");
+            }
+        }
+        tvNotices.setText(sbNotices.toString());
+        tvNotices.setSelected(true);
+    }
+
+    private SwitchShortcutPopupWindow mShortcutPopupWindow;
+    private void showSwitchShortcutPopupWindow(View v){
+        if(null == mShortcutPopupWindow){
+            mShortcutPopupWindow = new SwitchShortcutPopupWindow(mContext);
+        }
+        mShortcutPopupWindow.openPopWindow(v);
+    }
+
+    @Override
+    public void setData(@Nullable Object data) { }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(@NonNull String message) {
+        checkNotNull(message);
+        ArmsUtils.snackbarText(message);
+    }
+
+    @Override
+    public void launchActivity(@NonNull Intent intent) {
+        checkNotNull(intent);
+        ArmsUtils.startActivity(intent);
+    }
+
+    @Override
+    public void killMyself() {
+
+    }
+}

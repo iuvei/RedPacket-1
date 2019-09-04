@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/public_dialog_bg">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginTop="18.0dip"
+        android:layout_marginRight="5.0dip"
+        android:gravity="center"
+        android:textSize="18.0sp"
+        android:textColor="@color/common_text" />
+    <TextView android:textSize="15.0sp" android:textColor="@color/common_text_light" android:gravity="center" android:id="@+id/tvHit" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="38.0dip" android:layout_marginTop="12.0dip" android:layout_marginRight="38.0dip" />
+    <!--<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="37.799988dip" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip">-->
+        <!--<TextView android:textSize="17.0sp" android:textColor="@drawable/color_66666_selector" android:gravity="center" android:id="@id/tvLeft" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+        <!--<View android:background="@color/color_e5e5e5" android:layout_width="1.0px" android:layout_height="fill_parent" />-->
+        <!--<TextView android:textSize="17.0sp" android:textColor="@drawable/color_ffd100_selector" android:gravity="center" android:id="@id/tvRight" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+    <!--</LinearLayout>-->
+</LinearLayout>

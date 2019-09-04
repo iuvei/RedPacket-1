@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/common_btn_dark" />
+            <corners android:radius="50.0dip" />
+            <padding
+                android:top="@dimen/spacing_m"
+                android:bottom="@dimen/spacing_m"
+                android:left="@dimen/spacing_m"
+                android:right="@dimen/spacing_m"/>
+        </shape>
+    </item>
+</selector>

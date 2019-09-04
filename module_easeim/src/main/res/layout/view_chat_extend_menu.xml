@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewBottom"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/public_white"
+    android:orientation="vertical"
+    android:divider="@drawable/public_divider_bg"
+    android:showDividers = "middle|beginning|end">
+    <me.jessyan.armscomponent.commonres.view.AutoHeightViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <me.jessyan.armscomponent.commonres.view.recyclerview.PageIndicatorView
+        android:id="@+id/circleIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_m"/>
+</LinearLayout>

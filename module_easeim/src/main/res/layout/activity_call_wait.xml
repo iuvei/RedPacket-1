@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_call_wait_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@mipmap/forchat_bg_two">
+
+    <me.jessyan.armscomponent.commonres.view.DiffuseView
+        android:id="@+id/floatAvatarView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="@dimen/spacing_xxl"
+        android:layout_centerHorizontal="true"
+        app:diffuse_color="@color/public_colorAccent"
+        app:diffuse_coreColor="@color/public_colorPrimaryDark"
+        app:diffuse_coreImage="@mipmap/chat_portrait_vague"
+        app:diffuse_coreRadius="40"
+        app:diffuse_maxWidth="120"
+        app:diffuse_width="4"/>
+
+    <TextView
+        android:id="@+id/tvUsername1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:layout_below="@id/floatAvatarView"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/common_text_light"
+        android:text="@string/user_name"/>
+
+    <TextView
+        android:id="@+id/tv_call_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUsername1"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/theme_color"
+        android:text="@string/is_connecting"/>
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_call_state"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/common_text_light"
+        android:text="@string/consume_coins_per_minute"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_money"
+        android:layout_margin="@dimen/spacing_m"
+        style="@style/public_CommonPadding_m"
+        android:background="@drawable/bg_white_translucent_radius"
+        android:gravity="center"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/common_text_light"
+        android:text="严禁出现色情、淫秽、政治、赌博等违反国家法律法规的内容，一经发现将封停账号"  />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55.0dip"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvHangUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/chat_icon_hangup"
+            android:gravity="center"
+            android:textSize="@dimen/text_sub_title"
+            android:textColor="@color/white"
+            android:text="@string/reject" />
+
+        <TextView
+            android:id="@+id/tvAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/chat_icon_answer"
+            android:gravity="center"
+            android:textSize="@dimen/text_sub_title"
+            android:textColor="@color/white"
+            android:text="@string/answer" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--当path 为空时 5个全配置就可以解决-->
+    <!--下载apk-->
+    <external-path path="" name="sdcard_files" />
+    <!--相机相册裁剪-->
+    <external-files-path   path="" name="camera_has_sdcard"/>
+    <files-path path=""     name="camera_no_sdcard"/>
+</paths>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageGridView">
+        <!-- 行数 -->
+        <attr name="PagingRows" format="integer"/>
+        <!-- 列数 -->
+        <attr name="PagingColums" format="integer"/>
+        <!-- 分割线 -->
+        <attr name="PagingDiver" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="DiffuseView">
+        <attr name="diffuse_color" format="color"/>
+        <attr name="diffuse_coreColor" format="color"/>
+        <attr name="diffuse_coreImage" format="reference"/>
+        <attr name="diffuse_coreRadius" format="float"/>
+        <attr name="diffuse_maxWidth" format="integer"/>
+        <attr name="diffuse_width" format="integer"/>
+    </declare-styleable>
+
+    <!--涟漪控件属性-->
+    <declare-styleable name="mRippleView">
+        <attr name="cColor" format="color"/>
+        <attr name="cSpeed" format="integer"/>
+        <attr name="cDensity" format="integer"/>
+        <attr name="cIsFill" format="boolean"/>
+        <attr name="cIsAlpha" format="boolean"/>
+    </declare-styleable>
+</resources>

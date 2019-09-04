@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <color name="public_colorPrimary">@color/theme_color</color>
+    <color name="public_colorPrimaryDark">@color/theme_color</color>
+    <color name="public_colorAccent">@color/theme_color</color>
+
+    <!--APP公用的一些颜色-->
+    <color name="common_bg">#fff7f7f7</color>
+
+    <color name="theme_color">#F44336</color>
+    <color name="theme_light_color">#ffec3d</color>
+    <color name="theme_dark_color">#d2be01</color>
+
+    <!-- 字体颜色 -->
+    <color name="common_text">@color/text_black_33</color>
+    <color name="common_text_light">@color/text_black_99</color>
+    <color name="common_text_dark">@color/public_black</color>
+    <color name="text_gray">#C6C6C7</color>
+    <color name="text_blue">#008BFA</color>
+    <color name="text_red">#F44336</color>
+    <color name="text_green">#8BC34A</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_theme">@color/theme_color</color>
+
+    <color name="common_btn">@color/theme_color</color>
+    <color name="common_btn_dark">@color/theme_dark_color</color>
+
+    <color name="divider_color">@color/gray_f4</color>
+
+    <color name="gray">#ececec</color>
+    <color name="gray_normal">#ececec</color>
+    <color name="gray_light">#f4f4f4</color>
+    <color name="gray_dark">#999999</color>
+
+    <color name="public_white">#FFFFFF</color>
+    <color name="public_transparent">@android:color/transparent</color>
+    <color name="public_translucent">#5c050000</color>
+    <color name="public_black">#000000</color>
+    <color name="public_red">#F12C20</color>
+
+    <color name="bottom_navigation_unselected" >#515151</color>
+    <color name="bottom_navigation_selected">@color/public_colorAccent</color>
+
+    <color name="text_black_33">#333333</color>
+    <color name="text_black_66">#666666</color>
+    <color name="text_black_99">#999999</color>
+    <color name="text_black_cc">#cccccc</color>
+    <color name="text_black_ee">#eeeeee</color>
+    <color name="normal_back_ground">@color/gray_fa</color>
+    <color name="gray_fc">#fcfcfc</color>
+    <color name="gray_fa">#fafafa</color>
+    <color name="gray_f4">#f4f4f4</color>
+    <color name="gray_f6">#f6f6f6</color>
+    <color name="gray_f0">#f0f0f0</color>
+    <color name="gray_66">#99000000</color>
+
+
+    <color name="public_color_transparent">#00000000</color>
+    <color name="public_color_4A4A4A">#4A4A4A</color>
+    <color name="public_color_443636">#443636</color>
+    <color name="public_color_53A8F4">#53A8F4</color>
+    <color name="public_color_53A7F3">#53A7F3</color>
+    <color name="public_color_E5E5E5">#E5E5E5</color>
+    <color name="public_color_F6F6F6">#F6F6F6</color>
+    <color name="public_color_FFFFFF">#FFFFFF</color>
+    <color name="public_color_959292">#959292</color>
+    <color name="public_color_CDD3D7">#CDD3D7</color>
+    <color name="public_color_B8B6B6">#B8B6B6</color>
+    <color name="public_color_E7E7E7">#E7E7E7</color>
+    <color name="public_color_D8D8D8">#D8D8D8</color>
+    <color name="public_color_06CB7E">#06CB7E</color>
+    <color name="public_color_6C6C6C">#6C6C6C</color>
+    <color name="public_color_666F80">#666F80</color>
+    <color name="public_color_0F79FD">#0F79FD</color>
+    <color name="public_color_FFB8B6B6">#FFB8B6B6</color>
+    <color name="public_color_F55122">#F55122</color>
+    <color name="public_color_F55123">#F55123</color>
+    <color name="public_color_FFF55122">#FFF55122</color>
+    <color name="public_color_FF6C6C6C">#FF6C6C6C</color>
+    <color name="public_color_FF959292">#FF959292</color>
+    <color name="public_color_FF9C15">#FF9C15</color>
+    <color name="public_color_FF4A4A4A">#FF4A4A4A</color>
+    <color name="public_color_FFF59C22">#FFF59C22</color>
+    <color name="public_color_F59C22">#F59C22</color>
+    <color name="public_color_F59C23">#F59C23</color>
+    <color name="public_color_FFFFFFFF">#FFFFFFFF</color>
+    <color name="public_color_FF53A8F4">#FF53A8F4</color>
+    <color name="public_color_E9EDEE">#E9EDEE</color>
+    <color name="public_color_FFE9EDEE">#FFE9EDEE</color>
+    <color name="public_color_FF06CB7E">#FF06CB7E</color>
+    <color name="public_background">#FFF6F6F6</color>
+    <color name="public_color_979797">#979797</color>
+    <color name="public_color_FED652">#FED652</color>
+    <color name="public_color_148CF9">#148CF9</color>
+
+</resources>
