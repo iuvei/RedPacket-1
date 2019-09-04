@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_toolbar_height"
-        android:background="@color/theme_color">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_title"

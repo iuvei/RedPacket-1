@@ -1,6 +1,5 @@
 package com.ooo.main.mvp.ui.activity;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -33,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -71,12 +68,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     ImageView ivDiscover;
     @BindView(R2.id.iv_me)
     ImageView ivMe;
-    @BindView(R2.id.iv_A)
-    ImageView ivA;
-    @BindView(R2.id.iv_B)
-    ImageView ivB;
-    @BindView(R2.id.iv_C)
-    ImageView ivC;
+    @BindView(R2.id.iv_game)
+    ImageView ivGame;
     @BindView(R2.id.rl_animation)
     RelativeLayout rlAnimation;
     @BindView(R2.id.ll_group)
@@ -112,18 +105,23 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     }
 
     private void initFragments() {
+        //会话
         Fragment fragment1 = MeesageFragment.newInstance();
-        Fragment fragment2 = GameFragment.newInstance();
-        Fragment fragment3 = RewardFragment.newInstance();
+        //通讯录
         Fragment fragment4 = (Fragment) ARouter.getInstance()
                 .build(RouterHub.IM_CONTACTFRAGMENT).navigation();
+        //游戏
+        Fragment fragment2 = GameFragment.newInstance();
+        //发现界面
+        Fragment fragment3 = RewardFragment.newInstance();
+        //我的
         Fragment fragment5 = SelfFragment.newInstance();
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(fragment1);
+        fragments.add(fragment4);
         fragments.add(fragment2);
         fragments.add(fragment3);
-        fragments.add(fragment4);
         fragments.add(fragment5);
 
         viewPager.setOffscreenPageLimit(4);
@@ -207,11 +205,10 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
         } else if (i == R.id.rl_animation) {
             viewPager.setCurrentItem(2);
+            mCurrentShowView = ivGame;
 //            mCurrentShowView = rlAnimation;
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.scale_in1_out1);
-            ivA.startAnimation(animation);
-            ivB.startAnimation(animation);
-            ivC.startAnimation(animation);
+            ivGame.setVisibility ( View.VISIBLE );
+
         }
 
     }

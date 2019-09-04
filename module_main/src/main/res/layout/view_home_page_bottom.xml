@@ -28,6 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="0dp"
                     android:src="@drawable/ic_msg_nor" />
 
                 <ImageView
@@ -54,7 +56,7 @@
                 android:layout_below="@id/rl_icon_chat"
                 android:button="@null"
                 android:clickable="false"
-                android:text="消息"
+                android:text="聊天"
                 android:textColor="@drawable/bottom_bar_text_selector"
                 android:textSize="12.0sp" />
         </RelativeLayout>
@@ -88,17 +90,48 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:clickable="false"
-                android:text="群组"
+                android:text="通讯录"
                 android:textColor="@drawable/bottom_bar_text_selector"
                 android:textSize="12.0sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_reward"
+        <RelativeLayout
+            android:id="@+id/rl_animation"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="1.7"
-            android:orientation="vertical" />
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/layout_game"
+                    android:layout_centerHorizontal="true"
+                    style="@style/home_tab_style">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_contact_nor" />
+
+                    <ImageView
+                        android:id="@+id/iv_game"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_contact_sel"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RadioButton
+                    android:id="@+id/tv_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:text="游戏"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/layout_game"
+                    android:textColor="@drawable/bottom_bar_text_selector"
+                    android:textSize="12.0sp" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_discover"
@@ -131,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:clickable="false"
-                android:text="通讯录"
+                android:text="发现"
                 android:textColor="@drawable/bottom_bar_text_selector"
                 android:textSize="12.0sp" />
         </LinearLayout>

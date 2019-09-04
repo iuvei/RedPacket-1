@@ -50,7 +50,7 @@ public class StatusBarHeightView extends LinearLayout {
         if (type == 1) {
             setPadding(getPaddingLeft(), statusBarHeight, getPaddingRight(), getPaddingBottom());
         }
-        setBackgroundColor(ContextCompat.getColor(getContext(),R.color.theme_color));
+        setBackgroundColor(ContextCompat.getColor(getContext(),R.color.public_white));
     }
 
     @Override

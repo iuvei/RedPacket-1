@@ -50,7 +50,7 @@ public class WelcomeActivity extends BaseSupportActivity {
 
     private void enterHomeActivity() {
         if(!mIMService.isLoggedIn()){
-            openActivity(LoginAdActivity.class);
+            openActivity(LoginActivity.class);
         }else{
             openActivity(MainActivity.class);
         }
