@@ -6,7 +6,7 @@
     android:id="@+id/public_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/public_height_120px"
-    android:background="?attr/colorPrimary"
+    android:background="@color/public_white"
     app:contentInsetStart="0dp"
     app:theme="@style/public_ToolbarTheme"
     app:popupTheme="@style/public_OverflowMenu" >

@@ -4,7 +4,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/launch_bg</item>
     </style>
     <style name="home_tab_style">

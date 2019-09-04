@@ -52,7 +52,7 @@
             android:name=".mvp.ui.activity.LoginActivity"
             android:label="@string/login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".mvp.ui.activity.LoginAdActivity"
             android:label="@string/login_register"

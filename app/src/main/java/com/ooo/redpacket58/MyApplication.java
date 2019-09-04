@@ -30,7 +30,6 @@ public class MyApplication extends BaseApplication {
 
     @Override
     public void onCreate() {
-        ARouter.init(this); // 尽可能早,推荐在Application中初始化
         FlowManager.init(this);
         super.onCreate();
         applicationContext = this;
@@ -42,6 +41,7 @@ public class MyApplication extends BaseApplication {
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
             RetrofitUrlManager.getInstance().setDebug(true);
         }
+        ARouter.init(this); // 尽可能早,推荐在Application中初始化
         UserPreferenceManager.init(this);
         Utils.init(this);
         ToastUtils.setGravity(Gravity.CENTER,0,0);
