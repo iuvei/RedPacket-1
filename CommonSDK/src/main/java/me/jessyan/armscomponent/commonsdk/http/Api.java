@@ -26,7 +26,9 @@ package me.jessyan.armscomponent.commonsdk.http;
  */
 public interface Api {
 //    String APP_DOMAIN = "http://v9.iiio.top/";
-    String APP_DOMAIN = "http://5761.iiio.top/app/";
+    //String APP_DOMAIN = "http://5761.iiio.top/app/";
+    //5949红包域名
+    String APP_DOMAIN = "http://5949.iiio.top/app/";
     int REQUEST_SUCCESS_CODE = 1;
     int REQUEST_ERROR_CODE = 0;
 

@@ -26,4 +26,9 @@
         <attr name="cIsFill" format="boolean"/>
         <attr name="cIsAlpha" format="boolean"/>
     </declare-styleable>
+
+    <!--圆形-->
+    <declare-styleable name="mRoundBackgroud">
+        <attr name="roundColor" format="color"/>
+    </declare-styleable>
 </resources>
