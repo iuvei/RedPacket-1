@@ -77,4 +77,20 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
     </style>
+
+    <style name="setting_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">@dimen/spacing_xl</item>
+        <item name="android:paddingEnd">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="setting_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
 </resources>

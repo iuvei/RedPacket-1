@@ -128,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/public_white"
+                android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m"
                 android:orientation="horizontal">
                 <TextView
@@ -147,7 +148,6 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:drawableRight="@drawable/ic_arrow_right"
-                    android:padding="@dimen/spacing_m"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/public_color_FF06CB7E"
                     android:textSize="@dimen/text_normal"

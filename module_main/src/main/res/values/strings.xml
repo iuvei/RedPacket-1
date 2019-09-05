@@ -90,7 +90,14 @@
     <string name="shortcut_game_rules">玩法规则</string>
     <string name="shortcut_create_group">创建群组</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--设置界面-->
+    <string name="setting_safe">账号与安全</string>
+    <string name="setting_notification">新消息通知</string>
+    <string name="setting_clear">清除所有缓存与聊天记录</string>
+    <string name="setting_record_time">聊天记录</string>
+    <string name="setting_about">关于我们</string>
+    <string name="setting_exit">退出登录</string>
+    <string name="setting_seven_day">7天</string>
 
 </resources>

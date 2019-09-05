@@ -23,6 +23,7 @@ import com.ooo.main.mvp.contract.SelfContract;
 import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.SelfPresenter;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
+import com.ooo.main.mvp.ui.activity.SettingActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -130,24 +131,6 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
         mAppManager.killAll ( LoginActivity.class );
     }
 
-    private void showEditDialog() {
-        new AlertDialog.Builder ( mContext )
-                .setMessage ( "是否确认退出？" )
-                .setPositiveButton ( "退出", new DialogInterface.OnClickListener () {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss ();
-                        mPresenter.logout ();
-                    }
-                } )
-                .setNegativeButton ( "取消", new DialogInterface.OnClickListener () {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel ();
-                    }
-                } ).create ().show ();
-    }
-
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.requestDatas ();
@@ -221,6 +204,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             //账单
         } else if (i == R.id.ll_setting) {
             //设置
+            startActivity ( new Intent ( getActivity (), SettingActivity.class ) );
         }
     }
 }
