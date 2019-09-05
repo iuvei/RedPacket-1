@@ -46,6 +46,10 @@
     <string name="version">版本</string>
     <string name="setting">设置</string>
     <string name="exit">退出</string>
+    <string name="customer_service">客服</string>
+    <string name="recharge">充值</string>
+    <string name="self_withdrawal">提现</string>
+    <string name="self_bill">账单</string>
 
     <string name="personal_info">个人信息</string>
     <string name="head_portrait">头像</string>
@@ -66,6 +70,7 @@
     <string name="fruit_machine_record">水果机记录</string>
     <string name="coming_soon">敬请期待</string>
 
+    <string name="balance">余额</string>
     <string name="balance_money">余额：%.2f元</string>
     <string name="total_reward_money">累计奖励收入：%.2f元</string>
     <string name="total_recharge_money">累计充值：%.2f元</string>

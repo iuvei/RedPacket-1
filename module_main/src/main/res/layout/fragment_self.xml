@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+    android:orientation="vertical">
+    <me.jessyan.armscomponent.commonres.view.StatusBarHeightView
+        android:id="@+id/viewStatusBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_me"
-        app:srlAccentColor="@color/text_white"/>
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/public_CommonTitleText"
+            android:layout_centerInParent="true"
+            tools:text="@string/public_app_name"/>
+
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,50 +30,86 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <View style="@style/discover_style_view"></View>
             <RelativeLayout
                 android:id="@+id/rl_member_info"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/member_header_height"
-                android:background="@drawable/bg_me">
-                
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
                 <ImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/avatar_size"
                     android:layout_height="@dimen/avatar_size"
-                    android:layout_marginTop="@dimen/spacing_xxxl"
+                    android:src="@mipmap/avatar_b_usr"/>
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_avatar"
+                    android:layout_toRightOf="@id/iv_avatar"
                     android:layout_marginLeft="@dimen/spacing_xl"
-                    android:src="@drawable/ic_user_avatar"/>
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/public_black"
+                    android:textStyle="bold"
+                    android:text="昵称:"/>
 
                 <TextView
                     android:id="@+id/tv_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/iv_avatar"
-                    android:layout_toRightOf="@id/iv_avatar"
-                    android:layout_marginLeft="@dimen/spacing_m"
+                    android:layout_alignTop="@id/nickname"
+                    android:layout_toRightOf="@id/nickname"
+                    android:layout_marginLeft="@dimen/spacing_xs"
                     android:textSize="@dimen/text_normal"
-                    android:textColor="@color/text_white"
+                    android:textColor="@color/public_black"
                     android:textStyle="bold"
-                    tools:text="测试"/>
-
-                <ImageView
-                    android:id="@+id/iv_sex"
+                    tools:text="123456"/>
+                <TextView
+                    android:id="@+id/user_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/tv_nickname"
-                    android:layout_toRightOf="@id/tv_nickname"
-                    android:layout_marginLeft="@dimen/spacing_xs"
-                    android:src="@drawable/ic_male"/>
-
+                    android:layout_below="@id/tv_nickname"
+                    android:layout_alignLeft="@id/nickname"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/gray_dark"
+                    android:text="账号:"/>
                 <TextView
                     android:id="@+id/tv_user_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_nickname"
-                    android:layout_alignLeft="@id/tv_nickname"
-                    android:layout_marginTop="@dimen/spacing_m"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/text_white"
+                    android:layout_toRightOf="@id/user_id"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/gray_dark"
+                    tools:text="账号:888888"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user_id"
+                    android:layout_alignLeft="@id/nickname"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/gray_dark"
+                    android:text="用户名:"/>
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user_id"
+                    android:layout_toRightOf="@id/user_name"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/gray_dark"
                     tools:text="账号:888888"/>
 
                 <ImageView
@@ -68,89 +117,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/spacing_xl"
-                    android:src="@drawable/ic_me_star"/>
+                    android:src="@drawable/icon_go"/>
 
-                <TextView
-                    android:id="@+id/tv_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@id/tv_user_id"
-                    android:layout_marginRight="@dimen/spacing_xl"
-                    android:layout_marginTop="@dimen/spacing_m"
-                    android:textColor="@color/text_white"
-                    android:textSize="@dimen/text_normal"
-                    tools:text="余额:8888.00元"/>
             </RelativeLayout>
-
+            <View style="@style/discover_style_view"></View>
             <LinearLayout
+                android:id="@+id/ll_balance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@color/public_white"
+                style="@style/public_CommonPadding_m"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/tv_proxy_center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_proxy_center"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/spacing_m"
+                    android:drawableLeft="@drawable/ic_recharge"
+                    android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/proxy_center"/>
+                    android:textSize="@dimen/text_sub_title"
+                    android:text="@string/balance"/>
                 <TextView
-                    android:id="@+id/tv_share_make_money"
+                    android:id="@+id/tv_balance"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_user_money"
-                    android:gravity="center_horizontal"
+                    android:gravity="right"
+                    android:drawableRight="@drawable/ic_arrow_right"
                     android:padding="@dimen/spacing_m"
-                    android:textColor="@color/common_text"
+                    android:drawablePadding="@dimen/spacing_l"
+                    android:textColor="@color/public_color_FF06CB7E"
                     android:textSize="@dimen/text_normal"
                     android:text="@string/share_make_money"/>
             </LinearLayout>
 
+            <View style="@style/discover_style_view"></View>
             <LinearLayout
-                android:id="@+id/ll_invite_code"
+                android:id="@+id/ll_customer_service"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_xs"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                style="@style/public_CommonPadding_m">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_invite"
-                    android:drawablePadding="@dimen/spacing_l"
-                    android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/invite_code"/>
-                <TextView
-                    android:id="@+id/tv_invite_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_l"
-                    android:textColor="@color/common_text_light"
-                    android:textSize="@dimen/text_normal"
-                    tools:text="10086"/>
-
-                <ImageButton
-                    android:id="@+id/ibtn_copy_invite_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:src="@drawable/icon_me_copy"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_recharge_center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/spacing_xs"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
@@ -162,15 +170,14 @@
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/recharge_center"/>
+                    android:textSize="@dimen/text_sub_title"
+                    android:text="@string/customer_service"/>
             </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
+            <View style="@style/discover_line"></View>
             <LinearLayout
-                android:id="@+id/ll_withdraw_center"
+                android:id="@+id/ll_recharge"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
@@ -181,14 +188,14 @@
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/recharge_center"/>
+                    android:textSize="@dimen/text_sub_title"
+                    android:text="@string/recharge"/>
             </LinearLayout>
-
+            <View style="@style/discover_line"></View>
             <LinearLayout
-                android:id="@+id/ll_bill_records"
+                android:id="@+id/ll_self_withdrawal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/spacing_xs"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
@@ -200,15 +207,14 @@
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/bill_records"/>
+                    android:textSize="@dimen/text_sub_title"
+                    android:text="@string/self_withdrawal"/>
             </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
+            <View style="@style/discover_line"></View>
             <LinearLayout
-                android:id="@+id/ll_help_center"
+                android:id="@+id/self_bill"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
@@ -219,41 +225,15 @@
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/recharge_center"/>
+                    android:textSize="@dimen/text_sub_title"
+                    android:text="@string/self_bill"/>
             </LinearLayout>
+            <View style="@style/discover_style_view"></View>
 
-            <LinearLayout
-                android:id="@+id/ll_app_version"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_xs"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                style="@style/public_CommonPadding_m">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_app_version"
-                    android:drawablePadding="@dimen/spacing_l"
-                    android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/version"/>
-                <TextView
-                    android:id="@+id/tv_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/common_text_light"
-                    android:textSize="@dimen/text_normal"
-                    android:text="V 1.0.0"/>
-            </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
             <LinearLayout
                 android:id="@+id/ll_setting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
@@ -264,29 +244,10 @@
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
+                    android:textSize="@dimen/text_sub_title"
                     android:text="@string/setting"/>
-            </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
-            <LinearLayout
-                android:id="@+id/ll_exit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                style="@style/public_CommonPadding_m">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_exit"
-                    android:drawableRight="@drawable/ic_arrow_right"
-                    android:drawablePadding="@dimen/spacing_l"
-                    android:textColor="@color/common_text"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/exit"/>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
