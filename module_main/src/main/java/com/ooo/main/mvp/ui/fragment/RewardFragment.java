@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
@@ -18,6 +20,9 @@ import com.ooo.main.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bertsir.zbar.Qr.ScanResult;
+import cn.bertsir.zbar.QrConfig;
+import cn.bertsir.zbar.QrManager;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -109,6 +114,17 @@ public class RewardFragment extends BaseSupportFragment {
         int i = view.getId ();
         if (i == R.id.layout_scan) {
             //扫一扫
+            QrConfig qrConfig = new QrConfig.Builder()
+                    .setLooperWaitTime(5*1000)//连续扫描间隔时间
+                    .create();
+            QrManager.getInstance().init(qrConfig).startScan(getActivity (), new QrManager.OnScanResultCallback() {
+                @Override
+                public void onScanSuccess(ScanResult result) {
+                    Log.e(TAG, "onScanSuccess: "+result );
+                    Toast.makeText(getActivity (), "内容："+result.getContent()
+                            +"  类型："+result.getType(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (i == R.id.layout_promote) {
             //推广海报
         } else if (i == R.id.layout_underline_query) {

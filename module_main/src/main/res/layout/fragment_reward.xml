@@ -124,7 +124,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:src="@mipmap/icon_skm"/>
                 <TextView
                     android:text="佣金列表"
                     style="@style/discover_layout_text_style" />

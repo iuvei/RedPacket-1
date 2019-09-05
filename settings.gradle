@@ -1,1 +1,1 @@
-include ':app', ':module_easeim', ':CommonSDK', ':easeui', ':CommonRes', ':module_main'
+include ':app', ':module_easeim', ':CommonSDK', ':easeui', ':CommonRes', ':module_main', ':zbarlibary'
