@@ -20,6 +20,7 @@ import com.ooo.main.di.component.DaggerSelfComponent;
 import com.ooo.main.mvp.contract.SelfContract;
 import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.SelfPresenter;
+import com.ooo.main.mvp.ui.activity.BalanceActivity;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
 import com.ooo.main.mvp.ui.activity.SettingActivity;
 import com.ooo.main.mvp.ui.activity.UserInfoActivity;
@@ -193,6 +194,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             startActivity ( new Intent ( getActivity (), UserInfoActivity.class ) );
         }else if (i == R.id.ll_balance){
             //余额
+            startActivity ( new Intent ( getActivity (), BalanceActivity.class ) );
         } else if (i == R.id.ll_customer_service) {
             //客服
         } else if (i == R.id.ll_recharge) {
