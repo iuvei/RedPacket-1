@@ -148,7 +148,34 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             //二维码
         } else if (i == R.id.ll_sex) {
             //性别
+            chooseSex();
         }
+    }
+
+    //选择性别
+    private void chooseSex() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_choose_sex, true, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMan = layout.findViewById ( R.id.tv_man);
+                TextView tvWoman = layout.findViewById ( R.id.tv_woman );
+                tvMan.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvSex.setText ( tvMan.getText () );
+                    }
+                } );
+                tvWoman.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvSex.setText ( tvWoman.getText () );
+                    }
+                } );
+            }
+        } ).create ();
+        dialog.show ();
     }
 
     //修改昵称

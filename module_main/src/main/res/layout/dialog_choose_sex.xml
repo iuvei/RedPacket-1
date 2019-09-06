@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="20dp"
+    android:orientation="vertical">
+   <TextView
+       android:id="@+id/tv_sex"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/userinfo_sex"
+       android:textSize="@dimen/text_big_title"
+       android:textColor="@color/public_black"/>
+    <TextView
+        android:id="@+id/tv_man"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/userinfo_man"
+        android:layout_below="@+id/tv_sex"
+        android:textColor="@color/public_black"/>
+    <TextView
+        android:id="@+id/tv_woman"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_16"
+        android:layout_below="@+id/tv_man"
+        android:text="@string/userinfo_women"
+        android:textColor="@color/public_black"/>
+
+</RelativeLayout>
