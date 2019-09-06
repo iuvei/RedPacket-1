@@ -146,6 +146,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             //用户名
         } else if (i == R.id.ll_qrcode) {
             //二维码
+            openActivity ( QrcodeCardActivity.class );
         } else if (i == R.id.ll_sex) {
             //性别
             chooseSex();

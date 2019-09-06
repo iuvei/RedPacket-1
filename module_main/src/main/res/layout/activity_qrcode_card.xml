@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/public_include_title"/>
+    android:orientation="vertical"
+    android:background="@color/public_black">
+    <include layout="@layout/title_layout"/>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_l">
+        android:layout_marginTop="@dimen/spacing_xl">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_xxl"
+            android:padding="@dimen/spacing_xl"
             android:orientation="vertical">
 
             <LinearLayout
@@ -26,22 +26,46 @@
                     android:layout_width="@dimen/avatar_size_small"
                     android:layout_height="@dimen/avatar_size_small"
                     android:src="@drawable/ic_user_avatar"/>
-
-                <TextView
-                    android:id="@+id/tv_nickname"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/spacing_m"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    tools:text="测试"/>
+                    >
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textSize="@dimen/text_normal"
+                        android:textColor="@color/public_black"
+                        tools:text="用户名"/>
 
-                <ImageView
-                    android:id="@+id/iv_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/spacing_xs"
-                    android:src="@drawable/ic_male"/>
+                    <ImageView
+                        android:id="@+id/iv_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_username"
+                        android:layout_marginLeft="@dimen/spacing_xs"
+                        android:src="@drawable/ic_male"/>
+                    <TextView
+                        android:id="@+id/tv_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textSize="@dimen/text_normal"
+                        android:layout_below="@+id/tv_username"
+                        android:textColor="@color/common_text"
+                        android:text="账号:"/>
+                    <TextView
+                        android:id="@+id/tv_accountnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textSize="@dimen/text_normal"
+                        android:layout_below="@+id/tv_username"
+                        android:layout_toRightOf="@+id/tv_account"
+                        android:textColor="@color/common_text"
+                        android:text="181740"/>
+                </RelativeLayout>
             </LinearLayout>
 
             <me.jessyan.armscomponent.commonres.view.SquareView
@@ -55,24 +79,14 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_default"/>
             </me.jessyan.armscomponent.commonres.view.SquareView>
-
             <TextView
-                android:id="@+id/tv_invite_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/public_black"
+                android:textSize="@dimen/text_normal"
                 android:layout_marginTop="@dimen/spacing_xxl"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/common_text_light"
-                android:textSize="@dimen/text_small"
-                tools:text="邀请码：888888"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/common_text_light"
-                android:textSize="@dimen/text_small"
-                android:text="扫一扫上面的二维码，快来一起领红包"/>
+                android:text="扫一扫上面的二维码，加为好友"/>
 
         </LinearLayout>
 

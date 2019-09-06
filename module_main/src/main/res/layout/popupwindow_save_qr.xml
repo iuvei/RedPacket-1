@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_save_qr"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_xl"
+    android:background="@mipmap/rc_voip_menu_bg"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_unfold"
+        android:layout_marginRight="@dimen/spacing_xl"
+        android:layout_marginLeft="@dimen/spacing_xl"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:layout_marginBottom="@dimen/spacing_m"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存图片"
+        android:textColor="@color/white"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/text_sub_title"
+        android:layout_marginLeft="@dimen/spacing_xl"/>
+</LinearLayout>
