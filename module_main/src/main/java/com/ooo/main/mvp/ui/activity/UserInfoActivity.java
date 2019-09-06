@@ -130,6 +130,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             finish ();
         } else if (i == R.id.ll_headimg) {
             //头像
+            openActivity ( ChooseHeadImgActivity.class );
         } else if (i == R.id.ll_nickname) {
             //昵称
 

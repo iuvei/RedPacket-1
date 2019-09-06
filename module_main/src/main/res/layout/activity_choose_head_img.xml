@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/title_layout"></include>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/public_black">
+    </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:id="@+id/tv_takephoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="拍照"
+        android:textColor="@color/public_black"
+        android:textSize="@dimen/sp_16"/>
+    <View style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:id="@+id/tv_choosephoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="从相册选择"
+        android:textColor="@color/public_black"
+        android:textSize="@dimen/sp_16"/>
+    <View style="@style/discover_style_view"></View>
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/public_black"
+        android:textSize="@dimen/sp_16"/>
+</LinearLayout>
