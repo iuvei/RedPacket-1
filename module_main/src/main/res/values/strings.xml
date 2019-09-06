@@ -100,4 +100,12 @@
     <string name="setting_exit">退出登录</string>
     <string name="setting_seven_day">7天</string>
 
+    <!--个人信息-->
+    <string name="userinfo_icon">头像</string>
+    <string name="userinfo_account">账号</string>
+    <string name="userinfo_QR_code">二维码</string>
+    <string name="userinfo_sex">性别</string>
+    <string name="userinfo_man">男</string>
+    <string name="userinfo_women">女</string>
+
 </resources>

@@ -1,11 +1,9 @@
 package com.ooo.main.mvp.ui.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +22,13 @@ import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.SelfPresenter;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
 import com.ooo.main.mvp.ui.activity.SettingActivity;
+import com.ooo.main.mvp.ui.activity.UserInfoActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
@@ -186,12 +184,13 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
         super.onDestroyView ();
     }
 
-    @OnClick({R2.id.iv_star,R2.id.ll_balance, R2.id.ll_customer_service, R2.id.ll_recharge,
+    @OnClick({R2.id.rl_member_info,R2.id.ll_balance, R2.id.ll_customer_service, R2.id.ll_recharge,
             R2.id.ll_self_withdrawal, R2.id.self_bill, R2.id.ll_setting})
     public void onViewClicked(View view) {
         int i = view.getId ();
-        if (i == R.id.iv_star) {
+        if (i == R.id.rl_member_info) {
             //个人详情
+            startActivity ( new Intent ( getActivity (), UserInfoActivity.class ) );
         }else if (i == R.id.ll_balance){
             //余额
         } else if (i == R.id.ll_customer_service) {
