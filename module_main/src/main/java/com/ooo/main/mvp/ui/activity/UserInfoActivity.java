@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import com.ooo.main.mvp.presenter.UserInfoPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -66,6 +70,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     TextView tvSex;
     @BindView(R2.id.ll_sex)
     LinearLayout llSex;
+    private BaseDialog dialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -133,7 +138,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             openActivity ( ChooseHeadImgActivity.class );
         } else if (i == R.id.ll_nickname) {
             //昵称
-
+            updateNickName();
         } else if (i == R.id.ll_account) {
             //账号
 
@@ -144,5 +149,30 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
         } else if (i == R.id.ll_sex) {
             //性别
         }
+    }
+
+    //修改昵称
+    private void updateNickName() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_update_nickname, true, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                EditText etNickName = layout.findViewById ( R.id.et_nickname );
+                TextView btnCancel = layout.findViewById ( R.id.btn_cancel );
+                TextView btnSure = layout.findViewById ( R.id.btn_sure );
+                btnCancel.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+                btnSure.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } ).create ();
+        dialog.show ();
     }
 }
