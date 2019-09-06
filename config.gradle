@@ -21,7 +21,8 @@ ext {
             espressoSdkVersion      : "3.0.1",
             canarySdkVersion        : "1.5.4",
             fragmentationVersion    : "1.1.6",
-            dbflowVersion           : "4.2.4"
+            dbflowVersion           : "4.2.4",
+            pickerViewVersion       : "4.1.8",
     ]
 
     dependencies = [
@@ -123,7 +124,8 @@ ext {
             "logger"                   : "com.orhanobut:logger:2.2.0",
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
-            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1"
+            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
+            "pickerview"               : "com.contrarywind:Android-PickerView:${version["pickerViewVersion"]}"
     ]
 
 

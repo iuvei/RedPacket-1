@@ -84,7 +84,7 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "我的银行卡" );
         ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.mipmap.my_id_photo );
+        ivRight.setImageResource ( R.mipmap.icon_vip );
         lists = new ArrayList <> (  );
         for (int i = 0;i<6;i++){
             BlankCardBean bean = new BlankCardBean ();
@@ -171,6 +171,7 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
             finish ();
         } else if (i == R.id.iv_right) {
             //添加
+            openActivity ( AddBlankCardActivity.class );
         }
     }
 }
