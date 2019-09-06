@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tv_delect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="解绑"
+        android:textColor="@color/public_black"
+        android:textSize="@dimen/text_normal"
+        />
+    <TextView
+        android:id="@+id/tv_blankType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/public_black"
+        android:layout_toRightOf="@+id/tv_delect"
+        android:textSize="@dimen/text_sub_title"
+        android:text="银行卡"/>
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/public_color_FF06CB7E"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_delect"
+        android:textSize="@dimen/text_normal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/spacing_xxl"
+        android:text="确定"/>
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/public_black"
+        android:layout_below="@+id/tv_delect"
+        android:layout_toLeftOf="@+id/tv_sure"
+        android:textSize="@dimen/text_normal"
+        android:layout_marginTop="20dp"
+        android:text="取消"/>
+
+</RelativeLayout>

@@ -153,6 +153,7 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             //充值
         } else if (i == R.id.tv_blank_card) {
             //银行卡
+            openActivity ( BlankCardActivity.class );
         } else if (i == R.id.tv_recharge_record) {
             //提现记录
         }
