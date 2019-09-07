@@ -130,6 +130,7 @@ public class ProtectAccountActivity extends BaseSupportActivity <ProtectAccountP
             ToastUtils.showShort ( "真实姓名不可修改" );
         } else if (i == R.id.ll_password) {
             //修改密码
+            openActivity ( UpdatePasswordActivity.class );
         } else if (i == R.id.ll_pay_manager) {
             //支付管理
         }
