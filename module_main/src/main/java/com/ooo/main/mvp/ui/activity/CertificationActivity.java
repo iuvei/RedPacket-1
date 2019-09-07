@@ -4,30 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.di.component.DaggerBalanceComponent;
-import com.ooo.main.mvp.contract.BalanceContract;
-import com.ooo.main.mvp.presenter.BalancePresenter;
+import com.ooo.main.di.component.DaggerCertificationComponent;
+import com.ooo.main.mvp.contract.CertificationContract;
+import com.ooo.main.mvp.presenter.CertificationPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bertsir.zbar.Qr.ScanResult;
-import cn.bertsir.zbar.QrConfig;
-import cn.bertsir.zbar.QrManager;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.RegExpValidateUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -38,7 +35,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 09/06/2019 14:58
+ * Created by MVPArmsTemplate on 09/07/2019 11:07
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -46,33 +43,21 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class BalanceActivity extends BaseSupportActivity <BalancePresenter> implements BalanceContract.View {
+public class CertificationActivity extends BaseSupportActivity <CertificationPresenter> implements CertificationContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.tv_balanceNum)
-    TextView tvBalanceNum;
-    @BindView(R2.id.tv_balanceDetail)
-    TextView tvBalanceDetail;
-    @BindView(R2.id.tv_payments)
-    TextView tvPayments;
-    @BindView(R2.id.tv_scan)
-    TextView tvScan;
-    @BindView(R2.id.tv_take_money)
-    TextView tvTakeMoney;
-    @BindView(R2.id.tv_recharge)
-    TextView tvRecharge;
-    @BindView(R2.id.tv_blank_card)
-    TextView tvBlankCard;
-    @BindView(R2.id.tv_recharge_record)
-    TextView tvRechargeRecord;
+    @BindView(R2.id.et_name)
+    EditText etName;
+    @BindView(R2.id.et_idnum)
+    EditText etIdnum;
     private BaseDialog dialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerBalanceComponent //如找不到该类,请编译一下项目
+        DaggerCertificationComponent //如找不到该类,请编译一下项目
                 .builder ()
                 .appComponent ( appComponent )
                 .view ( this )
@@ -82,14 +67,14 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-        return R.layout.activity_balance; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
+        return R.layout.activity_certification; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
-        tvTitle.setText ( "钱包" );
+        tvTitle.setText ( "实名认证" );
     }
 
     @Override
@@ -126,41 +111,28 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_balanceDetail, R2.id.tv_payments, R2.id.tv_scan,
-            R2.id.tv_take_money, R2.id.tv_recharge, R2.id.tv_blank_card, R2.id.tv_recharge_record})
+    @OnClick({R2.id.iv_back, R2.id.btn_sure})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
             finish ();
-        } else if (i == R.id.tv_balanceDetail) {
-            //金额明细
-        } else if (i == R.id.tv_payments) {
-            //收付款
-            ToastUtils.showShort ( "暂未开通" );
-        } else if (i == R.id.tv_scan) {
-            //扫一扫
-            QrConfig qrConfig = new QrConfig.Builder()
-                    .setLooperWaitTime(5*1000)//连续扫描间隔时间
-                    .create();
-            QrManager.getInstance().init(qrConfig).startScan(this, new QrManager.OnScanResultCallback() {
-                @Override
-                public void onScanSuccess(ScanResult result) {
-                    Log.e(TAG, "onScanSuccess: "+result );
-                    Toast.makeText(BalanceActivity.this, "内容："+result.getContent()
-                            +"  类型："+result.getType(), Toast.LENGTH_SHORT).show();
+        } else if (i == R.id.btn_sure) {
+            String name = etName.getText ().toString ().trim ();
+            String idNum = etIdnum.getText ().toString ().trim ();
+            if (TextUtils.isEmpty ( name )){
+                ToastUtils.showShort ( "请输入真实姓名" );
+                return;
+            }
+            if (TextUtils.isEmpty ( idNum )){
+                ToastUtils.showShort ( "请输入身份证号" );
+                return;
+            }else {
+                if (!RegExpValidateUtils.isIDNumber ( idNum )){
+                    ToastUtils.showShort ( "请输入正确的身份证号" );
+                    return;
                 }
-            });
-        } else if (i == R.id.tv_take_money) {
-            //提现
+            }
             showAuthDialog ();
-        } else if (i == R.id.tv_recharge) {
-            //充值
-            showAuthDialog();
-        } else if (i == R.id.tv_blank_card) {
-            //银行卡
-            openActivity ( BlankCardActivity.class );
-        } else if (i == R.id.tv_recharge_record) {
-            //提现记录
         }
     }
 
@@ -169,7 +141,7 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             @Override
             public void onShowDialog(View layout) {
                 TextView tvMessage = layout.findViewById ( R.id.tv_message );
-                tvMessage.setText ( "未实名认证，是否去设置？" );
+                tvMessage.setText ( "设置后不可修改，如果信息错误将会导致无法提现，是否确认设置？" );
                 layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
                     @Override
                     public void onClick(View view) {
