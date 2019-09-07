@@ -147,7 +147,7 @@ public class CertificationActivity extends BaseSupportActivity <CertificationPre
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
-                        openActivity ( CertificationActivity.class );
+                        openActivity ( WithdrawalActivity.class );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
