@@ -22,6 +22,7 @@ import com.ooo.main.mvp.presenter.ProtectAccountPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -39,7 +40,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class ProtectAccountActivity extends BaseActivity <ProtectAccountPresenter> implements ProtectAccountContract.View {
+public class ProtectAccountActivity extends BaseSupportActivity <ProtectAccountPresenter> implements ProtectAccountContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -123,6 +124,7 @@ public class ProtectAccountActivity extends BaseActivity <ProtectAccountPresente
             finish ();
         } else if (i == R.id.ll_phone) {
             //绑定手机
+            openActivity ( BingdingPhoneActivity.class );
         } else if (i == R.id.ll_name) {
             //真实姓名
             ToastUtils.showShort ( "真实姓名不可修改" );
