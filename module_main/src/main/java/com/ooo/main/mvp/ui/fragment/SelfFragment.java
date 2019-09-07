@@ -21,9 +21,11 @@ import com.ooo.main.mvp.contract.SelfContract;
 import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.SelfPresenter;
 import com.ooo.main.mvp.ui.activity.BalanceActivity;
+import com.ooo.main.mvp.ui.activity.BillingDetailsActivity;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
 import com.ooo.main.mvp.ui.activity.SettingActivity;
 import com.ooo.main.mvp.ui.activity.UserInfoActivity;
+import com.ooo.main.mvp.ui.activity.WithdrawalActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -201,8 +203,10 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             //充值
         } else if (i == R.id.ll_self_withdrawal) {
             //提现
+            startActivity ( new Intent ( getActivity (), WithdrawalActivity.class ) );
         } else if (i == R.id.self_bill) {
-            //账单
+            //
+            startActivity ( new Intent ( getActivity (), BillingDetailsActivity.class ) );
         } else if (i == R.id.ll_setting) {
             //设置
             startActivity ( new Intent ( getActivity (), SettingActivity.class ) );

@@ -134,6 +134,7 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             finish ();
         } else if (i == R.id.tv_balanceDetail) {
             //金额明细
+            openActivity ( BillingDetailsActivity.class );
         } else if (i == R.id.tv_payments) {
             //收付款
             ToastUtils.showShort ( "暂未开通" );
