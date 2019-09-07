@@ -26,6 +26,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -76,6 +78,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
     TextView tvLogout;
     @Inject
     AppManager mAppManager;
+    private BaseDialog dialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -147,14 +150,88 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
             //新消息通知
         } else if (i == R.id.layout_clear) {
             //清除所有缓存与聊天记录
+            showClearCacheAndMessage();
         } else if (i == R.id.layout_record_time) {
             //聊天记录
+            talkMessageDialg();
         } else if (i == R.id.layout_about) {
             //关于我们
         } else if (i == R.id.tv_logout) {
             //退出登录
             showEditDialog();
         }
+    }
+
+    //清除缓存与聊天记录
+    private void showClearCacheAndMessage() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "是否清除所有缓存与聊天记录？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
+    }
+
+    //保存聊天记录
+    private void talkMessageDialg() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_message_talking, true, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvSevenDay = layout.findViewById ( R.id.tv_seven_day);
+                TextView tvHalfMonth = layout.findViewById ( R.id.tv_half_month );
+                TextView tvOneMonth = layout.findViewById ( R.id.tv_one_month );
+                TextView tvForever = layout.findViewById ( R.id.tv_forever );
+                tvSevenDay.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvDayTime.setText ( "七天" );
+                        tvRecordTime.setText ( "七天" );
+                    }
+                } );
+                tvHalfMonth.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvDayTime.setText ( "十五天" );
+                        tvRecordTime.setText ( "十五天" );
+                    }
+                } );
+                tvOneMonth.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvDayTime.setText ( "一个月" );
+                        tvRecordTime.setText ( "一个月" );
+                    }
+                } );
+                tvForever.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        tvDayTime.setText ( "永久" );
+                        tvRecordTime.setText ( "永久" );
+                    }
+                } );
+            }
+        } ).create ();
+        dialog.show ();
     }
 
     private void showEditDialog() {
