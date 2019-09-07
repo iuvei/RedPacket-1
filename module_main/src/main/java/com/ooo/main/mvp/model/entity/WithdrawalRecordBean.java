@@ -1,11 +1,14 @@
 package com.ooo.main.mvp.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author lanjian
  * creat at 2019/9/7
  * description 提现记录实体类
  */
-public class WithdrawalRecordBean {
+public class WithdrawalRecordBean implements Parcelable {
     private String takeMoney;
     private String accountMoney;
     private int statue;
@@ -52,4 +55,41 @@ public class WithdrawalRecordBean {
     public void setBlankAccount(String blankAccount) {
         this.blankAccount = blankAccount;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString ( this.takeMoney );
+        dest.writeString ( this.accountMoney );
+        dest.writeInt ( this.statue );
+        dest.writeString ( this.takeMoneyTime );
+        dest.writeString ( this.blankAccount );
+    }
+
+    public WithdrawalRecordBean() {
+    }
+
+    protected WithdrawalRecordBean(Parcel in) {
+        this.takeMoney = in.readString ();
+        this.accountMoney = in.readString ();
+        this.statue = in.readInt ();
+        this.takeMoneyTime = in.readString ();
+        this.blankAccount = in.readString ();
+    }
+
+    public static final Parcelable.Creator <WithdrawalRecordBean> CREATOR = new Parcelable.Creator <WithdrawalRecordBean> () {
+        @Override
+        public WithdrawalRecordBean createFromParcel(Parcel source) {
+            return new WithdrawalRecordBean ( source );
+        }
+
+        @Override
+        public WithdrawalRecordBean[] newArray(int size) {
+            return new WithdrawalRecordBean[size];
+        }
+    };
 }

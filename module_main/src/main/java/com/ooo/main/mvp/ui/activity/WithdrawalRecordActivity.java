@@ -118,7 +118,9 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
         recycleAdapter.setItemClickListener ( new WithdrawalRecordAdapter.ItemClickListener () {
             @Override
             public void onItemClick(List <WithdrawalRecordBean> data, int position) {
-
+                Intent intent = new Intent ( WithdrawalRecordActivity.this,WithdrawalInfoActivity.class );
+                intent.putExtra ( "info",data.get ( position ) );
+                startActivity ( intent );
             }
         } );
     }
