@@ -11,7 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.WithdrawalActivity"></activity>
+        <activity android:name=".mvp.ui.activity.WithdrawalRecordActivity"></activity>
+        <activity android:name=".mvp.ui.activity.WithdrawalActivity" />
         <activity android:name=".mvp.ui.activity.CertificationActivity" />
         <activity android:name=".mvp.ui.activity.AddBlankCardActivity" />
         <activity android:name=".mvp.ui.activity.BlankCardActivity" />

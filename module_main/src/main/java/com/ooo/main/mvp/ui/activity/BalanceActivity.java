@@ -161,6 +161,7 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             openActivity ( BlankCardActivity.class );
         } else if (i == R.id.tv_recharge_record) {
             //提现记录
+            openActivity ( WithdrawalRecordActivity.class );
         }
     }
 

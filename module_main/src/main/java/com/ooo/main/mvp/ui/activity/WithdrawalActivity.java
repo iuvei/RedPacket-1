@@ -113,6 +113,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
             finish ();
         } else if (i == R.id.tv_withdrawal_record) {
             //提现记录
+            openActivity ( WithdrawalRecordActivity.class );
         } else if (i == R.id.tv_blank_info) {
             //银行信息
 
