@@ -142,6 +142,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
             finish ();
         } else if (i == R.id.layout_safe) {
             //账号与安全
+            openActivity ( ProtectAccountActivity.class );
         } else if (i == R.id.layout_notification) {
             //新消息通知
         } else if (i == R.id.layout_clear) {
