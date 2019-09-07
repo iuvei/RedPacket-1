@@ -11,7 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.BillingDetailsActivity"></activity>
+        <activity android:name=".mvp.ui.activity.BillingInfoActivity"></activity>
+        <activity android:name=".mvp.ui.activity.BillingDetailsActivity" />
         <activity android:name=".mvp.ui.activity.WithdrawalInfoActivity" />
         <activity android:name=".mvp.ui.activity.WithdrawalRecordActivity" />
         <activity android:name=".mvp.ui.activity.WithdrawalActivity" />

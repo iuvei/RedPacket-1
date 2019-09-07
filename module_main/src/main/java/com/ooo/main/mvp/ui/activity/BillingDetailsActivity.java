@@ -120,7 +120,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         recycleAdapter.setItemClickListener ( new WithdrawalRecordAdapter.ItemClickListener () {
             @Override
             public void onItemClick(List <WithdrawalRecordBean> data, int position) {
-                Intent intent = new Intent ( BillingDetailsActivity.this,WithdrawalInfoActivity.class );
+                Intent intent = new Intent ( BillingDetailsActivity.this,BillingInfoActivity.class );
                 intent.putExtra ( "info",data.get ( position ) );
                 startActivity ( intent );
             }
