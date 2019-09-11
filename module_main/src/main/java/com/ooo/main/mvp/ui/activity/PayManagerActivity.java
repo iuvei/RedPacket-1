@@ -21,6 +21,7 @@ import com.ooo.main.mvp.presenter.PayManagerPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -37,8 +38,9 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArms/wiki">See me</a>
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
+ * 支付管理
  */
-public class PayManagerActivity extends BaseActivity <PayManagerPresenter> implements PayManagerContract.View {
+public class PayManagerActivity extends BaseSupportActivity <PayManagerPresenter> implements PayManagerContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -114,6 +116,7 @@ public class PayManagerActivity extends BaseActivity <PayManagerPresenter> imple
             //忘记密码
         } else if (i == R.id.ll_pay_password) {
             //支付密码
+            openActivity ( PayPasswordActivity.class );
         }
     }
 }
