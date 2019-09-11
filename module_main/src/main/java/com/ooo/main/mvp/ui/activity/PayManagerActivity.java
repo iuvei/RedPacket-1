@@ -114,6 +114,7 @@ public class PayManagerActivity extends BaseSupportActivity <PayManagerPresenter
             finish ();
         } else if (i == R.id.ll_forget_password) {
             //忘记密码
+            openActivity ( ForgetPayPasswordActivity.class );
         } else if (i == R.id.ll_pay_password) {
             //支付密码
             openActivity ( PayPasswordActivity.class );

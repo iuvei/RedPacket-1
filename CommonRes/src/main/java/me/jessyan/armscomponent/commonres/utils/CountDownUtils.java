@@ -130,6 +130,7 @@ public class CountDownUtils {
      */
     public CountDownUtils start() {
         mLastMillis = mCountDownMillis;
+        mHandler.removeMessages ( MSG_WHAT_START );
         mHandler.sendEmptyMessage(MSG_WHAT_START);
         return this;
     }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-
-import com.ooo.main.R2;
-
 import com.ooo.main.R;
+import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerAdNoticeComponent;
 import com.ooo.main.mvp.contract.AdNoticeContract;
 import com.ooo.main.mvp.presenter.AdNoticePresenter;

@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
@@ -27,7 +24,6 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBillRecordComponent;
 import com.ooo.main.mvp.contract.BillRecordContract;
 import com.ooo.main.mvp.model.entity.BillRecordInfo;
-import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.BillRecordPresenter;
 import com.ooo.main.mvp.ui.adapter.BillRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -38,23 +34,17 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.bingoogolapple.bgabanner.BGABanner;
-import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.view.popupwindow.SelectItemPopupWindow;
 import me.jessyan.armscomponent.commonres.view.recyclerview.SpaceItemDecoration;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
-import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
-import static com.ooo.main.app.MainConstants.REQUEST_CODE_EDIT_NICKNAME;
 
 
 /**

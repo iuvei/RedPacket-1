@@ -7,15 +7,15 @@
     <include layout="@layout/title_layout"></include>
     <View style="@style/discover_style_view"></View>
     <LinearLayout
-        android:id="@+id/ll_pay_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="@dimen/spacing_xl"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/ll_pay_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_xl"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -31,12 +31,12 @@
         </LinearLayout>
         <View style="@style/discover_style_view"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:layout_marginBottom="@dimen/spacing_xl"></View>
+            ></View>
         <LinearLayout
             android:id="@+id/ll_forget_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_xl"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"

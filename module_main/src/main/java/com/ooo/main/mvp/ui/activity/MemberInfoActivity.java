@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -24,11 +23,9 @@ import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.MemberInfoPresenter;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;

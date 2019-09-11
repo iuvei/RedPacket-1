@@ -21,7 +21,6 @@ import com.ooo.main.mvp.presenter.BlankCardPresenter;
 import com.ooo.main.mvp.ui.adapter.BlankCradAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -18,13 +18,11 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerChooseHeadImgComponent;
 import com.ooo.main.mvp.contract.ChooseHeadImgContract;
 import com.ooo.main.mvp.presenter.ChooseHeadImgPresenter;
-import com.ooo.main.mvp.ui.adapter.ChessGameAdapter;
 import com.ooo.main.mvp.ui.adapter.ChooseHeadImgAdapter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
-import me.jessyan.armscomponent.commonres.view.recyclerview.DividerGridItemDecoration;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
