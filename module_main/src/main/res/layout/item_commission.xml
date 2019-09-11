@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_item"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/spacing_m"
+    android:paddingTop="@dimen/spacing_m"
+    android:layout_marginLeft="@dimen/spacing_xl"
+    android:layout_marginRight="@dimen/spacing_xl">
+    <TextView
+        android:id="@+id/tv_num"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="昵称"
+        android:layout_weight="1"
+        android:textColor="@color/public_black"
+        />
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/public_black"
+        android:ellipsize="end"
+        android:text="12"
+        />
+    <TextView
+        android:id="@+id/tv_commission"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/public_color_FF06CB7E"
+        android:text="2019-9-7 14:50:54"
+        />
+</LinearLayout>

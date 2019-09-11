@@ -108,4 +108,7 @@
     <string name="userinfo_man">男</string>
     <string name="userinfo_women">女</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -17,6 +17,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
 import butterknife.BindView;
@@ -140,6 +141,7 @@ public class RewardFragment extends BaseSupportFragment {
             //佣金列表
         } else if (i == R.id.layout_ommission_ranking) {
             //佣金排行榜
+            startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
         } else if (i == R.id.layout_game_reward_info) {
             //扫雷游戏奖励说明
         } else if (i == R.id.layout_ommission_reward_info) {
