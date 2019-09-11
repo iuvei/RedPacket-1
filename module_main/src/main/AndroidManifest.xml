@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.CommisonActivity"></activity>
+        <activity android:name=".mvp.ui.activity.LuckyDrawActivity"></activity>
+        <activity android:name=".mvp.ui.activity.LuckyWheelActivity" />
+        <activity android:name=".mvp.ui.activity.CommisonActivity" />
         <activity android:name=".mvp.ui.activity.CommissionListActivity" />
         <activity android:name=".mvp.ui.activity.UnderLineListActivity" />
         <activity android:name=".mvp.ui.activity.AboutUsActivity" />

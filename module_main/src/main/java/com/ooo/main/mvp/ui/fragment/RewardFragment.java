@@ -20,6 +20,7 @@ import com.ooo.main.R2;
 import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
+import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
 import butterknife.BindView;
@@ -139,6 +140,7 @@ public class RewardFragment extends BaseSupportFragment {
             startActivity ( new Intent ( getActivity (), UnderLineListActivity.class ) );
         } else if (i == R.id.layout_luck) {
             //幸运大转盘
+            startActivity ( new Intent ( getActivity (), LuckyWheelActivity.class ) );
         } else if (i == R.id.layout_ommission_list) {
             //佣金列表
             startActivity ( new Intent ( getActivity (), CommisonActivity.class ) );
