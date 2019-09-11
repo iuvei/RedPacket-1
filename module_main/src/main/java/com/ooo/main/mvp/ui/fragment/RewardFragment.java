@@ -17,6 +17,8 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.mvp.model.entity.CommissionInfo;
+import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
@@ -139,6 +141,7 @@ public class RewardFragment extends BaseSupportFragment {
             //幸运大转盘
         } else if (i == R.id.layout_ommission_list) {
             //佣金列表
+            startActivity ( new Intent ( getActivity (), CommisonActivity.class ) );
         } else if (i == R.id.layout_ommission_ranking) {
             //佣金排行榜
             startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
