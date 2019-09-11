@@ -148,6 +148,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
             openActivity ( ProtectAccountActivity.class );
         } else if (i == R.id.layout_notification) {
             //新消息通知
+            openActivity ( NewMessageNotificationActivity.class );
         } else if (i == R.id.layout_clear) {
             //清除所有缓存与聊天记录
             showClearCacheAndMessage();
