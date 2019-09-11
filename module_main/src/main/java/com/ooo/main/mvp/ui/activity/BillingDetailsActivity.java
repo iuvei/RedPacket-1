@@ -137,7 +137,6 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
             recordBean.setTakeMoneyTime ( "2019-09-07 15:03:14" );
             recordBeans.add ( recordBean );
         }
-        Log.e ( "tag","recordBeans="+recordBeans.size () );
     }
 
     @Override

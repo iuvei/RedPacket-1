@@ -17,6 +17,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -132,6 +133,7 @@ public class RewardFragment extends BaseSupportFragment {
             ToastUtils.showShort ( getString ( R.string.discover_coming_soon ) );
         } else if (i == R.id.layout_underline_list) {
             //下线列表
+            startActivity ( new Intent ( getActivity (), UnderLineListActivity.class ) );
         } else if (i == R.id.layout_luck) {
             //幸运大转盘
         } else if (i == R.id.layout_ommission_list) {

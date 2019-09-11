@@ -11,7 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.AboutUsActivity"></activity>
+        <activity android:name=".mvp.ui.activity.UnderLineListActivity"></activity>
+        <activity android:name=".mvp.ui.activity.AboutUsActivity" />
         <activity android:name=".mvp.ui.activity.NewMessageNotificationActivity" />
         <activity android:name=".mvp.ui.activity.ForgetPayPasswordActivity" />
         <activity android:name=".mvp.ui.activity.PayPasswordActivity" />
