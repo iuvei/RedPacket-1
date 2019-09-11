@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.AppUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.utils.ArmsUtils;
@@ -100,7 +101,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "设置" );
-
+        tvVersion.setText ( AppUtils.getAppVersionName () );
     }
 
     @Override
@@ -157,6 +158,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
             talkMessageDialg();
         } else if (i == R.id.layout_about) {
             //关于我们
+            openActivity ( AboutUsActivity.class );
         } else if (i == R.id.tv_logout) {
             //退出登录
             showEditDialog();
