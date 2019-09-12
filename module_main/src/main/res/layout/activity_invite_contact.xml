@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_layout_both_text"></include>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_below="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.ooo.main.view.SideBar
+        android:id="@+id/letterView"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_layout"
+        android:layout_margin="@dimen/spacing_m"
+        android:layout_alignParentRight="true"></com.ooo.main.view.SideBar>
+</RelativeLayout>

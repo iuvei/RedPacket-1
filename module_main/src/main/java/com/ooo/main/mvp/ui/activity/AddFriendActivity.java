@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -47,7 +48,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  */
 @Route(path = RouterHub.ADD_FRIEND_ACTIVITY)
-public class AddFriendActivity extends BaseActivity <AddFriendPresenter> implements AddFriendContract.View {
+public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> implements AddFriendContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -153,6 +154,7 @@ public class AddFriendActivity extends BaseActivity <AddFriendPresenter> impleme
             } );
         } else if (i == R.id.rl_contact) {
             //邀请手机联系人
+            openActivity ( InviteContactActivity.class );
         }
     }
 }
