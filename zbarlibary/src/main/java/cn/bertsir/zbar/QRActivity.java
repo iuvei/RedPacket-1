@@ -32,6 +32,7 @@ import cn.bertsir.zbar.Qr.Symbol;
 import cn.bertsir.zbar.utils.GetPathFromUri;
 import cn.bertsir.zbar.utils.QRUtils;
 import cn.bertsir.zbar.view.ScanView;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 public class QRActivity extends Activity implements View.OnClickListener {
 
@@ -62,7 +63,8 @@ public class QRActivity extends Activity implements View.OnClickListener {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
         options = (QrConfig) getIntent().getExtras().get(QrConfig.EXTRA_THIS_CONFIG);
 
         switch (options.getSCREEN_ORIENTATION()) {

@@ -107,7 +107,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     private void initFragments() {
         //会话
-        Fragment fragment1 = MeesageFragment.newInstance();
+        Fragment fragment1 = (Fragment) ARouter.getInstance()
+                .build(RouterHub.IM_CONVERSATIONLISTFRAGMENT).navigation();
         //通讯录
         Fragment fragment4 = (Fragment) ARouter.getInstance()
                 .build(RouterHub.IM_CONTACTFRAGMENT).navigation();
@@ -159,11 +160,11 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
             }
         });
-
-        mCurrentItemView = llGroup;
-        mCurrentShowView = ivGroup;
+        //默认选中聊天
+        mCurrentItemView = rlChat;
+        mCurrentShowView = ivChat;
         mCurrentShowView.setVisibility(View.VISIBLE);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 
     @OnClick({R2.id.rl_chat, R2.id.ll_group, R2.id.ll_discover, R2.id.ll_me, R2.id.rl_animation})

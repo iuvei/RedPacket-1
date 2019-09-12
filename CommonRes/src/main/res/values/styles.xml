@@ -190,4 +190,10 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="discover_style_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
 </resources>

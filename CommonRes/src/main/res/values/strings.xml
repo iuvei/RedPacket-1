@@ -55,4 +55,9 @@
     <string name="public_save">保存</string>
     <string name="public_switch">切换</string>
 
+
+    <string name="under_line_add_firend"><u>添加好友</u></string>
+    <string name="under_line_scan"><u>扫一扫</u></string>
+    <string name="under_line_qr"><u>二维码</u></string>
+
 </resources>

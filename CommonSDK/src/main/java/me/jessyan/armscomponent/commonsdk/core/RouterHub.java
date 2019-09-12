@@ -46,6 +46,7 @@ public interface RouterHub {
     String IM = "/im";//即时通讯组件
     String MAIN = "/main";//入口组件
     String LIVE = "/live";//直播组件
+    String ADD = "/add";//添加好友
 
 
     /**
@@ -81,5 +82,13 @@ public interface RouterHub {
      * 直播分组
      */
     String LIVE_BEAUTYSETTINGACTIVITY = LIVE  + "/BeautySettingActivity";
+
+
+    /**
+     * 聊天分组
+     */
+    String ADD_FRIEND_ACTIVITY = ADD  + "/BeautySettingActivity";
+    String SCAN_ACTIVITY = ADD  + "/BeautySettingActivity";
+    String QR_ACTIVITY = ADD  + "/BeautySettingActivity";
 
 }

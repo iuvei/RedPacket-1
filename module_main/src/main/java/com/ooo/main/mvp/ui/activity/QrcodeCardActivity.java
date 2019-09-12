@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 import com.ooo.main.R;
 import com.ooo.main.R2;
@@ -20,8 +22,10 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
+@Route(path = RouterHub.QR_ACTIVITY)
 public class QrcodeCardActivity extends BaseSupportActivity {
 
 
@@ -86,6 +90,7 @@ public class QrcodeCardActivity extends BaseSupportActivity {
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        ARouter.getInstance ().inject ( this );
     }
 
     @OnClick({R2.id.iv_back, R2.id.iv_right})
