@@ -61,7 +61,7 @@ public class MyMultipleListViewAdapter extends MyMultipleListViewBaseAdapter<Pho
     public int getPositionForSection(String charAt) {
         for (int i=0;i<datas.size();i++){
 
-            if (datas.get(i).getSpelling().substring(0,1).toUpperCase().contains(charAt)){
+            if (datas.get(i).getSpelling().substring(1,2).toUpperCase ().contains(charAt)){
                 return i;
             }
         }

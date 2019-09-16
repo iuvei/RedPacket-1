@@ -129,7 +129,12 @@ public class CharacterParser {
             }
             buffer.append(value);
         }
-        return buffer.toString();
+        String regex = "^[a-zA-z].*";
+        if (buffer.toString ().matches ( regex )){
+            return "1"+buffer.toString().toLowerCase ();
+        }else{
+            return "2#"+buffer.toString().toLowerCase ();
+        }
     }
 
     public String getSpelling() {
