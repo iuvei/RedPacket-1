@@ -745,6 +745,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if (i == R.id.iv_back) {
             finish ();
         } else if (i == R.id.iv_right) {
+            //聊天详情
+            if (chatType == EaseConstant.CHATTYPE_SINGLE) {
+                //单聊
+                UserInfo userInfo = UserDao.getInstance ().getUserEntityByHxId ( toChatUsername );
+                ChatDetailsActivity.start (this,userInfo);
+            }else{
+                //群聊
+            }
         }
     }
 

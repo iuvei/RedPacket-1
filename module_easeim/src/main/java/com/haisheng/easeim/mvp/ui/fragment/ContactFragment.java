@@ -132,11 +132,6 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
         mAdapter.setOnItemClickListener ( new BaseQuickAdapter.OnItemClickListener () {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                UserInfo userInfo = (UserInfo) adapter.getItem ( position );
-//                ChatActivity.start ( (Activity) mContext, userInfo.getHxId () );
-//                RoomBean roomBean = (RoomBean) adapter.getItem(position);
-//                mPresenter.joinRoom(roomBean.getHxId());
-
                 UserInfo userInfo = (UserInfo) adapter.getItem ( position );
                 ContactInfoActivity.start ( (Activity) mContext, userInfo);
             }
