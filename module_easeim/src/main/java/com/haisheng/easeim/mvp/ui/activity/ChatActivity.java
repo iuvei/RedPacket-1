@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,11 +52,9 @@ import com.hyphenate.chat.adapter.EMAChatRoomManagerListener;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseEmojicon;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatRoomListener;
 import com.hyphenate.easeui.ui.EaseGroupListener;
-import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseChatMessageList;
 import com.hyphenate.easeui.widget.EaseVoiceRecorderView;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
@@ -74,22 +73,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.MyGlideEngine;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
-
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
-import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
-public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements ChatContract.View {
+public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements ChatContract.View {
 
-    @BindView(R2.id.public_toolbar_title)
-    TextView publicToolbarTitle;
     @BindView(R2.id.message_list)
     EaseChatMessageList messageList;
     @BindView(R2.id.voice_recorder)
@@ -99,7 +97,7 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
     @BindView(R2.id.ll_alert_kicked_off)
     LinearLayout llAlertKickedOff;
 
-    private static final int ITEM_WELFARE= 100;
+    private static final int ITEM_WELFARE = 100;
     private static final int ITEM_LEAGUE = 101;
     private static final int ITEM_REDPACKET = 102;
     private static final int ITEM_RECHARGE = 103;
@@ -118,6 +116,12 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
     private static final int MESSAGE_TYPE_CONFERENCE_INVITE = 5;
     private static final int MESSAGE_TYPE_LIVE_INVITE = 6;
     private static final int MESSAGE_TYPE_RECALL = 9;
+    @BindView(R2.id.iv_back)
+    ImageView ivBack;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
+    @BindView(R2.id.iv_right)
+    ImageView ivRight;
     private SwipeRefreshLayout swipeRefreshLayout;
     private OptionsPickerView mPhotoChargePickerView;
     private OptionsPickerView mVideoChargePickerView;
@@ -125,32 +129,32 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
     private String toChatUsername;
     private int chatType;
 
-    private Handler handler = new Handler();
+    private Handler handler = new Handler ();
     private boolean isMessageListInited;
     private GroupListener mGroupListener;
     private ChatRoomListener mChatRoomListener;
 
     public static void start(Activity context, String toChatUsername) {
-        start(context, toChatUsername, EaseConstant.CHATTYPE_SINGLE);
+        start ( context, toChatUsername, EaseConstant.CHATTYPE_SINGLE );
     }
 
     public static void start(Activity context, String toChatUsername, int chatType) {
-        Intent intent = new Intent(context, ChatActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("userId", toChatUsername);
-        bundle.putInt("chatType", chatType);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        Intent intent = new Intent ( context, ChatActivity.class );
+        Bundle bundle = new Bundle ();
+        bundle.putString ( "userId", toChatUsername );
+        bundle.putInt ( "chatType", chatType );
+        intent.putExtras ( bundle );
+        context.startActivity ( intent );
     }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerChatComponent //如找不到该类,请编译一下项目
-                .builder()
-                .appComponent(appComponent)
-                .chatModule(new ChatModule(this))
-                .build()
-                .inject(this);
+                .builder ()
+                .appComponent ( appComponent )
+                .chatModule ( new ChatModule ( this ) )
+                .build ()
+                .inject ( this );
     }
 
     @Override
@@ -160,141 +164,138 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getExtras();
-        toChatUsername = bundle.getString(EaseConstant.EXTRA_USER_ID);
-        chatType = bundle.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
-        mPresenter.setBundle(bundle);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        Bundle bundle = getIntent ().getExtras ();
+        toChatUsername = bundle.getString ( EaseConstant.EXTRA_USER_ID );
+        chatType = bundle.getInt ( EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE );
+        mPresenter.setBundle ( bundle );
+        getWindow ().setSoftInputMode ( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN );
 
-        initView();
-        mPresenter.onConversationInit();
-        onMessageListInit();
-        initExtendMenuItem();
+        initView ();
+        mPresenter.onConversationInit ();
+        onMessageListInit ();
+        initExtendMenuItem ();
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        ivRight.setVisibility ( View.VISIBLE );
+        ivRight.setImageResource ( R.mipmap.alipay );
     }
 
     private void initView() {
-        setTitle(toChatUsername);
+        tvTitle.setText ( toChatUsername );
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
-            UserInfo userInfo = UserDao.getInstance().getUserEntityByHxId(toChatUsername);
+            UserInfo userInfo = UserDao.getInstance ().getUserEntityByHxId ( toChatUsername );
             if (userInfo != null) {
-                setTitle(userInfo.getNickname());
-            }else{
-                setTitle(toChatUsername);
+                tvTitle.setText (  userInfo.getNickname () );
+            } else {
+                tvTitle.setText ( toChatUsername );
             }
         } else {
-            messageList.setShowUserNick(true);
+            messageList.setShowUserNick ( true );
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
-                EMGroup group = EMClient.getInstance().groupManager().getGroup(toChatUsername);
+                EMGroup group = EMClient.getInstance ().groupManager ().getGroup ( toChatUsername );
                 if (group != null)
-                    setTitle(group.getGroupName());
-                mGroupListener = new GroupListener();
-                EMClient.getInstance().groupManager().addGroupChangeListener(mGroupListener);
+                tvTitle.setText ( group.getGroupName () );
+                mGroupListener = new GroupListener ();
+                EMClient.getInstance ().groupManager ().addGroupChangeListener ( mGroupListener );
             } else {
-                 EMChatRoom chatRoom=  EMClient.getInstance().chatroomManager().getChatRoom(toChatUsername);
+                EMChatRoom chatRoom = EMClient.getInstance ().chatroomManager ().getChatRoom ( toChatUsername );
                 if (chatRoom != null)
-                    setTitle(chatRoom.getName());
-                mChatRoomListener = new ChatRoomListener();
-                EMClient.getInstance().chatroomManager().addChatRoomChangeListener(mChatRoomListener);
-                onChatRoomViewCreation();
+                tvTitle.setText ( chatRoom.getName () );
+                mChatRoomListener = new ChatRoomListener ();
+                EMClient.getInstance ().chatroomManager ().addChatRoomChangeListener ( mChatRoomListener );
+                onChatRoomViewCreation ();
             }
         }
 //        listView = messageList.getListView();
-        initInputMenu();
-        initRefreshLayout();
+        initInputMenu ();
+        initRefreshLayout ();
     }
 
     private void initInputMenu() {
-        inputMenu.init(null);
-        inputMenu.setChatInputMenuListener(new ChatInputMenu.ChatInputMenuListener() {
+        inputMenu.init ( null );
+        inputMenu.setChatInputMenuListener ( new ChatInputMenu.ChatInputMenuListener () {
             @Override
             public void onTyping(CharSequence s, int start, int before, int count) {
-                mPresenter.sendMsgTypingBegin();
+                mPresenter.sendMsgTypingBegin ();
             }
 
             @Override
             public void onSendMessage(String content) {
-                mPresenter.sendTextMessage(content);
+                mPresenter.sendTextMessage ( content );
             }
 
             @Override
             public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
-                return voiceRecorder.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderView.EaseVoiceRecorderCallback() {
+                return voiceRecorder.onPressToSpeakBtnTouch ( v, event, new EaseVoiceRecorderView.EaseVoiceRecorderCallback () {
                     @Override
                     public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
-                        mPresenter.sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                        mPresenter.sendVoiceMessage ( voiceFilePath, voiceTimeLength );
                     }
-                });
+                } );
             }
 
             @Override
             public void onBigExpressionClicked(EaseEmojicon emojicon) {
-                mPresenter.sendBigExpressionMessage(emojicon.getName(), emojicon.getIdentityCode());
+                mPresenter.sendBigExpressionMessage ( emojicon.getName (), emojicon.getIdentityCode () );
             }
-        });
+        } );
     }
 
     /**
      * register extend menu, item id need > 3 if you override this method and keep exist item
      */
-    protected void initExtendMenuItem(){
-        List<ChatExtendItemEntity> entities = new ArrayList<>();
-        if(chatType != EaseConstant.CHATTYPE_SINGLE ){
-            entities.add(new ChatExtendItemEntity(ITEM_WELFARE,getString(R.string.chat_welfare),R.drawable.ic_tab_reward));
-            entities.add(new ChatExtendItemEntity(ITEM_GROUP_RULES,getString(R.string.chat_group_rules),R.drawable.ic_tab_rule));
-            entities.add(new ChatExtendItemEntity(ITEM_REDPACKET,getString(R.string.chat_redpacket),R.drawable.ic_tab_red));
+    protected void initExtendMenuItem() {
+        List <ChatExtendItemEntity> entities = new ArrayList <> ();
+        if (chatType != EaseConstant.CHATTYPE_SINGLE) {
+            entities.add ( new ChatExtendItemEntity ( ITEM_WELFARE, getString ( R.string.chat_welfare ), R.drawable.ic_tab_reward ) );
+            entities.add ( new ChatExtendItemEntity ( ITEM_GROUP_RULES, getString ( R.string.chat_group_rules ), R.drawable.ic_tab_rule ) );
+            entities.add ( new ChatExtendItemEntity ( ITEM_REDPACKET, getString ( R.string.chat_redpacket ), R.drawable.ic_tab_red ) );
         }
-        entities.add(new ChatExtendItemEntity(ITEM_LEAGUE,getString(R.string.chat_league),R.drawable.ic_tab_join));
-        entities.add(new ChatExtendItemEntity(ITEM_RECHARGE,getString(R.string.chat_recharge),R.drawable.ic_tab_recharge));
-        entities.add(new ChatExtendItemEntity(ITEM_HELP,getString(R.string.chat_help),R.drawable.ic_tab_help));
-        entities.add(new ChatExtendItemEntity(ITEM_GAME_RULES,getString(R.string.chat_game_rules),R.drawable.icon_plugin_rp));
-        entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE,getString(R.string.chat_customer_service),R.drawable.ic_tab_custom));
-        entities.add(new ChatExtendItemEntity(ITEM_PHOTO,getString(R.string.chat_photo),R.drawable.ic_tab_photo));
-        entities.add(new ChatExtendItemEntity(ITEM_CAMEAR,getString(R.string.chat_camera),R.drawable.ic_tab_camera));
-        entities.add(new ChatExtendItemEntity(ITEM_MAKE_MONEY,getString(R.string.chat_make_money),R.drawable.ic_tab_money));
-
-        inputMenu.initExtendMenuItem(entities,mOnItemClickListener);
+        entities.add ( new ChatExtendItemEntity ( ITEM_PHOTO, getString ( R.string.chat_photo ), R.drawable.ic_tab_photo ) );
+        entities.add ( new ChatExtendItemEntity ( ITEM_CAMEAR, getString ( R.string.chat_camera ), R.drawable.ic_tab_camera ) );
+        inputMenu.initExtendMenuItem ( entities, mOnItemClickListener );
     }
 
-    private ChatExtendMenu.OnItemClickListener mOnItemClickListener = new ChatExtendMenu.OnItemClickListener() {
+    private ChatExtendMenu.OnItemClickListener mOnItemClickListener = new ChatExtendMenu.OnItemClickListener () {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            ChatExtendItemEntity entity = (ChatExtendItemEntity) adapter.getItem(position);
-            switch (entity.getId()){
+            ChatExtendItemEntity entity = (ChatExtendItemEntity) adapter.getItem ( position );
+            switch (entity.getId ()) {
                 case ITEM_WELFARE:
                     break;
             }
-            showMessage(entity.getName());
+            showMessage ( entity.getName () );
         }
     };
 
 
     private void initRefreshLayout() {
-        swipeRefreshLayout = messageList.getSwipeRefreshLayout();
-        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
-                R.color.holo_orange_light, R.color.holo_red_light);
-        swipeRefreshLayout.setOnRefreshListener(() -> handler.postDelayed(() -> {
-            mPresenter.fetchHistoryMessages();
-        }, 600));
+        swipeRefreshLayout = messageList.getSwipeRefreshLayout ();
+        swipeRefreshLayout.setColorSchemeResources ( R.color.holo_blue_bright, R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light );
+        swipeRefreshLayout.setOnRefreshListener ( () -> handler.postDelayed ( () -> {
+            mPresenter.fetchHistoryMessages ();
+        }, 600 ) );
     }
 
     private void onMessageListInit() {
-        messageList.init(toChatUsername, chatType, new CustomChatRowProvider());
-        setListItemClickListener();
-        messageList.getListView().setOnTouchListener(new View.OnTouchListener() {
+        messageList.init ( toChatUsername, chatType, new CustomChatRowProvider () );
+        setListItemClickListener ();
+        messageList.getListView ().setOnTouchListener ( new View.OnTouchListener () {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                KeyboardUtils.hideSoftInput(mContext);
-                inputMenu.hideExtendMenuContainer();
+                KeyboardUtils.hideSoftInput ( mContext );
+                inputMenu.hideExtendMenuContainer ();
                 return false;
             }
-        });
+        } );
         isMessageListInited = true;
     }
 
     private void setListItemClickListener() {
-        messageList.setItemClickListener(new EaseChatMessageList.MessageListItemClickListener() {
+        messageList.setItemClickListener ( new EaseChatMessageList.MessageListItemClickListener () {
 
             @Override
             public void onUserAvatarClick(String username) {
@@ -304,39 +305,41 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
             @Override
             public boolean onResendClick(final EMMessage message) {
-                new AlertDialog.Builder(mContext)
-                        .setMessage(R.string.confirm_resend)
-                        .setNegativeButton(R.string.public_cancel, new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder ( mContext )
+                        .setMessage ( R.string.confirm_resend )
+                        .setNegativeButton ( R.string.public_cancel, new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                dialog.dismiss ();
                             }
-                        })
-                        .setPositiveButton(R.string.resend, new DialogInterface.OnClickListener() {
+                        } )
+                        .setPositiveButton ( R.string.resend, new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                message.setStatus(EMMessage.Status.CREATE);
-                                mPresenter.sendMessage(message);
+                                message.setStatus ( EMMessage.Status.CREATE );
+                                mPresenter.sendMessage ( message );
                             }
-                        }).show();
+                        } ).show ();
                 return true;
             }
 
             @Override
-            public void onUserAvatarLongClick(String username) { }
+            public void onUserAvatarLongClick(String username) {
+            }
 
             @Override
-            public void onBubbleLongClick(EMMessage message) { }
+            public void onBubbleLongClick(EMMessage message) {
+            }
 
             @Override
             public boolean onBubbleClick(EMMessage message) {
 //                return onMessageBubbleClick(message);
-                if (message.direct() == EMMessage.Direct.RECEIVE) {
-                    int chargeCoins = message.getIntAttribute(EaseConstant.MESSAGE_ATTR_CHARGE_COINS, 0);
+                if (message.direct () == EMMessage.Direct.RECEIVE) {
+                    int chargeCoins = message.getIntAttribute ( EaseConstant.MESSAGE_ATTR_CHARGE_COINS, 0 );
                     if (chargeCoins > 0) {
-                        boolean isPaid = message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_PAID, false);
+                        boolean isPaid = message.getBooleanAttribute ( EaseConstant.MESSAGE_ATTR_IS_PAID, false );
                         if (!isPaid) {
-                            showPayDialog(message);
+                            showPayDialog ( message );
                             return true;
                         }
                     }
@@ -346,56 +349,51 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
             @Override
             public void onMessageInProgress(EMMessage message) {
-                message.setMessageStatusCallback(messageStatusCallback);
+                message.setMessageStatusCallback ( messageStatusCallback );
             }
-        });
+        } );
     }
 
-    private EMCallBack messageStatusCallback = new EMCallBack() {
+    private EMCallBack messageStatusCallback = new EMCallBack () {
         @Override
         public void onSuccess() {
             if (isMessageListInited) {
-                messageList.refresh();
+                messageList.refresh ();
             }
         }
 
         @Override
         public void onError(int code, String error) {
-            Log.i("EaseChatRowPresenter", "onError: " + code + ", error: " + error);
+            Log.i ( "EaseChatRowPresenter", "onError: " + code + ", error: " + error );
             if (isMessageListInited) {
-                messageList.refresh();
+                messageList.refresh ();
             }
         }
 
         @Override
         public void onProgress(int progress, String status) {
-            Log.i(TAG, "onProgress: " + progress);
+            Log.i ( TAG, "onProgress: " + progress );
             if (isMessageListInited) {
-                messageList.refresh();
+                messageList.refresh ();
             }
         }
     };
 
     @Override
     public void setBarTitle(String title) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                publicToolbarTitle.setText(title);
-            }
-        });
+       tvTitle.setText ( title );
     }
 
     @Override
     public void refreshSelectLast() {
         if (isMessageListInited)
-            messageList.refreshSelectLast();
+            messageList.refreshSelectLast ();
     }
 
     @Override
     public void refreshList() {
         if (isMessageListInited)
-            messageList.refresh();
+            messageList.refresh ();
     }
 
     @Override
@@ -405,20 +403,20 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
     @Override
     public void showMessage(@NonNull String message) {
-        checkNotNull(message);
-        ToastUtils.showShort(message);
+        checkNotNull ( message );
+        ToastUtils.showShort ( message );
     }
 
     @Override
     public void hideLoading() {
-        if (swipeRefreshLayout.isRefreshing())
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing ())
+            swipeRefreshLayout.setRefreshing ( false );
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (chatType != EaseConstant.CHATTYPE_SINGLE)
-            getMenuInflater().inflate(R.menu.room_menu, menu);
+            getMenuInflater ().inflate ( R.menu.room_menu, menu );
         return true;
     }
 
@@ -429,16 +427,16 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
          * 通过这几个方法，可以得知，对于Activity，同一时间只能显示和监听一个Menu 对象。 TODO Auto-generated
          * method stub
          */
-        int i = item.getItemId();
+        int i = item.getItemId ();
         if (i == R.id.item_redpacket) {
 //            item.setTitle(R.string.canle_attention);
 
         } else if (i == R.id.item_room_info) {
-            openActivity(GroupInfoActivity.class);
+            openActivity ( GroupInfoActivity.class );
 
 
         } else if (i == android.R.id.home) {
-            onBackPressedSupport();
+            onBackPressedSupport ();
         }
 
         return true;
@@ -447,68 +445,68 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
     @Override
     protected void onNewIntent(Intent intent) {
         // make sure only one chat activity is opened
-        String username = intent.getStringExtra("userId");
-        if (toChatUsername.equals(username))
-            super.onNewIntent(intent);
+        String username = intent.getStringExtra ( "userId" );
+        if (toChatUsername.equals ( username ))
+            super.onNewIntent ( intent );
         else {
-            finish();
-            startActivity(intent);
+            finish ();
+            startActivity ( intent );
         }
     }
 
     @Override
     public void onBackPressedSupport() {
-        if (inputMenu.onBackPressed() && onHideKeyboard()) {
-            if(chatType == EaseConstant.CHATTYPE_GROUP){
-                EaseAtMessageHelper.get().removeAtMeGroup(toChatUsername);
-                EaseAtMessageHelper.get().cleanToAtUserList();
+        if (inputMenu.onBackPressed () && onHideKeyboard ()) {
+            if (chatType == EaseConstant.CHATTYPE_GROUP) {
+                EaseAtMessageHelper.get ().removeAtMeGroup ( toChatUsername );
+                EaseAtMessageHelper.get ().cleanToAtUserList ();
             }
 //            if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
 //                EMClient.getInstance().chatroomManager().leaveChatRoom(toChatUsername);
 //            }
-            if (EasyUtils.isSingleActivity(this)) {
-                ARouterUtils.navigation(RouterHub.MAIN_MAINACTIVITY);
+            if (EasyUtils.isSingleActivity ( this )) {
+                ARouterUtils.navigation ( RouterHub.MAIN_MAINACTIVITY );
             } else {
-                super.onBackPressedSupport();
+                super.onBackPressedSupport ();
             }
         }
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
+        super.onResume ();
         // register the event listener when enter the foreground
-        mPresenter.addMessageListener();
+        mPresenter.addMessageListener ();
         // cancel the notification
-        EaseUI.getInstance().getNotifier().reset();
+        EaseUI.getInstance ().getNotifier ().reset ();
         if (isMessageListInited)
-            messageList.refresh();
-        EaseUI.getInstance().pushActivity(this);
+            messageList.refresh ();
+        EaseUI.getInstance ().pushActivity ( this );
         if (chatType == EaseConstant.CHATTYPE_GROUP) {
-            EaseAtMessageHelper.get().removeAtMeGroup(toChatUsername);
+            EaseAtMessageHelper.get ().removeAtMeGroup ( toChatUsername );
         }
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+        super.onPause ();
         // unregister this event listener when this activity enters the background
-        mPresenter.removeMessageListener();
+        mPresenter.removeMessageListener ();
         // remove activity from foreground activity list
-        EaseUI.getInstance().popActivity(this);
+        EaseUI.getInstance ().popActivity ( this );
         // Remove all padding actions in handler
-        handler.removeCallbacksAndMessages(null);
+        handler.removeCallbacksAndMessages ( null );
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        super.onDestroy ();
         if (mGroupListener != null) {
-            EMClient.getInstance().groupManager().removeGroupChangeListener(mGroupListener);
+            EMClient.getInstance ().groupManager ().removeGroupChangeListener ( mGroupListener );
         }
 
         if (mChatRoomListener != null) {
-            EMClient.getInstance().chatroomManager().removeChatRoomListener(mChatRoomListener);
+            EMClient.getInstance ().chatroomManager ().removeChatRoomListener ( mChatRoomListener );
         }
 
 //        if(chatType == EaseConstant.CHATTYPE_CHATROOM){
@@ -518,88 +516,89 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult ( requestCode, resultCode, data );
         if (resultCode != Activity.RESULT_OK)
             return;
 
         if (requestCode == Constants.REQUEST_CODE_MULTI_ALBUM) {
-            List<String> selectPhotos = Matisse.obtainPathResult(data);
-            if (selectPhotos != null && selectPhotos.size() > 0) {
-                mPresenter.sendImageMessage(selectPhotos.get(0));
+            List <String> selectPhotos = Matisse.obtainPathResult ( data );
+            if (selectPhotos != null && selectPhotos.size () > 0) {
+                mPresenter.sendImageMessage ( selectPhotos.get ( 0 ) );
             }
         } else if (requestCode == Constants.REQUEST_CODE_VIDEO) {
             if (data != null) {
-                int duration = data.getIntExtra("dur", 0);
-                String videoPath = data.getStringExtra("path");
-                File file = new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
+                int duration = data.getIntExtra ( "dur", 0 );
+                String videoPath = data.getStringExtra ( "path" );
+                File file = new File ( PathUtil.getInstance ().getImagePath (), "thvideo" + System.currentTimeMillis () );
                 try {
-                    FileOutputStream fos = new FileOutputStream(file);
-                    Bitmap ThumbBitmap = ThumbnailUtils.createVideoThumbnail(videoPath, 3);
-                    ThumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.close();
-                    mPresenter.sendVideoMessage(videoPath, file.getAbsolutePath(), duration);
+                    FileOutputStream fos = new FileOutputStream ( file );
+                    Bitmap ThumbBitmap = ThumbnailUtils.createVideoThumbnail ( videoPath, 3 );
+                    ThumbBitmap.compress ( Bitmap.CompressFormat.JPEG, 100, fos );
+                    fos.close ();
+                    mPresenter.sendVideoMessage ( videoPath, file.getAbsolutePath (), duration );
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.printStackTrace ();
                 }
             }
 
         } else if (requestCode == Constants.REQUEST_CODE_VIDEO_ALBUM) {
-            List<String> selectVideos = Matisse.obtainPathResult(data);
-            if (selectVideos != null && selectVideos.size() > 0) {
-                String videoPath = selectVideos.get(0);
+            List <String> selectVideos = Matisse.obtainPathResult ( data );
+            if (selectVideos != null && selectVideos.size () > 0) {
+                String videoPath = selectVideos.get ( 0 );
 
-                File videoFile = new File(videoPath);
+                File videoFile = new File ( videoPath );
                 try {
-                    MediaPlayer meidaPlayer = new MediaPlayer();
-                    meidaPlayer.setDataSource(videoFile.getPath());
-                    meidaPlayer.prepare();
-                    int duration = meidaPlayer.getDuration();
+                    MediaPlayer meidaPlayer = new MediaPlayer ();
+                    meidaPlayer.setDataSource ( videoFile.getPath () );
+                    meidaPlayer.prepare ();
+                    int duration = meidaPlayer.getDuration ();
 
-                    File thumbFile = new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
-                    FileOutputStream fos = new FileOutputStream(thumbFile);
-                    Bitmap ThumbBitmap = ThumbnailUtils.createVideoThumbnail(videoPath, 3);
-                    ThumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.close();
+                    File thumbFile = new File ( PathUtil.getInstance ().getImagePath (), "thvideo" + System.currentTimeMillis () );
+                    FileOutputStream fos = new FileOutputStream ( thumbFile );
+                    Bitmap ThumbBitmap = ThumbnailUtils.createVideoThumbnail ( videoPath, 3 );
+                    ThumbBitmap.compress ( Bitmap.CompressFormat.JPEG, 100, fos );
+                    fos.close ();
 
-                    mPresenter.sendVideoMessage(videoPath, thumbFile.getAbsolutePath(), duration);
+                    mPresenter.sendVideoMessage ( videoPath, thumbFile.getAbsolutePath (), duration );
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.printStackTrace ();
                 }
             }
         }
     }
+
     protected void onChatRoomViewCreation() {
-        final ProgressDialog pd = ProgressDialog.show(mContext, "", "Joining......");
-        EMClient.getInstance().chatroomManager().joinChatRoom(toChatUsername, new EMValueCallBack<EMChatRoom>() {
+        final ProgressDialog pd = ProgressDialog.show ( mContext, "", "Joining......" );
+        EMClient.getInstance ().chatroomManager ().joinChatRoom ( toChatUsername, new EMValueCallBack <EMChatRoom> () {
 
             @Override
             public void onSuccess(final EMChatRoom value) {
-                runOnUiThread(() -> {
-                    if(isFinishing() || !toChatUsername.equals(value.getId()))
+                runOnUiThread ( () -> {
+                    if (isFinishing () || !toChatUsername.equals ( value.getId () ))
                         return;
-                    pd.dismiss();
-                    EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(toChatUsername);
+                    pd.dismiss ();
+                    EMChatRoom room = EMClient.getInstance ().chatroomManager ().getChatRoom ( toChatUsername );
                     if (room != null) {
-                        setTitle(room.getName());
-                        EMLog.d(TAG, "join room success : " + room.getName());
+                        tvTitle.setText (  room.getName () );
+                        EMLog.d ( TAG, "join room success : " + room.getName () );
                     } else {
-                        setTitle(toChatUsername);
+                        tvTitle.setText ( toChatUsername );
                     }
-                    mPresenter.onConversationInit();
-                    onMessageListInit();
+                    mPresenter.onConversationInit ();
+                    onMessageListInit ();
 
                     // Dismiss the click-to-rejoin layout.
-                    llAlertKickedOff.setVisibility(View.GONE);
-                });
+                    llAlertKickedOff.setVisibility ( View.GONE );
+                } );
             }
 
             @Override
             public void onError(final int error, String errorMsg) {
-                EMLog.d(TAG, "join room failure : " + error);
-                runOnUiThread(() -> pd.dismiss());
-                finish();
+                EMLog.d ( TAG, "join room failure : " + error );
+                runOnUiThread ( () -> pd.dismiss () );
+                finish ();
             }
-        });
+        } );
     }
 
 
@@ -607,37 +606,37 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
      * clear the conversation history
      */
     protected void emptyHistory() {
-        new AlertDialog.Builder(mContext)
-                .setMessage(R.string.Whether_to_empty_all_chats)
-                .setNegativeButton(R.string.public_cancel, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder ( mContext )
+                .setMessage ( R.string.Whether_to_empty_all_chats )
+                .setNegativeButton ( R.string.public_cancel, new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-                .setPositiveButton(R.string.public_confirm, new DialogInterface.OnClickListener() {
+                } )
+                .setPositiveButton ( R.string.public_confirm, new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.emptyHistory();
-                        messageList.refresh();
+                        mPresenter.emptyHistory ();
+                        messageList.refresh ();
                     }
-                }).show();
+                } ).show ();
     }
 
     /**
      * make a voice call
      */
     protected void startVoiceCall() {
-        if (!EMClient.getInstance().isConnected()) {
-            showMessage(getString(R.string.not_connect_to_server));
+        if (!EMClient.getInstance ().isConnected ()) {
+            showMessage ( getString ( R.string.not_connect_to_server ) );
         } else {
 //            Integer userSex = UserPreferenceManager.getInstance().getCurrentUserSex();
 //            if (BaseUserEntity.FAMALE == userSex) {
 //                mPresenter.sendInviteMessage(IMConstants.CALL_TYPE_VOICE);
 //                return;
 //            }
-            VoiceCallActivity.start(mContext, toChatUsername, false);
-            inputMenu.hideExtendMenuContainer();
+            VoiceCallActivity.start ( mContext, toChatUsername, false );
+            inputMenu.hideExtendMenuContainer ();
         }
     }
 
@@ -645,92 +644,108 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
      * make a video call
      */
     protected void startVideoCall() {
-        if (!EMClient.getInstance().isConnected())
-            showMessage(mContext.getString(R.string.not_connect_to_server));
+        if (!EMClient.getInstance ().isConnected ())
+            showMessage ( mContext.getString ( R.string.not_connect_to_server ) );
         else {
 //            int sexType = UserPreferenceManager.getInstance().getCurrentUserSex();
 //            if (BaseUserEntity.FAMALE == sexType) {
 //                mPresenter.sendInviteMessage(IMConstants.CALL_TYPE_VIDEO);
 //                return;
 //            }
-            VideoCallActivity.start(mContext, toChatUsername, false);
-            inputMenu.hideExtendMenuContainer();
+            VideoCallActivity.start ( mContext, toChatUsername, false );
+            inputMenu.hideExtendMenuContainer ();
 
         }
     }
 
     private void showPayDialog(EMMessage message) {
-        int coins = message.getIntAttribute(EaseConstant.MESSAGE_ATTR_CHARGE_COINS, 0);
-        new AlertDialog.Builder(mContext)
-                .setMessage(String.format(getString(R.string.check_and_pay_coins), coins))
-                .setNegativeButton(R.string.public_cancel, new DialogInterface.OnClickListener() {
+        int coins = message.getIntAttribute ( EaseConstant.MESSAGE_ATTR_CHARGE_COINS, 0 );
+        new AlertDialog.Builder ( mContext )
+                .setMessage ( String.format ( getString ( R.string.check_and_pay_coins ), coins ) )
+                .setNegativeButton ( R.string.public_cancel, new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-                .setPositiveButton(R.string.public_confirm, new DialogInterface.OnClickListener() {
+                } )
+                .setPositiveButton ( R.string.public_confirm, new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        message.setAttribute(IMConstants.MESSAGE_ATTR_IS_PAID, true);
-                        EMClient.getInstance().chatManager().updateMessage(message);
-                        messageList.refresh();
+                        message.setAttribute ( IMConstants.MESSAGE_ATTR_IS_PAID, true );
+                        EMClient.getInstance ().chatManager ().updateMessage ( message );
+                        messageList.refresh ();
                     }
-                }).show();
+                } ).show ();
     }
 
     private void showVideoFormSelectDialog() {
         final String[] videoSource = {"我用录制", "打开相册"};
-        new AlertDialog.Builder(mContext)
-                .setTitle(R.string.public_hint)
-                .setItems(videoSource, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder ( mContext )
+                .setTitle ( R.string.public_hint )
+                .setItems ( videoSource, new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
-                            ActionUtils.openVideoRecorder(mContext);
+                            ActionUtils.openVideoRecorder ( mContext );
                         } else if (which == 1) {
-                            selectVideoAlbum();
+                            selectVideoAlbum ();
                         }
                     }
-                }).show();
+                } ).show ();
     }
 
     private void selectImageAlbum() {
-        Matisse.from(mContext)
-                .choose(MimeType.ofImage(), false) // 选择 mime 的类型
-                .showSingleMediaType(true)
-                .capture(true)
-                .captureStrategy(new CaptureStrategy(true, AppUtils.getAppPackageName() + ".my.fileProvider"))
-                .maxSelectable(1) // 图片选择的最多数量
-                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f) // 缩略图的比例
-                .theme(R.style.public_matisse)
-                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
-                .forResult(Constants.REQUEST_CODE_MULTI_ALBUM); // 设置作为标记的请求码
+        Matisse.from ( mContext )
+                .choose ( MimeType.ofImage (), false ) // 选择 mime 的类型
+                .showSingleMediaType ( true )
+                .capture ( true )
+                .captureStrategy ( new CaptureStrategy ( true, AppUtils.getAppPackageName () + ".my.fileProvider" ) )
+                .maxSelectable ( 1 ) // 图片选择的最多数量
+                .gridExpectedSize ( getResources ().getDimensionPixelSize ( R.dimen.grid_expected_size ) )
+                .restrictOrientation ( ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED )
+                .thumbnailScale ( 0.85f ) // 缩略图的比例
+                .theme ( R.style.public_matisse )
+                .imageEngine ( new MyGlideEngine () ) // 使用的图片加载引擎
+                .forResult ( Constants.REQUEST_CODE_MULTI_ALBUM ); // 设置作为标记的请求码
     }
 
     private void selectVideoAlbum() {
-        Matisse.from(mContext)
-                .choose(MimeType.ofVideo(), true) // 选择 mime 的类型
-                .showSingleMediaType(true)
-                .captureStrategy(new CaptureStrategy(true, AppUtils.getAppPackageName() + ".my.fileProvider"))
-                .maxSelectable(1) // 图片选择的最多数量
-                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f) // 缩略图的比例
-                .theme(R.style.public_matisse)
-                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
-                .forResult(Constants.REQUEST_CODE_VIDEO_ALBUM); // 设置作为标记的请求码
+        Matisse.from ( mContext )
+                .choose ( MimeType.ofVideo (), true ) // 选择 mime 的类型
+                .showSingleMediaType ( true )
+                .captureStrategy ( new CaptureStrategy ( true, AppUtils.getAppPackageName () + ".my.fileProvider" ) )
+                .maxSelectable ( 1 ) // 图片选择的最多数量
+                .gridExpectedSize ( getResources ().getDimensionPixelSize ( R.dimen.grid_expected_size ) )
+                .restrictOrientation ( ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED )
+                .thumbnailScale ( 0.85f ) // 缩略图的比例
+                .theme ( R.style.public_matisse )
+                .imageEngine ( new MyGlideEngine () ) // 使用的图片加载引擎
+                .forResult ( Constants.REQUEST_CODE_VIDEO_ALBUM ); // 设置作为标记的请求码
     }
 
     //hide Keyboard
     private boolean onHideKeyboard() {
-        if (KeyboardUtils.isSoftInputVisible(mContext)) {
-            KeyboardUtils.hideSoftInput(mContext);
+        if (KeyboardUtils.isSoftInputVisible ( mContext )) {
+            KeyboardUtils.hideSoftInput ( mContext );
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind ( this );
+    }
+
+    @OnClick({R2.id.iv_back, R2.id.iv_right})
+    public void onViewClicked(View view) {
+        int i = view.getId ();
+        if (i == R.id.iv_back) {
+            finish ();
+        } else if (i == R.id.iv_right) {
+        }
     }
 
     /**
@@ -746,20 +761,20 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
         @Override
         public int getCustomChatRowType(EMMessage message) {
-            if (message.getType() == EMMessage.Type.TXT) {
+            if (message.getType () == EMMessage.Type.TXT) {
                 //voice call
-                if (message.getBooleanAttribute(IMConstants.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
-                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL : MESSAGE_TYPE_SENT_VOICE_CALL;
-                } else if (message.getBooleanAttribute(IMConstants.MESSAGE_ATTR_IS_VIDEO_CALL, false)) {
+                if (message.getBooleanAttribute ( IMConstants.MESSAGE_ATTR_IS_VOICE_CALL, false )) {
+                    return message.direct () == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL : MESSAGE_TYPE_SENT_VOICE_CALL;
+                } else if (message.getBooleanAttribute ( IMConstants.MESSAGE_ATTR_IS_VIDEO_CALL, false )) {
                     //video call
-                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL : MESSAGE_TYPE_SENT_VIDEO_CALL;
+                    return message.direct () == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL : MESSAGE_TYPE_SENT_VIDEO_CALL;
                 }
                 //messagee recall
-                else if (message.getBooleanAttribute(IMConstants.MESSAGE_TYPE_RECALL, false)) {
+                else if (message.getBooleanAttribute ( IMConstants.MESSAGE_TYPE_RECALL, false )) {
                     return MESSAGE_TYPE_RECALL;
-                } else if (!"".equals(message.getStringAttribute(IMConstants.MSG_ATTR_CONF_ID, ""))) {
+                } else if (!"".equals ( message.getStringAttribute ( IMConstants.MSG_ATTR_CONF_ID, "" ) )) {
                     return MESSAGE_TYPE_CONFERENCE_INVITE;
-                } else if (IMConstants.OP_INVITE.equals(message.getStringAttribute(IMConstants.EM_CONFERENCE_OP, ""))) {
+                } else if (IMConstants.OP_INVITE.equals ( message.getStringAttribute ( IMConstants.EM_CONFERENCE_OP, "" ) )) {
                     return MESSAGE_TYPE_LIVE_INVITE;
                 }
             }
@@ -768,11 +783,11 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
         @Override
         public EaseChatRowPresenter getCustomChatRow(EMMessage message, int position, BaseAdapter adapter) {
-            if (message.getType() == EMMessage.Type.TXT) {
+            if (message.getType () == EMMessage.Type.TXT) {
                 // voice call or video call
-                if (message.getBooleanAttribute(IMConstants.MESSAGE_ATTR_IS_VOICE_CALL, false) ||
-                        message.getBooleanAttribute(IMConstants.MESSAGE_ATTR_IS_VIDEO_CALL, false)) {
-                    EaseChatRowPresenter presenter = new EaseChatVoiceCallPresenter();
+                if (message.getBooleanAttribute ( IMConstants.MESSAGE_ATTR_IS_VOICE_CALL, false ) ||
+                        message.getBooleanAttribute ( IMConstants.MESSAGE_ATTR_IS_VIDEO_CALL, false )) {
+                    EaseChatRowPresenter presenter = new EaseChatVoiceCallPresenter ();
                     return presenter;
                 }
 //                //recall message
@@ -792,35 +807,34 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
     /**
      * listen the group event
-     *
      */
     class GroupListener extends EaseGroupListener {
 
         @Override
         public void onUserRemoved(final String groupId, String groupName) {
-            runOnUiThread(() -> {
-                if (toChatUsername.equals(groupId)) {
-                    showMessage(getString(R.string.you_are_group));
-                    Activity activity = getActivity();
-                    if (activity != null && !activity.isFinishing()) {
-                        activity.finish();
+            runOnUiThread ( () -> {
+                if (toChatUsername.equals ( groupId )) {
+                    showMessage ( getString ( R.string.you_are_group ) );
+                    Activity activity = getActivity ();
+                    if (activity != null && !activity.isFinishing ()) {
+                        activity.finish ();
                     }
                 }
-            });
+            } );
         }
 
         @Override
         public void onGroupDestroyed(final String groupId, String groupName) {
             // prompt group is dismissed and finish this activity
-            runOnUiThread(() -> {
-                if (toChatUsername.equals(groupId)) {
-                    showMessage(getString(R.string.the_current_group_destroyed));
-                    Activity activity = getActivity();
-                    if (activity != null && !activity.isFinishing()) {
-                        activity.finish();
+            runOnUiThread ( () -> {
+                if (toChatUsername.equals ( groupId )) {
+                    showMessage ( getString ( R.string.the_current_group_destroyed ) );
+                    Activity activity = getActivity ();
+                    if (activity != null && !activity.isFinishing ()) {
+                        activity.finish ();
                     }
                 }
-            });
+            } );
         }
     }
 
@@ -831,56 +845,56 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
 
         @Override
         public void onChatRoomDestroyed(final String roomId, final String roomName) {
-            runOnUiThread(() -> {
-                if (toChatUsername.equals(roomId)) {
-                    showMessage(getString(R.string.the_current_chat_room_destroyed));
-                    Activity activity = getActivity();
-                    if (activity != null && !activity.isFinishing()) {
-                        activity.finish();
+            runOnUiThread ( () -> {
+                if (toChatUsername.equals ( roomId )) {
+                    showMessage ( getString ( R.string.the_current_chat_room_destroyed ) );
+                    Activity activity = getActivity ();
+                    if (activity != null && !activity.isFinishing ()) {
+                        activity.finish ();
                     }
                 }
-            });
+            } );
         }
 
         @Override
         public void onRemovedFromChatRoom(final int reason, final String roomId, final String roomName, final String participant) {
-            runOnUiThread(new Runnable() {
+            runOnUiThread ( new Runnable () {
                 public void run() {
-                    if (roomId.equals(toChatUsername)) {
+                    if (roomId.equals ( toChatUsername )) {
                         if (reason == EMAChatRoomManagerListener.BE_KICKED) {
-                            showMessage(getString(R.string.quiting_the_chat_room));
-                            Activity activity = getActivity();
-                            if (activity != null && !activity.isFinishing()) {
-                                activity.finish();
+                            showMessage ( getString ( R.string.quiting_the_chat_room ) );
+                            Activity activity = getActivity ();
+                            if (activity != null && !activity.isFinishing ()) {
+                                activity.finish ();
                             }
                         } else { // BE_KICKED_FOR_OFFLINE
-                            showMessage(getString(R.string.alert_kicked_for_offline));
-                            llAlertKickedOff.setVisibility(View.VISIBLE);
+                            showMessage ( getString ( R.string.alert_kicked_for_offline ) );
+                            llAlertKickedOff.setVisibility ( View.VISIBLE );
                         }
                     }
                 }
-            });
+            } );
         }
 
         @Override
         public void onMemberJoined(final String roomId, final String participant) {
-            if (roomId.equals(toChatUsername)) {
-                runOnUiThread(new Runnable() {
+            if (roomId.equals ( toChatUsername )) {
+                runOnUiThread ( new Runnable () {
                     public void run() {
-                        showMessage("member join:"+participant);
+                        showMessage ( "member join:" + participant );
                     }
-                });
+                } );
             }
         }
 
         @Override
         public void onMemberExited(final String roomId, final String roomName, final String participant) {
-            if (roomId.equals(toChatUsername)) {
-                runOnUiThread(new Runnable() {
+            if (roomId.equals ( toChatUsername )) {
+                runOnUiThread ( new Runnable () {
                     public void run() {
-                        showMessage("member exit:"+participant);
+                        showMessage ( "member exit:" + participant );
                     }
-                });
+                } );
             }
         }
     }

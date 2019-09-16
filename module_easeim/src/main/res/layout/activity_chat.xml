@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <include layout="@layout/public_include_title"/>
+    <include layout="@layout/title_layout"/>
 
     <LinearLayout
         android:id="@+id/ll_alert_kicked_off"
@@ -52,50 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
-
-        <TextView
-            android:id="@+id/tv_recharge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/spacing_m"
-            android:layout_marginRight="@dimen/spacing_m"
-            android:drawableTop="@drawable/ic_web_rechange"
-            android:drawablePadding="@dimen/spacing_xxs"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_normal"
-            android:textColor="@color/common_text_light"
-            android:text="@string/public_recharge"/>
-
-        <TextView
-            android:id="@+id/tv_game_rules"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_recharge"
-            android:layout_marginTop="@dimen/spacing_m"
-            android:layout_marginRight="@dimen/spacing_m"
-            android:drawableTop="@drawable/ic_how_play"
-            android:drawablePadding="@dimen/spacing_xxs"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_normal"
-            android:textColor="@color/common_text_light"
-            android:text="@string/chat_game_rules"/>
-
-        <TextView
-            android:id="@+id/tv_league"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_game_rules"
-            android:layout_marginTop="@dimen/spacing_m"
-            android:layout_marginRight="@dimen/spacing_m"
-            android:drawableTop="@drawable/ic_jiameng"
-            android:drawablePadding="@dimen/spacing_xxs"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_normal"
-            android:textColor="@color/common_text_light"
-            android:text="@string/chat_league"/>
 
     </RelativeLayout>
 </LinearLayout>

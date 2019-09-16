@@ -4,46 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <me.jessyan.armscomponent.commonres.view.StatusBarHeightView
-        android:id="@+id/viewStatusBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_toolbar_height"
-        android:background="@color/theme_color">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/public_CommonTitleText"
-            android:layout_centerInParent="true"
-            tools:text="@string/contact"/>
-
-        <ImageButton
-            android:id="@+id/btn_switch_shortcut"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:layout_marginRight="@dimen/spacing_m"
-            android:src="@drawable/icon_switch_shortcut"/>
-
-        <ImageButton
-            android:id="@+id/btn_searh"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/btn_switch_shortcut"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:layout_marginRight="@dimen/spacing_xl"
-            android:src="@drawable/ic_search_white"/>
-    </RelativeLayout>
-
+    <include layout="@layout/title_layout"></include>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

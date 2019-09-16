@@ -36,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -67,6 +68,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
     SideBar letterView;
     private MyMultipleListViewAdapter adapter;
     private List <PhoneContacts> contacts = new ArrayList <> ();
+    private ProgressDialogUtils progressDialogUtils;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -137,6 +139,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
                     if (granted) { // Always true pre-M
                         // I can control the camera now
                         Log.e ( "tag", "granted" );
+                        showProgress(true);
                         new Thread ( new Runnable () {
                             @Override
                             public void run() {
@@ -144,6 +147,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
                                     getContact ();
                                 } catch (Exception e) {
                                     e.printStackTrace ();
+                                    showProgress(false);
                                 }
                             }
                         } ).start ();
@@ -164,6 +168,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
 
     //查询所有联系人的姓名，电话
     public void getContact() throws Exception {
+        showProgress(true);
         Uri uri = Uri.parse ( "content://com.android.contacts/contacts" );
         ContentResolver resolver = getApplicationContext ().getContentResolver ();
         Cursor cursor = resolver.query ( uri, new String[]{"_id"}, null, null, null );
@@ -188,7 +193,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
         runOnUiThread ( new Runnable () {
             @Override
             public void run() {
-
+                showProgress(false);
                 initListView ();
                 Log.e ( "Tag", "contacts.size=" + contacts.size () );
                 //此时已在主线程中，更新UI
@@ -196,6 +201,18 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
                 setListener ();
             }
         } );
+    }
+
+    private void showProgress(final boolean show) {
+        if (progressDialogUtils == null) {
+            progressDialogUtils = ProgressDialogUtils.getInstance(this);
+            progressDialogUtils.setMessage(getString(R.string.public_loading));
+        }
+        if (show) {
+            progressDialogUtils.show();
+        } else {
+            progressDialogUtils.dismiss();
+        }
     }
 
     @Override
