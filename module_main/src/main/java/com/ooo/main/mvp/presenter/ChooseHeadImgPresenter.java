@@ -8,12 +8,16 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.ChooseHeadImgContract;
+import com.ooo.main.mvp.model.MemberModel;
 
 
 /**
@@ -40,6 +44,9 @@ public class ChooseHeadImgPresenter extends BasePresenter <IModel, ChooseHeadImg
     AppManager mAppManager;
 
     @Inject
+    MemberModel mMemberModel;
+
+    @Inject
     public ChooseHeadImgPresenter(ChooseHeadImgContract.View rootView) {
         super ( rootView );
         ARouter.getInstance().inject(this);
@@ -52,5 +59,18 @@ public class ChooseHeadImgPresenter extends BasePresenter <IModel, ChooseHeadImg
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void upLoadPic(String picData){
+        mMemberModel.upLoadPic( picData)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber <BaseResponse> (mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                        if(response.isSuccess()){
+                            mRootView.saveSuccess("");
+                        }
+                    }
+                });
     }
 }

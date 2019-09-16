@@ -95,4 +95,11 @@ public interface MemberService {
             @Field("page") int pageNumber
     );
 
+    @POST("index.php?i=1&c=entry&p=uploader&do=Apis&m=sz_yi")
+    @FormUrlEncoded
+    Observable<BaseResponse> upLoadPic(
+            @Field("token") String token,
+            @Field("file") String file
+    );
+
 }

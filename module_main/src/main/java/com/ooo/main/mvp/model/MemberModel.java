@@ -91,6 +91,11 @@ public class MemberModel extends BaseModel{
         return mRepositoryManager.obtainRetrofitService(MemberService.class)
                 .getAddressBook(token, pageNumber);
     }
+    public Observable<BaseResponse> upLoadPic(String picData) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(MemberService.class)
+                .upLoadPic (token, picData);
+    }
 
 
     private RequestBody toRequestBody(String value) {

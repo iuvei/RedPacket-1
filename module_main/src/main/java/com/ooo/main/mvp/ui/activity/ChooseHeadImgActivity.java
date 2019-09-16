@@ -3,6 +3,8 @@ package com.ooo.main.mvp.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.BitmapUtils;
 import me.jessyan.armscomponent.commonres.utils.FileUtil;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -129,7 +132,7 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
                 }else {
                     //选中头像
                     int imgRes = data[position];
-
+                    mPresenter.upLoadPic ( BitmapUtils.bitmapToBase64 ( BitmapFactory.decodeResource ( getResources (),imgRes ) ) );
                 }
             }
         } );
@@ -261,8 +264,13 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
             Bitmap photo = extras.getParcelable("data");
             //图片路径
             String urlpath = FileUtil.saveFile ( this, "temphead.jpg", photo );
+            mPresenter.upLoadPic ( BitmapUtils.imageToBase64 ( urlpath ) );
             System.out.println("----------路径----------" + urlpath);
         }
     }
 
+    @Override
+    public void saveSuccess(String picUrl) {
+
+    }
 }
