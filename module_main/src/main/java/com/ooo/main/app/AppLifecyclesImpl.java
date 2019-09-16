@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.BuildConfig;
+import com.ooo.main.mvp.model.entity.LoginResultInfo;
 import com.raizlabs.android.dbflow.config.FlowManager;
 //import com.raizlabs.android.dbflow.config.module_mainGeneratedDatabaseHolder;
 import com.squareup.leakcanary.LeakCanary;
@@ -22,6 +23,8 @@ import com.squareup.leakcanary.RefWatcher;
  * ================================================
  */
 public class AppLifecyclesImpl implements AppLifecycles {
+
+    private static LoginResultInfo userinfo = new LoginResultInfo ();
 
     @Override
     public void attachBaseContext(@NonNull Context base) {
@@ -49,4 +52,9 @@ public class AppLifecyclesImpl implements AppLifecycles {
     public void onTerminate(@NonNull Application application) {
 
     }
+
+    public static LoginResultInfo getUserinfo() {
+        return userinfo;
+    }
+
 }

@@ -21,8 +21,9 @@
             android:textColor="@color/public_black"
             android:textSize="@dimen/sp_16"/>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@mipmap/avatar_b_usr"
             android:layout_marginRight="@dimen/spacing_xl"/>
         <ImageView

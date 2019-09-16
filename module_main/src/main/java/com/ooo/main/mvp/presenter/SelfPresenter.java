@@ -19,6 +19,7 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.mvp.contract.SelfContract;
 import com.ooo.main.mvp.model.MemberModel;
 import com.ooo.main.mvp.model.entity.MemberInfo;
@@ -74,6 +75,11 @@ public class SelfPresenter extends BasePresenter<IModel, SelfContract.View> {
                     public void onNext(BaseResponse<MemberInfo> response) {
                         if(response.isSuccess()){
                             mRootView.refreshMemberInfo(response.getResult());
+                            AppLifecyclesImpl.getUserinfo ().setNickname ( response.getResult ().getNickname () );
+                            AppLifecyclesImpl.getUserinfo ().setAvatarUrl ( response.getResult ().getAvatarUrl () );
+                            AppLifecyclesImpl.getUserinfo ().setGender ( response.getResult ().getSex () );
+                            AppLifecyclesImpl.getUserinfo ().setAccount ( response.getResult ().getId () );
+                            AppLifecyclesImpl.getUserinfo ().setBalance ( response.getResult ().getBalance () );
                         }else {
                             mRootView.showMessage(response.getMessage());
                         }

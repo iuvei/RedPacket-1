@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerUserInfoComponent;
 import com.ooo.main.mvp.contract.UserInfoContract;
 import com.ooo.main.mvp.presenter.UserInfoPresenter;
@@ -70,6 +72,8 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     TextView tvSex;
     @BindView(R2.id.ll_sex)
     LinearLayout llSex;
+    @BindView(R2.id.iv_head)
+    ImageView ivHead;
     private BaseDialog dialog;
 
     @Override
@@ -92,6 +96,14 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "个人信息" );
+        if (AppLifecyclesImpl.getUserinfo ()!=null){
+            tvNickname.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
+            tvSex.setText ( AppLifecyclesImpl.getUserinfo ().getGenderMean ());
+            Glide.with ( this )
+                    .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )
+                    .into ( ivHead );
+            tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        }
     }
 
     @Override

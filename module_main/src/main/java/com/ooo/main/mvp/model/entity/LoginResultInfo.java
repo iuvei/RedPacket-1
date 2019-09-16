@@ -15,6 +15,11 @@ public class LoginResultInfo {
     private String nickname;
     @SerializedName("avatar")
     private String avatarUrl;
+    @SerializedName("gender")
+    private int gender;
+
+    private long account;
+    private double balance;
 
     public String getToken() {
         return token;
@@ -54,5 +59,36 @@ public class LoginResultInfo {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+    public String getGenderMean() {
+        return gender==0?"女":"男";
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public long getAccount() {
+        return account;
+    }
+
+    public void setAccount(long account) {
+        this.account = account;
+    }
+
+    public String getBalanceValue() {
+        return String.format("%.2f",balance);
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

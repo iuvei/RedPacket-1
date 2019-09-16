@@ -20,6 +20,7 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.model.MemberModel;
 import com.ooo.main.mvp.model.entity.LoginResultInfo;
@@ -73,6 +74,11 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     String avatarUrl = resultInfo.getAvatarUrl();
                     String nickname = resultInfo.getNickname();
                     String hxUsername = resultInfo.getHxUsername();
+                    int gender = resultInfo.getGender ();
+                    AppLifecyclesImpl.getUserinfo ().setAvatarUrl ( avatarUrl );
+                    AppLifecyclesImpl.getUserinfo ().setNickname ( nickname );
+                    AppLifecyclesImpl.getUserinfo ().setHxUsername ( hxUsername );
+                    AppLifecyclesImpl.getUserinfo ().setGender ( gender );
                     UserPreferenceManager.getInstance().setCurrentUserHxId(hxUsername);
                     UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(avatarUrl);
                     UserPreferenceManager.getInstance().setCurrentUserNick(nickname);
