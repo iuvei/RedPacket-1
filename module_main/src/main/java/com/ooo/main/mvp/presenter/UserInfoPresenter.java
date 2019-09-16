@@ -8,13 +8,19 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.UserInfoContract;
 import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.entity.LoginResultInfo;
+import com.ooo.main.mvp.model.entity.MemberInfo;
 
 
 /**
@@ -41,6 +47,9 @@ public class UserInfoPresenter extends BasePresenter <IModel, UserInfoContract.V
     AppManager mAppManager;
 
     @Inject
+    MemberModel mMemberModel;
+
+    @Inject
     public UserInfoPresenter(UserInfoContract.View rootView) {
         super (  rootView );
         ARouter.getInstance().inject(this);
@@ -53,5 +62,18 @@ public class UserInfoPresenter extends BasePresenter <IModel, UserInfoContract.V
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void updateMemberInfo(LoginResultInfo userInfo){
+        mMemberModel.updateMemberInfo(userInfo.getNickname(),userInfo.getAvatarUrl(),userInfo.getGender (),null,null)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber <BaseResponse> (mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                        if(response.isSuccess()){
+                            mRootView.saveSuccess();
+                        }
+                    }
+                });
     }
 }

@@ -2,6 +2,7 @@ package com.ooo.main.mvp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,14 +12,17 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.mvp.model.entity.MemberInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bertsir.zbar.utils.QRUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -72,17 +76,18 @@ public class QrcodeCardActivity extends BaseSupportActivity {
         tvTitle.setText ( "二维码" );
         ivRight.setVisibility ( View.VISIBLE );
         ivRight.setImageResource ( R.drawable.icon_go );
-        Bundle bundle = getIntent ().getExtras ();
-        if (null != bundle) {
-            MemberInfo memberInfo = (MemberInfo) bundle.getSerializable ( "memberInfo" );
-            if (null != memberInfo) {
-                ImageLoader.displayHeaderImage ( mContext, memberInfo.getAvatarUrl (), ivAvatar );
-                tvUsername.setText ( memberInfo.getNickname () );
-                int sexStatusResId = memberInfo.getSex () == MemberInfo.FAMALE ? R.drawable.ic_female : R.drawable.ic_male;
-                ivSex.setImageResource ( sexStatusResId );
-                ImageLoader.displayImage ( mContext, memberInfo.getInviteCodeUrl (), ivQrcode );
-            }
-        }
+
+        Glide.with ( this )
+                .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )
+                .into ( ivAvatar );
+        tvUsername.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
+        tvAccountnum.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        int sexStatusResId = AppLifecyclesImpl.getUserinfo ().getGender () == MemberInfo.FAMALE ? R.drawable.ic_female : R.drawable.ic_male;
+        ivSex.setImageResource ( sexStatusResId );
+        Bitmap qrCode = QRUtils.getInstance().createQRCode( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        Glide.with ( this )
+                .load ( qrCode )
+                .into ( ivQrcode );
     }
 
     @Override

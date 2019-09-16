@@ -61,6 +61,8 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
     TextView tvNickname;
     @BindView(R2.id.tv_user_id)
     TextView tvUserId;
+    @BindView(R2.id.tv_user_name)
+    TextView tvUserName;
 
     @Inject
     AppManager mAppManager;
@@ -123,6 +125,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
         tvNickname.setText ( memberInfo.getNickname () );
         tvUserId.setText ( String.format ( "%d", memberInfo.getId () ) );
         tvBalance.setText(String.format("%.2f",memberInfo.getBalance()));
+        tvUserName.setText(memberInfo.getPhoneNumber ());
     }
 
     @Override

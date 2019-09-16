@@ -80,6 +80,7 @@ public class SelfPresenter extends BasePresenter<IModel, SelfContract.View> {
                             AppLifecyclesImpl.getUserinfo ().setGender ( response.getResult ().getSex () );
                             AppLifecyclesImpl.getUserinfo ().setAccount ( response.getResult ().getId () );
                             AppLifecyclesImpl.getUserinfo ().setBalance ( response.getResult ().getBalance () );
+                            AppLifecyclesImpl.getUserinfo ().setUsername ( response.getResult ().getPhoneNumber () );
                         }else {
                             mRootView.showMessage(response.getMessage());
                         }

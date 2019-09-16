@@ -20,6 +20,7 @@ public class LoginResultInfo {
 
     private long account;
     private double balance;
+    private String username;
 
     public String getToken() {
         return token;
@@ -90,5 +91,13 @@ public class LoginResultInfo {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.ui.activity;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -76,6 +78,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     ImageView ivHead;
     private BaseDialog dialog;
 
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerUserInfoComponent //如找不到该类,请编译一下项目
@@ -88,6 +91,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
         return R.layout.activity_user_info; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
@@ -103,6 +107,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
                     .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )
                     .into ( ivHead );
             tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+            tvUsername.setText ( AppLifecyclesImpl.getUserinfo ().getUsername () );
         }
     }
 
@@ -176,6 +181,8 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
+                        AppLifecyclesImpl.getUserinfo ().setGender ( 1 );
+                        mPresenter.updateMemberInfo ( AppLifecyclesImpl.getUserinfo () );
                         tvSex.setText ( tvMan.getText () );
                     }
                 } );
@@ -183,6 +190,8 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
+                        AppLifecyclesImpl.getUserinfo ().setGender ( 0 );
+                        mPresenter.updateMemberInfo ( AppLifecyclesImpl.getUserinfo () );
                         tvSex.setText ( tvWoman.getText () );
                     }
                 } );
@@ -197,6 +206,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             @Override
             public void onShowDialog(View layout) {
                 EditText etNickName = layout.findViewById ( R.id.et_nickname );
+                etNickName.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
                 TextView btnCancel = layout.findViewById ( R.id.btn_cancel );
                 TextView btnSure = layout.findViewById ( R.id.btn_sure );
                 btnCancel.setOnClickListener ( new View.OnClickListener () {
@@ -209,10 +219,17 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
+                        AppLifecyclesImpl.getUserinfo ().setNickname ( etNickName.getText ().toString ().trim () );
+                        mPresenter.updateMemberInfo ( AppLifecyclesImpl.getUserinfo () );
                     }
                 } );
             }
         } ).create ();
         dialog.show ();
+    }
+
+    @Override
+    public void saveSuccess() {
+        tvNickname.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
     }
 }
