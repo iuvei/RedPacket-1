@@ -19,10 +19,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.FriendConversationListActivity"
-            android:label="@string/friend_conversation_list"></activity>
-        <activity android:name=".mvp.ui.activity.GroupInfoActivity"
-            android:label="@string/room_info"/> <!-- 设置环信应用的AppKey -->
+        <activity android:name=".mvp.ui.activity.ContactInfoActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.FriendConversationListActivity"
+            android:label="@string/friend_conversation_list" />
+        <activity
+            android:name=".mvp.ui.activity.GroupInfoActivity"
+            android:label="@string/room_info" /> <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="1147190820148699#pinduoduo" /> <!-- 声明SDK所需的service SDK核心功能 -->

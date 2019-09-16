@@ -5,9 +5,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/title_layout"></include>
+    <View style="@style/discover_style_view"></View>
+    <EditText
+        android:id="@+id/et_serach"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableLeft="@mipmap/home_icon_search"
+        android:hint="搜索/备注/昵称"
+        android:paddingLeft="@dimen/spacing_s"
+        android:drawablePadding="@dimen/spacing_xl"
+        android:background="@color/public_white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="☆"
+        android:padding="@dimen/spacing_xxs"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/tv_newFriend"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="新的好友"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/alipay"
+        android:drawablePadding="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:textColor="@color/public_black"
+        />
+    <View style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:id="@+id/tv_groud_talk"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="群聊"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/alipay"
+        android:drawablePadding="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:textColor="@color/public_black"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
@@ -41,6 +82,11 @@
         </TextView>
     </RelativeLayout>
 
-
+    <TextView
+        android:id="@+id/tv_contack_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0位联系人"
+        android:gravity="center_horizontal"/>
 
 </LinearLayout>

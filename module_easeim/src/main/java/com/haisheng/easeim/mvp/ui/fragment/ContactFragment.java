@@ -19,8 +19,10 @@ import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerContactComponent;
 import com.haisheng.easeim.mvp.contract.ContactContract;
+import com.haisheng.easeim.mvp.model.entity.ContactInfo;
 import com.haisheng.easeim.mvp.presenter.ContactPresenter;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.haisheng.easeim.mvp.ui.activity.ContactInfoActivity;
 import com.haisheng.easeim.mvp.ui.adapter.ContactAdapter;
 import com.haisheng.easeim.mvp.ui.widget.sidelist.Sidebar;
 import com.jess.arms.di.component.AppComponent;
@@ -130,10 +132,13 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
         mAdapter.setOnItemClickListener ( new BaseQuickAdapter.OnItemClickListener () {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                UserInfo userInfo = (UserInfo) adapter.getItem ( position );
-                ChatActivity.start ( (Activity) mContext, userInfo.getHxId () );
+//                UserInfo userInfo = (UserInfo) adapter.getItem ( position );
+//                ChatActivity.start ( (Activity) mContext, userInfo.getHxId () );
 //                RoomBean roomBean = (RoomBean) adapter.getItem(position);
 //                mPresenter.joinRoom(roomBean.getHxId());
+
+                UserInfo userInfo = (UserInfo) adapter.getItem ( position );
+                ContactInfoActivity.start ( (Activity) mContext, userInfo);
             }
         } );
     }
