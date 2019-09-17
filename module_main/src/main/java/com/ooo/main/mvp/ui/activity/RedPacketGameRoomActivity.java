@@ -73,7 +73,7 @@ public class RedPacketGameRoomActivity extends BaseActivity <RedPacketGameRoomPr
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         if (bannerEntity!=null){
-            tvTitle.setText ( "关于我们" );
+            tvTitle.setText ( bannerEntity.getTitle ());
         }
     }
 

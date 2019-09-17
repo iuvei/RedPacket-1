@@ -55,6 +55,7 @@ public interface MemberService {
             @Field("mobile") String phoneNumber,
             @Field("password") String password,
             @Field("code") String verificationCode,
+            @Field("nickname") String nickname,
             @Field("incode") String invitationCode
     );
 

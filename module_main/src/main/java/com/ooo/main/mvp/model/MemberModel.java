@@ -47,9 +47,9 @@ public class MemberModel extends BaseModel{
                 .sendSms(phone, String.valueOf(isRegister));
     }
 
-    public Observable<BaseResponse<LoginResultInfo>> register(String phoneNumber,String verificationCode,String password,String invitationCode) {
+    public Observable<BaseResponse<LoginResultInfo>> register(String phoneNumber,String password,String verificationCode,String nickname,String invitationCode) {
         return mRepositoryManager.obtainRetrofitService(MemberService.class)
-                .register(phoneNumber, verificationCode, password, invitationCode);
+                .register(phoneNumber, password,verificationCode, nickname, invitationCode);
     }
 
     public Observable<BaseResponse> forgotPassword(String phoneNumber,String verificationCode,String password) {

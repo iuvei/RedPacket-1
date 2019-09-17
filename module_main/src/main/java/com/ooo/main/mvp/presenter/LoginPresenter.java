@@ -128,8 +128,8 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                 });
     }
 
-    public void register(String phoneNumber,String verificationCode,String password,String invitationCode){
-        mLoginModel.register(phoneNumber,verificationCode,password,invitationCode)
+    public void register(String phoneNumber,String password,String verificationCode,String nickname,String invitationCode){
+        mLoginModel.register(phoneNumber,password,verificationCode,nickname,invitationCode)
                 .concatMap(response -> {
                     if(!response.isSuccess()){
                         throw new Exception(response.getMessage());
@@ -137,7 +137,6 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     LoginResultInfo resultInfo = response.getResult();
                     mToken = resultInfo.getToken();
                     String avatarUrl = resultInfo.getAvatarUrl();
-                    String nickname = resultInfo.getNickname();
                     String hxUsername = resultInfo.getHxUsername();
                     UserPreferenceManager.getInstance().setCurrentUserHxId(hxUsername);
                     UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(avatarUrl);

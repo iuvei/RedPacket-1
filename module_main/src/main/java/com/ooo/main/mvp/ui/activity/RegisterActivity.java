@@ -127,8 +127,8 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             showMessage("验证码不能为空/不可用!");
             return;
         }
-        String inviteCode = etNickName.getText().toString();
-        if (TextUtils.isEmpty(inviteCode)) {
+        String nickname = etNickName.getText().toString();
+        if (TextUtils.isEmpty(nickname)) {
             etNickName.requestFocus();
             showMessage("昵称不能为空");
             return;
@@ -150,7 +150,7 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             return;
         }
         hideSoftInput();
-        mPresenter.register(phoneNumber,verificationCode,password,inviteCode);
+        mPresenter.register(phoneNumber,password,verificationCode,nickname,"");
     }
 
     @Override
