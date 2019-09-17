@@ -9,10 +9,15 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.BillingDetailsContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.BillingDetailBean;
+import com.ooo.main.mvp.model.entity.UnderPayerBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,6 +44,8 @@ public class BillingDetailsPresenter extends BasePresenter <IModel, BillingDetai
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public BillingDetailsPresenter( BillingDetailsContract.View rootView) {
@@ -53,5 +60,20 @@ public class BillingDetailsPresenter extends BasePresenter <IModel, BillingDetai
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getBillingDetails(){
+        apiModel.getBillingDetails ( "2019-09-03","2019-09-09","1" )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <BillingDetailBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(BillingDetailBean billingDetailBean) {
+                        if (billingDetailBean.getStatus ()==1) {
+                            mRootView.getBillingDetailsSuccess(billingDetailBean.getResult ().getList ());
+                        }else{
+                            mRootView.getBillingDetailsFail();
+                        }
+                    }
+                } );
     }
 }

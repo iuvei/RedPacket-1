@@ -16,6 +16,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerBalanceComponent;
 import com.ooo.main.mvp.contract.BalanceContract;
 import com.ooo.main.mvp.presenter.BalancePresenter;
@@ -90,6 +91,8 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "钱包" );
+        tvBalanceNum.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue ()
+        );
     }
 
     @Override

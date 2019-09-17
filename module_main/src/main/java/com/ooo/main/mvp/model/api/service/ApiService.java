@@ -1,5 +1,6 @@
 package com.ooo.main.mvp.model.api.service;
 
+import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 
@@ -24,6 +25,24 @@ public interface ApiService {
             @Field("token") String token,
             @Field("status") String status,
             @Field("fuid") String fuid,
+            @Field("page") String page
+            );
+
+    /**
+     *
+     * 查看账单明细
+     * token	是	string	无
+     * time1	是	string	开始时间
+     * time2	是	string	结束时间
+     * page	是	Int	页数
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=allrecord")
+    @FormUrlEncoded
+    Observable<BillingDetailBean> getBillingDetails(
+            @Field("token") String token,
+            @Field("time1") String time1,
+            @Field("time2") String time2,
             @Field("page") String page
             );
 

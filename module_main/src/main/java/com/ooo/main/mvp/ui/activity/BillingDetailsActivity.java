@@ -18,8 +18,10 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBillingDetailsComponent;
 import com.ooo.main.mvp.contract.BillingDetailsContract;
+import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.BillingDetailsPresenter;
+import com.ooo.main.mvp.ui.adapter.BillingRecordAdapter;
 import com.ooo.main.mvp.ui.adapter.WithdrawalRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -61,8 +63,8 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
     RecyclerView recyclerView;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    private List <WithdrawalRecordBean> recordBeans;
-    private WithdrawalRecordAdapter recycleAdapter;
+    private List <BillingDetailBean.ResultBean.ListBean> recordBeans;
+    private BillingRecordAdapter recycleAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -85,8 +87,8 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "账单" );
         recordBeans = new ArrayList <> (  );
-        getWithdrawalRecord();
-        recycleAdapter = new WithdrawalRecordAdapter ( this, recordBeans);
+        getBillingRecord();
+        recycleAdapter = new BillingRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -105,7 +107,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh (2000/*,false*/);//传入false表示加载失败
                 recordBeans.clear ();
-                getWithdrawalRecord ();
+                getBillingRecord ();
                 recycleAdapter.setDatas ( recordBeans );
             }
         });
@@ -113,13 +115,13 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                getWithdrawalRecord ();
+                getBillingRecord ();
                 recycleAdapter.addData ( recordBeans );
             }
         });
-        recycleAdapter.setItemClickListener ( new WithdrawalRecordAdapter.ItemClickListener () {
+        recycleAdapter.setItemClickListener ( new BillingRecordAdapter.ItemClickListener () {
             @Override
-            public void onItemClick(List <WithdrawalRecordBean> data, int position) {
+            public void onItemClick(List <BillingDetailBean.ResultBean.ListBean> data, int position) {
                 Intent intent = new Intent ( BillingDetailsActivity.this,BillingInfoActivity.class );
                 intent.putExtra ( "info",data.get ( position ) );
                 startActivity ( intent );
@@ -127,16 +129,8 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         } );
     }
 
-    private void getWithdrawalRecord() {
-        for (int i=0;i<10;i++){
-            WithdrawalRecordBean recordBean = new WithdrawalRecordBean ();
-            recordBean.setAccountMoney ( "1000000.00" );
-            recordBean.setBlankAccount ( "中国银行（1234*****6543）" );
-            recordBean.setStatue ( 1);
-            recordBean.setTakeMoney ( "1010000.00");
-            recordBean.setTakeMoneyTime ( "2019-09-07 15:03:14" );
-            recordBeans.add ( recordBean );
-        }
+    private void getBillingRecord() {
+        mPresenter.getBillingDetails ();
     }
 
     @Override
@@ -176,5 +170,15 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getBillingDetailsSuccess(List <BillingDetailBean.ResultBean.ListBean> listBeans) {
+        recycleAdapter.setDatas ( listBeans );
+    }
+
+    @Override
+    public void getBillingDetailsFail() {
+
     }
 }
