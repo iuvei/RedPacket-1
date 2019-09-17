@@ -98,7 +98,7 @@ public class MessageFragment extends BaseSupportFragment<MessagePresenter> imple
             BannerEntity bannerEntity = new BannerEntity();
             bannerEntity.setImageUrl("http://bgashare.bingoogolapple.cn/banner/imgs/"+i+".png");
             bannerEntity.setTip("");
-            bannerEntity.setUrl("www.baidu.com");
+            bannerEntity.setLink ("www.baidu.com");
             bannerEntities.add(bannerEntity);
         }
         convenientBanner.setAutoPlayAble(bannerEntities.size() > 1);

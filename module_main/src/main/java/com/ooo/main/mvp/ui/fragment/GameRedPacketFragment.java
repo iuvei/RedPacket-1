@@ -43,7 +43,6 @@ public class GameRedPacketFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate ( R.layout.fragment_game_red_packet, container, false );
         unbinder = ButterKnife.bind ( this, view );
-        Log.e ( "tag","onCreateView" );
         setListener();
         return view;
     }
@@ -52,7 +51,8 @@ public class GameRedPacketFragment extends Fragment {
         lvGame.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView <?> adapterView, View view, int position, long id) {
-                RedPacketGameRoomActivity.start ( getActivity (), (BannerEntity) lvGame.getSelectedItem () );
+                BannerEntity entity = (BannerEntity) lvGame.getItemAtPosition ( position );
+                RedPacketGameRoomActivity.start ( getActivity (), entity );
             }
         } );
     }

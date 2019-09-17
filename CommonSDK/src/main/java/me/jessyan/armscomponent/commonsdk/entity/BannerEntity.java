@@ -10,7 +10,7 @@ public class BannerEntity implements Serializable {
     @SerializedName("thumb")
     private String imageUrl;
     @SerializedName("link")
-    private String url;
+    private String link;
     private String tip;
     private String title;
 
@@ -22,12 +22,12 @@ public class BannerEntity implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getUrl() {
-        return url;
+    public String getLink() {
+        return link;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getTip() {
@@ -39,15 +39,15 @@ public class BannerEntity implements Serializable {
     }
 
     public String getTitle() {
-        if (url.equals ( "0" )){
+        if (link.equals ( "0" )){
             return "扫雷区";
-        }else if (url.equals ( "1" )){
+        }else if (link.equals ( "1" )){
             return "禁抢区";
-        }else if (url.equals ( "2" )){
+        }else if (link.equals ( "2" )){
             return "牛牛不翻倍";
-        }else if (url.equals ( "3" )){
+        }else if (link.equals ( "3" )){
             return "牛牛翻倍";
-        }else if (url.equals ( "4" )){
+        }else if (link.equals ( "4" )){
             return "福利区";
         }
         return "";

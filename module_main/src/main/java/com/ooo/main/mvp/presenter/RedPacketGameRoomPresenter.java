@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.scope.ActivityScope;
@@ -9,10 +10,16 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.RedPacketGameRoomContract;
+import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.RedPacketRoomModel;
+import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,6 +46,9 @@ public class RedPacketGameRoomPresenter extends BasePresenter <IModel, RedPacket
     AppManager mAppManager;
 
     @Inject
+    RedPacketRoomModel redPacketRoomModel;
+
+    @Inject
     public RedPacketGameRoomPresenter(RedPacketGameRoomContract.View rootView) {
         super (  rootView );
         ARouter.getInstance ().inject ( this );
@@ -51,5 +61,20 @@ public class RedPacketGameRoomPresenter extends BasePresenter <IModel, RedPacket
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getRoomList(String type){
+        redPacketRoomModel.redPacketGame ( type )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <RedPacketGameRomeBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(RedPacketGameRomeBean redPacketGameRomeBean) {
+                        if (redPacketGameRomeBean.getStatus ()==1) {
+                            mRootView.getRoomListSuccess(redPacketGameRomeBean);
+                        }else{
+                            mRootView.getRoomListFail();
+                        }
+                    }
+                } );
     }
 }

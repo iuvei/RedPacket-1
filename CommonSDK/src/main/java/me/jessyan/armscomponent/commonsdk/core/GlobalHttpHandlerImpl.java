@@ -16,6 +16,7 @@
 package me.jessyan.armscomponent.commonsdk.core;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jess.arms.http.GlobalHttpHandler;
 
@@ -61,6 +62,8 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
         response.body().close();
         如果使用 Okhttp 将新的请求, 请求成功后, 再将 Okhttp 返回的 Response return 出去即可
         如果不需要返回新的结果, 则直接把参数 response 返回出去即可 */
+        Log.e ( "Tag","onHttpResultResponse="+httpResult);
+
         return response;
     }
 

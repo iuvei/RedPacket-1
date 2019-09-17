@@ -18,11 +18,14 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerRedPacketGameRoomComponent;
 import com.ooo.main.mvp.contract.RedPacketGameRoomContract;
+import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.presenter.RedPacketGameRoomPresenter;
+import com.ooo.main.mvp.ui.adapter.RedPacketGameRoomListAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -41,7 +44,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class RedPacketGameRoomActivity extends BaseActivity <RedPacketGameRoomPresenter> implements RedPacketGameRoomContract.View {
+public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGameRoomPresenter> implements RedPacketGameRoomContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -51,6 +54,7 @@ public class RedPacketGameRoomActivity extends BaseActivity <RedPacketGameRoomPr
     LinearLayout llRecharge;
     @BindView(R2.id.lv_room)
     ListView lvRoom;
+    private BannerEntity bannerEntity;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -69,12 +73,17 @@ public class RedPacketGameRoomActivity extends BaseActivity <RedPacketGameRoomPr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        BannerEntity bannerEntity = (BannerEntity) getIntent ().getSerializableExtra ( "banner" );
+        bannerEntity = (BannerEntity) getIntent ().getSerializableExtra ( "banner" );
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         if (bannerEntity!=null){
             tvTitle.setText ( bannerEntity.getTitle ());
+            getRoomList();
         }
+    }
+
+    private void getRoomList() {
+        mPresenter.getRoomList ( bannerEntity.getLink () );
     }
 
     @Override
@@ -125,5 +134,16 @@ public class RedPacketGameRoomActivity extends BaseActivity <RedPacketGameRoomPr
         } else if (i == R.id.ll_recharge) {
 
         }
+    }
+
+    @Override
+    public void getRoomListSuccess(RedPacketGameRomeBean redPacketGameRomeBean) {
+        RedPacketGameRoomListAdapter adapter = new RedPacketGameRoomListAdapter ( redPacketGameRomeBean.getResult () );
+        lvRoom.setAdapter ( adapter );
+    }
+
+    @Override
+    public void getRoomListFail() {
+
     }
 }

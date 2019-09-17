@@ -3,6 +3,7 @@ package com.ooo.main.di.module;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.RedPacketRoomModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +25,7 @@ import dagger.Provides;
 public class RedPacketGameRoomModule {
     @ActivityScope
     @Provides
-    public MemberModel provideMemberModel(IRepositoryManager iRepositoryManager) {
-        return new MemberModel(iRepositoryManager);
+    public RedPacketRoomModel provideMemberModel(IRepositoryManager iRepositoryManager) {
+        return new RedPacketRoomModel(iRepositoryManager);
     }
 }
