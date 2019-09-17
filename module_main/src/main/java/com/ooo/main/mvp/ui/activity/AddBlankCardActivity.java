@@ -101,11 +101,18 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
 
     enum CARDTYPE {
         //没选中
-        NONE,
+        NONE(0),
         //借记卡
-        PAYCARD,
+        PAYCARD(1),
         //不是借记卡
-        UNPAYCARD
+        UNPAYCARD(2);
+        int value;
+        CARDTYPE(int i) {
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     private BLANKTYPE blanktype = BLANKTYPE.NONE;
@@ -292,10 +299,12 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                     switch (cardtype) {
                         case NONE:
                             ToastUtils.showShort ( "请选择是否为借记卡" );
-                            break;
+                            return;
                         case PAYCARD:
+                            cardtype = CARDTYPE.PAYCARD;
                             break;
                         case UNPAYCARD:
+                            cardtype = CARDTYPE.UNPAYCARD;
                             break;
                         default:
                             break;
@@ -323,6 +332,17 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
+                        switch (blanktype) {
+                            case ALIPY:
+                                mPresenter.addBlankCard ( "",etAlipy.getText ().toString ().trim (),"支付宝","","1" );
+                                break;
+                            case BLANK:
+                                String blankName = tvChooseBlank.getText ().toString ().trim ();
+                                String underBlankName = etLowerBank.getText ().toString ().trim ();
+                                String cardNum = etCardNum.getText ().toString ().trim ();
+                                mPresenter.addBlankCard ( "12",cardNum,blankName,underBlankName,cardtype.getValue ()+"" );
+                                break;
+                        }
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {

@@ -15,6 +15,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerWithdrawalInfoComponent;
 import com.ooo.main.mvp.contract.WithdrawalInfoContract;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.WithdrawalInfoPresenter;
 
@@ -54,7 +55,7 @@ public class WithdrawalInfoActivity extends BaseActivity <WithdrawalInfoPresente
     TextView tvTakeMoneyTime;
     @BindView(R2.id.tv_get_money_account)
     TextView tvGetMoneyAccount;
-    private WithdrawalRecordBean recordBean;
+    private WithRecordBean.ResultBean.ListBean recordBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -76,13 +77,13 @@ public class WithdrawalInfoActivity extends BaseActivity <WithdrawalInfoPresente
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "提现详情" );
-        recordBean = getIntent ().getParcelableExtra ( "info" );
+        recordBean = (WithRecordBean.ResultBean.ListBean) getIntent ().getSerializableExtra ( "info" );
         if (recordBean!=null){
-            tvGetMoney.setText ( recordBean.getAccountMoney () );
-            tvGetMoneyAccount.setText ( recordBean.getBlankAccount () );
-            tvStatus.setText ( recordBean.getStatue () );
-            tvTakeMoney.setText ( recordBean.getTakeMoney () );
-            tvTakeMoneyTime.setText ( recordBean.getTakeMoneyTime () );
+            tvGetMoney.setText ( recordBean.getGold () );
+            tvGetMoneyAccount.setText ( recordBean.getDetails () );
+            tvStatus.setText ( recordBean.getDetails () );
+            tvTakeMoney.setText ( recordBean.getGold () );
+            tvTakeMoneyTime.setText ( recordBean.getAddtime () );
         }
     }
 

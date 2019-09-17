@@ -8,12 +8,16 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.AddBlankCardContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 
 /**
@@ -40,6 +44,9 @@ public class AddBlankCardPresenter extends BasePresenter <IModel, AddBlankCardCo
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+
+    @Inject
     public AddBlankCardPresenter( AddBlankCardContract.View rootView) {
         super ( rootView );
         ARouter.getInstance ().inject ( this );
@@ -52,5 +59,20 @@ public class AddBlankCardPresenter extends BasePresenter <IModel, AddBlankCardCo
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void addBlankCard(String cardname,String cardcode,String cardopen,String cardaddress,String type ){
+        apiModel.addBlankCard (cardname,cardcode,cardopen,cardaddress,type)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <WithRecordBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(WithRecordBean recordBean) {
+                       /* if (recordBean.getStatus ()==1) {
+                            mRootView.getWithRecordSuccess(recordBean.getResult ().getList ());
+                        }else{
+                            mRootView.getWithRecordFail();
+                        }*/
+                    }
+                } );
     }
 }

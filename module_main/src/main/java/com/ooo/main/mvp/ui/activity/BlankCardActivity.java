@@ -21,6 +21,7 @@ import com.ooo.main.mvp.presenter.BlankCardPresenter;
 import com.ooo.main.mvp.ui.adapter.BlankCradAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +61,7 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
     ListView lvCard;
     private BlankCradAdapter adapter;
     private BaseDialog dialog;
-    private ArrayList <BlankCardBean> lists;
+    private ArrayList <BlankCardBean.ResultBean> lists;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -85,15 +86,15 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         ivRight.setVisibility ( View.VISIBLE );
         ivRight.setImageResource ( R.mipmap.icon_vip );
         lists = new ArrayList <> (  );
-        for (int i = 0;i<6;i++){
-            BlankCardBean bean = new BlankCardBean ();
-            bean.setBlankCardNum ( Math.random ()*1000000000000000000l+"" );
-            bean.setBlankType ( (int) (Math.random ()*17) );
-            bean.setBlankCardType ( (int) (Math.random ()*17) );
-            lists.add (bean );
-        }
+        mPresenter.getBlankCardList ();
         adapter = new BlankCradAdapter ( lists );
         lvCard.setAdapter ( adapter );
+        lvCard.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick(AdapterView <?> adapterView, View view, int i, long l) {
+
+            }
+        } );
         lvCard.setOnItemLongClickListener ( new AdapterView.OnItemLongClickListener () {
             @Override
             public boolean onItemLongClick(AdapterView <?> adapterView, View view, int i, long l) {
@@ -172,5 +173,15 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
             //添加
             openActivity ( AddBlankCardActivity.class );
         }
+    }
+
+    @Override
+    public void getBlankCardSuccess(List <BlankCardBean.ResultBean> result) {
+        adapter.setData ( result );
+    }
+
+    @Override
+    public void getBlankCardFail() {
+
     }
 }

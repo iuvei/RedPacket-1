@@ -2,6 +2,7 @@ package com.ooo.main.di.module;
 
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
+import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.MemberModel;
 
 import dagger.Module;
@@ -25,7 +26,7 @@ public class AddBlankCardModule {
 
     @ActivityScope
     @Provides
-    public MemberModel provideMemberModel(IRepositoryManager iRepositoryManager) {
-        return new MemberModel(iRepositoryManager);
+    public ApiModel provideMemberModel(IRepositoryManager iRepositoryManager) {
+        return new ApiModel(iRepositoryManager);
     }
 }

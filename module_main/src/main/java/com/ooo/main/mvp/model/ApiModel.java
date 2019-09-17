@@ -6,6 +6,7 @@ import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
 import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
@@ -48,6 +49,7 @@ public class ApiModel extends BaseModel{
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getBillingDetails (token,time1,time2,page);
     }
+
     /**
      * 获取账单明细
      * @param time1 开始时间
@@ -59,6 +61,29 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getWithRecord (token,time1,time2,page,payType);
+    }
+    /**
+     * 获取银行卡列表
+     * @return
+     */
+    public Observable<BlankCardBean> getBlankCardList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getBlankCardList (token);
+    }
+    /**
+     * 添加银行卡
+     * cardname	是	String	持卡人
+     * cardcode	是	String	卡号
+     * cardopen	是	String	开户行
+     * cardaddress	是	String	开户地址
+     * type	是	String	1借记卡，2非借记卡
+     * @return
+     */
+    public Observable<WithRecordBean> addBlankCard(String cardname,String cardcode,String cardopen,String cardaddress,String type) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .addBlankCard (token,cardname,cardcode,cardopen,cardaddress,type);
     }
 
 }

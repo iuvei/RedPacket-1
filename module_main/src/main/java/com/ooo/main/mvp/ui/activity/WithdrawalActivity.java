@@ -14,6 +14,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerWithdrawalComponent;
 import com.ooo.main.mvp.contract.WithdrawalContract;
 import com.ooo.main.mvp.presenter.WithdrawalPresenter;
@@ -46,10 +47,10 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
     TextView tvBlankInfo;
     @BindView(R2.id.et_withrawal)
     EditText etWithrawal;
-    @BindView(R2.id.iv_money)
-    TextView ivMoney;
-    @BindView(R2.id.iv_take_all)
-    TextView ivTakeAll;
+    @BindView(R2.id.tv_money)
+    TextView tvMoney;
+    @BindView(R2.id.tv_take_all)
+    TextView tvTakeAll;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -70,6 +71,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue () );
     }
 
     @Override
@@ -106,7 +108,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_withdrawal_record, R2.id.tv_blank_info, R2.id.iv_take_all, R2.id.btn_next})
+    @OnClick({R2.id.iv_back, R2.id.tv_withdrawal_record, R2.id.tv_blank_info, R2.id.tv_take_all, R2.id.btn_next})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
@@ -116,9 +118,10 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
             openActivity ( WithdrawalRecordActivity.class );
         } else if (i == R.id.tv_blank_info) {
             //银行信息
-
-        } else if (i == R.id.iv_take_all) {
+            openActivity ( BlankCardActivity.class );
+        } else if (i == R.id.tv_take_all) {
             //全部提取
+            etWithrawal.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue () );
         } else if (i == R.id.btn_next) {
             //下一步
             String money = etWithrawal.getText ().toString ().trim ();

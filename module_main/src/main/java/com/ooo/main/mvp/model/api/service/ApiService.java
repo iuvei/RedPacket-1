@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.model.api.service;
 
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
@@ -67,5 +68,41 @@ public interface ApiService {
             @Field("page") String page,
             @Field("paytype") String paytype
             );
+
+
+    /**
+     *
+     * 查看银行卡列表
+     * token	是	string	无
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=cardlist")
+    @FormUrlEncoded
+    Observable<BlankCardBean> getBlankCardList(
+            @Field("token") String token
+            );
+    /**
+     *
+     * 添加银行卡
+     * token	是	string	无
+     * cardname	是	String	持卡人
+     * cardcode	是	String	卡号
+     * cardopen	是	String	开户行
+     * cardaddress	是	String	开户地址
+     * type	是	int	1为借记卡，2为非借记卡
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=addcard")
+    @FormUrlEncoded
+    Observable<WithRecordBean> addBlankCard(
+            @Field("token") String token,
+            @Field("cardname") String cardname,
+            @Field("cardcode") String cardcode,
+            @Field("cardopen") String cardopen,
+            @Field("cardaddress") String cardaddress,
+            @Field("type") String type
+            );
+
+
 
 }

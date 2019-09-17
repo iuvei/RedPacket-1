@@ -9,10 +9,15 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.BlankCardContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -37,6 +42,8 @@ public class BlankCardPresenter extends BasePresenter <IModel, BlankCardContract
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public BlankCardPresenter(BlankCardContract.View rootView) {
@@ -51,5 +58,20 @@ public class BlankCardPresenter extends BasePresenter <IModel, BlankCardContract
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getBlankCardList( ){
+        apiModel.getBlankCardList ()
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <BlankCardBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(BlankCardBean blankCardBean) {
+                        if (blankCardBean.getStatus ()==1) {
+                            mRootView.getBlankCardSuccess(blankCardBean.getResult ());
+                        }else{
+                            mRootView.getBlankCardFail();
+                        }
+                    }
+                } );
     }
 }
