@@ -17,6 +17,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,10 +26,13 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerChooseHeadImgComponent;
 import com.ooo.main.mvp.contract.ChooseHeadImgContract;
 import com.ooo.main.mvp.presenter.ChooseHeadImgPresenter;
 import com.ooo.main.mvp.ui.adapter.ChooseHeadImgAdapter;
+
+import org.simple.eventbus.EventBus;
 
 import java.io.File;
 
@@ -92,6 +96,7 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        EventBus.getDefault ().register ( this );
         tvTitle.setText ( "选择头像" );
         int[] imgs = {R.mipmap.icon_select_avatar_first,R.mipmap.avatar_default_01,R.mipmap.avatar_default_02,
                 R.mipmap.avatar_default_03,R.mipmap.avatar_default_04,R.mipmap.avatar_default_05,
@@ -132,7 +137,7 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
                 }else {
                     //选中头像
                     int imgRes = data[position];
-                    mPresenter.upLoadPic ( BitmapUtils.bitmapToBase64 ( BitmapFactory.decodeResource ( getResources (),imgRes ) ) );
+                    mPresenter.upLoadPic ( BitmapUtils.drawableToFile ( ChooseHeadImgActivity.this,imgRes ));
                 }
             }
         } );
@@ -174,6 +179,12 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_takephoto, R2.id.tv_choosephoto, R2.id.tv_cancel})
@@ -264,13 +275,20 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
             Bitmap photo = extras.getParcelable("data");
             //图片路径
             String urlpath = FileUtil.saveFile ( this, "temphead.jpg", photo );
-            mPresenter.upLoadPic ( BitmapUtils.imageToBase64 ( urlpath ) );
+            mPresenter.upLoadPic ( urlpath );
             System.out.println("----------路径----------" + urlpath);
         }
     }
 
+    /**
+     * {@link UserInfoActivity#onMessageEvent(com.ooo.main.mvp.model.entity.LoginResultInfo)}
+     * @param picUrl
+     */
     @Override
-    public void saveSuccess(String picUrl) {
-
+    public void uploadImgSuccessfully(String picUrl) {
+        Log.e ( "Tag","picUrl="+picUrl );
+        AppLifecyclesImpl.getUserinfo ().setAvatarUrl ( picUrl );
+        EventBus.getDefault ().post (  AppLifecyclesImpl.getUserinfo (),"uploadImgSuccessfully" );
+        finish ();
     }
 }

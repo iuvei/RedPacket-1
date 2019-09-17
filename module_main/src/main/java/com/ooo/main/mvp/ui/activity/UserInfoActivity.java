@@ -1,12 +1,10 @@
 package com.ooo.main.mvp.ui.activity;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.google.common.eventbus.Subscribe;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -21,7 +20,12 @@ import com.ooo.main.R2;
 import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerUserInfoComponent;
 import com.ooo.main.mvp.contract.UserInfoContract;
+import com.ooo.main.mvp.model.entity.LoginResultInfo;
 import com.ooo.main.mvp.presenter.UserInfoPresenter;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+import org.simple.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -142,6 +146,24 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
+    }
+
+    /**
+     * {@link ChooseHeadImgActivity#uploadImgSuccessfully(java.lang.String)}
+     * @param info
+     */
+    @Subscriber(tag  = "uploadImgSuccessfully")
+    public void onMessageEvent(LoginResultInfo info) {
+        Glide.with ( this ).load ( info.getAvatarUrl () ).into ( ivHead );
+        //更新信息
+        mPresenter.updateMemberInfo ( info );
     }
 
     @OnClick({R2.id.iv_back, R2.id.ll_headimg, R2.id.ll_nickname, R2.id.ll_account,

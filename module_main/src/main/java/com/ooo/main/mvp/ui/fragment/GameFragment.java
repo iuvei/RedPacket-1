@@ -176,9 +176,9 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
 
     @Override
     public void setAdBannerInfo(AdBannerInfo adBannerInfo) {
-        List <BannerEntity> bannerEntities = adBannerInfo.getRoomAdBanners ();
+        List <BannerEntity> bannerEntities = adBannerInfo.getMsgAdBanners ();
         if (null != bannerEntities)
-            banner.setData ( adBannerInfo.getRoomAdBanners (), null );
+            banner.setData ( adBannerInfo.getMsgAdBanners (), null );
 
         List <String> notices = adBannerInfo.getNotices ();
         StringBuilder sbNotices = new StringBuilder ();

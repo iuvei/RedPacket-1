@@ -1,11 +1,15 @@
 package me.jessyan.armscomponent.commonres.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -79,5 +83,40 @@ public class BitmapUtils {
 
         }
         return result;
+    }
+
+
+    /**
+     * drawable转为file
+     * @param mContext
+     * @param drawableId  drawable的ID
+     * @return
+     */
+    public static String drawableToFile(Context mContext, int drawableId){
+//        InputStream is = view.getContext().getResources().openRawResource(R.drawable.logo);
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), drawableId);
+//        Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+        String defaultPath = mContext.getFilesDir()
+                .getAbsolutePath() + "/defaultGoodInfo";
+        File file = new File(defaultPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String defaultImgPath = defaultPath + "/temp.png";
+        file = new File(defaultImgPath);
+        try {
+            file.createNewFile();
+
+            FileOutputStream fOut = new FileOutputStream(file);
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//            is.close();
+            fOut.flush();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath ();
     }
 }
