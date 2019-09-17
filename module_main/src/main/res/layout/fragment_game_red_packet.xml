@@ -3,45 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:layout_marginLeft="@dimen/spacing_xl"
+    android:layout_marginRight="@dimen/spacing_xl"
     tools:context=".mvp.ui.fragment.GameRedPacketFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@mipmap/minesweeper_game"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/minesweeper_game"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/forbidden_to_mine"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/grab_the_cattle"/>
-        </LinearLayout>
-    </ScrollView>
+   <ListView
+       android:id="@+id/lv_game"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:dividerHeight="@dimen/spacing_m">
+   </ListView>
 
 </LinearLayout>

@@ -190,6 +190,7 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
         }
         tvNotices.setText ( sbNotices.toString () );
         tvNotices.setSelected ( true );
+        redPacketFragment.setLvGameData (adBannerInfo.getRoomAdBanners ());
     }
 
     private SwitchShortcutPopupWindow mShortcutPopupWindow;

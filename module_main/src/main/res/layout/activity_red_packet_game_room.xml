@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/title_layout"></include>
+    <View style="@style/discover_style_view"></View>
+    <LinearLayout
+        android:id="@+id/ll_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_xl"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/alipay"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客服充值"
+            android:textSize="@dimen/text_title"
+            android:textColor="@color/public_black"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/spacing_xl"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进入"
+            android:padding="@dimen/spacing_xs"
+            android:textSize="@dimen/text_title"
+            android:textColor="@color/public_color_FF06CB7E"
+            android:background="@drawable/bg_solider"
+            android:layout_marginLeft="@dimen/spacing_xl"
+            />
+    </LinearLayout>
+    <View style="@style/discover_style_view"></View>
+    <ListView
+        android:id="@+id/lv_room"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>
