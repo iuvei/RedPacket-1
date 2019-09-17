@@ -17,7 +17,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerUnderLineListComponent;
 import com.ooo.main.mvp.contract.UnderLineListContract;
-import com.ooo.main.mvp.model.entity.UnderLineBean;
+import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.presenter.UnderLineListPresenter;
 import com.ooo.main.mvp.ui.adapter.UnderLineListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -58,9 +58,9 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     TextView tvTitle;
     @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R2.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
-    private List<UnderLineBean> underLineBeans;
+   /* @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;*/
+    private List<UnderPayerBean.ResultBean.ListBean> underLineBeans;
     private UnderLineListAdapter recycleAdapter;
 
     @Override
@@ -99,10 +99,9 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     }
 
     private void setListener() {
-        refreshLayout.setOnRefreshListener(new OnRefreshListener () {
+        /*refreshLayout.setOnRefreshListener(new OnRefreshListener () {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh (2000/*,false*/);//传入false表示加载失败
                 underLineBeans.clear ();
                 getUnderLine ();
                 recycleAdapter.setDatas ( underLineBeans );
@@ -111,22 +110,14 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener () {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
                 getUnderLine ();
-                recycleAdapter.addData ( underLineBeans );
             }
-        });
+        });*/
     }
 
     public void getUnderLine(){
-        for (int i=0;i<10;i++){
-            UnderLineBean recordBean = new UnderLineBean ();
-            recordBean.setCount ( 100 );
-            recordBean.setNickName ( "用户"+i );
-            recordBean.setCreatDate ( "09-07 15:03:14" );
-            underLineBeans.add ( recordBean );
-        }
-    };
+        mPresenter.getUnderLineList ( "","","1" );
+    }
 
     @Override
     public void showLoading() {
@@ -165,5 +156,15 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getUnderLineListSuccess(UnderPayerBean underPayerBean) {
+        recycleAdapter.setDatas ( underPayerBean.getResult ().getList () );
+    }
+
+    @Override
+    public void getUnderLineListFail() {
+
     }
 }

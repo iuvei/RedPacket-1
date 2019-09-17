@@ -1,18 +1,25 @@
 package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.UnderLineListContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.RedPacketRoomModel;
+import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
+import com.ooo.main.mvp.model.entity.UnderPayerBean;
 
 
 /**
@@ -39,6 +46,9 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+
+    @Inject
     public UnderLineListPresenter(UnderLineListContract.View rootView) {
         super ( rootView );
     }
@@ -50,5 +60,20 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getUnderLineList(String status,String fuid,String page){
+        apiModel.getUnderLineList ( status,fuid,page )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <UnderPayerBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(UnderPayerBean underPayerBean) {
+                        if (underPayerBean.getStatus ()==1) {
+                            mRootView.getUnderLineListSuccess(underPayerBean);
+                        }else{
+                            mRootView.getUnderLineListFail();
+                        }
+                    }
+                } );
     }
 }
