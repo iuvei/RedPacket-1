@@ -8,6 +8,7 @@ import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
@@ -46,6 +47,18 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getBillingDetails (token,time1,time2,page);
+    }
+    /**
+     * 获取账单明细
+     * @param time1 开始时间
+     * @param time2 结束时间
+     * @param page
+     * @return
+     */
+    public Observable<WithRecordBean> getWithRecord(String time1, String time2, String page, String payType) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getWithRecord (token,time1,time2,page,payType);
     }
 
 }

@@ -63,7 +63,7 @@ public class BillingDetailsPresenter extends BasePresenter <IModel, BillingDetai
     }
 
     public void getBillingDetails(){
-        apiModel.getBillingDetails ( "2019-09-03","2019-09-09","1" )
+        apiModel.getBillingDetails ( "2019-09-03","2050-09-03","1" )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <BillingDetailBean> (mErrorHandler) {
                     @Override

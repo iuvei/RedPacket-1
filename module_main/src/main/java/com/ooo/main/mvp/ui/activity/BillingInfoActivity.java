@@ -3,7 +3,6 @@ package com.ooo.main.mvp.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBillingInfoComponent;
 import com.ooo.main.mvp.contract.BillingInfoContract;
-import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
+import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.presenter.BillingInfoPresenter;
 
 import butterknife.BindView;
@@ -54,7 +53,7 @@ public class BillingInfoActivity extends BaseActivity <BillingInfoPresenter> imp
     TextView tvTakeMoneyTime;
     @BindView(R2.id.tv_remark)
     TextView tvRemark;
-    private WithdrawalRecordBean recordBean;
+    private BillingDetailBean.ResultBean.ListBean recordBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -76,18 +75,20 @@ public class BillingInfoActivity extends BaseActivity <BillingInfoPresenter> imp
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "账单详情" );
-        recordBean = getIntent ().getParcelableExtra ( "info" );
+        recordBean = (BillingDetailBean.ResultBean.ListBean) getIntent ().getSerializableExtra ( "info" );
         if (recordBean != null) {
-            if (ConvertNumUtils.stringToInt ( recordBean.getAccountMoney () )>=0) {
-                tvGetMoney.setText ( "+"+recordBean.getAccountMoney () );
+            if (ConvertNumUtils.stringToDouble ( recordBean.getGold () ) >= 0) {
+                tvGetMoney.setText ( "+" + recordBean.getGold () );
                 tvGetMoney.setTextColor ( Color.BLACK );
-            }else{
-                tvGetMoney.setText ( "-"+recordBean.getAccountMoney () );
+                tvType.setText ( "收入" );
+
+            } else {
+                tvGetMoney.setText ( "-" + recordBean.getGold () );
                 tvGetMoney.setTextColor ( Color.RED );
+                tvType.setText ( "支出" );
             }
-            tvRemark.setText ( "备注" );
-            tvType.setText ( "支出" );
-            tvTakeMoneyTime.setText ( recordBean.getTakeMoneyTime () );
+            tvRemark.setText ( recordBean.getDetails () );
+            tvTakeMoneyTime.setText ( recordBean.getAddtime () );
         }
     }
 
@@ -127,5 +128,6 @@ public class BillingInfoActivity extends BaseActivity <BillingInfoPresenter> imp
 
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
+        finish ();
     }
 }

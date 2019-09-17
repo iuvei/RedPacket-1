@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.jess.arms.base.BaseActivity;
@@ -17,8 +16,10 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerWithdrawalRecordComponent;
 import com.ooo.main.mvp.contract.WithdrawalRecordContract;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.WithdrawalRecordPresenter;
+import com.ooo.main.mvp.ui.adapter.WithRecordAdapter;
 import com.ooo.main.mvp.ui.adapter.WithdrawalRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -57,8 +58,8 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
     RecyclerView recyclerView;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    private ArrayList <WithdrawalRecordBean> recordBeans;
-    private WithdrawalRecordAdapter recycleAdapter;
+    private ArrayList <WithRecordBean.ResultBean.ListBean> recordBeans;
+    private WithRecordAdapter recycleAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -82,7 +83,7 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
         tvTitle.setText ( "提现记录" );
         recordBeans = new ArrayList <> (  );
         getWithdrawalRecord();
-        recycleAdapter = new WithdrawalRecordAdapter ( this, recordBeans);
+        recycleAdapter = new WithRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -96,10 +97,10 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
     }
 
     private void setListener() {
-        refreshLayout.setOnRefreshListener(new OnRefreshListener () {
+        /*refreshLayout.setOnRefreshListener(new OnRefreshListener () {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh (2000/*,false*/);//传入false表示加载失败
+                refreshlayout.finishRefresh (2000*//*,false*//*);//传入false表示加载失败
                 recordBeans.clear ();
                 getWithdrawalRecord ();
                 recycleAdapter.setDatas ( recordBeans );
@@ -108,14 +109,14 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener () {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                refreshlayout.finishLoadMore(2000*//*,false*//*);//传入false表示加载失败
                 getWithdrawalRecord ();
                 recycleAdapter.addData ( recordBeans );
             }
-        });
-        recycleAdapter.setItemClickListener ( new WithdrawalRecordAdapter.ItemClickListener () {
+        });*/
+        recycleAdapter.setItemClickListener ( new WithRecordAdapter.ItemClickListener () {
             @Override
-            public void onItemClick(List <WithdrawalRecordBean> data, int position) {
+            public void onItemClick(List <WithRecordBean.ResultBean.ListBean> data, int position) {
                 Intent intent = new Intent ( WithdrawalRecordActivity.this,WithdrawalInfoActivity.class );
                 intent.putExtra ( "info",data.get ( position ) );
                 startActivity ( intent );
@@ -124,16 +125,7 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
     }
 
     private void getWithdrawalRecord() {
-        for (int i=0;i<10;i++){
-            WithdrawalRecordBean recordBean = new WithdrawalRecordBean ();
-            recordBean.setAccountMoney ( "1000000.00" );
-            recordBean.setBlankAccount ( "中国银行（1234*****6543）" );
-            recordBean.setStatue ( 1);
-            recordBean.setTakeMoney ( "1010000.00");
-            recordBean.setTakeMoneyTime ( "2019-09-07 15:03:14" );
-            recordBeans.add ( recordBean );
-        }
-        Log.e ( "tag","recordBeans="+recordBeans.size () );
+       mPresenter.getWithRecord ();
     }
 
     @Override
@@ -173,5 +165,15 @@ public class WithdrawalRecordActivity extends BaseActivity <WithdrawalRecordPres
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getWithRecordSuccess(List <WithRecordBean.ResultBean.ListBean> list) {
+        recycleAdapter.setDatas ( list );
+    }
+
+    @Override
+    public void getWithRecordFail() {
+
     }
 }

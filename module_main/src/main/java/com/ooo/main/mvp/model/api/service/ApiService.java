@@ -3,6 +3,7 @@ package com.ooo.main.mvp.model.api.service;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -44,6 +45,27 @@ public interface ApiService {
             @Field("time1") String time1,
             @Field("time2") String time2,
             @Field("page") String page
+            );
+
+
+    /**
+     *
+     * 查看提现记录
+     * token	是	string	无
+     * time1	是	string	无
+     * time2	是	string	无
+     * page	是	string	无
+     * paytype	是	string	无
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=withrecord")
+    @FormUrlEncoded
+    Observable<WithRecordBean> getWithRecord(
+            @Field("token") String token,
+            @Field("time1") String time1,
+            @Field("time2") String time2,
+            @Field("page") String page,
+            @Field("paytype") String paytype
             );
 
 }
