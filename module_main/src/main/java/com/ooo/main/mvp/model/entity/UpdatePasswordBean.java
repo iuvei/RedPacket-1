@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description 修改密码实体类
  */
-public class UpdatePasswordBean {
+public class UpdatePasswordBean implements Serializable {
 
     /**
      * status : 0

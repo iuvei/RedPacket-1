@@ -1,5 +1,6 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * creat at 2019/9/17
  * description 抢红包游戏实体类
  */
-public class RedPacketGameRomeBean {
+public class RedPacketGameRomeBean implements Serializable {
 
     /**
      * status : 1
@@ -43,7 +44,7 @@ public class RedPacketGameRomeBean {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * id : 1
          * hxgroupid : 93641408315394

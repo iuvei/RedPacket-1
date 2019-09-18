@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description 公用的请求响应实体类
  */
-public class PublicBean {
+public class PublicBean implements Serializable {
 
     /**
      * status : 0

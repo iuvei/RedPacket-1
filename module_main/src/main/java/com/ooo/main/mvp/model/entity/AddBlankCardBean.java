@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description 添加银行卡实体类
  */
-public class AddBlankCardBean {
+public class AddBlankCardBean implements Serializable {
 
 
     /**

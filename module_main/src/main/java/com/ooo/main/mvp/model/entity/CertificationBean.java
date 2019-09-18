@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description 实名认证
  */
-public class CertificationBean {
+public class CertificationBean implements Serializable {
 
     /**
      * status : 1

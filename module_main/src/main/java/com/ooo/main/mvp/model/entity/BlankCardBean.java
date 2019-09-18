@@ -1,5 +1,6 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * creat at 2019/9/6
  * description 银行卡实体类
  */
-public class BlankCardBean {
+public class BlankCardBean implements Serializable {
 
 
     /**

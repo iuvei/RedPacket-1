@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description
  */
-public class AppVersionBean {
+public class AppVersionBean implements Serializable {
 
     /**
      * status : 1
@@ -41,7 +43,7 @@ public class AppVersionBean {
         this.msg = msg;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * Code : 0
          * Msg :

@@ -1,12 +1,14 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description
  * 提现实体类
  */
-public class TakeMoneyBean {
+public class TakeMoneyBean implements Serializable {
 
 
     /**

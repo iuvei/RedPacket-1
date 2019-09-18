@@ -4,7 +4,9 @@ import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResultInfo {
+import java.io.Serializable;
+
+public class LoginResultInfo implements Serializable {
 
     @SerializedName("token")
     private String token;

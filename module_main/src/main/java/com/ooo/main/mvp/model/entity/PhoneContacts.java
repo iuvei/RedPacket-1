@@ -3,6 +3,8 @@ package com.ooo.main.mvp.model.entity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.Serializable;
+
 import me.jessyan.armscomponent.commonres.utils.CharacterParser;
 
 /**
@@ -10,7 +12,7 @@ import me.jessyan.armscomponent.commonres.utils.CharacterParser;
  * creat at 2019/9/12
  * description
  */
-public class PhoneContacts implements Comparable<PhoneContacts>{
+public class PhoneContacts implements Comparable<PhoneContacts>, Serializable {
     private final CharacterParser characterParser;
     private String name;
     private String teleNumber;

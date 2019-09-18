@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * @author lanjian
  * creat at 2019/9/18
  * description 解除银行卡
  */
-public class DelectBlankCardBean {
+public class DelectBlankCardBean implements Serializable {
 
     /**
      * status : 1

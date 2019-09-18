@@ -1,5 +1,8 @@
 package com.ooo.main.mvp.model.entity;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
  * creat at 2019/9/17
  * description 下级玩家实体类
  */
-public class UnderPayerBean {
+public class UnderPayerBean implements Serializable {
 
     /**
      * status : 1
@@ -45,13 +48,12 @@ public class UnderPayerBean {
         this.msg = msg;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * list : [{"fuid":"969987","nickname":"2","avatar":"http://5761.iiio.top/attachment/images/1/2019/07/H93CeEh9A9YHg99z6hXecx9EjjEOA6.png","gender":"0","createtime":"1566386845","agencynums":0,"playernums":1,"brokerage":0}]
          * team : {"allnums":4,"agencynums":0,"playernums":4}
          * drive : {"allnums":1,"agencynums":0,"playernums":1}
          */
-
         private TeamBean team;
         private DriveBean drive;
         private List <ListBean> list;
@@ -80,7 +82,7 @@ public class UnderPayerBean {
             this.list = list;
         }
 
-        public static class TeamBean {
+        public static class TeamBean implements Serializable{
             /**
              * allnums : 4
              * agencynums : 0
@@ -116,7 +118,7 @@ public class UnderPayerBean {
             }
         }
 
-        public static class DriveBean {
+        public static class DriveBean implements Serializable{
             /**
              * allnums : 1
              * agencynums : 0
@@ -152,7 +154,7 @@ public class UnderPayerBean {
             }
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable{
             /**
              * fuid : 969987
              * nickname : 2
