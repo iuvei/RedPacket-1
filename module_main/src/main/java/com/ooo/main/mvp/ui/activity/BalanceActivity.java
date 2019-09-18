@@ -156,10 +156,17 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             });
         } else if (i == R.id.tv_take_money) {
             //提现
-            showAuthDialog ();
+            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
+                showAuthDialog ();
+                return;
+            }
+            startActivity ( new Intent ( this, WithdrawalActivity.class ) );
         } else if (i == R.id.tv_recharge) {
             //充值
-            showAuthDialog();
+            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
+                showAuthDialog ();
+                return;
+            }
         } else if (i == R.id.tv_blank_card) {
             //银行卡
             openActivity ( BlankCardActivity.class );

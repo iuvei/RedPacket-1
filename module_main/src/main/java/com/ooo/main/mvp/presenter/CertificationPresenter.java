@@ -9,10 +9,15 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.CertificationContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.CertificationBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,6 +44,8 @@ public class CertificationPresenter extends BasePresenter <IModel, Certification
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+    @Inject
     public CertificationPresenter( CertificationContract.View rootView) {
         super ( rootView );
         ARouter.getInstance ().inject ( this );
@@ -51,5 +58,20 @@ public class CertificationPresenter extends BasePresenter <IModel, Certification
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void setCertification(String realname,String idnumber){
+        apiModel.setCertification (realname,idnumber)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <CertificationBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(CertificationBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.getCertificationSuccess(bean.getResult ());
+                        }else{
+                            mRootView.getCertificationFail();
+                        }
+                    }
+                } );
     }
 }

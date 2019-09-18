@@ -16,12 +16,14 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerSelfComponent;
 import com.ooo.main.mvp.contract.SelfContract;
 import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.SelfPresenter;
 import com.ooo.main.mvp.ui.activity.BalanceActivity;
 import com.ooo.main.mvp.ui.activity.BillingDetailsActivity;
+import com.ooo.main.mvp.ui.activity.CertificationActivity;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
 import com.ooo.main.mvp.ui.activity.SettingActivity;
 import com.ooo.main.mvp.ui.activity.UserInfoActivity;
@@ -34,6 +36,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
@@ -85,6 +89,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
     Unbinder unbinder;
 
     private MemberInfo mMemberInfo;
+    private BaseDialog dialog;
 
     public static SelfFragment newInstance() {
         SelfFragment fragment = new SelfFragment ();
@@ -204,15 +209,49 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             //客服
         } else if (i == R.id.ll_recharge) {
             //充值
+            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
+                showAuthDialog ();
+                return;
+            }
         } else if (i == R.id.ll_self_withdrawal) {
             //提现
+            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
+                showAuthDialog ();
+                return;
+            }
             startActivity ( new Intent ( getActivity (), WithdrawalActivity.class ) );
         } else if (i == R.id.self_bill) {
-            //
+            //账单明细
             startActivity ( new Intent ( getActivity (), BillingDetailsActivity.class ) );
         } else if (i == R.id.ll_setting) {
             //设置
             startActivity ( new Intent ( getActivity (), SettingActivity.class ) );
         }
+    }
+
+    private void showAuthDialog() {
+        dialog = new BaseCustomDialog.Builder ( getActivity (), R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "未实名认证，是否去设置？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        startActivity (new Intent ( getActivity (), CertificationActivity.class) );
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 }

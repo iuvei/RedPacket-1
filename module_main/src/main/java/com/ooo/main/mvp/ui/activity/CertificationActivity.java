@@ -146,8 +146,9 @@ public class CertificationActivity extends BaseSupportActivity <CertificationPre
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
-                        //确定
-                        openActivity ( WithdrawalActivity.class );
+                        String name = etName.getText ().toString ().trim ();
+                        String idNum = etIdnum.getText ().toString ().trim ();
+                        mPresenter.setCertification ( name,idNum );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
@@ -158,7 +159,18 @@ public class CertificationActivity extends BaseSupportActivity <CertificationPre
                 } );
             }
         } )
-                .create ();
+        .create ();
         dialog.show ();
+    }
+
+    @Override
+    public void getCertificationSuccess(String result) {
+        //确定
+        finish ();
+    }
+
+    @Override
+    public void getCertificationFail() {
+
     }
 }

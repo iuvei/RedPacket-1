@@ -1,5 +1,7 @@
 package com.ooo.main.mvp.model.entity;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResultInfo {
@@ -17,6 +19,8 @@ public class LoginResultInfo {
     private String avatarUrl;
     @SerializedName("gender")
     private int gender;
+    @SerializedName("realname")
+    private String realname;
 
     private long account;
     private double balance;
@@ -99,5 +103,21 @@ public class LoginResultInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    //是否实名认证
+    public boolean isCertification(){
+        if (TextUtils.isEmpty ( realname )){
+            return false;
+        }
+        return true;
     }
 }

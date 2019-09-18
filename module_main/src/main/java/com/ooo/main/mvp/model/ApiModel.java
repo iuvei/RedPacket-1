@@ -8,6 +8,7 @@ import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
@@ -85,6 +86,18 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .addBlankCard (token,cardname,cardcode,cardopen,cardaddress,type);
+    }
+
+    /**
+     * 实名认证
+     * realname	是	string	姓名
+     * idnumber	否	string	身份证号
+     * @return
+     */
+    public Observable<CertificationBean> setCertification(String realname, String idnumber) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .setCertification (token,realname,idnumber);
     }
 
 }

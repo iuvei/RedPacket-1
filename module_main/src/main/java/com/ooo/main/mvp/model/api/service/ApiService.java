@@ -3,6 +3,7 @@ package com.ooo.main.mvp.model.api.service;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
@@ -102,6 +103,21 @@ public interface ApiService {
             @Field("cardopen") String cardopen,
             @Field("cardaddress") String cardaddress,
             @Field("type") String type
+            );
+
+    /**
+     * 实名认证
+     * token	是	string	无
+     * realname	是	string	姓名
+     * idnumber	否	string	身份证号
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=set_name")
+    @FormUrlEncoded
+    Observable<CertificationBean> setCertification(
+            @Field("token") String token,
+            @Field("realname") String realname,
+            @Field("idnumber") String idnumber
             );
 
 
