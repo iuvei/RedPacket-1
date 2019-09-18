@@ -11,6 +11,7 @@ import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.BlankCardContract;
 import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import javax.inject.Inject;
@@ -70,6 +71,21 @@ public class BlankCardPresenter extends BasePresenter <IModel, BlankCardContract
                             mRootView.getBlankCardSuccess(blankCardBean.getResult ());
                         }else{
                             mRootView.getBlankCardFail();
+                        }
+                    }
+                } );
+    }
+
+    public void delBlankCard( String id ){
+        apiModel.delBlankCard (id)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <DelectBlankCardBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(DelectBlankCardBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.delBlankCardSuccess();
+                        }else{
+                            mRootView.delBlankCardFail();
                         }
                     }
                 } );

@@ -112,15 +112,15 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         } );
         lvCard.setOnItemLongClickListener ( new AdapterView.OnItemLongClickListener () {
             @Override
-            public boolean onItemLongClick(AdapterView <?> adapterView, View view, int i, long l) {
-                showDelectCardDialog ( l);
+            public boolean onItemLongClick(AdapterView <?> adapterView, View view, int position, long l) {
+                showDelectCardDialog ( ((BlankCardBean.ResultBean)adapter.getItem (position)).getId ());
                 return true;
             }
         } );
     }
 
     //删除银行卡
-    private void showDelectCardDialog(long position) {
+    private void showDelectCardDialog(String id) {
         dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_delect_blankcard, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
             @Override
             public void onShowDialog(View layout) {
@@ -137,7 +137,7 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
-                        getBlankCard();
+                        mPresenter.delBlankCard ( id );
                     }
                 } );
             }
@@ -218,6 +218,16 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
 
     @Override
     public void getBlankCardFail() {
+
+    }
+
+    @Override
+    public void delBlankCardSuccess() {
+        getBlankCard ();
+    }
+
+    @Override
+    public void delBlankCardFail() {
 
     }
 }

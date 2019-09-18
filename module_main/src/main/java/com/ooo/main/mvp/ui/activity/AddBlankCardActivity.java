@@ -363,13 +363,13 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                         //确定
                         switch (blanktype) {
                             case ALIPY:
-                                mPresenter.addBlankCard ( "",etAlipy.getText ().toString ().trim (),"支付宝","","1" );
+                                mPresenter.addBlankCard ( etAlipy.getText ().toString ().trim (),"支付宝","支付宝","1" );
                                 break;
                             case BLANK:
                                 String blankName = tvChooseBlank.getText ().toString ().trim ();
                                 String underBlankName = etLowerBank.getText ().toString ().trim ();
                                 String cardNum = etCardNum.getText ().toString ().trim ();
-                                mPresenter.addBlankCard ( "12",cardNum,blankName,underBlankName,cardtype.getValue ()+"" );
+                                mPresenter.addBlankCard ( cardNum,blankName,underBlankName,cardtype.getValue ()+"" );
                                 break;
                         }
                     }

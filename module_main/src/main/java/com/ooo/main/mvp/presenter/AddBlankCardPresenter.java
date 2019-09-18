@@ -62,8 +62,8 @@ public class AddBlankCardPresenter extends BasePresenter <IModel, AddBlankCardCo
         this.mApplication = null;
     }
 
-    public void addBlankCard(String cardname,String cardcode,String cardopen,String cardaddress,String type ){
-        apiModel.addBlankCard (cardname,cardcode,cardopen,cardaddress,type)
+    public void addBlankCard(String cardcode,String cardopen,String cardaddress,String type ){
+        apiModel.addBlankCard (cardcode,cardopen,cardaddress,type)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <AddBlankCardBean> (mErrorHandler) {
                     @Override

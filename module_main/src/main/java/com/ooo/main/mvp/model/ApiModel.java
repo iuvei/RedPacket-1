@@ -2,6 +2,7 @@ package com.ooo.main.mvp.model;
 
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
 import com.ooo.main.mvp.model.api.service.RedPacketGameService;
@@ -9,6 +10,7 @@ import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
+import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
@@ -75,15 +77,15 @@ public class ApiModel extends BaseModel{
     }
     /**
      * 添加银行卡
-     * cardname	是	String	持卡人
      * cardcode	是	String	卡号
      * cardopen	是	String	开户行
      * cardaddress	是	String	开户地址
      * type	是	String	1借记卡，2非借记卡
      * @return
      */
-    public Observable<AddBlankCardBean> addBlankCard(String cardname, String cardcode, String cardopen, String cardaddress, String type) {
+    public Observable<AddBlankCardBean> addBlankCard(String cardcode, String cardopen, String cardaddress, String type) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        String cardname = AppLifecyclesImpl.getUserinfo ().getRealname ();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .addBlankCard (token,cardname,cardcode,cardopen,cardaddress,type);
     }
@@ -98,6 +100,17 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .setCertification (token,realname,idnumber);
+    }
+
+    /**
+     * 解绑银行卡
+     * id	否	string	银行卡数据表id
+     * @return
+     */
+    public Observable<DelectBlankCardBean> delBlankCard(String id) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .delBlankCard (token,id);
     }
 
 }
