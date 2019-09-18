@@ -139,6 +139,7 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
             finish ();
         } else if (i == R.id.rl_address_book) {
             //手机通讯录匹配
+            openActivity ( ContactFriendActivity.class );
         } else if (i == R.id.rl_scan) {
             //扫一扫
             QrConfig qrConfig = new QrConfig.Builder ()
