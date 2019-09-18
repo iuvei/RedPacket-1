@@ -5,6 +5,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -166,6 +167,21 @@ public interface ApiService {
             @Field("old_password") String old_password,
             @Field("password") String password,
             @Field("password_new") String password_new
+            );
+
+    /**
+     * 设置支付密码
+     * token	是	string	无
+     * pwd2	是	string	二级密码
+     * pwd22	是	string	pwd22重复
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=level_2_password")
+    @FormUrlEncoded
+    Observable<PublicBean> setPayPassword(
+            @Field("token") String token,
+            @Field("pwd2") String pwd2,
+            @Field("pwd22") String pwd22
             );
 
 

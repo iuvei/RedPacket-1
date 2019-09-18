@@ -19,6 +19,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerPayPasswordComponent;
 import com.ooo.main.mvp.contract.PayPasswordContract;
+import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.presenter.PayPasswordPresenter;
 
 import butterknife.BindView;
@@ -174,11 +175,26 @@ public class PayPasswordActivity extends BaseActivity <PayPasswordPresenter> imp
                 ToastUtils.showShort ( "两次密码不一致" );
                 return;
             }
-            finish ();
+            if (password.length ()<6){
+                ToastUtils.showShort ( "请输入6位数字密码" );
+                return;
+            }
+            mPresenter.setPayPassword ( password,confirmPassword );
         } else if (i == R.id.iv_clear_password) {
             etPassword.setText ( "" );
         } else if (i == R.id.iv_clear_confirm_password) {
             etConfirmPassword.setText ( "" );
         }
+    }
+
+    @Override
+    public void setPayPasswordSuccess(PublicBean bean) {
+        ToastUtils.showShort ( bean.getMsg () );
+        finish ();
+    }
+
+    @Override
+    public void setPayPasswordFail(PublicBean bean) {
+        ToastUtils.showShort ( bean.getMsg () );
     }
 }

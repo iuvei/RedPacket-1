@@ -13,6 +13,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -142,6 +143,18 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .updatePassword (token,old_password, password,password_new);
+    }
+
+    /**
+     * 设置支付密码
+     * @param password  支付密码
+     * @param confirmPassword 确认支付密码
+     * @return
+     */
+    public Observable<PublicBean> setPayPassword(String password, String confirmPassword) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .setPayPassword (token,password, confirmPassword);
     }
 
 }

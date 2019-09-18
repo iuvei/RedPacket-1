@@ -2,16 +2,22 @@ package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.PayPasswordContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.PublicBean;
+import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,8 +45,11 @@ public class PayPasswordPresenter extends BasePresenter <IModel, PayPasswordCont
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+    @Inject
     public PayPasswordPresenter( PayPasswordContract.View rootView) {
         super (  rootView );
+        ARouter.getInstance ().inject ( this );
     }
 
     @Override
@@ -50,5 +59,20 @@ public class PayPasswordPresenter extends BasePresenter <IModel, PayPasswordCont
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void setPayPassword(String password,String confirmPassword ){
+        apiModel.setPayPassword (password,confirmPassword)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <PublicBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(PublicBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.setPayPasswordSuccess(bean);
+                        }else{
+                            mRootView.setPayPasswordFail(bean);
+                        }
+                    }
+                } );
     }
 }
