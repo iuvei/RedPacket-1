@@ -1,10 +1,8 @@
 package com.ooo.main.mvp.ui.adapter;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,7 +54,7 @@ public class BlankCradAdapter extends BaseListAdapter <BlankCardBean.ResultBean>
         }else{
             holder.tvBlankCardType.setText ( "" );
         }
-        holder.tvCardNum.setText ( list.get ( position ).getCardcode () );
+        holder.tvCardNum.setText ( list.get ( position ).getCardcodeSecret () );
         holder.tvBlankName.setText ( list.get ( position ).getCardopen () );
         switch (list.get ( position ).getCardopen ()){
             case "支付宝":

@@ -28,7 +28,10 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerAddBlankCardComponent;
 import com.ooo.main.mvp.contract.AddBlankCardContract;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.presenter.AddBlankCardPresenter;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -90,6 +93,24 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
     private ArrayList <String> cardItem = new ArrayList <> ();
     private BaseDialog dialog;
 
+    /**
+     * 添加成功后刷新银行卡列表
+     * {@link BlankCardActivity#addBlankCard(com.ooo.main.mvp.model.entity.AddBlankCardBean)}
+     * {@link WithdrawalActivity#addBlankCard(com.ooo.main.mvp.model.entity.BlankCardBean.ResultBean)}
+     * @param addBlankCardBean
+     */
+    @Override
+    public void getAddBlankCardSuccess(AddBlankCardBean addBlankCardBean) {
+        finish ();
+        EventBus.getDefault ().post ( addBlankCardBean,"getAddBlankCardSuccess" );
+        EventBus.getDefault ().post ( addBlankCardBean,"addBlankCard" );
+    }
+
+    @Override
+    public void getAddBlankCardFail() {
+
+    }
+
     enum BLANKTYPE {
         //没选中
         NONE,
@@ -108,6 +129,7 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
         UNPAYCARD(2);
         int value;
         CARDTYPE(int i) {
+            value = i;
         }
 
         public int getValue() {
@@ -247,6 +269,13 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_chooseBlank, R2.id.btn_next,R2.id.iv_delect_alipyNum,

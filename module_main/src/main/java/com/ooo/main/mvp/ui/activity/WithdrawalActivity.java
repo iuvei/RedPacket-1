@@ -17,11 +17,19 @@ import com.ooo.main.R2;
 import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerWithdrawalComponent;
 import com.ooo.main.mvp.contract.WithdrawalContract;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.presenter.WithdrawalPresenter;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -51,6 +59,8 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
     TextView tvMoney;
     @BindView(R2.id.tv_take_all)
     TextView tvTakeAll;
+    private BlankCardBean.ResultBean blankBean;
+    private BaseDialog dialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -72,6 +82,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue () );
+        mPresenter.getBlankCardList ();
     }
 
     @Override
@@ -106,6 +117,35 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
+    }
+
+    /**
+     * 选择银行卡
+     * {@link BlankCardActivity#initData(android.os.Bundle)}
+     * @param resultBean
+     */
+    @Subscriber(tag = "chooseBlankCard")
+    public void chooseBlankCard(BlankCardBean.ResultBean resultBean){
+        blankBean = resultBean;
+        tvBlankInfo.setText ( resultBean.getCardopen ()+"("+resultBean.getCardcodeSecret ()+")" );
+    }
+
+    /**
+     * 选择银行卡
+     * {@link AddBlankCardActivity#getAddBlankCardSuccess(com.ooo.main.mvp.model.entity.AddBlankCardBean)}
+     * @param resultBean
+     */
+    @Subscriber(tag = "addBlankCard")
+    public void addBlankCard(BlankCardBean.ResultBean resultBean){
+        blankBean = resultBean;
+        tvBlankInfo.setText ( resultBean.getCardopen ()+"("+resultBean.getCardcodeSecret ()+")" );
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_withdrawal_record, R2.id.tv_blank_info, R2.id.tv_take_all, R2.id.btn_next})
@@ -138,5 +178,47 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
                 return;
             }
         }
+    }
+
+    @Override
+    public void getBlankCardSuccess(List <BlankCardBean.ResultBean> result) {
+        if (result==null || result.size ()<=0){
+            showAddBlankCardDialog();
+        }else{
+            blankBean = result.get ( 0 );
+            tvBlankInfo.setText ( blankBean.getCardopen ()+"("+blankBean.getCardcodeSecret ()+")" );
+        }
+    }
+
+    private void showAddBlankCardDialog() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "未绑定银行卡，是否去添加银行卡" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        openActivity ( AddBlankCardActivity.class );
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        finish ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
+    }
+
+    @Override
+    public void getBlankCardFail() {
+        showAddBlankCardDialog();
     }
 }

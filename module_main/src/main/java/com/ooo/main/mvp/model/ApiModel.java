@@ -5,6 +5,7 @@ import com.jess.arms.mvp.BaseModel;
 import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
 import com.ooo.main.mvp.model.api.service.RedPacketGameService;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
@@ -80,7 +81,7 @@ public class ApiModel extends BaseModel{
      * type	是	String	1借记卡，2非借记卡
      * @return
      */
-    public Observable<WithRecordBean> addBlankCard(String cardname,String cardcode,String cardopen,String cardaddress,String type) {
+    public Observable<AddBlankCardBean> addBlankCard(String cardname, String cardcode, String cardopen, String cardaddress, String type) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .addBlankCard (token,cardname,cardcode,cardopen,cardaddress,type);

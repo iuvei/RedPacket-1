@@ -61,7 +61,7 @@
             android:text="银行卡"
             android:textColor="@color/public_black"
             android:gravity="center_vertical|right"
-            android:textSize="@dimen/text_sub_title"
+            android:textSize="@dimen/text_small"
             android:layout_marginRight="@dimen/spacing_xl"
             android:layout_marginLeft="@dimen/spacing_xl"/>
     </LinearLayout>

@@ -121,8 +121,12 @@ public class BlankCardBean {
             this.cardname = cardname;
         }
 
-        public String getCardcode() {
+        public String getCardcodeSecret() {
             return getStarString2(cardcode,4,4);
+        }
+
+        public String getCardcode() {
+            return cardcode;
         }
 
         public void setCardcode(String cardcode) {

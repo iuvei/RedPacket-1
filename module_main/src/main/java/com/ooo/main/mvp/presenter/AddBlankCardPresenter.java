@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.AddBlankCardContract;
 import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 
@@ -64,14 +65,14 @@ public class AddBlankCardPresenter extends BasePresenter <IModel, AddBlankCardCo
     public void addBlankCard(String cardname,String cardcode,String cardopen,String cardaddress,String type ){
         apiModel.addBlankCard (cardname,cardcode,cardopen,cardaddress,type)
                 .compose( RxUtils.applySchedulers(mRootView))
-                .subscribe ( new ErrorHandleSubscriber <WithRecordBean> (mErrorHandler) {
+                .subscribe ( new ErrorHandleSubscriber <AddBlankCardBean> (mErrorHandler) {
                     @Override
-                    public void onNext(WithRecordBean recordBean) {
-                       /* if (recordBean.getStatus ()==1) {
-                            mRootView.getWithRecordSuccess(recordBean.getResult ().getList ());
+                    public void onNext(AddBlankCardBean addBlankCardBean) {
+                        if (addBlankCardBean.getStatus ()==1) {
+                            mRootView.getAddBlankCardSuccess(addBlankCardBean);
                         }else{
-                            mRootView.getWithRecordFail();
-                        }*/
+                            mRootView.getAddBlankCardFail();
+                        }
                     }
                 } );
     }

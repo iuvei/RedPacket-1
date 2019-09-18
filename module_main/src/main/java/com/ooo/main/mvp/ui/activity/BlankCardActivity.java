@@ -10,15 +10,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBlankCardComponent;
 import com.ooo.main.mvp.contract.BlankCardContract;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.presenter.BlankCardPresenter;
 import com.ooo.main.mvp.ui.adapter.BlankCradAdapter;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,20 +91,30 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         ivRight.setVisibility ( View.VISIBLE );
         ivRight.setImageResource ( R.mipmap.icon_vip );
         lists = new ArrayList <> (  );
-        mPresenter.getBlankCardList ();
+        getBlankCard ();
         adapter = new BlankCradAdapter ( lists );
         lvCard.setAdapter ( adapter );
+        /**
+         * 选择银行卡
+         * {@link WithdrawalActivity#chooseBlankCard(com.ooo.main.mvp.model.entity.BlankCardBean.ResultBean)}
+         */
         lvCard.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
-            public void onItemClick(AdapterView <?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView <?> adapterView, View view, int position, long l) {
+                BlankCardBean.ResultBean resultBean = (BlankCardBean.ResultBean) lvCard.getItemAtPosition ( position );
+                if (!resultBean.getType ().equals ( "1" )){
+                    ToastUtils.showShort ( "不能提现到信用卡" );
+                    return;
+                }
+                EventBus.getDefault ().post ( resultBean,"chooseBlankCard" );
+                BlankCardActivity.this.finish ();
             }
         } );
         lvCard.setOnItemLongClickListener ( new AdapterView.OnItemLongClickListener () {
             @Override
             public boolean onItemLongClick(AdapterView <?> adapterView, View view, int i, long l) {
                 showDelectCardDialog ( l);
-                return false;
+                return true;
             }
         } );
     }
@@ -122,7 +137,7 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
-                        adapter.removerItemForPosition ( position );
+                        getBlankCard();
                     }
                 } );
             }
@@ -130,6 +145,10 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         dialog.show ();
     }
 
+
+    public void getBlankCard(){
+        mPresenter.getBlankCardList ();
+    }
     @Override
     public void showLoading() {
 
@@ -162,6 +181,23 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
+    }
+
+    /**
+     * 添加银行卡成功后刷新银行卡列表
+     * {@link AddBlankCardActivity#getAddBlankCardSuccess(com.ooo.main.mvp.model.entity.AddBlankCardBean)}
+     * @param addBlankCardBean
+     */
+    @Subscriber(tag = "getAddBlankCardSuccess")
+    public void addBlankCard(AddBlankCardBean addBlankCardBean){
+        getBlankCard();
     }
 
     @OnClick({R2.id.iv_back, R2.id.iv_right})

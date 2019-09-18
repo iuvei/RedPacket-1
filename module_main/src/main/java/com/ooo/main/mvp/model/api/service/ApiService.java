@@ -1,5 +1,6 @@
 package com.ooo.main.mvp.model.api.service;
 
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
@@ -94,7 +95,7 @@ public interface ApiService {
      */
     @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=addcard")
     @FormUrlEncoded
-    Observable<WithRecordBean> addBlankCard(
+    Observable<AddBlankCardBean> addBlankCard(
             @Field("token") String token,
             @Field("cardname") String cardname,
             @Field("cardcode") String cardcode,
