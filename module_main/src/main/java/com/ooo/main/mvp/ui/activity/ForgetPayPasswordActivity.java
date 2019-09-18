@@ -12,15 +12,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerForgetPayPasswordComponent;
 import com.ooo.main.mvp.contract.ForgetPayPasswordContract;
+import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.presenter.ForgetPayPasswordPresenter;
 
 import butterknife.BindView;
@@ -151,7 +150,7 @@ public class ForgetPayPasswordActivity extends BaseSupportActivity <ForgetPayPas
         }
         ToastUtils.showShort ( "短信下发成功，请注意查收！" );
         mCountDownUtils.start ();
-        mPresenter.sendSms(phoneNumber,true);
+        mPresenter.sendSms(phoneNumber,false);
     }
 
     @Override
@@ -213,7 +212,7 @@ public class ForgetPayPasswordActivity extends BaseSupportActivity <ForgetPayPas
                 ToastUtils.showShort ( "请输入支付密码" );
                 return;
             }
-            finish ();
+            mPresenter.findPayPassword ( phone,password,code );
         }
     }
 
@@ -227,5 +226,16 @@ public class ForgetPayPasswordActivity extends BaseSupportActivity <ForgetPayPas
     public void sendSmsFail() {
         if(null != mCountDownUtils)
             mCountDownUtils.reset();
+    }
+
+    @Override
+    public void findPayPasswordSuccess(PublicBean bean) {
+        ToastUtils.showShort ( bean.getMsg () );
+        finish ();
+    }
+
+    @Override
+    public void findPayPasswordFail(PublicBean bean) {
+        ToastUtils.showShort ( bean.getMsg () );
     }
 }

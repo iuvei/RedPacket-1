@@ -145,6 +145,7 @@ public class ApiModel extends BaseModel{
                 .updatePassword (token,old_password, password,password_new);
     }
 
+
     /**
      * 设置支付密码
      * @param password  支付密码
@@ -157,4 +158,15 @@ public class ApiModel extends BaseModel{
                 .setPayPassword (token,password, confirmPassword);
     }
 
+    /**
+     * 找回支付密码
+     * @param mobile  手机号
+     * @param password 密码
+     * @param code 验证号
+     * @return
+     */
+    public Observable<PublicBean> findPayPassword(String mobile,String password, String code) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .findPayPassword (mobile,password, code);
+    }
 }

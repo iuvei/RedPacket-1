@@ -184,6 +184,20 @@ public interface ApiService {
             @Field("pwd22") String pwd22
             );
 
+    /**
+     * mobile	是	string	用户名
+     * pwd2	是	string	支付密码
+     * code	否	string	验证码
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=forgetpwd2")
+    @FormUrlEncoded
+    Observable<PublicBean> findPayPassword(
+            @Field("mobile") String mobile,
+            @Field("pwd2") String pwd2,
+            @Field("code") String code
+            );
+
 
 
 }

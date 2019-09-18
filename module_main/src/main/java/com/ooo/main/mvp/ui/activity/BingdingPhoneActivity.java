@@ -94,7 +94,7 @@ public class BingdingPhoneActivity extends BaseActivity <BingdingPhonePresenter>
         }
         ToastUtils.showShort ( "短信下发成功，请注意查收！" );
         mCountDownUtils.start ();
-        mPresenter.sendSms(phoneNumber,true);
+        mPresenter.sendSms(phoneNumber,false);
     }
 
     @Override

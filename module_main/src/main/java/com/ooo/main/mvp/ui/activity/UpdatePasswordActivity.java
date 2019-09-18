@@ -142,6 +142,8 @@ public class UpdatePasswordActivity extends BaseSupportActivity <UpdatePasswordP
         }else {
             ToastUtils.showShort ( "修改成功" );
         }
+        openActivity ( LoginActivity.class );
+        finish ();
     }
 
     @Override

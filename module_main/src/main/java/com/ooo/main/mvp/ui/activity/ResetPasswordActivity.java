@@ -97,7 +97,7 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
             return;
         }
         mCountDownUtils.start ();
-        mPresenter.sendSms(phoneNumber,true);
+        mPresenter.sendSms(phoneNumber,false);
     }
 
     private void register(){

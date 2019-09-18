@@ -9,7 +9,9 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.ForgetPayPasswordContract;
+import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.entity.PublicBean;
 
 import javax.inject.Inject;
 
@@ -44,6 +46,8 @@ public class ForgetPayPasswordPresenter extends BasePresenter <IModel, ForgetPay
 
     @Inject
     MemberModel mLoginModel;
+    @Inject
+    ApiModel apiModel;
 
 
     @Inject
@@ -75,5 +79,20 @@ public class ForgetPayPasswordPresenter extends BasePresenter <IModel, ForgetPay
                         }
                     }
                 });
+    }
+
+    public void findPayPassword(String mobile,String password,String code ){
+        apiModel.findPayPassword (mobile,password,code)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <PublicBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(PublicBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.findPayPasswordSuccess(bean);
+                        }else{
+                            mRootView.findPayPasswordFail(bean);
+                        }
+                    }
+                } );
     }
 }
