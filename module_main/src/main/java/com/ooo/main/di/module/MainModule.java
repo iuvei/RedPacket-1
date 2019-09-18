@@ -6,7 +6,9 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
+import com.jess.arms.integration.IRepositoryManager;
 import com.ooo.main.mvp.contract.MainContract;
+import com.ooo.main.mvp.model.ApiModel;
 
 
 /**
@@ -24,6 +26,11 @@ import com.ooo.main.mvp.contract.MainContract;
 @Module
 public class MainModule {
 
-//    @Binds
+    //    @Binds
 //    abstract MainContract.Model bindMainModel(MainModel model);
+    @ActivityScope
+    @Provides
+    public ApiModel provideMemberModel(IRepositoryManager iRepositoryManager) {
+        return new ApiModel(iRepositoryManager);
+    }
 }

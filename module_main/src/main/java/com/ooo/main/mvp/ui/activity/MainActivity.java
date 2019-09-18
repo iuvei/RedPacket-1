@@ -21,6 +21,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerMainComponent;
 import com.ooo.main.mvp.contract.MainContract;
+import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.presenter.MainPresenter;
 import com.ooo.main.mvp.ui.fragment.GameFragment;
 import com.ooo.main.mvp.ui.fragment.MeesageFragment;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         initFragments();
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
+        mPresenter.getAppVersion ();
     }
 
     private void initFragments() {
@@ -218,6 +220,16 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     public void setUnreadIMMsgCountTotal(int countTotal) {
         tvUnreadMsg.setVisibility(countTotal>0 ? View.VISIBLE : View.INVISIBLE);
 //        tvMegNum.setText(String.valueOf(countTotal));
+    }
+
+    @Override
+    public void getAppVersionSuccess(AppVersionBean.ResultBean result) {
+
+    }
+
+    @Override
+    public void getAppVersionFail() {
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.model.api.service;
 
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
@@ -197,6 +198,15 @@ public interface ApiService {
             @Field("pwd2") String pwd2,
             @Field("code") String code
             );
+
+
+    /**
+     * 获取安卓版本信息
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=android")
+    @FormUrlEncoded
+    Observable<AppVersionBean> getAppVersion();
 
 
 

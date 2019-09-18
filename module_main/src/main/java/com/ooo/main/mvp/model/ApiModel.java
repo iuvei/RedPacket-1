@@ -9,6 +9,7 @@ import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
 import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
@@ -168,5 +169,14 @@ public class ApiModel extends BaseModel{
     public Observable<PublicBean> findPayPassword(String mobile,String password, String code) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .findPayPassword (mobile,password, code);
+    }
+
+    /**
+     * 获取app版本信息
+     * @return
+     */
+    public Observable<AppVersionBean> getAppVersion() {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getAppVersion ();
     }
 }

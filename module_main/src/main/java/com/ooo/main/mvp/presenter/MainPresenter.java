@@ -15,7 +15,9 @@ import me.jessyan.armscomponent.commonres.dialog.AppSettingsDialog;
 import me.jessyan.armscomponent.commonsdk.component.im.service.IMService;
 import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
@@ -23,6 +25,9 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.utils.LogUtils;
 import com.jess.arms.utils.PermissionUtil;
 import com.ooo.main.mvp.contract.MainContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.AppVersionBean;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.simple.eventbus.Subscriber;
@@ -52,6 +57,9 @@ public class MainPresenter extends BasePresenter<IModel, MainContract.View> {
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+
+    @Inject
+    ApiModel apiModel;
 
     @Autowired(name = RouterHub.IM_SERVICE_IMSERVICE)
     public IMService mIMService;
@@ -107,5 +115,20 @@ public class MainPresenter extends BasePresenter<IModel, MainContract.View> {
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getAppVersion( ){
+        apiModel.getAppVersion ()
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <AppVersionBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(AppVersionBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.getAppVersionSuccess(bean.getResult ());
+                        }else{
+                            mRootView.getAppVersionFail();
+                        }
+                    }
+                } );
     }
 }
