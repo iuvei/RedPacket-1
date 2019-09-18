@@ -1,5 +1,7 @@
 package com.ooo.main.mvp.model;
 
+import android.support.v7.widget.CardView;
+
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.ooo.main.app.AppLifecyclesImpl;
@@ -12,6 +14,7 @@ import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
@@ -111,6 +114,18 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .delBlankCard (token,id);
+    }
+
+    /**
+     * 提现
+     * @param goldmoney  金额
+     * @param cardid 银行卡id
+     * @return
+     */
+    public Observable<TakeMoneyBean> takeMoney(String goldmoney, String cardid) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .takeMoney (token,goldmoney, cardid);
     }
 
 }

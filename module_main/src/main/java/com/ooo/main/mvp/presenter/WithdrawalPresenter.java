@@ -18,6 +18,7 @@ import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.WithdrawalContract;
 import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 
 
 /**
@@ -70,6 +71,22 @@ public class WithdrawalPresenter extends BasePresenter <IModel, WithdrawalContra
                             mRootView.getBlankCardSuccess(blankCardBean.getResult ());
                         }else{
                             mRootView.getBlankCardFail();
+                        }
+                    }
+                } );
+    }
+
+
+    public void takeMoney( String goldmoney,String cardid ){
+        apiModel.takeMoney (goldmoney,cardid)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <TakeMoneyBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(TakeMoneyBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.takeMoneySuccess(bean,goldmoney);
+                        }else{
+                            mRootView.takeMoneyCardFail();
                         }
                     }
                 } );

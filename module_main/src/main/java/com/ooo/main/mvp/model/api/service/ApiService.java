@@ -6,6 +6,7 @@ import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
@@ -132,6 +133,21 @@ public interface ApiService {
     Observable<DelectBlankCardBean> delBlankCard(
             @Field("token") String token,
             @Field("id") String id
+            );
+
+    /**
+     * 提现
+     * token	是	string	无
+     * goldmMoney	是	String	金额
+     * cardid	是	String	银行卡id
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=withdrawal")
+    @FormUrlEncoded
+    Observable<TakeMoneyBean> takeMoney(
+            @Field("token") String token,
+            @Field("goldmoney") String goldmoney,
+            @Field("cardid") String cardid
             );
 
 

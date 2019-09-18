@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -18,6 +19,7 @@ import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerWithdrawalComponent;
 import com.ooo.main.mvp.contract.WithdrawalContract;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.presenter.WithdrawalPresenter;
 
 import org.simple.eventbus.EventBus;
@@ -177,6 +179,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
                 ToastUtils.showShort ( "最低提现100元" );
                 return;
             }
+            mPresenter.takeMoney (money,blankBean.getId ());
         }
     }
 
@@ -220,5 +223,24 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
     @Override
     public void getBlankCardFail() {
         showAddBlankCardDialog();
+    }
+
+    /**
+     * {@link BalanceActivity#takeMoneySuccess(com.ooo.main.mvp.model.entity.TakeMoneyBean)}
+     * @param bean
+     */
+    @Override
+    public void takeMoneySuccess(TakeMoneyBean bean,String goldmoney) {
+        ToastUtils.showShort ( bean.getMsg ());
+        finish ();
+        EventBus.getDefault ().post ( bean,"takeMoneySuccess" );
+        double balance = AppLifecyclesImpl.getUserinfo ().getBalance ();
+        double money =balance- ConvertNumUtils.stringToDouble ( goldmoney );
+        AppLifecyclesImpl.getUserinfo ().setBalance (money );
+    }
+
+    @Override
+    public void takeMoneyCardFail() {
+        ToastUtils.showShort ( "提现失败");
     }
 }

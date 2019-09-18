@@ -3,6 +3,7 @@ package com.ooo.main.mvp.contract;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 
 import java.util.List;
 
@@ -26,6 +27,11 @@ public interface WithdrawalContract {
         void getBlankCardSuccess(List<BlankCardBean.ResultBean> result);
 
         void getBlankCardFail();
+
+
+        void takeMoneyCardFail();
+
+        void takeMoneySuccess(TakeMoneyBean bean, String goldmoney);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

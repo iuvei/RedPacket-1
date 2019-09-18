@@ -19,7 +19,11 @@ import com.ooo.main.R2;
 import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerBalanceComponent;
 import com.ooo.main.mvp.contract.BalanceContract;
+import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.presenter.BalancePresenter;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,6 +131,22 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
+    }
+
+    /**
+     * 提取现金后刷新余额
+     *{@link WithdrawalActivity#takeMoneySuccess(com.ooo.main.mvp.model.entity.TakeMoneyBean, java.lang.String)}
+     */
+    @Subscriber(tag="takeMoneySuccess")
+    public void takeMoneySuccess(TakeMoneyBean bean){
+        tvBalanceNum.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue () );
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_balanceDetail, R2.id.tv_payments, R2.id.tv_scan,
