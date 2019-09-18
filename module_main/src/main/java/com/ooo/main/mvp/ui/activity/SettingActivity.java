@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.haisheng.easeim.app.IMHelper;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.utils.ArmsUtils;
@@ -21,6 +23,10 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerSettingComponent;
 import com.ooo.main.mvp.contract.SettingContract;
 import com.ooo.main.mvp.presenter.SettingPresenter;
+
+import org.apache.commons.logging.Log;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,6 +37,7 @@ import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
@@ -102,6 +109,9 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "设置" );
         tvVersion.setText ( AppUtils.getAppVersionName () );
+        String messageSaveTime = SpUtils.getValue ( this,"messageSaveTime","7天" );
+        tvDayTime.setText ( "保留"+messageSaveTime+"的聊天记录" );
+        tvRecordTime.setText ( messageSaveTime);
     }
 
     @Override
@@ -177,6 +187,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
+                        IMHelper.getInstance ().delectAllMessage ();
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
@@ -206,6 +217,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
                         dialog.dismiss ();
                         tvDayTime.setText ( "七天" );
                         tvRecordTime.setText ( "七天" );
+                        SpUtils.put ( SettingActivity.this,"messageSaveTime","七天" );
                     }
                 } );
                 tvHalfMonth.setOnClickListener ( new View.OnClickListener () {
@@ -214,6 +226,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
                         dialog.dismiss ();
                         tvDayTime.setText ( "十五天" );
                         tvRecordTime.setText ( "十五天" );
+                        SpUtils.put ( SettingActivity.this,"messageSaveTime","十五天" );
                     }
                 } );
                 tvOneMonth.setOnClickListener ( new View.OnClickListener () {
@@ -222,6 +235,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
                         dialog.dismiss ();
                         tvDayTime.setText ( "一个月" );
                         tvRecordTime.setText ( "一个月" );
+                        SpUtils.put ( SettingActivity.this,"messageSaveTime","一个月" );
                     }
                 } );
                 tvForever.setOnClickListener ( new View.OnClickListener () {
@@ -230,6 +244,7 @@ public class SettingActivity extends BaseSupportActivity <SettingPresenter> impl
                         dialog.dismiss ();
                         tvDayTime.setText ( "永久" );
                         tvRecordTime.setText ( "永久" );
+                        SpUtils.put ( SettingActivity.this,"messageSaveTime","永久" );
                     }
                 } );
             }

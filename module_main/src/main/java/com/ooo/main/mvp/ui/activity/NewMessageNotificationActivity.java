@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.haisheng.easeim.app.IMHelper;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
+import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -72,6 +74,14 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "新消息通知" );
+        boolean newMessageNotification = SpUtils.getValue ( this,"newMessageNotification", true);
+        boolean notificationDetails = SpUtils.getValue ( this,"notificationDetails", true);
+        boolean voice = SpUtils.getValue ( this,"voice", true);
+        boolean vibrate = SpUtils.getValue ( this,"vibrate", true);
+        swbNewmessage.setChecked ( newMessageNotification );
+        swbMessageDetail.setChecked ( notificationDetails );
+        swbVoice.setChecked ( voice );
+        swbVibration.setChecked ( vibrate );
         setListener();
     }
 
@@ -79,41 +89,28 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
         swbMessageDetail.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-
-                }else{
-
-                }
+                SpUtils.put ( NewMessageNotificationActivity.this,"notificationDetails", isChecked);
             }
         } );
         swbNewmessage.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-
-                }else{
-
-                }
+                IMHelper.getInstance ().getModel ().setSettingMsgNotification ( isChecked );
+                SpUtils.put ( NewMessageNotificationActivity.this,"newMessageNotification", isChecked);
             }
         } );
         swbVibration.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-
-                }else{
-
-                }
+                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
+                SpUtils.put ( NewMessageNotificationActivity.this,"vibrate", isChecked);
             }
         } );
         swbVoice.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-
-                }else{
-
-                }
+                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
+                SpUtils.put ( NewMessageNotificationActivity.this,"voice", isChecked);
             }
         } );
     }

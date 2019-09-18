@@ -26,6 +26,7 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
@@ -1145,5 +1146,27 @@ public class IMHelper {
 //        setContactList(null);
 //        setRobotList(null);
 //        getUserProfileManager().reset();
+    }
+
+    /**
+     * 获取所有会话
+     * @return
+     */
+    public List<EMConversation> getAllConversations() {
+        Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+        List<EMConversation> lists = new ArrayList <> (  );
+        for (Map.Entry<String, EMConversation> entry : conversations.entrySet())
+             {
+                 lists.add ( entry.getValue() );
+             }
+        return lists;
+    }
+
+    public void delectAllMessage(){
+        List <com.hyphenate.chat.EMConversation> allConversation = getAllConversations();
+        for (int i=0;i<allConversation.size ();i++) {
+            //删除和某个user会话，如果需要保留聊天记录，传false
+           allConversation.get ( i ).clearAllMessages ();
+        }
     }
 }

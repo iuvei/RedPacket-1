@@ -36,7 +36,7 @@ public class WelcomeActivity extends BaseSupportActivity {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         // 判断是否是第一次开启应用
-        boolean isFirstOpen = (boolean) SpUtils.get(this, MainConstants.FIRST_START, false);
+        boolean isFirstOpen = (boolean) SpUtils.getValue (this, MainConstants.FIRST_START, false);
         // 如果是第一次启动，则先进入功能引导页
         if (!isFirstOpen) {
             startActivity(new Intent(this, GuideActivity.class));

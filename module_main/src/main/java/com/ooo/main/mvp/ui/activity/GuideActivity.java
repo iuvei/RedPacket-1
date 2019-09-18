@@ -1,11 +1,9 @@
 package com.ooo.main.mvp.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.jess.arms.di.component.AppComponent;
@@ -13,13 +11,8 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.app.MainConstants;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
-import cn.bingoogolapple.bgabanner.BGABannerUtil;
 import cn.bingoogolapple.bgabanner.BGALocalImageSize;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
@@ -73,7 +66,7 @@ public class GuideActivity extends BaseSupportActivity {
 
     private void enterLoginAdActivity() {
         SpUtils.put(mContext, MainConstants.FIRST_START, true);
-        openActivity(LoginAdActivity.class);
+        openActivity(LoginActivity.class);
         finish();
     }
 
