@@ -15,6 +15,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerProtectAccountComponent;
 import com.ooo.main.mvp.contract.ProtectAccountContract;
 import com.ooo.main.mvp.presenter.ProtectAccountPresenter;
@@ -81,6 +82,9 @@ public class ProtectAccountActivity extends BaseSupportActivity <ProtectAccountP
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "账号与安全" );
+        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        tvName.setText ( AppLifecyclesImpl.getUserinfo ().getRealnameScreat () );
+        tvPhoneNum.setText ( AppLifecyclesImpl.getUserinfo ().getMobileScreat () );
     }
 
     @Override

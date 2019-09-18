@@ -23,6 +23,8 @@ public class LoginResultInfo {
     private String realname;
     @SerializedName("rechangemoney")
     private String rechangemoney; //手续费百分比
+    @SerializedName("mobile")
+    private String mobile; //手机号
 
     private long account;
     private double balance;
@@ -110,6 +112,9 @@ public class LoginResultInfo {
     public String getRealname() {
         return realname;
     }
+    public String getRealnameScreat() {
+        return BlankCardBean.getStarString2 ( realname,1,0 );
+    }
 
     public void setRealname(String realname) {
         this.realname = realname;
@@ -133,5 +138,16 @@ public class LoginResultInfo {
             return false;
         }
         return true;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+    public String getMobileScreat() {
+        return BlankCardBean.getStarString2 ( mobile,3,4 );
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
