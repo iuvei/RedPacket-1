@@ -78,6 +78,7 @@
         android:paddingBottom="20dp"
         android:layout_marginTop="5dp">
         <TextView
+            android:id="@+id/tv_rechangemoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="提现金额(收取1.0%服务费)"

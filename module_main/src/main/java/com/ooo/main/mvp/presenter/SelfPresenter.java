@@ -82,6 +82,7 @@ public class SelfPresenter extends BasePresenter<IModel, SelfContract.View> {
                             AppLifecyclesImpl.getUserinfo ().setBalance ( response.getResult ().getBalance () );
                             AppLifecyclesImpl.getUserinfo ().setUsername ( response.getResult ().getPhoneNumber () );
                             AppLifecyclesImpl.getUserinfo ().setRealname ( response.getResult ().getRealname () );
+                            AppLifecyclesImpl.getUserinfo ().setRechangemoney ( response.getResult ().getRechangemoney () );
                         }else {
                             mRootView.showMessage(response.getMessage());
                         }

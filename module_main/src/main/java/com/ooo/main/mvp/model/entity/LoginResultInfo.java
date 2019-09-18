@@ -21,6 +21,8 @@ public class LoginResultInfo {
     private int gender;
     @SerializedName("realname")
     private String realname;
+    @SerializedName("rechangemoney")
+    private String rechangemoney; //手续费百分比
 
     private long account;
     private double balance;
@@ -111,6 +113,18 @@ public class LoginResultInfo {
 
     public void setRealname(String realname) {
         this.realname = realname;
+    }
+
+    public String getRechangemoney() {
+        return rechangemoney;
+    }
+
+    public void setRechangemoney(String rechangemoney) {
+        this.rechangemoney = rechangemoney;
+    }
+
+    public String  getRechangemoneyPercent(){
+        return rechangemoney+"%";
     }
 
     //是否实名认证

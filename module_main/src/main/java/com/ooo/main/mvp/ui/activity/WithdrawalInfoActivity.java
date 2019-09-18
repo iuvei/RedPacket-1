@@ -2,7 +2,6 @@ package com.ooo.main.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -16,7 +15,6 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerWithdrawalInfoComponent;
 import com.ooo.main.mvp.contract.WithdrawalInfoContract;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
-import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.WithdrawalInfoPresenter;
 
 import butterknife.BindView;
@@ -46,15 +44,15 @@ public class WithdrawalInfoActivity extends BaseActivity <WithdrawalInfoPresente
     @BindView(R2.id.tv_title)
     TextView tvTitle;
     @BindView(R2.id.tv_take_money)
-    TextView tvTakeMoney;
+    TextView tvTakeMoney; //提现金额
     @BindView(R2.id.tv_get_money)
-    TextView tvGetMoney;
+    TextView tvGetMoney;  //到账金额
     @BindView(R2.id.tv_status)
-    TextView tvStatus;
+    TextView tvStatus;   //提现状态
     @BindView(R2.id.tv_take_money_time)
-    TextView tvTakeMoneyTime;
+    TextView tvTakeMoneyTime;  //提现时间
     @BindView(R2.id.tv_get_money_account)
-    TextView tvGetMoneyAccount;
+    TextView tvGetMoneyAccount; //到账账号
     private WithRecordBean.ResultBean.ListBean recordBean;
 
     @Override
@@ -79,9 +77,9 @@ public class WithdrawalInfoActivity extends BaseActivity <WithdrawalInfoPresente
         tvTitle.setText ( "提现详情" );
         recordBean = (WithRecordBean.ResultBean.ListBean) getIntent ().getSerializableExtra ( "info" );
         if (recordBean!=null){
-            tvGetMoney.setText ( recordBean.getGold () );
-            tvGetMoneyAccount.setText ( recordBean.getDetails () );
-            tvStatus.setText ( recordBean.getDetails () );
+            tvGetMoney.setText ( recordBean.getReagold () );
+            tvGetMoneyAccount.setText ( "提现到"+recordBean.getCardopen ()+"("+recordBean.getCardCodeScreat ()+")" );
+            tvStatus.setText ( recordBean.getStatusValue () );
             tvTakeMoney.setText ( recordBean.getGold () );
             tvTakeMoneyTime.setText ( recordBean.getAddtime () );
         }

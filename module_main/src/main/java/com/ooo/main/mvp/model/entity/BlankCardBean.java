@@ -32,7 +32,7 @@ public class BlankCardBean {
      * @return 带星号的字符串
      */
 
-    private static String getStarString2(String content, int frontNum, int endNum) {
+    public static String getStarString2(String content, int frontNum, int endNum) {
 
         if (frontNum >= content.length() || frontNum < 0) {
             return content;

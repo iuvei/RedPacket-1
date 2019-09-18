@@ -96,9 +96,11 @@
             android:id="@+id/tv_get_money_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99.00"
-            android:layout_below="@+id/tv_take_money_time"
-            android:layout_marginTop="@dimen/spacing_m"
+            android:text="提现到中国邮政储蓄银行（1234****1234）"
+            android:layout_alignBottom="@+id/get_money_account"
+            android:layout_alignTop="@+id/get_money_account"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_small_little"
             android:layout_alignParentRight="true"
             android:textColor="@color/public_black"/>
     </RelativeLayout>

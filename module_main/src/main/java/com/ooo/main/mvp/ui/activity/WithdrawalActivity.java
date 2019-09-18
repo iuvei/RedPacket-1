@@ -61,6 +61,8 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
     TextView tvMoney;
     @BindView(R2.id.tv_take_all)
     TextView tvTakeAll;
+    @BindView(R2.id.tv_rechangemoney)
+    TextView tvRechangemoney;
     private BlankCardBean.ResultBean blankBean;
     private BaseDialog dialog;
 
@@ -85,6 +87,7 @@ public class WithdrawalActivity extends BaseSupportActivity <WithdrawalPresenter
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalanceValue () );
         mPresenter.getBlankCardList ();
+        tvRechangemoney.setText ( "提现金额(收取"+AppLifecyclesImpl.getUserinfo ().getRechangemoneyPercent ()+"服务费)" );
     }
 
     @Override

@@ -22,6 +22,9 @@ public class MemberInfo implements Serializable {
     private int sex;
     @SerializedName("realname")
     private String realname;
+
+    @SerializedName("rechangemoney")
+    private String rechangemoney;
     public static final int MALE = 1;
     public static final int FAMALE = 0;
 
@@ -115,5 +118,13 @@ public class MemberInfo implements Serializable {
 
     public void setRealname(String realname) {
         this.realname = realname;
+    }
+
+    public String getRechangemoney() {
+        return rechangemoney;
+    }
+
+    public void setRechangemoney(String rechangemoney) {
+        this.rechangemoney = rechangemoney;
     }
 }

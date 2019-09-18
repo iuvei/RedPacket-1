@@ -53,7 +53,7 @@ public class WithRecordAdapter extends RecyclerView.Adapter <WithRecordAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvStatue.setText ( data.get ( position ).getDetails () );
+        holder.tvStatue.setText ( data.get ( position ).getStatusValue () );
         holder.tvTaketime.setText ( data.get ( position ).getAddtime () );
         holder.tvMoney.setText ( data.get ( position ).getGold () );
 
