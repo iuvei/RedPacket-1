@@ -17,6 +17,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerUpdatePasswordComponent;
 import com.ooo.main.mvp.contract.UpdatePasswordContract;
+import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
 import com.ooo.main.mvp.presenter.UpdatePasswordPresenter;
 
 import butterknife.BindView;
@@ -130,6 +131,25 @@ public class UpdatePasswordActivity extends BaseSupportActivity <UpdatePasswordP
                 ToastUtils.showShort ( "两次密码输入不一致" );
                 return;
             }
+            mPresenter.updatePassword ( oldPassword,newPassword,comfirmPassword );
+        }
+    }
+
+    @Override
+    public void updatePasswordSuccess(UpdatePasswordBean bean) {
+        if (bean!=null){
+            ToastUtils.showShort ( bean.getMsg () );
+        }else {
+            ToastUtils.showShort ( "修改成功" );
+        }
+    }
+
+    @Override
+    public void updatePasswordFail(UpdatePasswordBean bean) {
+        if (bean!=null){
+            ToastUtils.showShort ( bean.getMsg () );
+        }else {
+            ToastUtils.showShort ( "修改失败" );
         }
     }
 }

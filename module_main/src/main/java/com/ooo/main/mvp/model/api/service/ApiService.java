@@ -8,6 +8,7 @@ import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
+import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
@@ -148,6 +149,23 @@ public interface ApiService {
             @Field("token") String token,
             @Field("goldmoney") String goldmoney,
             @Field("cardid") String cardid
+            );
+
+    /**
+     * 修改密码
+     * token	是	string	无
+     * old_password	是	string	旧密码
+     * password	是	string	密码
+     * password_new	否	string	重复密码
+     * @param token
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=revise_psd")
+    @FormUrlEncoded
+    Observable<UpdatePasswordBean> updatePassword(
+            @Field("token") String token,
+            @Field("old_password") String old_password,
+            @Field("password") String password,
+            @Field("password_new") String password_new
             );
 
 

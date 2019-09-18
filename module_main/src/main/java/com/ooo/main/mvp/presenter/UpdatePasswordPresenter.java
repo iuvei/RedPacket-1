@@ -9,10 +9,15 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.UpdatePasswordContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,6 +44,9 @@ public class UpdatePasswordPresenter extends BasePresenter <IModel, UpdatePasswo
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+
+    @Inject
     public UpdatePasswordPresenter( UpdatePasswordContract.View rootView) {
         super ( rootView );
         ARouter.getInstance ().inject ( this );
@@ -51,5 +59,20 @@ public class UpdatePasswordPresenter extends BasePresenter <IModel, UpdatePasswo
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void updatePassword(String oldPassword,String newPassword,String confirmPassword ){
+        apiModel.updatePassword (oldPassword,newPassword,confirmPassword)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <UpdatePasswordBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(UpdatePasswordBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.updatePasswordSuccess(bean);
+                        }else{
+                            mRootView.updatePasswordFail(bean);
+                        }
+                    }
+                } );
     }
 }

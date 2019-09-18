@@ -16,6 +16,7 @@ import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
+import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
@@ -126,6 +127,21 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .takeMoney (token,goldmoney, cardid);
+    }
+
+
+    /**
+     * 修改密码
+     * token	是	string	无
+     * old_password	是	string	旧密码
+     * password	是	string	密码
+     * password_new	否	string	重复密码
+     * @return
+     */
+    public Observable<UpdatePasswordBean> updatePassword(String old_password, String password, String password_new) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .updatePassword (token,old_password, password,password_new);
     }
 
 }
