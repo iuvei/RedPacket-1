@@ -1,5 +1,6 @@
 package com.haisheng.easeim.mvp.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerContactComponent;
 import com.haisheng.easeim.mvp.contract.ContactContract;
 import com.haisheng.easeim.mvp.presenter.ContactPresenter;
+import com.haisheng.easeim.mvp.ui.activity.ContactInfoActivity;
 import com.haisheng.easeim.mvp.ui.adapter.ContactListAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -117,6 +120,21 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
                 int position = adapter.getPositionForSection(s);
                 if (position != -1) {
                     listView.setSelection(position);
+                }
+            }
+        } );
+
+        listView.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick(AdapterView <?> adapterView, View view, int position, long l) {
+                if (position==0){
+                    //新的好友
+                }else if (position==1){
+                    //群聊
+                }else {
+                    //好友
+                    UserInfo userInfo = (UserInfo) adapter.getItem ( position );
+                    ContactInfoActivity.start ( (Activity) mContext, userInfo);
                 }
             }
         } );
