@@ -3,7 +3,11 @@ package com.ooo.main.mvp.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,12 +16,19 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.mvp.model.entity.MemberInfo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +60,7 @@ public class QrcodeCardActivity extends BaseSupportActivity {
     ImageView ivRight;
     @BindView(R2.id.tv_accountnum)
     TextView tvAccountnum;
+    private Bitmap qrCode;
 
 
     public static void start(Context context, MemberInfo memberInfo) {
@@ -84,7 +96,7 @@ public class QrcodeCardActivity extends BaseSupportActivity {
         tvAccountnum.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
         int sexStatusResId = AppLifecyclesImpl.getUserinfo ().getGender () == MemberInfo.FAMALE ? R.drawable.ic_female : R.drawable.ic_male;
         ivSex.setImageResource ( sexStatusResId );
-        Bitmap qrCode = QRUtils.getInstance().createQRCode( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        qrCode = QRUtils.getInstance().createQRCode( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
         Glide.with ( this )
                 .load ( qrCode )
                 .into ( ivQrcode );
@@ -112,8 +124,42 @@ public class QrcodeCardActivity extends BaseSupportActivity {
                 @Override
                 public void onClick(View view) {
                     popuWindowsUtils.dismiss ();
+                    saveToSystemGallery(QrcodeCardActivity.this,qrCode);
                 }
             } );
         }
+    }
+
+
+    public void saveToSystemGallery(Context context, Bitmap bmp) {
+        // 首先保存图片
+        File appDir = new File( Environment.getExternalStorageDirectory(), "vgmap");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".png";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("保存失败");
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("保存失败");
+        }
+        ToastUtils.showShort ( "图片已保存到"+appDir+"目录下" );
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                    file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 最后通知图库更新
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
     }
 }
