@@ -2,6 +2,7 @@ package com.ooo.main.mvp.contract;
 
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
 
 
@@ -25,6 +26,10 @@ public interface MainContract {
         void getAppVersionSuccess(AppVersionBean.ResultBean result);
 
         void getAppVersionFail();
+
+        void getAdvertisingSuccess(AdvertisingBean.ResultBean result);
+
+        void getAdvertisingFail();
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

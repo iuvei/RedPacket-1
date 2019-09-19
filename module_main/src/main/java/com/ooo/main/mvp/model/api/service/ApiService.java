@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.model.api.service;
 
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
@@ -207,6 +208,15 @@ public interface ApiService {
     @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=android")
     @FormUrlEncoded
     Observable<AppVersionBean> getAppVersion();
+
+
+    /**
+     * 获取弹出公告
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=sysno")
+    @FormUrlEncoded
+    Observable<AdvertisingBean> getAdvertising();
 
 
 

@@ -1169,4 +1169,15 @@ public class IMHelper {
            allConversation.get ( i ).clearAllMessages ();
         }
     }
+
+    /**
+     * 删除好友
+     */
+    public void delectContact(String username){
+        try {
+            EMClient.getInstance().contactManager().deleteContact(username);
+        } catch (HyphenateException e) {
+            e.printStackTrace ();
+        }
+    }
 }

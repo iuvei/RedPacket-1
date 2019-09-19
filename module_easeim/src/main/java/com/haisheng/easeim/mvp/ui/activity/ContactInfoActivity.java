@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.di.component.DaggerContactInfoComponent;
 import com.haisheng.easeim.mvp.contract.ContactInfoContract;
 import com.haisheng.easeim.mvp.presenter.ContactInfoPresenter;
@@ -95,6 +96,12 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         if (userInfo!=null){
             tvAccount.setText ( userInfo.getHxId () );
             tvName.setText ( userInfo.getNickname () );
+            if (userInfo.getSexStatus ()==0){
+                //男
+                tvContactSex.setImageResource ( R.drawable.ic_male );
+            }else{
+                tvContactSex.setImageResource ( R.drawable.ic_female );
+            }
         }
     }
     public static void start(Activity context, UserInfo userInfo) {
@@ -205,6 +212,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
+                        IMHelper.getInstance ().delectContact ( userInfo.getHxId () );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {

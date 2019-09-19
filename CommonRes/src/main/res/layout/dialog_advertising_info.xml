@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_radios_6_shape"
+    tools:ignore="ResourceName">
+    <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/btn_radios_6_l_r_shape">
+        <ImageView
+            android:id="@+id/iv_colse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_xl"
+            android:src="@mipmap/icon_close"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公告"
+            android:textColor="@color/public_white"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_title"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_below="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/public_black"
+        android:padding="@dimen/spacing_xl"/>
+</RelativeLayout>

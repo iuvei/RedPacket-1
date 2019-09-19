@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,12 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.haisheng.easeim.app.IMHelper;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerMainComponent;
 import com.ooo.main.mvp.contract.MainContract;
+import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.presenter.MainPresenter;
 import com.ooo.main.mvp.ui.fragment.GameFragment;
@@ -33,6 +36,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -81,6 +87,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     LinearLayout llMe;
 
     private View mCurrentShowView,mCurrentItemView;
+    private BaseDialog dialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -104,6 +111,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         initFragments();
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
+        mPresenter.getAdvertising ();
         mPresenter.getAppVersion ();
     }
 
@@ -184,7 +192,6 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
             ivChat.setVisibility(View.VISIBLE);
             Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.translate_scale_left_to_center);
             ivChat.startAnimation(animation);
-
         } else if (i == R.id.ll_group) {
             viewPager.setCurrentItem(1);
             mCurrentShowView = ivGroup;
@@ -224,11 +231,40 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     @Override
     public void getAppVersionSuccess(AppVersionBean.ResultBean result) {
-
+        showVersionUpdateDialog(result);
     }
 
     @Override
     public void getAppVersionFail() {
+
+    }
+
+    @Override
+    public void getAdvertisingSuccess(AdvertisingBean.ResultBean result) {
+       showAdvertising(result);
+    }
+
+    private void showAdvertising(AdvertisingBean.ResultBean result) {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_advertising_info, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_content );
+                tvMessage.setText ( result.getAffiche () );
+                layout.findViewById ( R.id.iv_colse ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
+    }
+
+    @Override
+    public void getAdvertisingFail() {
 
     }
 
@@ -240,6 +276,33 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     @Override
     public void hideLoading() {
 
+    }
+
+    //弹出版本更新
+    private void showVersionUpdateDialog(AppVersionBean.ResultBean bean) {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "是否清除所有缓存与聊天记录？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        IMHelper.getInstance ().delectAllMessage ();
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
     @Override

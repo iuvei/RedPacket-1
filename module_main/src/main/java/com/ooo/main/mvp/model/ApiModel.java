@@ -9,6 +9,7 @@ import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
 import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
@@ -178,5 +179,14 @@ public class ApiModel extends BaseModel{
     public Observable<AppVersionBean> getAppVersion() {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getAppVersion ();
+    }
+
+    /**
+     * 获取弹出公告
+     * @return
+     */
+    public Observable<AdvertisingBean> getAdvertising() {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getAdvertising ();
     }
 }

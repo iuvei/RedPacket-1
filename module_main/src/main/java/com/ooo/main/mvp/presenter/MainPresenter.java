@@ -3,6 +3,7 @@ package com.ooo.main.mvp.presenter;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -26,6 +27,7 @@ import com.jess.arms.utils.LogUtils;
 import com.jess.arms.utils.PermissionUtil;
 import com.ooo.main.mvp.contract.MainContract;
 import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -127,6 +129,22 @@ public class MainPresenter extends BasePresenter<IModel, MainContract.View> {
                             mRootView.getAppVersionSuccess(bean.getResult ());
                         }else{
                             mRootView.getAppVersionFail();
+                        }
+                    }
+                } );
+    }
+
+    public void getAdvertising( ){
+        apiModel.getAdvertising ()
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <AdvertisingBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(AdvertisingBean bean) {
+                        Log.e ( "tag","getAdvertising" );
+                        if (bean.getStatus ()==1) {
+                            mRootView.getAdvertisingSuccess(bean.getResult ());
+                        }else{
+                            mRootView.getAdvertisingFail();
                         }
                     }
                 } );
