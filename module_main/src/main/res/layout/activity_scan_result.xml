@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/title_layout"></include>
+    <RelativeLayout
+        android:id="@+id/rl_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_xl"
+        android:background="@color/public_white">
+        <ImageView
+            android:id="@+id/iv_userhead"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="@dimen/spacing_xl"
+            android:src="@mipmap/alipay"/>
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:layout_toRightOf="@+id/iv_userhead"
+            android:textColor="@color/public_black"
+            />
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_nickname"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:src="@drawable/ic_male"/>
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_userhead"
+            android:layout_below="@+id/tv_nickname"
+            android:text="账号："/>
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/account"
+            android:layout_below="@+id/tv_nickname"
+            tools:text="12346"/>
+    </RelativeLayout>
+    <View style="@style/discover_style_view"></View>
+</LinearLayout>

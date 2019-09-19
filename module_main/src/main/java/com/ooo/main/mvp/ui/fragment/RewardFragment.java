@@ -21,6 +21,7 @@ import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
+import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
 import butterknife.BindView;
@@ -125,9 +126,7 @@ public class RewardFragment extends BaseSupportFragment {
             QrManager.getInstance().init(qrConfig).startScan(getActivity (), new QrManager.OnScanResultCallback() {
                 @Override
                 public void onScanSuccess(ScanResult result) {
-                    Log.e(TAG, "onScanSuccess: "+result );
-                    Toast.makeText(getActivity (), "内容："+result.getContent()
-                            +"  类型："+result.getType(), Toast.LENGTH_SHORT).show();
+                    ScanResultActivity.start ( getActivity (), result.getContent());
                 }
             });
         } else if (i == R.id.layout_promote) {
