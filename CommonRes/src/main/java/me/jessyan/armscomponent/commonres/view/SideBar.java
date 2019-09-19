@@ -11,26 +11,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ooo.main.view;
+package me.jessyan.armscomponent.commonres.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.ooo.main.R;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+
+import me.jessyan.armscomponent.commonres.R;
 
 public class SideBar extends View{
 	// 字母变化监听事件
@@ -39,7 +34,7 @@ public class SideBar extends View{
 
 	// 字母数组
 
-	public static String[] b = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+	public static String[] bArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
 
 			"M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
@@ -91,13 +86,13 @@ public class SideBar extends View{
 
 		// 设置字母高度
 
-		float letterHeight = (height * 1f) / b.length;
-
-		for (int i = 0; i < b.length; i++) {
+		float letterHeight = (height * 1f) / bArray.length;
+		float margin = (letterHeight-ConvertUtils.sp2px (12))/2;
+		for (int i = 0; i < bArray.length; i++) {
 
 //            paint.setColor(Color.rgb(23, 122, 126));
 
-			paint.setColor(getResources().getColor(R.color.public_black));
+			paint.setColor(getResources().getColor( R.color.public_black));
 
 			paint.setTypeface( Typeface.DEFAULT_BOLD);
 
@@ -119,11 +114,11 @@ public class SideBar extends View{
 
 			// x坐标等于中间-字符串宽度的一半.
 
-			float xPos = width / 2 - paint.measureText(b[i]) / 2;
+			float xPos = width / 2 - paint.measureText( bArray[i]) / 2;
 
 			float yPos = letterHeight * i + letterHeight;
 
-			canvas.drawText(b[i], xPos, yPos, paint);
+			canvas.drawText( bArray[i], xPos, yPos-margin, paint);
 
 			// 重置画笔
 
@@ -147,7 +142,7 @@ public class SideBar extends View{
 
 		// 点击y坐标所占总高度的比例*b数组的长度就等于点击b中的个数.
 
-		final int c = (int) (touch_y / getHeight() * b.length);
+		final int c = (int) (touch_y / getHeight() * bArray.length);
 
 		switch (action) {
 
@@ -173,17 +168,17 @@ public class SideBar extends View{
 
 				if (oldChoose != c) {
 
-					if (c >= 0 && c < b.length) {
+					if (c >= 0 && c < bArray.length) {
 
 						if (listener != null) {
 
-							listener.onTouchingLetterChanged(b[c]);
+							listener.onTouchingLetterChanged( bArray[c]);
 
 						}
 
 						if (mTextDialog != null) {
 
-							mTextDialog.setText(b[c]);
+							mTextDialog.setText( bArray[c]);
 
 							mTextDialog.setVisibility(View.VISIBLE);
 

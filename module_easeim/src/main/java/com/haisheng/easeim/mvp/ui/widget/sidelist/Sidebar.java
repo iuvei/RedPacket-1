@@ -127,7 +127,7 @@ public class Sidebar extends View{
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:{
 			if(header == null){
-				header = (TextView) ((View)getParent()).findViewById(R.id.tv_floating_header);
+				//header = (TextView) ((View)getParent()).findViewById(R.id.tv_floating_header);
 			}
 			setHeaderTextAndscroll(event);
 			header.setVisibility(View.VISIBLE);

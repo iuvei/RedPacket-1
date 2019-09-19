@@ -1,4 +1,4 @@
-package com.ooo.main.mvp.ui.adapter;
+package me.jessyan.armscomponent.commonres.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

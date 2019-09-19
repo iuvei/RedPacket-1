@@ -1,5 +1,7 @@
 package me.jessyan.armscomponent.commonsdk.entity;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -9,6 +11,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.io.Serializable;
 
 import me.jessyan.armscomponent.commonsdk.db.CommonDatabase;
+import me.jessyan.armscomponent.commonsdk.utils.CharacterParser;
 import me.jessyan.armscomponent.commonsdk.utils.StringConvertUtils;
 
 @Table(database = CommonDatabase.class)
@@ -46,11 +49,18 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
     @Column
     protected String initialLetter;
 
+    private final CharacterParser characterParser;
+    private String spelling;
+
     @Column
     private int type;
     public static final int TYPE_CUSTOMER_SERVICE = 0;
     public static final int TYPE_INVITE_MY_FRIEND = 1;
     public static final int TYPE_MY_INVITE_FRIEND = 2;
+
+    public UserInfo() {
+        characterParser = new CharacterParser ();
+    }
 
     @Override
     public String getLetter() {
@@ -104,6 +114,8 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+        characterParser.setResource(nickname);//通过拼音转换类,把汉字转换成拼音//
+        this.spelling=characterParser.getSpelling();
     }
 
     public String getAvatarUrl() {
@@ -136,5 +148,11 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getSpelling() {
+        characterParser.setResource(nickname);//通过拼音转换类,把汉字转换成拼音//
+        this.spelling=characterParser.getSpelling();
+        return spelling;
     }
 }

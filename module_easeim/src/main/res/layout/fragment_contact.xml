@@ -15,73 +15,21 @@
         android:paddingLeft="@dimen/spacing_s"
         android:drawablePadding="@dimen/spacing_xl"
         android:background="@color/public_white"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="☆"
-        android:paddingTop="@dimen/spacing_xxs"
-        android:paddingBottom="@dimen/spacing_xxs"
-        android:paddingLeft="@dimen/spacing_xl"
-        android:background="@color/gray"/>
-    <TextView
-        android:id="@+id/tv_newFriend"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="新的好友"
-        android:gravity="center_vertical"
-        android:drawableLeft="@mipmap/alipay"
-        android:drawablePadding="@dimen/spacing_xl"
-        android:paddingLeft="@dimen/spacing_xl"
-        android:textColor="@color/public_black"
-        />
-    <View style="@style/discover_style_view"
-        android:layout_height="1dp"></View>
-    <TextView
-        android:id="@+id/tv_groud_talk"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="群聊"
-        android:gravity="center_vertical"
-        android:drawableLeft="@mipmap/alipay"
-        android:drawablePadding="@dimen/spacing_xl"
-        android:paddingLeft="@dimen/spacing_xl"
-        android:textColor="@color/public_black"
-        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refreshLayout"
+        <ListView
+            android:id="@+id/listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <com.haisheng.easeim.mvp.ui.widget.sidelist.Sidebar
+            android:layout_height="match_parent"/>
+        <me.jessyan.armscomponent.commonres.view.SideBar
             android:id="@+id/sidebar"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
 
-        <TextView
-            android:id="@+id/tv_floating_header"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="#3399ff"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@color/text_white"
-            android:textSize="50dp"
-            android:textStyle="bold"
-            android:visibility="invisible" >
-        </TextView>
     </RelativeLayout>
 
     <TextView

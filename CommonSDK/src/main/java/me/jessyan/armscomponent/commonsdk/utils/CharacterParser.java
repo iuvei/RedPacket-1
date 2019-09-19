@@ -1,4 +1,4 @@
-package me.jessyan.armscomponent.commonres.utils;
+package me.jessyan.armscomponent.commonsdk.utils;
 
 /**
  * @author lanjian

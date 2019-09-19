@@ -11,6 +11,8 @@ import com.ooo.main.mvp.model.entity.BlankCardBean;
 
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
+
 /**
  * @author lanjian
  * creat at 2019/9/6

@@ -9,6 +9,7 @@ import com.ooo.main.R;
 
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
 import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
 
 /**
@@ -17,7 +18,7 @@ import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
  * description
  * 红包游戏的adapter
  */
-public class RedPacketGameAdapter extends BaseListAdapter<BannerEntity> {
+public class RedPacketGameAdapter extends BaseListAdapter <BannerEntity> {
 
     public RedPacketGameAdapter(List <BannerEntity> list) {
         super ( list );

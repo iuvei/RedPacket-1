@@ -1,44 +1,39 @@
 package com.haisheng.easeim.mvp.ui.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerContactComponent;
 import com.haisheng.easeim.mvp.contract.ContactContract;
-import com.haisheng.easeim.mvp.model.entity.ContactInfo;
 import com.haisheng.easeim.mvp.presenter.ContactPresenter;
-import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
-import com.haisheng.easeim.mvp.ui.activity.ContactInfoActivity;
-import com.haisheng.easeim.mvp.ui.adapter.ContactAdapter;
-import com.haisheng.easeim.mvp.ui.widget.sidelist.Sidebar;
+import com.haisheng.easeim.mvp.ui.adapter.ContactListAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import javax.inject.Inject;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import me.jessyan.armscomponent.commonres.view.recyclerview.TopLayoutManager;
+import me.jessyan.armscomponent.commonres.view.SideBar;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
@@ -61,31 +56,23 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 
 @Route(path = RouterHub.IM_CONTACTFRAGMENT)
-public class ContactFragment extends BaseSupportFragment <ContactPresenter> implements ContactContract.View, OnRefreshListener {
+public class ContactFragment extends BaseSupportFragment <ContactPresenter> implements ContactContract.View {
 
-    @BindView(R2.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
-    @BindView(R2.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R2.id.listview)
+    ListView listView;
     @BindView(R2.id.sidebar)
-    Sidebar sidebar;
-//    @BindView(R2.id.tv_current_letter)
-//    TextView tvCurrentLetter;
-//    RecyclerView rvMyInviteFriend;
-//    RecyclerView rvInviteMyFriend;
-//    RecyclerView rvCustomerService;
-
-    @Inject
-    RecyclerView.LayoutManager mLayoutManager;
-    @Inject
-    ContactAdapter mAdapter;
+    SideBar sidebar;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_contack_num)
+    TextView tvContackNum;
     @BindView(R2.id.iv_right)
     ImageView ivRight;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
     Unbinder unbinder;
+    private ContactListAdapter adapter;
+    private List<UserInfo> contactList;
 
     public static ContactFragment newInstance() {
         ContactFragment fragment = new ContactFragment ();
@@ -110,32 +97,43 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         initRecyclerView ();
-        sidebar.setListView ( recyclerView );
-        mPresenter.initDatas ();
+        mPresenter.getContactList ( 1 );
         StatusBarUtils.setTranslucentStatus ( getActivity () );
         StatusBarUtils.setStatusBarDarkTheme ( getActivity (), true );
         ivBack.setVisibility ( View.GONE );
         tvTitle.setText ( "通讯录" );
         ivRight.setImageResource ( R.mipmap.alipay );
         ivRight.setVisibility ( View.VISIBLE );
+        setListener();
+
+    }
+
+    private void setListener() {
+        // 右侧sideBar监听
+        sidebar.setOnTouchingLetterChangedListener ( new SideBar.OnTouchingLetterChangedListener () {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                // 该字母首次出现的位置
+                int position = adapter.getPositionForSection(s);
+                if (position != -1) {
+                    listView.setSelection(position);
+                }
+            }
+        } );
     }
 
 
     //初始化RecyclerView
     private void initRecyclerView() {
-        refreshLayout.setRefreshHeader ( new ClassicsHeader ( mContext ) );
-        refreshLayout.setOnRefreshListener ( this );
-
-        TopLayoutManager layoutManager = new TopLayoutManager ( mContext );
-        ArmsUtils.configRecyclerView ( recyclerView, layoutManager );
-        recyclerView.setAdapter ( mAdapter );
-        mAdapter.setOnItemClickListener ( new BaseQuickAdapter.OnItemClickListener () {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                UserInfo userInfo = (UserInfo) adapter.getItem ( position );
-                ContactInfoActivity.start ( (Activity) mContext, userInfo);
-            }
-        } );
+        contactList = new ArrayList<> (  );
+        UserInfo newFriend = new UserInfo ();
+        newFriend.setNickname ( "新的好友" );
+        contactList.add ( newFriend );
+        UserInfo groupTalking = new UserInfo ();
+        groupTalking.setNickname ( "群聊" );
+        contactList.add ( groupTalking );
+        adapter = new ContactListAdapter ( contactList );
+        listView.setAdapter ( adapter );
     }
 
     @Override
@@ -171,28 +169,21 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
     }
 
     @Override
-    public void showRefresh() {
-        refreshLayout.autoRefresh ();
+    public void getContactsListFail() {
+
     }
 
     @Override
-    public void finishRefresh() {
-        refreshLayout.finishRefresh ();
-    }
-
-    @Override
-    public void startLoadMore() {
-        refreshLayout.autoLoadMore ();
-    }
-
-    @Override
-    public void endLoadMore() {
-        refreshLayout.finishLoadMore ();
-    }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas ( true );
+    public void getContactsListSuccess(List <UserInfo> list) {
+       Collections.sort ( list, new Comparator <UserInfo> () {
+           @Override
+           public int compare(UserInfo userInfo, UserInfo t1) {
+               return userInfo.getSpelling ().compareTo(t1.getSpelling ());
+           }
+       } );
+        //加载所有好友
+        adapter.addData ( list );
+        tvContackNum.setText ( list.size ()+"位联系人" );
     }
 
     @Override

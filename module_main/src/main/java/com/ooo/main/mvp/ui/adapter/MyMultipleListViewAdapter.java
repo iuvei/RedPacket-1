@@ -18,7 +18,7 @@ import java.util.List;
  * creat at 2019/4/15 0015
  * description
  */
-public class MyMultipleListViewAdapter extends MyMultipleListViewBaseAdapter<PhoneContacts> {
+public class MyMultipleListViewAdapter extends MyMultipleListViewBaseAdapter <PhoneContacts> {
 
 
 

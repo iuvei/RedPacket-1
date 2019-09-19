@@ -11,7 +11,7 @@ import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 
 import java.util.List;
 
-import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
+import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
 
 /**
  * @author lanjian
@@ -19,7 +19,7 @@ import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
  * description
  * 红包游戏的房间列表adapter
  */
-public class RedPacketGameRoomListAdapter extends BaseListAdapter<RedPacketGameRomeBean.ResultBean> {
+public class RedPacketGameRoomListAdapter extends BaseListAdapter <RedPacketGameRomeBean.ResultBean> {
 
     public RedPacketGameRoomListAdapter(List <RedPacketGameRomeBean.ResultBean> list) {
         super ( list );

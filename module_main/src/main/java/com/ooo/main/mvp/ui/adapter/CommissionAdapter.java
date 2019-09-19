@@ -9,16 +9,16 @@ import android.widget.TextView;
 import com.ooo.main.R;
 import com.ooo.main.mvp.model.entity.CommissionBean;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
+
+import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
 
 /**
  * @author lanjian
  * creat at 2019/9/11
  * description
  */
-public class CommissionAdapter extends BaseListAdapter<CommissionBean> {
+public class CommissionAdapter extends BaseListAdapter <CommissionBean> {
 
     public CommissionAdapter(List <CommissionBean> list) {
         super ( list );

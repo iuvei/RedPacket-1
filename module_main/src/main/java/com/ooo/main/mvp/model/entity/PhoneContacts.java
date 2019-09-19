@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.Serializable;
 
-import me.jessyan.armscomponent.commonres.utils.CharacterParser;
+import me.jessyan.armscomponent.commonsdk.utils.CharacterParser;
 
 /**
  * @author lanjian
