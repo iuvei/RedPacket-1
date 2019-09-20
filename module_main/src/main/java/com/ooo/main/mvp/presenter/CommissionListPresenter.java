@@ -8,10 +8,16 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.CommissionListContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.CommisonListBean;
+import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -36,6 +42,8 @@ public class CommissionListPresenter extends BasePresenter <IModel, CommissionLi
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public CommissionListPresenter( CommissionListContract.View rootView) {
@@ -49,5 +57,17 @@ public class CommissionListPresenter extends BasePresenter <IModel, CommissionLi
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getRankingList( String page ){
+        apiModel.getRankingList (page)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <RankingBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(RankingBean bean) {
+                        mRootView.getRankingListSuccess ( bean.getResult () );
+                        mRootView.getRankingListFail();
+                    }
+                } );
     }
 }

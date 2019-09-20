@@ -13,7 +13,10 @@ import android.widget.ListView;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.mvp.model.entity.CommissionBean;
-import com.ooo.main.mvp.ui.adapter.CommissionAdapter;
+import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.ui.adapter.CommissionDayAdapter;
+import com.ooo.main.mvp.ui.adapter.CommissionWeekAdapter;
+import com.ooo.main.mvp.ui.adapter.CommissionYesterDayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +33,8 @@ public class WeekListFragment extends Fragment {
     @BindView(R2.id.listView)
     ListView listView;
     Unbinder unbinder;
-    private CommissionAdapter adapter;
-    private List <CommissionBean> list = new ArrayList <> ();
+    private CommissionWeekAdapter adapter;
+    private List <RankingBean.ResultBean.WeekBean> list = new ArrayList <> ();
     private boolean firstLoad = true;
     private boolean mIsPrepare;
 
@@ -56,29 +59,16 @@ public class WeekListFragment extends Fragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint ( isVisibleToUser );
-        if (isVisibleToUser && firstLoad && mIsPrepare){
-            getCommissionList ();
-            adapter = new CommissionAdapter ( list );
-            listView.setAdapter ( adapter );
-            firstLoad = false;
-        }
-    }
-
-    private void getCommissionList() {
-        for (int i = 0; i < 15; i++) {
-            CommissionBean bean = new CommissionBean ();
-            bean.setCommission ( (int)(Math.random ()*10000000)/100 + "" );
-            bean.setNum ( i + 1 );
-            bean.setNickname ( "测试"+i );
-            list.add ( bean );
-        }
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView ();
         unbinder.unbind ();
+    }
+
+    public void setCommissionList(List <RankingBean.ResultBean.WeekBean> week) {
+        if (week!=null && week.size ()>0){
+            list.addAll ( week );
+            adapter = new CommissionWeekAdapter ( list );
+            listView.setAdapter ( adapter );
+        }
     }
 }

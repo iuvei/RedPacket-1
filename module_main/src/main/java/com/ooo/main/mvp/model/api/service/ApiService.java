@@ -10,6 +10,7 @@ import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
+import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -252,7 +253,7 @@ public interface ApiService {
      */
     @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=ranking_list")
     @FormUrlEncoded
-    Observable<UserInfoFromIdBean> getRankingList(
+    Observable<RankingBean> getRankingList(
             @Field("type") String type
             );
 

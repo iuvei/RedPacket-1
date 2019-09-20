@@ -19,6 +19,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerCommissionListComponent;
 import com.ooo.main.mvp.contract.CommissionListContract;
+import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.presenter.CommissionListPresenter;
 import com.ooo.main.mvp.ui.fragment.DayListFragment;
 import com.ooo.main.mvp.ui.fragment.WeekListFragment;
@@ -60,6 +61,9 @@ public class CommissionListActivity extends BaseActivity <CommissionListPresente
     ViewPager viewpager;
     List <Fragment> fragments = new ArrayList <> ();
     List<String> titles = new ArrayList<>();
+    DayListFragment dayListFragment = new DayListFragment();
+    YesterDayListFragment yesterDayListFragment = new YesterDayListFragment();
+    WeekListFragment weekListFragment = new WeekListFragment();
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -85,9 +89,10 @@ public class CommissionListActivity extends BaseActivity <CommissionListPresente
         titles.add("今日排行榜");
         titles.add("昨日排行榜");
         titles.add("周排行榜");
-        fragments.add(new DayListFragment());
-        fragments.add(new YesterDayListFragment ());
-        fragments.add(new WeekListFragment() );
+        fragments.add(dayListFragment);
+        fragments.add(yesterDayListFragment);
+        fragments.add(weekListFragment );
+        mPresenter.getRankingList ( "" );
         viewpager.setAdapter(new FragmentStatePagerAdapter (getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -172,5 +177,19 @@ public class CommissionListActivity extends BaseActivity <CommissionListPresente
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getRankingListSuccess(RankingBean.ResultBean result) {
+        if (result!=null){
+            dayListFragment.setCommissionList (result.getToday ());
+            yesterDayListFragment.setCommissionList (result.getYesterday ());
+            weekListFragment.setCommissionList (result.getWeek ());
+        }
+    }
+
+    @Override
+    public void getRankingListFail() {
+
     }
 }

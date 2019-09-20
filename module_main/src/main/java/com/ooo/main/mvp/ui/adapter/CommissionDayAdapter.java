@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ooo.main.R;
 import com.ooo.main.mvp.model.entity.CommissionBean;
+import com.ooo.main.mvp.model.entity.RankingBean;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
  * creat at 2019/9/11
  * description
  */
-public class CommissionAdapter extends BaseListAdapter <CommissionBean> {
+public class CommissionDayAdapter extends BaseListAdapter <RankingBean.ResultBean.TodayBean> {
 
-    public CommissionAdapter(List <CommissionBean> list) {
+    public CommissionDayAdapter(List <RankingBean.ResultBean.TodayBean> list) {
         super ( list );
     }
 
@@ -43,9 +44,9 @@ public class CommissionAdapter extends BaseListAdapter <CommissionBean> {
         }else{
             holder.llItem.setBackgroundColor ( Color.parseColor ( "#ffffff" ) );
         }
-        holder.tvNum.setText ( (position+1)+"" );
-        holder.tvNickName.setText ( list.get ( position ).getNickname () );
-        holder.tvCommission.setText ( list.get ( position ).getCommission () );
+        holder.tvNum.setText ( list.get ( position ).getRank () +"");
+        holder.tvNickName.setText ( list.get ( position ).getUid () );
+        holder.tvCommission.setText ( list.get ( position ).getAllmoney () );
         return convertView;
     }
 

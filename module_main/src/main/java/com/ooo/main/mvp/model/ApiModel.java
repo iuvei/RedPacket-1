@@ -18,6 +18,7 @@ import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
+import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -221,7 +222,7 @@ public class ApiModel extends BaseModel{
      * @param type
      * @return
      */
-    public Observable<UserInfoFromIdBean> getRankingList(String type) {
+    public Observable<RankingBean> getRankingList(String type) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getRankingList (type);
     }
