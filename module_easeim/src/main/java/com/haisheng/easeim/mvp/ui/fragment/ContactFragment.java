@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -76,9 +79,15 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
     ImageView ivRight;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
+    @BindView(R2.id.iv_close)
+    ImageView ivClear;
+    @BindView(R2.id.et_serach)
+    EditText etSearch;
     Unbinder unbinder;
     private ContactListAdapter adapter;
     private List<UserInfo> contactList;
+    private List <UserInfo> allContact = new ArrayList <> (  );
+    private List <UserInfo> searchContact = new ArrayList <> (  );
 
     public static ContactFragment newInstance() {
         ContactFragment fragment = new ContactFragment ();
@@ -141,6 +150,45 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
                 if (position != -1) {
                     listView.setSelection(position);
                 }
+            }
+        } );
+
+        etSearch.addTextChangedListener ( new TextWatcher () {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String search = etSearch.getText ().toString ().trim ();
+                if (search.length ()>0){
+                    searchContact.clear ();
+                    ivClear.setVisibility ( View.VISIBLE );
+                    for (int j=0;j<allContact.size ();j++){
+                        if (allContact.get ( j ).getNickname ().contains ( search )){
+                            searchContact.add ( allContact.get ( j ) );
+                        }
+                    }
+                    adapter.removeData ();
+                    adapter.addData ( searchContact );
+                }else{
+                    ivClear.setVisibility ( View.INVISIBLE );
+                    adapter.removeData ();
+                    adapter.addData ( allContact );
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        } );
+
+        ivClear.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                etSearch.setText ( "" );
             }
         } );
 
@@ -213,14 +261,18 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
 
     @Override
     public void getContactsListSuccess(List <UserInfo> list) {
+        if (list==null || list.size ()<0){
+            return;
+        }
         adapter.removeData ();
-       Collections.sort ( list, new Comparator <UserInfo> () {
-           @Override
-           public int compare(UserInfo userInfo, UserInfo t1) {
-               return userInfo.getSpelling ().compareTo(t1.getSpelling ());
-           }
-       } );
+        Collections.sort ( list, new Comparator <UserInfo> () {
+            @Override
+            public int compare(UserInfo userInfo, UserInfo t1) {
+                return userInfo.getSpelling ().compareTo(t1.getSpelling ());
+            }
+        } );
         //加载所有好友
+        allContact = list;
         adapter.addData ( list );
         tvContackNum.setText ( list.size ()+"位联系人" );
     }

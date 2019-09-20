@@ -151,7 +151,7 @@
                     android:drawablePadding="@dimen/spacing_l"
                     android:textColor="@color/public_color_FF06CB7E"
                     android:textSize="@dimen/text_normal"
-                    android:text="@string/share_make_money"/>
+                    />
             </LinearLayout>
 
             <View style="@style/discover_style_view"></View>

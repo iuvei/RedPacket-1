@@ -6,15 +6,28 @@
     android:orientation="vertical">
     <include layout="@layout/title_layout"></include>
     <View style="@style/discover_style_view"></View>
-    <EditText
-        android:id="@+id/et_serach"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:drawableLeft="@mipmap/home_icon_search"
-        android:hint="搜索/备注/昵称"
-        android:paddingLeft="@dimen/spacing_s"
-        android:drawablePadding="@dimen/spacing_xl"
-        android:background="@color/public_white"/>
+        android:paddingRight="@dimen/spacing_s"
+        android:background="@color/public_white">
+        <EditText
+            android:id="@+id/et_serach"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/home_icon_search"
+            android:hint="搜索/备注/昵称"
+            android:paddingLeft="@dimen/spacing_s"
+            android:drawablePadding="@dimen/spacing_xl"
+            android:background="@color/public_white"/>
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:src="@mipmap/icon_close"/>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
