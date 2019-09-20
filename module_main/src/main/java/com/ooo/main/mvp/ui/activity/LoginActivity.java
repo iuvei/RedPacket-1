@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -83,6 +84,10 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus(this);
         StatusBarUtils.setStatusBarDarkTheme ( this,true );
+        String username = SpUtils.getValue ( this,"username","" );
+        String password = SpUtils.getValue ( this,"password","" );
+        etPhone.setText ( username );
+        etPassword.setText ( password );
         /*
          * 获取到焦点的监听
          */
@@ -246,6 +251,8 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
 
         @Override
         public void loginSuccessful() {
+            SpUtils.put ( this,"username",etPhone.getText ().toString ().trim () );
+            SpUtils.put ( this,"password",etPassword.getText ().toString ().trim () );
             launchActivity(new Intent(this, MainActivity.class));
             mAppManager.killAll(MainActivity.class);
         }

@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/public_colorPrimary</item>
         <item name="colorPrimaryDark">@color/public_colorPrimaryDark</item>
-        <item name="colorAccent">@color/public_colorAccent</item>
+        <item name="colorAccent">@color/public_color_FF06CB7E</item>
         <item name="android:listDivider">@drawable/public_divider_bg</item>
         <item name="android:windowAnimationStyle">@style/public_Activity_Animation</item>
     </style>
