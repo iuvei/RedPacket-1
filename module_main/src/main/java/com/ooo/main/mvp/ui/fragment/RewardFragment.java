@@ -20,6 +20,7 @@ import com.ooo.main.R2;
 import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
+import com.ooo.main.mvp.ui.activity.GameReadmeActivity;
 import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
 import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
@@ -72,6 +73,8 @@ public class RewardFragment extends BaseSupportFragment {
     LinearLayout layoutOmmissionRewardInfo;
     @BindView(R2.id.layout_game_control_info)
     LinearLayout layoutGameControlInfo;
+    @BindView(R2.id.layout_game_niuniu_info)
+    LinearLayout layoutGameNiuNiuInfo;
 
     public static RewardFragment newInstance() {
         RewardFragment fragment = new RewardFragment ();
@@ -116,7 +119,7 @@ public class RewardFragment extends BaseSupportFragment {
 
     @OnClick({R2.id.layout_scan, R2.id.layout_promote, R2.id.layout_underline_query, R2.id.layout_underline_list,
             R2.id.layout_luck, R2.id.layout_ommission_list, R2.id.layout_ommission_ranking, R2.id.layout_game_reward_info,
-            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info})
+            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info, R2.id.layout_game_niuniu_info})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.layout_scan) {
@@ -150,10 +153,17 @@ public class RewardFragment extends BaseSupportFragment {
             startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
         } else if (i == R.id.layout_game_reward_info) {
             //扫雷游戏奖励说明
+            GameReadmeActivity.start ( getActivity (),0 );
         } else if (i == R.id.layout_ommission_reward_info) {
             //佣金排行榜奖励说明
+            GameReadmeActivity.start ( getActivity (),1 );
         } else if (i == R.id.layout_game_control_info) {
             //禁抢游戏说明
+            GameReadmeActivity.start ( getActivity (),2 );
+        }else if (i == R.id.layout_game_niuniu_info) {
+            //牛牛游戏说明
+            GameReadmeActivity.start ( getActivity (),3 );
         }
+
     }
 }

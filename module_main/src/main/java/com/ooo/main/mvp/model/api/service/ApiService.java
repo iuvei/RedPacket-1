@@ -8,10 +8,10 @@ import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
-import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
@@ -269,6 +269,13 @@ public interface ApiService {
     Observable<PostersBean> getSharelist(
             @Field("token") String token
             );
+
+    /**
+     * 游戏规则说明
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=gamerule")
+    Observable<GameRuleBean> gameRule( );
 
 
 

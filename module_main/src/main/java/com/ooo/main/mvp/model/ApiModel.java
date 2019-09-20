@@ -16,6 +16,7 @@ import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
@@ -235,5 +236,14 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getSharelist (token);
+    }
+
+    /**
+     * 游戏规则说明
+     * @return
+     */
+    public Observable<GameRuleBean> getGameRule() {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .gameRule ();
     }
 }

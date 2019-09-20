@@ -201,6 +201,23 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_go"/>
             </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_game_niuniu_info"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"/>
+                <TextView
+                    android:text="牛牛游戏说明"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_go"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
    <android.support.v7.widget.RecyclerView
