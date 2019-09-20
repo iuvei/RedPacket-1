@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooo.main.R;
+import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 
@@ -23,10 +24,10 @@ import java.util.List;
 public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoAdapter.ViewHolder> {
 
     private Context context;
-    private List <CommissionInfo> data;
+    private List <CommisonListBean.ResultBean.ListBean> data;
     private ItemClickListener itemClickListener;
 
-    public CommissionInfoAdapter(Context context, List <CommissionInfo> data) {
+    public CommissionInfoAdapter(Context context, List <CommisonListBean.ResultBean.ListBean> data) {
         this.context = context;
         this.data = data;
 
@@ -36,11 +37,11 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
         this.itemClickListener = listener;
     }
 
-    public void setDatas(List <CommissionInfo> datas){
+    public void setDatas(List <CommisonListBean.ResultBean.ListBean> datas){
         this.data = datas;
         notifyDataSetChanged();
     }
-    public void addData(List <CommissionInfo> data){
+    public void addData(List <CommisonListBean.ResultBean.ListBean> data){
         this.data.addAll ( data );
         notifyDataSetChanged ();
     }
@@ -53,10 +54,10 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvID.setText ( data.get ( position ).getID () );
-        holder.tvDate.setText ( data.get ( position ).getDate () );
-        holder.tvDetail.setText ( data.get ( position ).getDetail () );
-        holder.tvCommission.setText ( data.get ( position ).getCommission () );
+        holder.tvID.setText ( data.get ( position ).getId () );
+        holder.tvDate.setText ( data.get ( position ).getAddtime () );
+        holder.tvDetail.setText ( data.get ( position ).getType () );
+        holder.tvCommission.setText ( data.get ( position ).getGold () );
     }
 
     @Override

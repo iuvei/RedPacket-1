@@ -6,6 +6,7 @@ import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
+import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
@@ -237,9 +238,9 @@ public interface ApiService {
      */
     @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=commission_list")
     @FormUrlEncoded
-    Observable<UserInfoFromIdBean> getCommissionList(
+    Observable<CommisonListBean> getCommissionList(
             @Field("token") String token,
-            @Field("page") String page
+            @Field("page") int page
             );
 
 

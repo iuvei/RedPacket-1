@@ -2,16 +2,21 @@ package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.CommisonContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.CommisonListBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -36,10 +41,13 @@ public class CommisonPresenter extends BasePresenter <IModel, CommisonContract.V
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public CommisonPresenter(CommisonContract.View rootView) {
         super ( rootView );
+        ARouter.getInstance ().inject ( this );
     }
 
     @Override
@@ -49,5 +57,24 @@ public class CommisonPresenter extends BasePresenter <IModel, CommisonContract.V
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getCommissionList( int page ){
+        apiModel.getCommissionList (page)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <CommisonListBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(CommisonListBean bean) {
+                        if (bean.getStatus ()==1) {
+                            if (page==1) {
+                                mRootView.getCommissionListRefrestSuccess ( bean.getResult () );
+                            }else{
+                                mRootView.getCommissionListLoadMoreSuccess ( bean.getResult () );
+                            }
+                        }else{
+                            mRootView.getCommissionListFail();
+                        }
+                    }
+                } );
     }
 }

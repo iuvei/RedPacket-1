@@ -14,6 +14,7 @@ import com.ooo.main.mvp.model.entity.AppVersionBean;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
+import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
@@ -205,11 +206,11 @@ public class ApiModel extends BaseModel{
 
     /**
      * 获取佣金列表
-     * @param token
      * @param page
      * @return
      */
-    public Observable<UserInfoFromIdBean> getCommissionList(String token,String page) {
+    public Observable<CommisonListBean> getCommissionList(int page) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getCommissionList (token,page);
     }
