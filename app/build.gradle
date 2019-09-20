@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ooo.redpacket58"
+        applicationId "com.ooo.redpacket58lan"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
