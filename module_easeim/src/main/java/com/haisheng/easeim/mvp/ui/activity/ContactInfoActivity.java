@@ -5,21 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.di.component.DaggerContactInfoComponent;
 import com.haisheng.easeim.mvp.contract.ContactInfoContract;
 import com.haisheng.easeim.mvp.presenter.ContactInfoPresenter;
+import com.haisheng.easeim.mvp.ui.fragment.ContactFragment;
 import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +100,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         tvRight.setVisibility ( View.VISIBLE );
         userInfo = (UserInfo) getIntent ().getSerializableExtra ( "userId" );
         if (userInfo!=null){
-            tvAccount.setText ( userInfo.getHxId () );
+            tvAccount.setText ( userInfo.getId ()+"" );
             tvName.setText ( userInfo.getNickname () );
             if (userInfo.getSexStatus ()==0){
                 //男
@@ -102,6 +108,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
             }else{
                 tvContactSex.setImageResource ( R.drawable.ic_female );
             }
+            Glide.with ( this ).load ( userInfo.getAvatarUrl () ).into ( ivContactHead );
         }
     }
     public static void start(Activity context, UserInfo userInfo) {
@@ -149,6 +156,13 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_right, R2.id.tv_remark, R2.id.btn_send_message})
@@ -163,7 +177,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
             updateNickName();
         } else if (i == R.id.btn_send_message) {
             //发送消息
-            if (userInfo!=null) {
+            if (userInfo!=null && !TextUtils.isEmpty ( userInfo.getHxId () )) {
                 ChatActivity.start ( this, userInfo.getHxId () );
             }
         }
@@ -174,7 +188,11 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_update_nickname, true, new BaseCustomDialog.Builder.OnShowDialogListener () {
             @Override
             public void onShowDialog(View layout) {
+                TextView tvTips = layout.findViewById ( R.id.tv_tips );
+                tvTips.setText ( "设置备注" );
                 EditText etNickName = layout.findViewById ( R.id.et_nickname );
+                etNickName.setText ( userInfo.getNickname () );
+                etNickName.setSelection ( etNickName.length () );
                 TextView btnCancel = layout.findViewById ( R.id.btn_cancel );
                 TextView btnSure = layout.findViewById ( R.id.btn_sure );
                 btnCancel.setOnClickListener ( new View.OnClickListener () {
@@ -187,6 +205,14 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
+                        String remarkName = etNickName.getText ().toString ().trim ();
+                        if (TextUtils.isEmpty ( remarkName )){
+                            ToastUtils.showShort ( "请输入备注名" );
+                            return;
+                        }
+                        if (userInfo!=null) {
+                            mPresenter.setRemark ( remarkName, userInfo.getId () + "" );
+                        }
                     }
                 } );
             }
@@ -212,7 +238,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
-                        IMHelper.getInstance ().delectContact ( userInfo.getHxId () );
+                        mPresenter.delectFriend ( userInfo.getId ()+"" );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
@@ -225,5 +251,35 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         } )
                 .create ();
         dialog.show ();
+    }
+
+    @Override
+    public void delectFriendSuccess() {
+        ToastUtils.showShort ( "删除成功" );
+        if (userInfo!=null) {
+            IMHelper.getInstance ().delectContact ( userInfo.getHxId () );
+        }
+        finish ();
+    }
+
+    @Override
+    public void delectFriendFail() {
+        ToastUtils.showShort ( "删除失败" );
+    }
+
+    /**
+     * {@link ContactFragment#setRemarkSuccess(java.lang.String)}
+     * @param remark
+     */
+    @Override
+    public void setRemarkSuccess(String remark) {
+        ToastUtils.showShort ( "设置成功" );
+        tvName.setText ( remark );
+        EventBus.getDefault ().post ( remark,"setRemarkSuccess" );
+    }
+
+    @Override
+    public void setRemarkFail() {
+        ToastUtils.showShort ( "设置失败" );
     }
 }

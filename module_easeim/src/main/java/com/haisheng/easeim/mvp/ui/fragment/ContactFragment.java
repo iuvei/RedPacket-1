@@ -25,6 +25,9 @@ import com.haisheng.easeim.mvp.ui.adapter.ContactListAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,6 +102,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault ().register ( getActivity () );
         initRecyclerView ();
         mPresenter.getContactList ( 1 );
         StatusBarUtils.setTranslucentStatus ( getActivity () );
@@ -109,6 +113,22 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
         ivRight.setVisibility ( View.VISIBLE );
         setListener();
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( getActivity () );
+    }
+
+    /**
+     * 刷新通讯录
+     * {@link ContactInfoActivity#setRemarkSuccess(java.lang.String)}
+     * @param remark
+     */
+    @Subscriber(tag = "setRemarkSuccess")
+    public void setRemarkSuccess(String remark){
+        mPresenter.getContactList ( 1 );
     }
 
     private void setListener() {
@@ -133,7 +153,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
                     //群聊
                 }else {
                     //好友
-                    UserInfo userInfo = (UserInfo) adapter.getItem ( position );
+                    UserInfo userInfo = (UserInfo) listView.getItemAtPosition ( position );
                     ContactInfoActivity.start ( (Activity) mContext, userInfo);
                 }
             }
@@ -193,6 +213,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
 
     @Override
     public void getContactsListSuccess(List <UserInfo> list) {
+        adapter.removeData ();
        Collections.sort ( list, new Comparator <UserInfo> () {
            @Override
            public int compare(UserInfo userInfo, UserInfo t1) {

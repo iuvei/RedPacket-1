@@ -40,6 +40,15 @@ public class ContactListAdapter extends BaseListAdapter <UserInfo> {
         notifyDataSetChanged ();
     }
 
+    public void removeData(){
+        if (this.list!=null && list.size ()>2){
+            for (int i=list.size ()-1;i>=2;i--){
+                list.remove ( i );
+            }
+        }
+        notifyDataSetChanged ();
+    }
+
     public void addData(List <UserInfo> list){
         this.list.addAll ( list );
         isFirstPosition();

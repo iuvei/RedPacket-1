@@ -5,6 +5,7 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.haisheng.easeim.mvp.model.api.service.ContactService;
 import com.haisheng.easeim.mvp.model.entity.ContactInfo;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -42,5 +43,17 @@ public class ContactModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(ContactService.class)
                 .contactList(token,pageNumber);
+    }
+
+    public Observable<PublicResponseBean> delFriend(String fuid) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .delFriend(token,fuid);
+    }
+
+    public Observable<PublicResponseBean> setRemark(String remark, String fuid) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .setRemark (token,remark,fuid);
     }
 }

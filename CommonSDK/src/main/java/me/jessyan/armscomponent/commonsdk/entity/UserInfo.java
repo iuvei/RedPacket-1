@@ -90,7 +90,7 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
         this.token = token;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

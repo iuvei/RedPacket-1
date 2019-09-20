@@ -2,17 +2,20 @@ package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.integration.AppManager;
+import com.haisheng.easeim.mvp.contract.ContactInfoContract;
+import com.haisheng.easeim.mvp.model.ContactModel;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.mvp.IModel;
 
 import javax.inject.Inject;
 
-import com.haisheng.easeim.mvp.contract.ContactInfoContract;
-import com.jess.arms.mvp.IModel;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 /**
@@ -39,8 +42,12 @@ public class ContactInfoPresenter extends BasePresenter <IModel, ContactInfoCont
     AppManager mAppManager;
 
     @Inject
+    ContactModel contactModel;
+
+    @Inject
     public ContactInfoPresenter( ContactInfoContract.View rootView) {
         super ( rootView );
+
     }
 
     @Override
@@ -50,5 +57,35 @@ public class ContactInfoPresenter extends BasePresenter <IModel, ContactInfoCont
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void delectFriend(String fuid){
+        contactModel.delFriend ( fuid )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <PublicResponseBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(PublicResponseBean contactInfo) {
+                        if (contactInfo.getStatus ()==1) {
+                            mRootView.delectFriendSuccess ();
+                        }else{
+                            mRootView.delectFriendFail();
+                        }
+                    }
+                } );
+    }
+
+    public void setRemark(String remarkName,String fuid) {
+        contactModel.setRemark ( remarkName,fuid )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <PublicResponseBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(PublicResponseBean contactInfo) {
+                        if (contactInfo.getStatus ()==1) {
+                            mRootView.setRemarkSuccess (remarkName);
+                        }else{
+                            mRootView.setRemarkFail();
+                        }
+                    }
+                } );
     }
 }
