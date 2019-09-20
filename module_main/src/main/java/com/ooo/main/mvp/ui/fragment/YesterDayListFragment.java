@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.mvp.model.entity.RankingBean;
-import com.ooo.main.mvp.ui.adapter.CommissionDayAdapter;
 import com.ooo.main.mvp.ui.adapter.CommissionYesterDayAdapter;
 
 import java.util.ArrayList;
@@ -32,8 +32,10 @@ public class YesterDayListFragment extends Fragment {
     @BindView(R2.id.listView)
     ListView listView;
     Unbinder unbinder;
+    @BindView(R2.id.tv_nodata)
+    TextView tvNodata;
     private CommissionYesterDayAdapter adapter;
-    private List<RankingBean.ResultBean.YesterdayBean> list = new ArrayList <> (  );
+    private List <RankingBean.ResultBean.YesterdayBean> list = new ArrayList <> ();
 
     public YesterDayListFragment() {
         // Required empty public constructor
@@ -61,10 +63,15 @@ public class YesterDayListFragment extends Fragment {
     }
 
     public void setCommissionList(List <RankingBean.ResultBean.YesterdayBean> yesterday) {
-        if (yesterday!=null && yesterday.size ()>0){
+        if (yesterday != null && yesterday.size () > 0) {
+            tvNodata.setVisibility ( View.GONE );
+            listView.setVisibility ( View.VISIBLE );
             list.addAll ( yesterday );
             adapter = new CommissionYesterDayAdapter ( list );
             listView.setAdapter ( adapter );
+        }else{
+            tvNodata.setVisibility ( View.VISIBLE );
+            listView.setVisibility ( View.GONE );
         }
     }
 }

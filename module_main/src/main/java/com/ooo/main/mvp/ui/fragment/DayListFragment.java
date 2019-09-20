@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ooo.main.R;
 import com.ooo.main.R2;
@@ -29,6 +30,8 @@ public class DayListFragment extends Fragment {
     @BindView(R2.id.listView)
     ListView listView;
     Unbinder unbinder;
+    @BindView(R2.id.tv_nodata)
+    TextView tvNodata;
     private CommissionDayAdapter adapter;
     private List <RankingBean.ResultBean.TodayBean> list = new ArrayList <> ();
 
@@ -47,11 +50,16 @@ public class DayListFragment extends Fragment {
     }
 
     public void setCommissionList(List <RankingBean.ResultBean.TodayBean> today) {
-       if (today!=null && today.size ()>0){
-           list.addAll ( today );
-           adapter = new CommissionDayAdapter ( list );
-           listView.setAdapter ( adapter );
-       }
+        if (today != null && today.size () > 0) {
+            tvNodata.setVisibility ( View.GONE );
+            listView.setVisibility ( View.VISIBLE );
+            list.addAll ( today );
+            adapter = new CommissionDayAdapter ( list );
+            listView.setAdapter ( adapter );
+        }else{
+            tvNodata.setVisibility ( View.VISIBLE );
+            listView.setVisibility ( View.GONE );
+        }
     }
 
     @Override

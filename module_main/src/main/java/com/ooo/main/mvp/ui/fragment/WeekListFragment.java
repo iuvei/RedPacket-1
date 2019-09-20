@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.mvp.model.entity.CommissionBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
-import com.ooo.main.mvp.ui.adapter.CommissionDayAdapter;
 import com.ooo.main.mvp.ui.adapter.CommissionWeekAdapter;
-import com.ooo.main.mvp.ui.adapter.CommissionYesterDayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +31,10 @@ public class WeekListFragment extends Fragment {
     @BindView(R2.id.listView)
     ListView listView;
     Unbinder unbinder;
+    @BindView(R2.id.tv_nodata)
+    TextView tvNodata;
     private CommissionWeekAdapter adapter;
     private List <RankingBean.ResultBean.WeekBean> list = new ArrayList <> ();
-    private boolean firstLoad = true;
-    private boolean mIsPrepare;
 
     public WeekListFragment() {
         // Required empty public constructor
@@ -55,7 +53,6 @@ public class WeekListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated ( view, savedInstanceState );
-        mIsPrepare = true;
     }
 
     @Override
@@ -65,10 +62,15 @@ public class WeekListFragment extends Fragment {
     }
 
     public void setCommissionList(List <RankingBean.ResultBean.WeekBean> week) {
-        if (week!=null && week.size ()>0){
+        if (week != null && week.size () > 0) {
+            tvNodata.setVisibility ( View.GONE );
+            listView.setVisibility ( View.VISIBLE );
             list.addAll ( week );
             adapter = new CommissionWeekAdapter ( list );
             listView.setAdapter ( adapter );
+        }else{
+            tvNodata.setVisibility ( View.VISIBLE );
+            listView.setVisibility ( View.GONE );
         }
     }
 }
