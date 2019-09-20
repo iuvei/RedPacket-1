@@ -278,5 +278,17 @@ public interface ApiService {
     Observable<GameRuleBean> gameRule( );
 
 
+    /**
+     * 邀请手机联系人
+     * @param information information	是	JSON	用户和手机[name,phone]
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=send_out")
+    @FormUrlEncoded
+    Observable<PublicBean> inviteContact(
+            @Field("information") String information
+    );
+
+
 
 }

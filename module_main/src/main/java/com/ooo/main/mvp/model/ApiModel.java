@@ -246,4 +246,15 @@ public class ApiModel extends BaseModel{
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .gameRule ();
     }
+
+
+    /**
+     * 邀请手机联系人
+     * @param jsonString
+     * @return
+     */
+    public Observable<PublicBean> inviteContact(String jsonString) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .inviteContact (jsonString);
+    }
 }

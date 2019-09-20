@@ -24,7 +24,6 @@ public class PhoneContacts implements Comparable<PhoneContacts>, Serializable {
         this.name = name;
         characterParser.setResource(name);//通过拼音转换类,把汉字转换成拼音//
         this.spelling=characterParser.getSpelling();
-        Log.e ( "tag","spelling="+spelling );
     }
 
     public void setTeleNumber(String teleNumber) {
@@ -80,10 +79,4 @@ public class PhoneContacts implements Comparable<PhoneContacts>, Serializable {
         return this.spelling.compareTo(o.spelling);
     }
 
-    @Override
-    public String toString() {
-        String name=getName();
-
-        return "name="+name+",isFirst="+isFirst;
-    }
 }

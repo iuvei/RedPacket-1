@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -22,6 +23,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerInviteContactComponent;
 import com.ooo.main.mvp.contract.InviteContactContract;
+import com.ooo.main.mvp.model.entity.InviteContactBean;
 import com.ooo.main.mvp.model.entity.PhoneContacts;
 import com.ooo.main.mvp.presenter.InviteContactPresenter;
 import com.ooo.main.mvp.ui.adapter.MyMultipleListViewAdapter;
@@ -69,6 +71,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
     private MyMultipleListViewAdapter adapter;
     private List <PhoneContacts> contacts = new ArrayList <> ();
     private ProgressDialogUtils progressDialogUtils;
+    private List <PhoneContacts> checkContactList = new ArrayList <> (  );
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -111,9 +114,7 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
 
             @Override
             public void onListItemCheckedChangeListener(boolean isChecked, int position, PhoneContacts phoneContacts, List <PhoneContacts> list, List <Integer> choosePositionLists) {
-                for (int i = 0; i < list.size (); i++) {
-                    Log.e ( "tag", list.get ( i ).getName () );
-                }
+                checkContactList = list;
             }
 
             @Override
@@ -255,6 +256,30 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
         if (i == R.id.iv_back) {
             finish ();
         } else if (i == R.id.tv_right) {
+            //邀请联系人
+            if (checkContactList==null ||checkContactList.size ()<0){
+                ToastUtils.showShort ( "请先选择邀请的联系人" );
+                return;
+            }
+            List<InviteContactBean> inviteContactBeans = new ArrayList <> (  );
+            for (int j=0;j<checkContactList.size ();j++){
+                InviteContactBean bean = new InviteContactBean ();
+                bean.setName ( checkContactList.get ( j ).getName () );
+                bean.setPhone ( checkContactList.get ( j ).getTeleNumber () );
+                inviteContactBeans.add ( bean );
+            }
+
+            mPresenter.inviteContact ( new Gson ().toJson ( inviteContactBeans ) );
         }
+    }
+
+    @Override
+    public void inviteContactSuccess() {
+        ToastUtils.showShort ( "邀请成功" );
+        finish ();
+    }
+
+    @Override
+    public void inviteContactFail() {
     }
 }

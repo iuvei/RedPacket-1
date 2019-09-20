@@ -2,17 +2,24 @@ package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.InviteContactContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.BlankCardBean;
+import com.ooo.main.mvp.model.entity.GameRuleBean;
+import com.ooo.main.mvp.model.entity.PublicBean;
 
 
 /**
@@ -37,6 +44,8 @@ public class InviteContactPresenter extends BasePresenter <IModel, InviteContact
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public InviteContactPresenter(InviteContactContract.View rootView) {
@@ -50,5 +59,23 @@ public class InviteContactPresenter extends BasePresenter <IModel, InviteContact
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void inviteContact( String jsonString ){
+        apiModel.inviteContact (jsonString)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <PublicBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(PublicBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.inviteContactSuccess();
+                        }else{
+                            mRootView.inviteContactFail();
+                            if (bean.getMsg ()!=null) {
+                                ToastUtils.showShort ( bean.getMsg () );
+                            }
+                        }
+                    }
+                } );
     }
 }

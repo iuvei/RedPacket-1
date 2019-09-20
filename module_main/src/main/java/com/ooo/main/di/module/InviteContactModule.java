@@ -2,7 +2,7 @@ package com.ooo.main.di.module;
 
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
-import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.ApiModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +24,7 @@ import dagger.Provides;
 public class InviteContactModule {
     @ActivityScope
     @Provides
-    public MemberModel provideMemberModel(IRepositoryManager iRepositoryManager) {
-        return new MemberModel(iRepositoryManager);
+    public ApiModel provideMemberModel(IRepositoryManager iRepositoryManager) {
+        return new ApiModel(iRepositoryManager);
     }
 }
