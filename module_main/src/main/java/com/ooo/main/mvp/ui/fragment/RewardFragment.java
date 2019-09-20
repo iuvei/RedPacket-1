@@ -21,6 +21,7 @@ import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
+import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
@@ -131,6 +132,7 @@ public class RewardFragment extends BaseSupportFragment {
             });
         } else if (i == R.id.layout_promote) {
             //推广海报
+            getActivity ().startActivity ( new Intent ( getActivity (), PostersActivity.class ) );
         } else if (i == R.id.layout_underline_query) {
             //下线查询
             ToastUtils.showShort ( getString ( R.string.discover_coming_soon ) );

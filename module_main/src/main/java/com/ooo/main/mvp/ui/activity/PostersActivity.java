@@ -1,32 +1,29 @@
 package com.ooo.main.mvp.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.di.component.DaggerScanResultComponent;
-import com.ooo.main.mvp.contract.ScanResultContract;
-import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
-import com.ooo.main.mvp.presenter.ScanResultPresenter;
+import com.ooo.main.di.component.DaggerPostersComponent;
+import com.ooo.main.mvp.contract.PostersContract;
+import com.ooo.main.mvp.model.entity.PostersBean;
+import com.ooo.main.mvp.model.entity.PublicBean;
+import com.ooo.main.mvp.presenter.PostersPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -36,7 +33,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 09/19/2019 17:54
+ * Created by MVPArmsTemplate on 09/20/2019 16:11
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -44,27 +41,18 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
+public class PostersActivity extends BaseSupportActivity <PostersPresenter> implements PostersContract.View {
 
-@Route(path = RouterHub.SCAN_ACTIVITY)
-public class ScanResultActivity extends BaseActivity <ScanResultPresenter> implements ScanResultContract.View {
-
+    @BindView(R2.id.iv_back)
+    ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.iv_userhead)
-    ImageView ivUserhead;
-    @BindView(R2.id.tv_nickname)
-    TextView tvNickname;
-    @BindView(R2.id.iv_sex)
-    ImageView ivSex;
-    @BindView(R2.id.tv_account)
-    TextView tvAccount;
-    @BindView(R2.id.rl_user)
-    RelativeLayout rlUser;
-    private String account;
+    @BindView(R2.id.iv_poster)
+    ImageView ivPoster;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerScanResultComponent //如找不到该类,请编译一下项目
+        DaggerPostersComponent //如找不到该类,请编译一下项目
                 .builder ()
                 .appComponent ( appComponent )
                 .view ( this )
@@ -74,22 +62,15 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-        return R.layout.activity_scan_result; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
-    }
-
-    public static void start(Context context, String userAccount) {
-        Intent intent = new Intent ( context, ScanResultActivity.class );
-        intent.putExtra ( "account", userAccount );
-        context.startActivity ( intent );
+        return R.layout.activity_posters; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
-        tvTitle.setText ( "详细资料" );
-        account = getIntent ().getStringExtra ( "account" );
-        mPresenter.getUserInfoFromId ( account );
+        tvTitle.setText ( "推广海报" );
+        mPresenter.getPoster ();
     }
 
     @Override
@@ -120,6 +101,18 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
     }
 
     @Override
+    public void getShareListSuccess(List <PostersBean.ResultBean> lists) {
+        if (lists!=null &&lists.size ()>0){
+            Glide.with ( this ).load ( lists.get ( 0 ).getUrl () ).into ( ivPoster );
+        }
+    }
+
+    @Override
+    public void getShareListFail() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
@@ -129,27 +122,5 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
-    }
-
-    @Override
-    public void getUserInfoSuccess(UserInfoFromIdBean.ResultBean bean) {
-        if (bean!=null) {
-            rlUser.setVisibility ( View.VISIBLE );
-            tvAccount.setText ( bean.getId () );
-            tvNickname.setText ( bean.getNickname () );
-            if (bean.isMan ()){
-                ivSex.setImageResource ( R.drawable.ic_male );
-            }else{
-                ivSex.setImageResource ( R.drawable.ic_female );
-            }
-            Glide.with ( this ).load ( bean.getAvatar () ).into ( ivUserhead );
-        }else{
-            ToastUtils.showShort ( "账号"+account+"不存在" );
-        }
-    }
-
-    @Override
-    public void getUserInfoFail() {
-        ToastUtils.showShort ( "账号"+account+"不存在" );
     }
 }

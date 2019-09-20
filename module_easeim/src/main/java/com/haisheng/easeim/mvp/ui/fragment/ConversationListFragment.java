@@ -320,9 +320,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                 QrManager.getInstance().init(qrConfig).startScan(getActivity (), new QrManager.OnScanResultCallback() {
                     @Override
                     public void onScanSuccess(ScanResult result) {
-                        Log.e(TAG, "onScanSuccess: "+result );
-                        Toast.makeText(getActivity (), "内容："+result.getContent()
-                                +"  类型："+result.getType(), Toast.LENGTH_SHORT).show();
+                        ARouter.getInstance ().build ( RouterHub.SCAN_ACTIVITY ).withString ( "account",result.getContent () ).navigation ();
                     }
                 });
             }

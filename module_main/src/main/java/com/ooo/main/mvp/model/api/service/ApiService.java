@@ -7,6 +7,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
@@ -207,7 +208,6 @@ public interface ApiService {
      * @return
      */
     @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=android")
-    @FormUrlEncoded
     Observable<AppVersionBean> getAppVersion();
 
 
@@ -216,7 +216,6 @@ public interface ApiService {
      * @return
      */
     @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=sysno")
-    @FormUrlEncoded
     Observable<AdvertisingBean> getAdvertising();
 
 
@@ -228,6 +227,46 @@ public interface ApiService {
     @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=getuser")
     @FormUrlEncoded
     Observable<UserInfoFromIdBean> getUserInfoFromId(@Field("id") String id);
+
+
+    /**
+     * 佣金列表
+     * page	是	int	分页
+     * token	是	string	无
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=commission_list")
+    @FormUrlEncoded
+    Observable<UserInfoFromIdBean> getCommissionList(
+            @Field("token") String token,
+            @Field("page") String page
+            );
+
+
+    /**
+     * 获取佣金排行榜
+     * type	是	string	1昨天 2今天 3本周
+     * @param type
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=ranking_list")
+    @FormUrlEncoded
+    Observable<UserInfoFromIdBean> getRankingList(
+            @Field("type") String type
+            );
+
+
+    /**
+     * 获取推广海报
+     * token	是	string	无
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Agency&do=Apis&m=sz_yi&op=sharelist")
+    @FormUrlEncoded
+    Observable<PostersBean> getSharelist(
+            @Field("token") String token
+            );
 
 
 

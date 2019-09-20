@@ -88,7 +88,7 @@ public interface RouterHub {
      * 聊天分组
      */
     String ADD_FRIEND_ACTIVITY = ADD  + "/BeautySettingActivity";
-    String SCAN_ACTIVITY = ADD  + "/BeautySettingActivity";
-    String QR_ACTIVITY = ADD  + "/BeautySettingActivity";
+    String SCAN_ACTIVITY = ADD  + "/ScanResultActivity";
+    String QR_ACTIVITY = ADD  + "/QrcodeCardActivity";
 
 }

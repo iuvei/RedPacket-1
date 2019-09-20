@@ -14,7 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.ScanResultActivity"></activity>
+        <activity android:name=".mvp.ui.activity.PostersActivity"></activity>
+        <activity android:name=".mvp.ui.activity.ScanResultActivity" />
         <activity android:name=".mvp.ui.activity.ContactFriendActivity" />
         <activity android:name=".mvp.ui.activity.RedPacketGameRoomActivity" />
         <activity android:name=".mvp.ui.activity.InviteContactActivity" />

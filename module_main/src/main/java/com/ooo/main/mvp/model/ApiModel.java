@@ -15,6 +15,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
+import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
@@ -199,5 +200,38 @@ public class ApiModel extends BaseModel{
     public Observable<UserInfoFromIdBean> getUserInfoFromId(String id) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getUserInfoFromId (id);
+    }
+
+
+    /**
+     * 获取佣金列表
+     * @param token
+     * @param page
+     * @return
+     */
+    public Observable<UserInfoFromIdBean> getCommissionList(String token,String page) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getCommissionList (token,page);
+    }
+
+    /**
+     * 获取佣金排行榜
+     * type	是	string	1昨天 2今天 3本周
+     * @param type
+     * @return
+     */
+    public Observable<UserInfoFromIdBean> getRankingList(String type) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getRankingList (type);
+    }
+
+    /**
+     *获取推广海报
+     * @return
+     */
+    public Observable<PostersBean> getSharelist() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getSharelist (token);
     }
 }
