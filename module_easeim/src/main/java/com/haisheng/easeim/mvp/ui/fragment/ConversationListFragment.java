@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.IMConstants;
@@ -42,6 +44,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.simple.eventbus.EventBus;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +55,7 @@ import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -80,6 +84,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     @BindView(R2.id.iv_back)
     ImageView ivBack;
     private int mTag;
+    private List <Long> userInfos;
 
     public static ConversationListFragment newInstance(int tag) {
         ConversationListFragment fragment = new ConversationListFragment ();
@@ -160,7 +165,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         conversationListView.setOnItemLongClickListener ( new AdapterView.OnItemLongClickListener () {
             @Override
             public boolean onItemLongClick(AdapterView <?> parent, View view, int position, long id) {
-                EMConversation conversation = conversationListView.getItem ( position - 1 );
+                EMConversation conversation = conversationListView.getItem ( position );
                 String username = conversation.conversationId ();
                 delectConversation ( username );
                 return true;
@@ -208,6 +213,20 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
 
     @Override
     public void setConversationList(List <EMConversation> conversationList) {
+        String chatTop = SpUtils.getValue (getActivity (),"chatTop","" );
+        userInfos = new Gson ().fromJson ( chatTop,new TypeToken <List<Long>> () {}.getType());
+        if (userInfos != null) {
+            for (int i = 0;i< userInfos.size ();i++){
+                for (int j = 0;j<conversationList.size ();j++)
+                    if ((userInfos.get ( i ) + "").equals ( conversationList.get ( j ).conversationId () )) {
+                        //将i，j的位置的两个元素交换
+                        Collections.swap ( conversationList, i, j );
+                        break;
+                    }
+
+            }
+        }
+
         conversationListView.init ( conversationList );
         int countTotal = EMClient.getInstance ().chatManager ().getUnreadMessageCount ();
         EventBus.getDefault ().post ( countTotal, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
@@ -231,7 +250,6 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     @Override
     public void showMessage(@NonNull String message) {
         checkNotNull ( message );
-        ToastUtils.showShort ( message );
     }
 
     protected void delectConversation(String username) {

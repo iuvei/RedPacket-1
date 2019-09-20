@@ -1,11 +1,13 @@
 package com.ooo.main.mvp.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.app.IMHelper;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -30,9 +33,11 @@ import com.ooo.main.mvp.ui.fragment.GameFragment;
 import com.ooo.main.mvp.ui.fragment.MeesageFragment;
 import com.ooo.main.mvp.ui.fragment.RewardFragment;
 import com.ooo.main.mvp.ui.fragment.SelfFragment;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -109,10 +114,23 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         StatusBarUtils.setTranslucentStatus(this);
         StatusBarUtils.setStatusBarDarkTheme ( this,true );
         initFragments();
+        requestPermission();
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
         mPresenter.getAdvertising ();
-        mPresenter.getAppVersion ();
+       // mPresenter.getAppVersion ();
+
+    }
+
+    public void requestPermission(){
+        RxPermissions rxPermissions = new RxPermissions ( this );
+        rxPermissions
+                .request ( Manifest.permission.READ_CONTACTS,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE )
+                .subscribe ( granted -> {
+                    if (!granted) { // Always true pre-M
+                        ToastUtils.showShort ( "未授权权限，部分功能不能使用" );
+                    }
+                } );
     }
 
     private void initFragments() {

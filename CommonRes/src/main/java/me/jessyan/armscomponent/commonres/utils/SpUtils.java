@@ -1,4 +1,4 @@
-package me.jessyan.armscomponent.commonsdk.utils;
+package me.jessyan.armscomponent.commonres.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

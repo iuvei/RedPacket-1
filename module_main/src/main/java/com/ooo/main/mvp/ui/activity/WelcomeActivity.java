@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -15,7 +14,7 @@ import com.ooo.main.app.MainConstants;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.component.im.service.IMService;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
-import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class WelcomeActivity extends BaseSupportActivity {
 

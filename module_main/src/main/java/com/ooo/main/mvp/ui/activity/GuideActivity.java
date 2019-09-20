@@ -15,7 +15,7 @@ import butterknife.BindView;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.bgabanner.BGALocalImageSize;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
-import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class GuideActivity extends BaseSupportActivity {
 

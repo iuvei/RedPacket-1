@@ -16,6 +16,8 @@
             android:id="@+id/iv_contact_head"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/spacing_xl"
+            android:paddingRight="@dimen/spacing_xl"
             android:src="@mipmap/alipay"/>
         <TextView
             android:id="@+id/tv_nickname"
@@ -49,7 +51,7 @@
                 android:id="@+id/swb_top_message"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:sb_checked="true"
+                app:sb_checked="false"
                 android:layout_margin="@dimen/spacing_m"
                 android:layout_gravity="center_vertical"
                 app:sb_show_indicator="false"/>
@@ -72,7 +74,7 @@
                 android:id="@+id/swb_message_not_notice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:sb_checked="true"
+                app:sb_checked="false"
                 android:layout_margin="@dimen/spacing_m"
                 android:layout_gravity="center_vertical"
                 app:sb_show_indicator="false"/>

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="进入"
             android:padding="@dimen/spacing_xs"
-            android:textSize="@dimen/text_title"
+            android:textSize="@dimen/text_sub_title"
             android:textColor="@color/public_color_FF06CB7E"
             android:background="@drawable/bg_solider"
             android:layout_marginLeft="@dimen/spacing_xl"
@@ -41,5 +41,7 @@
     <ListView
         android:id="@+id/lv_room"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="wrap_content"></ListView>
+    <View style="@style/discover_style_view"
+        android:layout_height="match_parent"></View>
 </LinearLayout>

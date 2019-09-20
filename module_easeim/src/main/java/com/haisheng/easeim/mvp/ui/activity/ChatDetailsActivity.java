@@ -10,13 +10,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.di.component.DaggerChatDetailsComponent;
 import com.haisheng.easeim.mvp.contract.ChatDetailsContract;
 import com.haisheng.easeim.mvp.presenter.ChatDetailsPresenter;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +36,7 @@ import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -62,6 +73,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
     TextView tvDelectMessageTime;
     private UserInfo userInfo;
     private BaseDialog dialog;
+    private List<Long> userInfos;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -84,8 +96,26 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "聊天详情" );
         userInfo = (UserInfo) getIntent ().getSerializableExtra ( "userId" );
+        String chatTop = SpUtils.getValue ( ChatDetailsActivity.this,"chatTop","" );
+        userInfos = new Gson ().fromJson ( chatTop,new TypeToken <List<Long>> () {}.getType());
         if (userInfo != null) {
             tvNickname.setText ( userInfo.getNickname () );
+            Glide.with ( this ).load ( userInfo.getAvatarUrl () ).into ( ivContactHead );
+            if (userInfos==null || userInfos.size ()<=0){
+                swbTopMessage.setChecked ( false );
+            }else{
+                boolean exist = false;
+                for (int i = 0;i< userInfos.size ();i++){
+                    if (userInfos.get ( i ).longValue () == userInfo.getId ()){
+                        swbTopMessage.setChecked ( true );
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist){
+                    swbTopMessage.setChecked ( false );
+                }
+            }
         }
         setListener();
     }
@@ -94,13 +124,44 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         swbMessageNotNotice.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
+                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
             }
         } );
         swbTopMessage.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                if (isChecked){
+                    if (userInfo==null){
+                        return;
+                    }
+                    //置顶
+                    if (userInfos == null){
+                        userInfos = new ArrayList <> (  );
+                        userInfos.add ( userInfo.getId () );
+                    }else{
+                        boolean exist = false;
+                        for (int i = userInfos.size ()-1;i>=0;i--){
+                            if (userInfos.get ( i ).longValue () == userInfo.getId () ){
+                                exist = true;
+                                break;
+                            }
+                        }
+                        if (!exist){
+                            userInfos.add ( userInfo.getId () );
+                        }
+                    }
+                }else{
+                    if (userInfos!=null && userInfos.size ()>0){
+                        for (int i = userInfos.size ()-1;i>=0;i--){
+                            if (userInfos.get ( i ).longValue () == userInfo.getId () ){
+                                userInfos.remove ( i );
+                                break;
+                            }
+                        }
+                    }
+                }
+                SpUtils.put ( ChatDetailsActivity.this,"chatTop", new Gson ().toJson ( userInfos ));
             }
         } );
     }
@@ -244,6 +305,13 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                     public void onClick(View view) {
                         dialog.dismiss ();
                         //确定
+                        EMConversation conversation = EMClient.getInstance().chatManager().getConversation(userInfo.getHxId ());
+                        //获取此会话的所有消息
+                        List <EMMessage> messages = conversation.getAllMessages();
+                        for (int i=0;i<messages.size ();i++){
+                            //删除当前会话的某条聊天记录
+                            conversation.removeMessage(messages.get (i).getMsgId ());
+                        }
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
@@ -254,7 +322,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                 } );
             }
         } )
-        .create ();
+                .create ();
         dialog.show ();
     }
 }

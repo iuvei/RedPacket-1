@@ -1,7 +1,5 @@
 package me.jessyan.armscomponent.commonsdk.entity;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -92,7 +90,7 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
         this.token = token;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

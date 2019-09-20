@@ -3,12 +3,9 @@ package me.jessyan.armscomponent.commonsdk.http;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.v4.content.SharedPreferencesCompat;
 
 import java.util.HashSet;
 import java.util.Iterator;
-
-import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
 
 public class MyCookiesManager {
 

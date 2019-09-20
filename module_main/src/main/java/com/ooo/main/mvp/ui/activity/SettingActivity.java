@@ -11,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.haisheng.easeim.app.IMHelper;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.AppManager;
@@ -24,10 +22,6 @@ import com.ooo.main.di.component.DaggerSettingComponent;
 import com.ooo.main.mvp.contract.SettingContract;
 import com.ooo.main.mvp.presenter.SettingPresenter;
 
-import org.apache.commons.logging.Log;
-
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -37,7 +31,7 @@ import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
-import me.jessyan.armscomponent.commonsdk.utils.SpUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
