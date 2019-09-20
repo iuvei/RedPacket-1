@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -16,6 +18,7 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerScanResultComponent;
 import com.ooo.main.mvp.contract.ScanResultContract;
+import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 import com.ooo.main.mvp.presenter.ScanResultPresenter;
 
 import butterknife.BindView;
@@ -78,8 +81,9 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
-        tvTitle.setText ( "设置" );
+        tvTitle.setText ( "详细资料" );
         String account = getIntent ().getStringExtra ( "account" );
+        mPresenter.getUserInfoFromId ( account );
     }
 
     @Override
@@ -119,5 +123,25 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoFromIdBean.ResultBean bean) {
+        rlUser.setVisibility ( View.VISIBLE );
+        if (bean!=null) {
+            tvAccount.setText ( bean.getId () );
+            tvNickname.setText ( bean.getNickname () );
+            if (bean.isMan ()){
+                ivSex.setImageResource ( R.drawable.ic_male );
+            }else{
+                ivSex.setImageResource ( R.drawable.ic_female );
+            }
+            Glide.with ( this ).load ( bean.getAvatar () ).into ( ivUserhead );
+        }
+    }
+
+    @Override
+    public void getUserInfoFail() {
+
     }
 }

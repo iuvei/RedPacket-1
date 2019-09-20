@@ -12,6 +12,7 @@ import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
+import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
@@ -217,6 +218,16 @@ public interface ApiService {
     @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=sysno")
     @FormUrlEncoded
     Observable<AdvertisingBean> getAdvertising();
+
+
+    /**
+     * 根据id获取用户信息
+     * @param id 用户id
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=getuser")
+    @FormUrlEncoded
+    Observable<UserInfoFromIdBean> getUserInfoFromId(@Field("id") String id);
 
 
 

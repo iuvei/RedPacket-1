@@ -20,6 +20,7 @@ import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
+import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
@@ -188,5 +189,15 @@ public class ApiModel extends BaseModel{
     public Observable<AdvertisingBean> getAdvertising() {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getAdvertising ();
+    }
+
+
+    /**
+     * 根据用户id获取用户信息
+     * @return
+     */
+    public Observable<UserInfoFromIdBean> getUserInfoFromId(String id) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getUserInfoFromId (id);
     }
 }

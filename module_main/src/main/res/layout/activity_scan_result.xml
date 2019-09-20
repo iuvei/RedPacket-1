@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_xl"
+        android:visibility="gone"
         android:background="@color/public_white">
         <ImageView
             android:id="@+id/iv_userhead"

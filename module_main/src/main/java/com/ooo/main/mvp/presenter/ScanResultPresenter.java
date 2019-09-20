@@ -8,12 +8,17 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.ScanResultContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.AddBlankCardBean;
+import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 
 
 /**
@@ -38,6 +43,8 @@ public class ScanResultPresenter extends BasePresenter <IModel, ScanResultContra
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public ScanResultPresenter(ScanResultContract.View rootView) {
@@ -52,5 +59,20 @@ public class ScanResultPresenter extends BasePresenter <IModel, ScanResultContra
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getUserInfoFromId(String id ){
+        apiModel.getUserInfoFromId (id)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <UserInfoFromIdBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(UserInfoFromIdBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.getUserInfoSuccess(bean.getResult ());
+                        }else{
+                            mRootView.getUserInfoFail();
+                        }
+                    }
+                } );
     }
 }
