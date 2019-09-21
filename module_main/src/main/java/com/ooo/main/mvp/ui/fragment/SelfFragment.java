@@ -24,6 +24,7 @@ import com.ooo.main.mvp.presenter.SelfPresenter;
 import com.ooo.main.mvp.ui.activity.BalanceActivity;
 import com.ooo.main.mvp.ui.activity.BillingDetailsActivity;
 import com.ooo.main.mvp.ui.activity.CertificationActivity;
+import com.ooo.main.mvp.ui.activity.ChooseRechargeActivity;
 import com.ooo.main.mvp.ui.activity.LoginActivity;
 import com.ooo.main.mvp.ui.activity.SettingActivity;
 import com.ooo.main.mvp.ui.activity.UserInfoActivity;
@@ -213,6 +214,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
                 showAuthDialog ();
                 return;
             }
+            startActivity ( new Intent ( getActivity (), ChooseRechargeActivity.class ) );
         } else if (i == R.id.ll_self_withdrawal) {
             //提现
             if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){

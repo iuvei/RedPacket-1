@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/title_layout_both_text"></include>
+    <View style="@style/discover_style_view"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_weixin"
+            android:layout_marginRight="@dimen/spacing_xl"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="微信充值"
+            android:textColor="@color/public_black"
+            android:drawableRight="@drawable/icon_go"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_sub_title"
+            android:background="@color/public_white"/>
+    </LinearLayout>
+    <View style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_alipy"
+            android:layout_marginRight="@dimen/spacing_xl"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_alipy"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="支付宝充值"
+            android:textColor="@color/public_black"
+            android:drawableRight="@drawable/icon_go"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_sub_title"
+            android:background="@color/public_white"/>
+    </LinearLayout>
+    <View style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_yinlian"
+            android:layout_marginRight="@dimen/spacing_xl"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_blank_card"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="银行卡充值"
+            android:drawableRight="@drawable/icon_go"
+            android:gravity="center_vertical"
+            android:textColor="@color/public_black"
+            android:textSize="@dimen/text_sub_title"
+            android:background="@color/public_white"/>
+    </LinearLayout>
+    <View style="@style/discover_style_view"
+        android:layout_height="match_parent"></View>
+</LinearLayout>
