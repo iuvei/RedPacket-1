@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.gson.Gson;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -23,12 +22,10 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerInviteContactComponent;
 import com.ooo.main.mvp.contract.InviteContactContract;
-import com.ooo.main.mvp.model.entity.InviteContactBean;
 import com.ooo.main.mvp.model.entity.PhoneContacts;
 import com.ooo.main.mvp.presenter.InviteContactPresenter;
 import com.ooo.main.mvp.ui.adapter.MyMultipleListViewAdapter;
 import com.ooo.main.mvp.ui.adapter.MyMultipleListViewBaseAdapter;
-import me.jessyan.armscomponent.commonres.view.SideBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
@@ -39,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.view.SideBar;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -261,15 +259,13 @@ public class InviteContactActivity extends BaseActivity <InviteContactPresenter>
                 ToastUtils.showShort ( "请先选择邀请的联系人" );
                 return;
             }
-            List<InviteContactBean> inviteContactBeans = new ArrayList <> (  );
+            StringBuffer sb = new StringBuffer (  );
             for (int j=0;j<checkContactList.size ();j++){
-                InviteContactBean bean = new InviteContactBean ();
-                bean.setName ( checkContactList.get ( j ).getName () );
-                bean.setPhone ( checkContactList.get ( j ).getTeleNumber () );
-                inviteContactBeans.add ( bean );
+                sb.append ( checkContactList.get ( j ).getTeleNumber () +",");
             }
-
-            mPresenter.inviteContact ( new Gson ().toJson ( inviteContactBeans ) );
+            String contact = sb.substring ( 0,sb.length ()-1 );
+            Log.e ( "tag","contact="+contact );
+            mPresenter.inviteContact ( contact );
         }
     }
 

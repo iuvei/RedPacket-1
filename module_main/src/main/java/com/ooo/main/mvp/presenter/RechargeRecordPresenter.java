@@ -17,8 +17,6 @@ import javax.inject.Inject;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.RechargeRecordContract;
 import com.ooo.main.mvp.model.ApiModel;
-import com.ooo.main.mvp.model.entity.PostersBean;
-import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
 
 
@@ -63,13 +61,17 @@ public class RechargeRecordPresenter extends BasePresenter <IModel, RechargeReco
     }
 
     public void getRechargeRecord( int page){
-        apiModel.getRechargeRecord (page,"1")
+        apiModel.getRechargeRecord (page,"后台充值")
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <RechargeRecordBean> (mErrorHandler) {
                     @Override
                     public void onNext(RechargeRecordBean bean) {
                         if (bean.getStatus ()==1) {
-                            mRootView.getRechargeRecordSuccess(bean.getResult ());
+                            if (page==1) {
+                                mRootView.getRechargeRecordRefreshSuccess ( bean.getResult () );
+                            }else{
+                                mRootView.getRechargeRecordLoadMoreSuccess ( bean.getResult () );
+                            }
                         }else{
                             mRootView.getRechargeRecordFail();
                         }

@@ -53,9 +53,10 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter <RechargeRecordA
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvStatue.setText ( data.get ( position ).getStatusValue () );
+        holder.tvStatue.setText ( "充值成功" );
         holder.tvTaketime.setText ( data.get ( position ).getAddtime () );
         holder.tvMoney.setText ( data.get ( position ).getGold () );
+        holder.tvTakemoney.setText ( data.get ( position ).getDetails () );
 
         holder.rlItem.setOnClickListener ( new View.OnClickListener () {
             @Override
@@ -77,6 +78,7 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter <RechargeRecordA
 
         TextView tvMoney;
         TextView tvTaketime;
+        TextView tvTakemoney;
         TextView tvStatue;
         RelativeLayout rlItem;
 
@@ -85,6 +87,7 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter <RechargeRecordA
             tvMoney = itemView.findViewById ( R.id.tv_money );
             tvTaketime = itemView.findViewById ( R.id.tv_taketime );
             tvStatue = itemView.findViewById ( R.id.tv_statue );
+            tvTakemoney = itemView.findViewById ( R.id.tv_takemoney );
             rlItem = itemView.findViewById ( R.id.rl_item );
 
         }

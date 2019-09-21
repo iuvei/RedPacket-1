@@ -13,13 +13,14 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerAddFriendComponent;
 import com.ooo.main.mvp.contract.AddFriendContract;
+import com.ooo.main.mvp.model.entity.MemberInfo;
 import com.ooo.main.mvp.presenter.AddFriendPresenter;
 
 import butterknife.BindView;
@@ -96,6 +97,7 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "添加好友" );
+        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
     }
 
     @Override
@@ -130,6 +132,7 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+        mPresenter.requestDatas ();
     }
 
     @OnClick({R2.id.iv_back, R2.id.rl_address_book, R2.id.rl_scan, R2.id.rl_contact})
@@ -157,5 +160,10 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
             //邀请手机联系人
             openActivity ( InviteContactActivity.class );
         }
+    }
+
+    @Override
+    public void refreshMemberInfo(MemberInfo result) {
+        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
     }
 }

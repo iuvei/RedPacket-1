@@ -9,6 +9,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -17,11 +18,17 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerRechargeRecordComponent;
 import com.ooo.main.mvp.contract.RechargeRecordContract;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
+import com.ooo.main.mvp.model.entity.WithRecordBean;
 import com.ooo.main.mvp.presenter.RechargeRecordPresenter;
 import com.ooo.main.mvp.ui.adapter.RechargeRecordAdapter;
+import com.ooo.main.mvp.ui.adapter.WithRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +61,7 @@ public class RechargeRecordActivity extends BaseActivity <RechargeRecordPresente
     SmartRefreshLayout refreshLayout;
     private RechargeRecordAdapter recycleAdapter;
     private ArrayList <RechargeRecordBean.ResultBean.ListBean> recordBeans;
+    private int page = 1;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -76,7 +84,7 @@ public class RechargeRecordActivity extends BaseActivity <RechargeRecordPresente
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "充值记录" );
         recordBeans = new ArrayList <> (  );
-        getRechargeRecord();
+        getRechargeRecord(page);
         recycleAdapter = new RechargeRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器
@@ -87,10 +95,29 @@ public class RechargeRecordActivity extends BaseActivity <RechargeRecordPresente
         recyclerView.setAdapter(recycleAdapter);
         //设置分隔线
         recyclerView.addItemDecoration( new DividerGridItemDecoration (this ));
+        setListener();
     }
 
-    private void getRechargeRecord() {
-        mPresenter.getRechargeRecord (1);
+    private void setListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener () {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                recordBeans.clear ();
+                page = 1;
+                getRechargeRecord (page);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener () {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                page++;
+                getRechargeRecord (page);
+            }
+        });
+    }
+
+    private void getRechargeRecord(int page) {
+        mPresenter.getRechargeRecord (page);
     }
 
     @Override
@@ -138,7 +165,18 @@ public class RechargeRecordActivity extends BaseActivity <RechargeRecordPresente
     }
 
     @Override
-    public void getRechargeRecordSuccess(RechargeRecordBean.ResultBean result) {
+    public void getRechargeRecordRefreshSuccess(RechargeRecordBean.ResultBean result) {
+        refreshLayout.finishRefresh ();
         recycleAdapter.setDatas ( result.getList () );
+    }
+
+    @Override
+    public void getRechargeRecordLoadMoreSuccess(RechargeRecordBean.ResultBean result) {
+        refreshLayout.finishLoadMore ();
+        if (result.getList ()==null || result.getList ().size ()<=0){
+            ToastUtils.showShort ( "没有更多的数据" );
+        }else {
+            recycleAdapter.addData ( result.getList () );
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.ooo.main.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -114,5 +112,10 @@ public class NewFriendActivity extends BaseSupportActivity <NewFriendPresenter> 
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @OnClick(R2.id.tv_right)
+    public void onAddFriendClicked() {
+        openActivity ( AddFriendActivity.class );
     }
 }

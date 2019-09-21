@@ -11,10 +11,9 @@ import java.util.List;
  */
 public class RechargeRecordBean implements Serializable {
 
-
     /**
      * status : 1
-     * result : {"list":[{"id":"18","uniacid":"1","uid":"969999","logno":"TX15687867143560","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:05:14","status":"0","pushtime":null,"details":null},{"id":"17","uniacid":"1","uid":"969999","logno":"TX15687865587996","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:02:38","status":"0","pushtime":null,"details":null},{"id":"16","uniacid":"1","uid":"969999","logno":"TX15687865274060","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:02:07","status":"0","pushtime":null,"details":null}],"paytype":["申请提现","提现成功","提现失败"],"allmoney":300}
+     * result : {"list":[{"gold":"600.00","details":"后台充值","addtime":"2019-09-21 14:28:35","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-09 12:02:39","paytype":"0"},{"gold":"500.00","details":"后台充值","addtime":"2019-09-03 16:11:08","paytype":"0"},{"gold":"10.00","details":"后台充值","addtime":"2019-09-03 16:10:50","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-03 15:39:45","paytype":"0"}],"paytype":["后台充值","线上充值"],"allmoney":1310}
      * msg :
      */
 
@@ -48,9 +47,9 @@ public class RechargeRecordBean implements Serializable {
 
     public static class ResultBean implements Serializable{
         /**
-         * list : [{"id":"18","uniacid":"1","uid":"969999","logno":"TX15687867143560","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:05:14","status":"0","pushtime":null,"details":null},{"id":"17","uniacid":"1","uid":"969999","logno":"TX15687865587996","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:02:38","status":"0","pushtime":null,"details":null},{"id":"16","uniacid":"1","uid":"969999","logno":"TX15687865274060","gold":"100","sergold":"0.00","reagold":"0.00","cardname":"5555","cardcode":"6223282800078930116","cardopen":"中国邮政储蓄银行","addtime":"2019-09-18 14:02:07","status":"0","pushtime":null,"details":null}]
-         * paytype : ["申请提现","提现成功","提现失败"]
-         * allmoney : 300
+         * list : [{"gold":"600.00","details":"后台充值","addtime":"2019-09-21 14:28:35","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-09 12:02:39","paytype":"0"},{"gold":"500.00","details":"后台充值","addtime":"2019-09-03 16:11:08","paytype":"0"},{"gold":"10.00","details":"后台充值","addtime":"2019-09-03 16:10:50","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-03 15:39:45","paytype":"0"}]
+         * paytype : ["后台充值","线上充值"]
+         * allmoney : 1310
          */
 
         private int allmoney;
@@ -83,68 +82,16 @@ public class RechargeRecordBean implements Serializable {
 
         public static class ListBean implements Serializable{
             /**
-             * id : 18
-             * uniacid : 1
-             * uid : 969999
-             * logno : TX15687867143560
-             * gold : 100      提现金额
-             * sergold : 0.00  手续费
-             * reagold : 0.00  到账金额
-             * cardname : 5555 持卡人名字
-             * cardcode : 6223282800078930116  银行卡账号
-             * cardopen : 中国邮政储蓄银行
-             * addtime : 2019-09-18 14:05:14   提现时间
-             * status : 0
-             * pushtime : null
-             * details : null
+             * gold : 600.00
+             * details : 后台充值
+             * addtime : 2019-09-21 14:28:35
+             * paytype : 0
              */
 
-            private String id;
-            private String uniacid;
-            private String uid;
-            private String logno;
             private String gold;
-            private String sergold;
-            private String reagold;
-            private String cardname;
-            private String cardcode;
-            private String cardopen;
+            private String details;
             private String addtime;
-            private String status;
-            private Object pushtime;
-            private Object details;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getUniacid() {
-                return uniacid;
-            }
-
-            public void setUniacid(String uniacid) {
-                this.uniacid = uniacid;
-            }
-
-            public String getUid() {
-                return uid;
-            }
-
-            public void setUid(String uid) {
-                this.uid = uid;
-            }
-
-            public String getLogno() {
-                return logno;
-            }
-
-            public void setLogno(String logno) {
-                this.logno = logno;
-            }
+            private String paytype;
 
             public String getGold() {
                 return gold;
@@ -154,48 +101,12 @@ public class RechargeRecordBean implements Serializable {
                 this.gold = gold;
             }
 
-            public String getSergold() {
-                return sergold;
+            public String getDetails() {
+                return details;
             }
 
-            public void setSergold(String sergold) {
-                this.sergold = sergold;
-            }
-
-            public String getReagold() {
-                return reagold;
-            }
-
-            public void setReagold(String reagold) {
-                this.reagold = reagold;
-            }
-
-            public String getCardname() {
-                return cardname;
-            }
-
-            public void setCardname(String cardname) {
-                this.cardname = cardname;
-            }
-
-            public String getCardcode() {
-                return cardcode;
-            }
-
-            public String getCardCodeScreat(){
-                return BlankCardBean.getStarString2 ( cardcode,4,4 );
-            }
-
-            public void setCardcode(String cardcode) {
-                this.cardcode = cardcode;
-            }
-
-            public String getCardopen() {
-                return cardopen;
-            }
-
-            public void setCardopen(String cardopen) {
-                this.cardopen = cardopen;
+            public void setDetails(String details) {
+                this.details = details;
             }
 
             public String getAddtime() {
@@ -206,39 +117,12 @@ public class RechargeRecordBean implements Serializable {
                 this.addtime = addtime;
             }
 
-            public String getStatus() {
-                return status;
+            public String getPaytype() {
+                return paytype;
             }
 
-            public String getStatusValue(){
-                if (status.equals ( "0" )){
-                    return "未审核";
-                }else if (status.equals ( "1" )){
-                    return "审核通过";
-                }else if (status.equals ( "2" )){
-                    return "审核拒绝";
-                }
-                return "";
-            }
-
-            public void setStatus(String status) {
-                this.status = status;
-            }
-
-            public Object getPushtime() {
-                return pushtime;
-            }
-
-            public void setPushtime(Object pushtime) {
-                this.pushtime = pushtime;
-            }
-
-            public Object getDetails() {
-                return details;
-            }
-
-            public void setDetails(Object details) {
-                this.details = details;
+            public void setPaytype(String paytype) {
+                this.paytype = paytype;
             }
         }
     }
