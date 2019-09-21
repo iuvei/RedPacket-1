@@ -200,6 +200,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
                     ARouter.getInstance ().build ( RouterHub.NEW_FRIEND_ACTIVITY ).navigation ();
                 }else if (position==1){
                     //群聊
+                    ARouter.getInstance ().build ( RouterHub.GROUP_TALKING_ACTIVITY ).navigation ();
                 }else {
                     //好友
                     UserInfo userInfo = (UserInfo) listView.getItemAtPosition ( position );

@@ -91,5 +91,6 @@ public interface RouterHub {
     String SCAN_ACTIVITY = ADD  + "/ScanResultActivity";
     String QR_ACTIVITY = ADD  + "/QrcodeCardActivity";
     String NEW_FRIEND_ACTIVITY = ADD  + "/NewFriendActivity";
+    String GROUP_TALKING_ACTIVITY = ADD  + "/GroupTalkingActivity";
 
 }
