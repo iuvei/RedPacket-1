@@ -14,8 +14,10 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.WeiXinRechargeActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".mvp.ui.activity.AlipyRechargeActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.WeiXinRechargeActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".mvp.ui.activity.RechargeRecordActivity" />
         <activity android:name=".mvp.ui.activity.ChooseRechargeActivity" />
         <activity android:name=".mvp.ui.activity.GroupTalkingActivity" />

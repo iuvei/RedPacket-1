@@ -115,6 +115,7 @@ public class ChooseRechargeActivity extends BaseSupportActivity <ChooseRechargeP
             openActivity ( WeiXinRechargeActivity.class );
         } else if (i == R.id.tv_alipy) {
             //支付宝充值
+            openActivity ( AlipyRechargeActivity.class );
         } else if (i == R.id.tv_blank_card) {
             //银联卡充值
         }
