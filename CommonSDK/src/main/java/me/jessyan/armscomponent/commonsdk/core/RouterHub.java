@@ -90,5 +90,6 @@ public interface RouterHub {
     String ADD_FRIEND_ACTIVITY = ADD  + "/BeautySettingActivity";
     String SCAN_ACTIVITY = ADD  + "/ScanResultActivity";
     String QR_ACTIVITY = ADD  + "/QrcodeCardActivity";
+    String NEW_FRIEND_ACTIVITY = ADD  + "/NewFriendActivity";
 
 }

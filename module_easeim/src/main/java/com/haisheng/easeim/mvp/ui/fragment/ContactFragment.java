@@ -197,6 +197,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
             public void onItemClick(AdapterView <?> adapterView, View view, int position, long l) {
                 if (position==0){
                     //新的好友
+                    ARouter.getInstance ().build ( RouterHub.NEW_FRIEND_ACTIVITY ).navigation ();
                 }else if (position==1){
                     //群聊
                 }else {
