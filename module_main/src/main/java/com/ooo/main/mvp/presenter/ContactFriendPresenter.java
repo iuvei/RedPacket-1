@@ -8,12 +8,18 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.ContactFriendContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.ContactForMobileBean;
+import com.ooo.main.mvp.model.entity.GameRuleBean;
+import com.ooo.main.mvp.model.entity.PublicBean;
 
 
 /**
@@ -38,6 +44,8 @@ public class ContactFriendPresenter extends BasePresenter <IModel, ContactFriend
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public ContactFriendPresenter(ContactFriendContract.View rootView) {
@@ -52,5 +60,20 @@ public class ContactFriendPresenter extends BasePresenter <IModel, ContactFriend
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getContactForMobile(String allMobile  ){
+        apiModel.getContactForMobile (allMobile)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <ContactForMobileBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(ContactForMobileBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.getContactFromMobileSuccess ( bean.getResult () );
+                        }else {
+                            mRootView.getContactFromMobileFail ();
+                        }
+                    }
+                } );
     }
 }

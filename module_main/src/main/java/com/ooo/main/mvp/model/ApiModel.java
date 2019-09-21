@@ -15,6 +15,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.CommisonListBean;
+import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
@@ -270,5 +271,15 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getRechargeRecord (token,"2019-09-01","2100-01-01",page,paytype);
+    }
+
+    /**
+     * 获取通讯录好友
+     * @param mobile
+     * @return
+     */
+    public Observable<ContactForMobileBean> getContactForMobile(String mobile) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getContactForMobile (mobile);
     }
 }

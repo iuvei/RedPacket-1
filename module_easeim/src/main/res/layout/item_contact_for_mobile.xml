@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_header_letter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0E0E0"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:textColor="#8a99ac"
+        android:textSize="@dimen/text_normal"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/ease_mm_listitem"
+        android:duplicateParentState="true" >
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/avatar_size_small"
+            android:layout_height="@dimen/avatar_size_small"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_l"
+            android:scaleType="fitXY"
+            android:src="@drawable/ease_default_avatar" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_marginLeft="@dimen/spacing_l"
+            android:layout_alignTop="@+id/iv_avatar"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="123456"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_sub_title" />
+
+        <TextView
+
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing_l"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_marginLeft="@dimen/spacing_l"
+            android:layout_below="@+id/tv_nickname"
+            android:text="123456"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</LinearLayout>

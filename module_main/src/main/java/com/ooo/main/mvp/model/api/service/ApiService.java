@@ -7,6 +7,7 @@ import com.ooo.main.mvp.model.entity.BillingDetailBean;
 import com.ooo.main.mvp.model.entity.BlankCardBean;
 import com.ooo.main.mvp.model.entity.CertificationBean;
 import com.ooo.main.mvp.model.entity.CommisonListBean;
+import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
@@ -308,6 +309,18 @@ public interface ApiService {
             @Field("time2") String time2,
             @Field("page") int page,
             @Field("paytype") String paytype
+    );
+
+
+    /**
+     * 获取通讯录好友
+     * @param mobile mobile	是	string	字符串逗号隔开
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=all_mobile")
+    @FormUrlEncoded
+    Observable<ContactForMobileBean> getContactForMobile(
+            @Field("mobile") String mobile
     );
 
 
