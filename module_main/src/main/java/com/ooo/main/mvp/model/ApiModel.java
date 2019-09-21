@@ -20,6 +20,7 @@ import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.model.entity.RechargeRecordBean;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -256,5 +257,18 @@ public class ApiModel extends BaseModel{
     public Observable<PublicBean> inviteContact(String jsonString) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .inviteContact (jsonString);
+    }
+
+
+    /**
+     * 获取充值记录
+     * @param page   页数
+     * @param paytype
+     * @return
+     */
+    public Observable<RechargeRecordBean> getRechargeRecord(int page, String paytype) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getRechargeRecord (token,"2019-09-01","2100-01-01",page,paytype);
     }
 }

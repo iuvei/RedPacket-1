@@ -12,6 +12,7 @@ import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.model.entity.RechargeRecordBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
@@ -287,6 +288,26 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<PublicBean> inviteContact(
             @Field("information") String information
+    );
+
+
+    /**
+     * 获取充值记录
+     * token	是	string	无
+     * time1	是	string	无
+     * time2	是	string	无
+     * page	是	int	无
+     * paytype	是	string	无
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=payrecord")
+    @FormUrlEncoded
+    Observable<RechargeRecordBean> getRechargeRecord(
+            @Field("token") String token,
+            @Field("time1") String time1,
+            @Field("time2") String time2,
+            @Field("page") int page,
+            @Field("paytype") String paytype
     );
 
 
