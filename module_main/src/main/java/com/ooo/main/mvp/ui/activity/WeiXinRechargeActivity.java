@@ -4,17 +4,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-
+import com.ooo.main.R;
+import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerWeiXinRechargeComponent;
 import com.ooo.main.mvp.contract.WeiXinRechargeContract;
+import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.presenter.WeiXinRechargePresenter;
+import com.ooo.main.mvp.ui.adapter.ChooseHeadImgAdapter;
+import com.ooo.main.mvp.ui.adapter.RechargeAdapter;
 
-import com.ooo.main.R;
+import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -33,6 +51,19 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 public class WeiXinRechargeActivity extends BaseActivity <WeiXinRechargePresenter> implements WeiXinRechargeContract.View {
 
+    @BindView(R2.id.iv_back)
+    ImageView ivBack;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
+    @BindView(R2.id.tv_money)
+    TextView tvMoney;
+    @BindView(R2.id.et_input_money)
+    EditText etInputMoney;
+    @BindView(R2.id.iv_clear)
+    ImageView ivClear;
+    @BindView(R2.id.recyclerView)
+    RecyclerView recyclerView;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerWeiXinRechargeComponent //如找不到该类,请编译一下项目
@@ -50,7 +81,35 @@ public class WeiXinRechargeActivity extends BaseActivity <WeiXinRechargePresente
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        tvTitle.setText ( "微信充值" );
+        tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalance ()+"" );
+        mPresenter.getRechargeMoneyList ();
+        setListener();
+    }
 
+    private void setListener() {
+        etInputMoney.addTextChangedListener ( new TextWatcher () {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (etInputMoney.getText ().toString ().trim ().length ()>0){
+                    ivClear.setVisibility ( View.VISIBLE );
+                }else{
+                    ivClear.setVisibility ( View.INVISIBLE );
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        } );
     }
 
     @Override
@@ -78,5 +137,48 @@ public class WeiXinRechargeActivity extends BaseActivity <WeiXinRechargePresente
     @Override
     public void killMyself() {
         finish ();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind ( this );
+    }
+
+    @OnClick({R2.id.iv_back, R2.id.iv_clear, R2.id.btn_recharge})
+    public void onViewClicked(View view) {
+        int i = view.getId ();
+        if (i == R.id.iv_back) {
+            finish ();
+        } else if (i == R.id.iv_clear) {
+            etInputMoney.setText ( "" );
+        } else if (i == R.id.btn_recharge) {
+
+        }
+    }
+
+    @Override
+    public void getRechargeMoneyListSuccess(List <RechargeMoneyBean.ResultBean.WechatBean> wechat) {
+        RechargeAdapter recycleAdapter = new RechargeAdapter ( this, wechat.get ( 0 ).getPaylist ());
+        GridLayoutManager gridManager = new GridLayoutManager (this,4 );
+        //设置布局管理器
+        recyclerView.setLayoutManager(gridManager);
+        //设置为垂直布局，这也是默认的
+        gridManager.setOrientation( OrientationHelper. VERTICAL);
+        //设置Adapter
+        recyclerView.setAdapter(recycleAdapter);
+        recycleAdapter.setItemClickListener ( new RechargeAdapter.ItemClickListener () {
+            @Override
+            public void onItemClick(List <Integer> data, int position) {
+                etInputMoney.setText ( data.get ( position )+"" );
+                etInputMoney.setSelection ( etInputMoney.getText ().toString ().trim ().length () );
+            }
+        } );
+    }
+
+    @Override
+    public void getRechargeMoneyListFail() {
+
     }
 }

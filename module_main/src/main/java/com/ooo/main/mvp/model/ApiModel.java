@@ -1,13 +1,9 @@
 package com.ooo.main.mvp.model;
 
-import android.support.v7.widget.CardView;
-
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.ooo.main.app.AppLifecyclesImpl;
-import com.ooo.main.mvp.model.api.Api;
 import com.ooo.main.mvp.model.api.service.ApiService;
-import com.ooo.main.mvp.model.api.service.RedPacketGameService;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
@@ -21,8 +17,8 @@ import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
-import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
@@ -281,5 +277,15 @@ public class ApiModel extends BaseModel{
     public Observable<ContactForMobileBean> getContactForMobile(String mobile) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getContactForMobile (mobile);
+    }
+
+    /**
+     * 获取充值金额列表
+     * @return
+     */
+    public Observable<RechargeMoneyBean> getRechargeMoneyList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getRechargeMoneyList (token);
     }
 }

@@ -2,17 +2,23 @@ package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.WeiXinRechargeContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
+import com.ooo.main.mvp.model.entity.UnderPayerBean;
 
 
 /**
@@ -39,8 +45,11 @@ public class WeiXinRechargePresenter extends BasePresenter <IModel, WeiXinRechar
     AppManager mAppManager;
 
     @Inject
+    ApiModel apiModel;
+    @Inject
     public WeiXinRechargePresenter( WeiXinRechargeContract.View rootView) {
         super ( rootView );
+        ARouter.getInstance ().inject ( this );
     }
 
     @Override
@@ -50,5 +59,20 @@ public class WeiXinRechargePresenter extends BasePresenter <IModel, WeiXinRechar
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getRechargeMoneyList(){
+        apiModel.getRechargeMoneyList (  )
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe ( new ErrorHandleSubscriber <RechargeMoneyBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(RechargeMoneyBean bean) {
+                        if (bean.getStatus ()==1) {
+                            mRootView.getRechargeMoneyListSuccess(bean.getResult ().getWechat ());
+                        }else{
+                            mRootView.getRechargeMoneyListFail();
+                        }
+                    }
+                } );
     }
 }

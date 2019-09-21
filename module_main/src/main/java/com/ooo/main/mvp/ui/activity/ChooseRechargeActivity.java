@@ -112,6 +112,7 @@ public class ChooseRechargeActivity extends BaseSupportActivity <ChooseRechargeP
             openActivity ( RechargeRecordActivity.class );
         } else if (i == R.id.tv_weixin) {
             //微信充值
+            openActivity ( WeiXinRechargeActivity.class );
         } else if (i == R.id.tv_alipy) {
             //支付宝充值
         } else if (i == R.id.tv_blank_card) {

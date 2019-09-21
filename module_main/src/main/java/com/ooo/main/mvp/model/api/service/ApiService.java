@@ -13,6 +13,7 @@ import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
+import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -321,6 +322,17 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ContactForMobileBean> getContactForMobile(
             @Field("mobile") String mobile
+    );
+
+    /**
+     * 获取充值金额列表
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=getsyspayinfo")
+    @FormUrlEncoded
+    Observable<RechargeMoneyBean> getRechargeMoneyList(
+            @Field("token") String token
     );
 
 
