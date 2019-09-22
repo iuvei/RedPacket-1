@@ -157,7 +157,7 @@ public class WeiXinRechargeActivity extends BaseSupportActivity <WeiXinRechargeP
         } else if (i == R.id.iv_clear) {
             etInputMoney.setText ( "" );
         } else if (i == R.id.btn_recharge) {
-            if (etInputMoney.getText ().toString ().trim ().length ()<0){
+            if (etInputMoney.getText ().toString ().trim ().length ()<=0){
                 ToastUtils.showShort ( "请输入充值金额" );
                 return;
             }

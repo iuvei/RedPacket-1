@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -182,7 +183,11 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
         } else if (i == R.id.iv_clear) {
             etInputMoney.setText ( "" );
         } else if (i == R.id.btn_recharge) {
-
+            if (etInputMoney.getText ().toString ().trim ().length ()<=0){
+                ToastUtils.showShort ( "请输入充值金额" );
+                return;
+            }
+            TurnToAlipyRechargeActivity.start ( this, etInputMoney.getText ().toString ().trim ());
         }else if (i == R.id.tv_right) {
 
         }
