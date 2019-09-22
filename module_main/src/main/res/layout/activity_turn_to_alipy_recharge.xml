@@ -6,19 +6,16 @@
     android:orientation="vertical">
     <include layout="@layout/title_layout_both_text"></include>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/spacing_xl"
-        android:paddingRight="@dimen/spacing_xl"
-        android:paddingTop="@dimen/spacing_xl"
+        android:padding="@dimen/spacing_m"
         android:textSize="@dimen/text_small"
+        android:background="@color/gray"
         android:text="错误提交信息或成功付款后超过5分钟没有自动到账，请联系客服"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_frame_button"
         android:layout_margin="@dimen/spacing_xl"
-        android:padding="@dimen/spacing_xl"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,10 +36,13 @@
                 android:layout_marginLeft="@dimen/spacing_m"
                 android:textColor="@color/public_black"/>
         </LinearLayout>
+        <View style="@style/discover_style_view"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginBottom="@dimen/spacing_m"></View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_m"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -63,10 +63,13 @@
                 android:text="复制"
                 style="@style/copy_style" />
         </LinearLayout>
+        <View style="@style/discover_style_view"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginBottom="@dimen/spacing_m"></View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_m"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -88,10 +91,13 @@
                 style="@style/copy_style"
                 android:text="复制"/>
         </LinearLayout>
+        <View style="@style/discover_style_view"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginBottom="@dimen/spacing_m"></View>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_m"
             >
             <TextView
                 android:id="@+id/recharge_money"
@@ -124,10 +130,13 @@
                 android:layout_alignParentRight="true"
                 android:text="复制"/>
         </RelativeLayout>
+        <View style="@style/discover_style_view"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginBottom="@dimen/spacing_m"></View>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_m"
             android:text="温馨提示：请务必按要求填写，否则将无法自动到账！"/>
     </LinearLayout>
 
