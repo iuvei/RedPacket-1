@@ -14,11 +14,13 @@ import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
+import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
+import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
@@ -287,5 +289,31 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getRechargeMoneyList (token);
+    }
+
+    /**
+     * 获取充值信息
+     * @param money  充值金额
+     * @param payType
+     * @return
+     */
+    public Observable<GetRechargeInfoBean> getRechargeInfo(String money,String payType) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getRechargeInfo (token,money,payType);
+    }
+
+    /**
+     * 提交充值信息
+     * paycodeid	是	int	充值通道
+     * paymoney	是	int	充值金额
+     * payname	是	int	转账户名
+     * payimg	是	int	上传凭证
+     * @return
+     */
+    public Observable<SubmitRechargeInfo> submitRechargeInfo(String paycodeid, String paymoney,String payname,String payimg) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .submitRechargeInfo (token,paycodeid,paymoney,payname,payimg);
     }
 }

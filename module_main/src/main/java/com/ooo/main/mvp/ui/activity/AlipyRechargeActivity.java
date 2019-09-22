@@ -144,6 +144,7 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
 
     @Override
     public void getRechargeMoneyListSuccess(List <RechargeMoneyBean.ResultBean.AlipayBean> alipay) {
+        etInputMoney.setHint ( "最低"+alipay.get ( 0 ).getMin ()+",最高"+alipay.get ( 0 ).getMax () );
         RechargeAdapter recycleAdapter = new RechargeAdapter ( this, alipay.get ( 0 ).getPaylist () );
         GridLayoutManager gridManager = new GridLayoutManager ( this, 4 );
         //设置布局管理器

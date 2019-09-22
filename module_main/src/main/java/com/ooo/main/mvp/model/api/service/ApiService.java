@@ -10,11 +10,13 @@ import com.ooo.main.mvp.model.entity.CommisonListBean;
 import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
+import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
+import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 import com.ooo.main.mvp.model.entity.UpdatePasswordBean;
@@ -333,6 +335,40 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<RechargeMoneyBean> getRechargeMoneyList(
             @Field("token") String token
+    );
+
+    /**
+     * token	是	string	无
+     * money	是	int	充值金额
+     * pay_type	是	string	充值方式
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=gopay")
+    @FormUrlEncoded
+    Observable<GetRechargeInfoBean> getRechargeInfo(
+            @Field("token") String token,
+            @Field("money") String money,
+            @Field("pay_type") String pay_type
+    );
+
+    /**
+     * 提交充值信息
+     * token	是	string	无
+     * paycodeid	是	int	充值通道
+     * paymoney	是	int	充值金额
+     * payname	是	int	转账户名
+     * payimg	是	int	上传凭证
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=gopayonline")
+    @FormUrlEncoded
+    Observable<SubmitRechargeInfo> submitRechargeInfo(
+            @Field("token") String token,
+            @Field("paycodeid") String paycodeid,
+            @Field("paymoney") String paymoney,
+            @Field("payname") String payname,
+            @Field("payimg") String payimg
     );
 
 

@@ -191,6 +191,7 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
 
     @Override
     public void getRechargeMoneyListSuccess(List <RechargeMoneyBean.ResultBean.BankBean> bank) {
+        etInputMoney.setHint ( "最低"+bank.get ( 0 ).getMin ()+",最高"+bank.get ( 0 ).getMax () );
         RechargeAdapter recycleAdapter = new RechargeAdapter ( this, bank.get ( 0 ).getPaylist ());
         GridLayoutManager gridManager = new GridLayoutManager (this,4 );
         //设置布局管理器

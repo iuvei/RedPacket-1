@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -32,6 +33,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -49,7 +52,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class WeiXinRechargeActivity extends BaseActivity <WeiXinRechargePresenter> implements WeiXinRechargeContract.View {
+public class WeiXinRechargeActivity extends BaseSupportActivity <WeiXinRechargePresenter> implements WeiXinRechargeContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -154,12 +157,17 @@ public class WeiXinRechargeActivity extends BaseActivity <WeiXinRechargePresente
         } else if (i == R.id.iv_clear) {
             etInputMoney.setText ( "" );
         } else if (i == R.id.btn_recharge) {
-
+            if (etInputMoney.getText ().toString ().trim ().length ()<0){
+                ToastUtils.showShort ( "请输入充值金额" );
+                return;
+            }
+            TurnToWeiXinRechargeActivity.start ( this, etInputMoney.getText ().toString ().trim ());
         }
     }
 
     @Override
     public void getRechargeMoneyListSuccess(List <RechargeMoneyBean.ResultBean.WechatBean> wechat) {
+        etInputMoney.setHint ( "最低"+wechat.get ( 0 ).getMin ()+",最高"+wechat.get ( 0 ).getMax () );
         RechargeAdapter recycleAdapter = new RechargeAdapter ( this, wechat.get ( 0 ).getPaylist ());
         GridLayoutManager gridManager = new GridLayoutManager (this,4 );
         //设置布局管理器
