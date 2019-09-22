@@ -54,6 +54,8 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_right)
+    TextView tvRight;
     @BindView(R2.id.tv_money)
     TextView tvMoney;
     @BindView(R2.id.et_input_money)
@@ -83,6 +85,8 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "支付宝充值" );
+        tvRight.setText ( "客服" );
+        tvRight.setVisibility ( View.VISIBLE );
         tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalance ()+"" );
         mPresenter.getRechargeMoneyList ();
         setListener();
@@ -169,7 +173,7 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_clear, R2.id.btn_recharge})
+    @OnClick({R2.id.iv_back, R2.id.iv_clear, R2.id.btn_recharge,R2.id.tv_right})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
@@ -177,6 +181,8 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
         } else if (i == R.id.iv_clear) {
             etInputMoney.setText ( "" );
         } else if (i == R.id.btn_recharge) {
+
+        }else if (i == R.id.tv_right) {
 
         }
     }

@@ -54,6 +54,8 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_right)
+    TextView tvRight;
     @BindView(R2.id.tv_money)
     TextView tvMoney;
     @BindView(R2.id.et_input_money)
@@ -87,6 +89,8 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "银联充值" );
+        tvRight.setText ( "客服" );
+        tvRight.setVisibility ( View.VISIBLE );
         tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalance () + "" );
         mPresenter.getRechargeMoneyList ();
         setListener ();
@@ -169,7 +173,7 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_clear_money, R2.id.iv_clear_name, R2.id.btn_recharge})
+    @OnClick({R2.id.iv_back, R2.id.iv_clear_money, R2.id.iv_clear_name, R2.id.btn_recharge,R2.id.tv_right})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
@@ -179,6 +183,8 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
         } else if (i == R.id.iv_clear_name) {
             etInputName.setText ( "" );
         } else if (i == R.id.btn_recharge) {
+
+        } else if (i == R.id.tv_right) {
 
         }
     }
