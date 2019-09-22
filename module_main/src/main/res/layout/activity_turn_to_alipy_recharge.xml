@@ -8,7 +8,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_xl"
+        android:paddingLeft="@dimen/spacing_xl"
+        android:paddingRight="@dimen/spacing_xl"
+        android:paddingTop="@dimen/spacing_xl"
         android:textSize="@dimen/text_small"
         android:text="错误提交信息或成功付款后超过5分钟没有自动到账，请联系客服"/>
     <LinearLayout
@@ -16,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_frame_button"
         android:layout_margin="@dimen/spacing_xl"
-        android:padding="@dimen/spacing_xl"
+        android:padding="@dimen/spacing_m"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 tools:text="工商银行"
-                android:layout_marginLeft="@dimen/spacing_xl"
+                android:layout_marginLeft="@dimen/spacing_m"
                 android:textColor="@color/public_black"/>
         </LinearLayout>
         <LinearLayout
@@ -52,15 +54,12 @@
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 tools:text="广州互信广告部"
-                android:layout_marginLeft="@dimen/spacing_xl"
+                android:layout_marginLeft="@dimen/spacing_m"
                 android:textColor="@color/public_black"/>
-            <Button
+            <TextView
                 android:id="@+id/btn_copy_name"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:background="@drawable/btn_ad_shape"
-                android:textColor="@color/white"
-                android:text="复制"/>
+                android:text="复制"
+                style="@style/copy_style" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,50 +76,51 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:textSize="@dimen/text_small"
                 tools:text="6232713602003840984"
-                android:layout_marginLeft="@dimen/spacing_xl"
+                android:layout_marginLeft="@dimen/spacing_m"
                 android:textColor="@color/public_black"/>
-            <Button
+            <TextView
                 android:id="@+id/btn_copy_card_num"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:background="@drawable/btn_ad_shape"
-                android:textColor="@color/white"
+                style="@style/copy_style"
                 android:text="复制"/>
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m"
             >
             <TextView
+                android:id="@+id/recharge_money"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="充值金额："/>
             <TextView
                 android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/recharge_money"
                 tools:text="300.80"
-                android:layout_marginLeft="@dimen/spacing_xl"
+                android:layout_marginLeft="@dimen/spacing_m"
                 android:textColor="@color/public_black"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_below="@+id/recharge_money"
                 android:gravity="center_vertical|right"
-                tools:text="(不可修改，否则无法到账)"
+                android:text="(不可修改，否则无法到账)"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/public_black"/>
-            <Button
+            <TextView
                 android:id="@+id/btn_copy_money"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:background="@drawable/btn_ad_shape"
-                android:textColor="@color/white"
+                style="@style/copy_style"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
                 android:text="复制"/>
-        </LinearLayout>
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

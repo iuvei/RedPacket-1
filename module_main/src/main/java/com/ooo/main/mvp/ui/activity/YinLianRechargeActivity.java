@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -183,6 +184,17 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
         } else if (i == R.id.iv_clear_name) {
             etInputName.setText ( "" );
         } else if (i == R.id.btn_recharge) {
+            String money = etInputMoney.getText ().toString ().trim ();
+            if (money.length ()<=0){
+                ToastUtils.showShort ( "请输入充值金额" );
+                return;
+            }
+            String name = etInputName.getText ().toString ().trim ();
+            if (name.length ()<=0){
+                ToastUtils.showShort ( "请输入付款人名字" );
+                return;
+            }
+            TurnToYinLianRechargeActivity.start ( this,money,name );
 
         } else if (i == R.id.tv_right) {
 

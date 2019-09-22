@@ -19,6 +19,7 @@ import com.ooo.main.mvp.presenter.TurnToWeiXinRechargePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.CopyUtil;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -127,11 +128,11 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
         } else if (i == R.id.tv_right) {
 
         } else if (i == R.id.btn_copy_name) {
-
+            CopyUtil.getInstance ().copyString ( this,tvName.getText ().toString ().trim () );
         } else if (i == R.id.btn_copy_card_num) {
-
+            CopyUtil.getInstance ().copyString ( this,tvCardNum.getText ().toString ().trim () );
         } else if (i == R.id.btn_copy_money) {
-
+            CopyUtil.getInstance ().copyString ( this,tvMoney.getText ().toString ().trim () );
         } else if (i == R.id.btn_cancel) {
             finish ();
         } else if (i == R.id.btn_submit) {

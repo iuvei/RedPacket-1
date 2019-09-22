@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 tools:text="工商银行"
-                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_marginLeft="@dimen/spacing_xl"
                 android:textColor="@color/public_black"/>
         </LinearLayout>
         <LinearLayout
@@ -56,7 +56,7 @@
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 tools:text="广州互信广告部"
-                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_marginLeft="@dimen/spacing_xl"
                 android:textColor="@color/public_black"/>
             <TextView
                 android:id="@+id/btn_copy_name"
@@ -79,9 +79,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:textSize="@dimen/text_small"
                 tools:text="6232713602003840984"
-                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_marginLeft="@dimen/spacing_xl"
                 android:textColor="@color/public_black"/>
             <TextView
                 android:id="@+id/btn_copy_card_num"
@@ -94,7 +93,7 @@
             android:layout_marginTop="@dimen/spacing_m"
             >
             <TextView
-                android:id="@+id/recharge_money"
+                android:id="@+id/rechargeMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -104,17 +103,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_toRightOf="@+id/recharge_money"
+                android:layout_toRightOf="@id/rechargeMoney"
                 tools:text="300.80"
-                android:layout_marginLeft="@dimen/spacing_m"
+                android:layout_marginLeft="@dimen/spacing_xl"
                 android:textColor="@color/public_black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_below="@+id/recharge_money"
                 android:gravity="center_vertical|right"
                 android:text="(不可修改，否则无法到账)"
+                android:layout_below="@+id/rechargeMoney"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/public_black"/>
             <TextView
@@ -124,10 +123,71 @@
                 android:layout_alignParentRight="true"
                 android:text="复制"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m"
+            >
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="转账附言："/>
+            <TextView
+                android:id="@+id/tv_marke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                tools:text="300.80"
+                android:layout_toRightOf="@+id/remark"
+                android:layout_marginLeft="@dimen/spacing_xl"
+                android:textColor="@color/public_black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/remark"
+                android:text="(必须填写，否则无法到账)"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/public_black"/>
+            <TextView
+                android:id="@+id/btn_copy_marke"
+                style="@style/copy_style"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="复制"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m"
+            >
+            <TextView
+                android:id="@+id/payname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="付款名字："/>
+            <TextView
+                android:id="@+id/tv_payName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="300.80"
+                android:layout_toRightOf="@+id/payname"
+                android:layout_marginLeft="@dimen/spacing_xl"
+                android:textColor="@color/public_black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_below="@+id/payname"
+                android:text="(必须正确，否则无法到账)"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/public_black"/>
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_s"
+            android:layout_marginTop="@dimen/spacing_m"
             android:text="温馨提示：请务必按要求填写，否则将无法自动到账！"/>
     </LinearLayout>
 

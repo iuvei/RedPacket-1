@@ -14,9 +14,9 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.di.component.DaggerTurnToAlipyRechargeComponent;
-import com.ooo.main.mvp.contract.TurnToAlipyRechargeContract;
-import com.ooo.main.mvp.presenter.TurnToAlipyRechargePresenter;
+import com.ooo.main.di.component.DaggerTurnToYinLianRechargeComponent;
+import com.ooo.main.mvp.contract.TurnToYinLianRechargeContract;
+import com.ooo.main.mvp.presenter.TurnToYinLianRechargePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +31,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 09/22/2019 16:01
+ * Created by MVPArmsTemplate on 09/22/2019 16:16
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -39,7 +39,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechargePresenter> implements TurnToAlipyRechargeContract.View {
+public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRechargePresenter> implements TurnToYinLianRechargeContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -55,10 +55,14 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
     TextView tvCardNum;
     @BindView(R2.id.tv_money)
     TextView tvMoney;
+    @BindView(R2.id.tv_marke)
+    TextView tvMarke;
+    @BindView(R2.id.tv_payName)
+    TextView tvPayName;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerTurnToAlipyRechargeComponent //如找不到该类,请编译一下项目
+        DaggerTurnToYinLianRechargeComponent //如找不到该类,请编译一下项目
                 .builder ()
                 .appComponent ( appComponent )
                 .view ( this )
@@ -68,7 +72,7 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-        return R.layout.activity_turn_to_alipy_recharge; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
+        return R.layout.activity_turn_to_yin_lian_recharge; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
@@ -79,12 +83,15 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
         tvRight.setText ( "客服" );
         tvRight.setVisibility ( View.VISIBLE );
         String money = getIntent ().getStringExtra ( "money" );
-        mPresenter.getRechargeInfo(money,"");
+        String name = getIntent ().getStringExtra ( "name" );
+        tvPayName.setText ( name );
+        mPresenter.getRechargeInfo ( money, "" );
     }
 
-    public static void start(Context context, String money) {
-        Intent intent = new Intent ( context,TurnToAlipyRechargeActivity.class );
-        intent.putExtra ( "money",money );
+    public static void start(Context context, String money, String name) {
+        Intent intent = new Intent ( context, TurnToYinLianRechargeActivity.class );
+        intent.putExtra ( "money", money );
+        intent.putExtra ( "name", name );
         context.startActivity ( intent );
     }
 
@@ -123,7 +130,7 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_right, R2.id.btn_copy_name, R2.id.btn_copy_card_num,
-            R2.id.btn_copy_money, R2.id.btn_cancel, R2.id.btn_submit})
+            R2.id.btn_copy_money, R2.id.btn_copy_marke, R2.id.btn_cancel, R2.id.btn_submit})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
@@ -135,6 +142,8 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
             CopyUtil.getInstance ().copyString ( this,tvCardNum.getText ().toString ().trim () );
         } else if (i == R.id.btn_copy_money) {
             CopyUtil.getInstance ().copyString ( this,tvMoney.getText ().toString ().trim () );
+        } else if (i == R.id.btn_copy_marke) {
+            CopyUtil.getInstance ().copyString ( this,tvMarke.getText ().toString ().trim () );
         } else if (i == R.id.btn_cancel) {
             finish ();
         } else if (i == R.id.btn_submit) {
