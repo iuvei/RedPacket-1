@@ -68,7 +68,7 @@
             android:layout_alignLeft="@+id/ll_money"
             android:layout_marginTop="@dimen/spacing_m"
             android:textSize="@dimen/text_small_little"
-            android:text="正常情况下五分钟之内到账，如果超过5分钟未到账，请联系客户快速处理"/>
+            android:text="正常情况下五分钟之内到账，如果超过5分钟未到账，请联系客服快速处理"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

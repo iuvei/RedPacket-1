@@ -118,6 +118,7 @@ public class ChooseRechargeActivity extends BaseSupportActivity <ChooseRechargeP
             openActivity ( AlipyRechargeActivity.class );
         } else if (i == R.id.tv_blank_card) {
             //银联卡充值
+            openActivity ( YinLianRechargeActivity.class );
         }
     }
 }
