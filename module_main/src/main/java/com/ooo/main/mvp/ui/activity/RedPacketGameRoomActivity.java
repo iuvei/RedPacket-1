@@ -12,7 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -23,10 +27,16 @@ import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.presenter.RedPacketGameRoomPresenter;
 import com.ooo.main.mvp.ui.adapter.RedPacketGameRoomListAdapter;
 
+import org.simple.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.Constants;
+import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -88,7 +98,8 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
         lvRoom.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView <?> adapterView, View view, int i, long l) {
-
+                RedPacketGameRomeBean.ResultBean itemBean = (RedPacketGameRomeBean.ResultBean) lvRoom.getItemAtPosition ( i );
+                mPresenter.roomDetail ( ConvertNumUtils.stringToLong ( itemBean.getId () ) );
             }
         } );
     }
@@ -156,5 +167,14 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
     @Override
     public void getRoomListFail() {
 
+    }
+
+    @Override
+    public void joinRoomSuccessfully(ChatRoomBean result) {
+        Bundle bundle = new Bundle (  );
+        bundle.putString("userId", result.getId ()+"");
+        bundle.putInt("chatType", EaseConstant.CHATTYPE_CHATROOM);
+        bundle.putSerializable("chatRoomInfo", result);
+        ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
     }
 }

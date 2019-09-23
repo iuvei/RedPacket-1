@@ -2,6 +2,7 @@ package com.ooo.main.di.module;
 
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
+import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.MemberModel;
 import com.ooo.main.mvp.model.RedPacketRoomModel;
 
@@ -27,5 +28,11 @@ public class RedPacketGameRoomModule {
     @Provides
     public RedPacketRoomModel provideMemberModel(IRepositoryManager iRepositoryManager) {
         return new RedPacketRoomModel(iRepositoryManager);
+    }
+
+    @ActivityScope
+    @Provides
+    public ApiModel provideApiModel(IRepositoryManager iRepositoryManager) {
+        return new ApiModel(iRepositoryManager);
     }
 }

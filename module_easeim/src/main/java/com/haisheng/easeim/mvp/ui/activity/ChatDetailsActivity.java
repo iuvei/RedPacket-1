@@ -304,6 +304,9 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss ();
+                        if (userInfo==null){
+                            return;
+                        }
                         //确定
                         EMConversation conversation = EMClient.getInstance().chatManager().getConversation(userInfo.getHxId ());
                         //获取此会话的所有消息

@@ -1,5 +1,7 @@
 package com.ooo.main.mvp.model;
 
+import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.ooo.main.app.AppLifecyclesImpl;
@@ -28,6 +30,7 @@ import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 /**
@@ -315,5 +318,17 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .submitRechargeInfo (token,paycodeid,paymoney,payname,payimg);
+    }
+
+    /**
+     * token	是	string	无
+     * roomid	是	long	无
+     * @param roomId
+     * @return
+     */
+    public Observable<BaseResponse <ChatRoomBean>> roomDetail(long roomId) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .roomDetail(token,roomId);
     }
 }

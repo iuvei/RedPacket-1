@@ -1,5 +1,6 @@
 package com.ooo.main.mvp.model.api.service;
 
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
@@ -24,6 +25,7 @@ import com.ooo.main.mvp.model.entity.UserInfoFromIdBean;
 import com.ooo.main.mvp.model.entity.WithRecordBean;
 
 import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -369,6 +371,19 @@ public interface ApiService {
             @Field("paymoney") String paymoney,
             @Field("payname") String payname,
             @Field("payimg") String payimg
+    );
+
+    /**
+     * 获取群组详情
+     * @param token
+     * @param roomid
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=groupdetail")
+    @FormUrlEncoded
+    Observable<BaseResponse <ChatRoomBean>> roomDetail(
+            @Field("token") String token,
+            @Field("roomid") long roomid
     );
 
 

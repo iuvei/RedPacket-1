@@ -76,6 +76,7 @@ public interface RouterHub {
     String IM_SERVICE_IMSERVICE = IM + SERVICE + "/IMService";
     String IM_MESSAGEFRAGMENT = IM  + "/MessageFragment";
     String IM_CALLWAITACTIVITY = IM  + "/CallWaitActivity";
+    String IM_CHATACTIVITY = IM  + "/ChatActivity";
     String IM_CONTACTFRAGMENT = IM  + "/ContactFragment";
     String IM_CALLLISTACTIVITY= IM  + "/CallListActivity";
     String IM_REDPACKETDETAILACTIVITY= IM  + "/RedpacketDetailActivity";

@@ -4,18 +4,21 @@ import android.app.Application;
 import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.RedPacketGameRoomContract;
+import com.ooo.main.mvp.model.ApiModel;
 import com.ooo.main.mvp.model.MemberModel;
 import com.ooo.main.mvp.model.RedPacketRoomModel;
 import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 
 import javax.inject.Inject;
 
+import me.jessyan.armscomponent.commonsdk.http.Api;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
@@ -47,6 +50,8 @@ public class RedPacketGameRoomPresenter extends BasePresenter <IModel, RedPacket
 
     @Inject
     RedPacketRoomModel redPacketRoomModel;
+    @Inject
+    ApiModel apiModel;
 
     @Inject
     public RedPacketGameRoomPresenter(RedPacketGameRoomContract.View rootView) {
@@ -76,5 +81,20 @@ public class RedPacketGameRoomPresenter extends BasePresenter <IModel, RedPacket
                         }
                     }
                 } );
+    }
+
+    public void roomDetail(Long roomId){
+        apiModel.roomDetail(roomId)
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<ChatRoomBean>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<ChatRoomBean> response) {
+                        if (response.isSuccess()) {
+                            mRootView.joinRoomSuccessfully(response.getResult());
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
     }
 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -27,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -77,25 +76,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
-import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
-//import me.jessyan.armscomponent.commonres.utils.MyGlideEngine;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.view.popupwindow.NotescontactPopupWindow;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
-import me.jessyan.armscomponent.commonsdk.http.Api;
 import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 import me.jessyan.armscomponent.commonsdk.utils.MyFileUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
+//import me.jessyan.armscomponent.commonres.utils.MyGlideEngine;
 
+@Route ( path = RouterHub.IM_CHATACTIVITY )
 public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements ChatContract.View {
 
     @BindView(R2.id.message_list)
@@ -196,7 +193,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         Bundle bundle = getIntent ().getExtras ();
         toChatUsername = bundle.getString ( EaseConstant.EXTRA_USER_ID );
         chatType = bundle.getInt ( EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE );
@@ -255,20 +251,12 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     }
 
-    @OnClick({R2.id.tv_balance,R2.id.tv_recharge, R2.id.tv_game_rules, R2.id.tv_league,R2.id.iv_back, R2.id.iv_right})
+    @OnClick({R2.id.tv_balance,R2.id.iv_back, R2.id.iv_right})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.tv_balance) {
             mPresenter.getBalanceInfo(true);
 
-        }else if (i == R.id.tv_recharge) {
-           // ARouterUtils.navigation(mContext,RouterHub.MAIN_RECHARGECENTERACTIVITY);
-
-        } else if (i == R.id.tv_game_rules) {
-           // WebviewActivity.start(mContext,"玩法规则", Api.URL_GAME_RULES);
-
-        } else if (i == R.id.tv_league) {
-            //ARouterUtils.navigation(mContext,RouterHub.MAIN_PROXYCENTERACTIVITY);
         }else if (i == R.id.iv_back) {
             finish ();
         } else if (i == R.id.iv_right) {
