@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/public_CommonPadding_m"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/room_icon_size"
+        android:layout_height="@dimen/room_icon_size"
+        android:layout_centerVertical="true"
+        tools:src="@mipmap/icon_default_avatar" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_avatar"
+        android:layout_marginTop="@dimen/spacing_xxs"
+        android:layout_marginLeft="@dimen/spacing_m"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/common_text"
+        android:textSize="@dimen/text_normal"
+        tools:text="测试"/>
+
+    <ImageView
+        android:id="@+id/iv_banker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_nickname"
+        android:layout_marginLeft="@dimen/spacing_m"
+        android:visibility="invisible"
+        android:src="@drawable/ic_cow_bank"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_nickname"
+        android:layout_alignLeft="@id/tv_nickname"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/common_text_light"
+        android:textSize="@dimen/text_small"
+        tools:text="测试aaaaa"/>
+
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/spacing_m"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/common_text"
+        android:textSize="@dimen/text_normal"
+        android:textStyle="bold"
+        tools:text="100.00"/>
+
+    <ImageView
+        android:id="@+id/iv_best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_money"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:visibility="invisible"
+        android:src="@drawable/ic_king"/>
+
+
+    <ImageView
+        android:id="@+id/iv_bomb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/iv_best"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:layout_marginRight="@dimen/spacing_m"
+        android:visibility="invisible"
+        android:src="@drawable/ic_bomb"/>
+
+</RelativeLayout>

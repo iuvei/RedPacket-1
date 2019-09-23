@@ -5,8 +5,10 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 
+import java.io.Serializable;
+
 @Table(database = IMDatabase.class)
-public class SystemMessage {
+public class SystemMessage implements Serializable {
     @PrimaryKey(autoincrement = true)
     private Long id;
     @Column

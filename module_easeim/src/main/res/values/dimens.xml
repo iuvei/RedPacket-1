@@ -4,4 +4,9 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="room_icon_size">45dp</dimen>
+
+    <dimen name="mine_redpacket_height">85dp</dimen>
+    <dimen name="mine_redpacket_width">240dp</dimen>
+    <dimen name="btn_solid_circle_size">30dp</dimen>
+
 </resources>

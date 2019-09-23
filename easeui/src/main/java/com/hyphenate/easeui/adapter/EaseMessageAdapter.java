@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,10 +48,10 @@ public class EaseMessageAdapter extends BaseAdapter{
 	private final static String TAG = "msg";
 
 	private Context context;
-	
+
 	private static final int HANDLER_MESSAGE_REFRESH_LIST = 0;
 	private static final int HANDLER_MESSAGE_SELECT_LAST = 1;
-    private static final int HANDLER_MESSAGE_SEEK_TO = 2;
+	private static final int HANDLER_MESSAGE_SEEK_TO = 2;
 
 	private static final int MESSAGE_TYPE_RECV_TXT = 0;
 	private static final int MESSAGE_TYPE_SENT_TXT = 1;
@@ -75,24 +76,26 @@ public class EaseMessageAdapter extends BaseAdapter{
 
 	private static final int MESSAGE_TYPE_SEND_GIFT_ASK = 16;
 	private static final int MESSAGE_TYPE_RECV_GIFT_ASK = 17;
-	
-	public int itemTypeCount; 
-	
+
+	public int itemTypeCount;
+
+	private int extTypeCount = 6;
+
 	// reference to conversation object in chatsdk
 	private EMConversation conversation;
 	EMMessage[] messages = null;
-	
-    private String toChatUsername;
 
-    private MessageListItemClickListener itemClickListener;
-    private EaseCustomChatRowProvider customRowProvider;
-    
-    private boolean showUserNick;
-    private boolean showAvatar;
-    private Drawable myBubbleBg;
-    private Drawable otherBuddleBg;
+	private String toChatUsername;
 
-    private ListView listView;
+	private MessageListItemClickListener itemClickListener;
+	private EaseCustomChatRowProvider customRowProvider;
+
+	private boolean showUserNick;
+	private boolean showAvatar;
+	private Drawable myBubbleBg;
+	private Drawable otherBuddleBg;
+
+	private ListView listView;
 	private EaseMessageListItemStyle itemStyle;
 
 	public EaseMessageAdapter(Context context, String username, int chatType, ListView listView) {
@@ -111,24 +114,24 @@ public class EaseMessageAdapter extends BaseAdapter{
 			conversation.markAllMessagesAsRead();
 			notifyDataSetChanged();
 		}
-		
+
 		@Override
 		public void handleMessage(android.os.Message message) {
 			switch (message.what) {
-			case HANDLER_MESSAGE_REFRESH_LIST:
-				refreshList();
-				break;
-			case HANDLER_MESSAGE_SELECT_LAST:
-                if (messages != null && messages.length > 0) {
-	                listView.setSelection(messages.length - 1);
-                }
-                break;
-            case HANDLER_MESSAGE_SEEK_TO:
-	            int position = message.arg1;
-	            listView.setSelection(position);
-                break;
-			default:
-				break;
+				case HANDLER_MESSAGE_REFRESH_LIST:
+					refreshList();
+					break;
+				case HANDLER_MESSAGE_SELECT_LAST:
+					if (messages != null && messages.length > 0) {
+						listView.setSelection(messages.length - 1);
+					}
+					break;
+				case HANDLER_MESSAGE_SEEK_TO:
+					int position = message.arg1;
+					listView.setSelection(position);
+					break;
+				default:
+					break;
 			}
 		}
 	};
@@ -140,24 +143,24 @@ public class EaseMessageAdapter extends BaseAdapter{
 		android.os.Message msg = handler.obtainMessage(HANDLER_MESSAGE_REFRESH_LIST);
 		handler.sendMessage(msg);
 	}
-	
+
 	/**
-     * refresh and select the last
-     */
-    public void refreshSelectLast() {
-        final int TIME_DELAY_REFRESH_SELECT_LAST = 100;
-        handler.removeMessages(HANDLER_MESSAGE_REFRESH_LIST);
-        handler.removeMessages(HANDLER_MESSAGE_SELECT_LAST);
-        handler.sendEmptyMessageDelayed(HANDLER_MESSAGE_REFRESH_LIST, TIME_DELAY_REFRESH_SELECT_LAST);
-        handler.sendEmptyMessageDelayed(HANDLER_MESSAGE_SELECT_LAST, TIME_DELAY_REFRESH_SELECT_LAST);
-    }
-    
-    /**
-     * refresh and seek to the position
-     */
-    public void refreshSeekTo(int position) {
-	    handler.sendMessage(handler.obtainMessage(HANDLER_MESSAGE_REFRESH_LIST));
-    }
+	 * refresh and select the last
+	 */
+	public void refreshSelectLast() {
+		final int TIME_DELAY_REFRESH_SELECT_LAST = 100;
+		handler.removeMessages(HANDLER_MESSAGE_REFRESH_LIST);
+		handler.removeMessages(HANDLER_MESSAGE_SELECT_LAST);
+		handler.sendEmptyMessageDelayed(HANDLER_MESSAGE_REFRESH_LIST, TIME_DELAY_REFRESH_SELECT_LAST);
+		handler.sendEmptyMessageDelayed(HANDLER_MESSAGE_SELECT_LAST, TIME_DELAY_REFRESH_SELECT_LAST);
+	}
+
+	/**
+	 * refresh and seek to the position
+	 */
+	public void refreshSeekTo(int position) {
+		handler.sendMessage(handler.obtainMessage(HANDLER_MESSAGE_REFRESH_LIST));
+	}
 
 	public EMMessage getItem(int position) {
 		if (messages != null && position < messages.length) {
@@ -169,42 +172,42 @@ public class EaseMessageAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		return position;
 	}
-	
+
 	/**
-     * get count of messages
-     */
-    public int getCount() {
-        return messages == null ? 0 : messages.length;
-    }
-	
+	 * get count of messages
+	 */
+	public int getCount() {
+		return messages == null ? 0 : messages.length;
+	}
+
 	/**
 	 * get number of message type, here 14 = (EMMessage.Type) * 2
 	 */
 	public int getViewTypeCount() {
-	    if(customRowProvider != null && customRowProvider.getCustomChatRowTypeCount() > 0){
-	        return customRowProvider.getCustomChatRowTypeCount() + 14 + 4;
-	    }
-        return 14 + 4;
-    }
-	
+		if(customRowProvider != null && customRowProvider.getCustomChatRowTypeCount() > 0){
+			return customRowProvider.getCustomChatRowTypeCount() + 14 + extTypeCount;
+		}
+		return 14 + extTypeCount;
+	}
+
 
 	/**
 	 * get type of item
 	 */
 	public int getItemViewType(int position) {
-		EMMessage message = getItem(position); 
+		EMMessage message = getItem(position);
 		if (message == null) {
 			return -1;
 		}
-		
+
 		if(customRowProvider != null && customRowProvider.getCustomChatRowType(message) > 0){
-		    return customRowProvider.getCustomChatRowType(message) + 13 + 4;
+			return customRowProvider.getCustomChatRowType(message) + 13 + extTypeCount;
 		}
-		
+
 		if (message.getType() == EMMessage.Type.TXT) {
-		    if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
-		        return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
-		    }else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_CALL_INVITE, false)){
+			if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
+				return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
+			}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_CALL_INVITE, false)){
 				return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_CALL_INVITE : MESSAGE_TYPE_SEND_CALL_INVITE;
 			}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_GIFT, false)){
 				return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_GIFT: MESSAGE_TYPE_SEND_GIFT;
@@ -234,48 +237,48 @@ public class EaseMessageAdapter extends BaseAdapter{
 	}
 
 	protected EaseChatRowPresenter createChatRowPresenter(EMMessage message, int position) {
-        if(customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null){
+		if(customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null){
 			return customRowProvider.getCustomChatRow(message, position, this);
-        }
+		}
 
-        EaseChatRowPresenter presenter = null;
+		EaseChatRowPresenter presenter = null;
 
-        switch (message.getType()) {
-        case TXT:
-            if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
-				presenter = new EaseChatBigExpressionPresenter();
-            }else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_CALL_INVITE, false)){
-				presenter = new CustomChatCallInvitePresenter();
-			}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_GIFT, false)){
-				presenter = new CustomChatGiftPresenter();
-			}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_GIFT_ASK, false)){
-				presenter = new CustomChatGiftAskPresenter();
-			}else{
-				presenter = new EaseChatTextPresenter();
-            }
-            break;
-        case LOCATION:
-        	presenter = new EaseChatLocationPresenter();
-            break;
-        case FILE:
-        	presenter = new EaseChatFilePresenter();
-            break;
-        case IMAGE:
-        	presenter = new EaseChatImagePresenter();
-            break;
-        case VOICE:
-        	presenter = new EaseChatVoicePresenter();
-            break;
-        case VIDEO:
-        	presenter = new EaseChatVideoPresenter();
-            break;
-        default:
-            break;
-        }
+		switch (message.getType()) {
+			case TXT:
+				if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
+					presenter = new EaseChatBigExpressionPresenter();
+				}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_CALL_INVITE, false)){
+					presenter = new CustomChatCallInvitePresenter();
+				}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_GIFT, false)){
+					presenter = new CustomChatGiftPresenter();
+				}else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_GIFT_ASK, false)){
+					presenter = new CustomChatGiftAskPresenter();
+				}else{
+					presenter = new EaseChatTextPresenter();
+				}
+				break;
+			case LOCATION:
+				presenter = new EaseChatLocationPresenter();
+				break;
+			case FILE:
+				presenter = new EaseChatFilePresenter();
+				break;
+			case IMAGE:
+				presenter = new EaseChatImagePresenter();
+				break;
+			case VOICE:
+				presenter = new EaseChatVoicePresenter();
+				break;
+			case VIDEO:
+				presenter = new EaseChatVideoPresenter();
+				break;
+			default:
+				break;
+		}
 
-        return presenter;
-    }
-    
+		return presenter;
+	}
+
 
 	@SuppressLint("NewApi")
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -302,32 +305,32 @@ public class EaseMessageAdapter extends BaseAdapter{
 	}
 
 
-    public void setItemClickListener(MessageListItemClickListener listener){
-	    itemClickListener = listener;
+	public void setItemClickListener(MessageListItemClickListener listener){
+		itemClickListener = listener;
 	}
-	
+
 	public void setCustomChatRowProvider(EaseCustomChatRowProvider rowProvider){
-	    customRowProvider = rowProvider;
+		customRowProvider = rowProvider;
 	}
 
 
-    public boolean isShowUserNick() {
-        return showUserNick;
-    }
+	public boolean isShowUserNick() {
+		return showUserNick;
+	}
 
 
-    public boolean isShowAvatar() {
-        return showAvatar;
-    }
+	public boolean isShowAvatar() {
+		return showAvatar;
+	}
 
 
-    public Drawable getMyBubbleBg() {
-        return myBubbleBg;
-    }
+	public Drawable getMyBubbleBg() {
+		return myBubbleBg;
+	}
 
 
-    public Drawable getOtherBubbleBg() {
-        return otherBuddleBg;
-    }
+	public Drawable getOtherBubbleBg() {
+		return otherBuddleBg;
+	}
 
 }

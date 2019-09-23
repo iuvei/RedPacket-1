@@ -31,18 +31,24 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api project(":CommonSDK")
-    //因为 CommonRes 依赖了 CommonSDK, 所以如果业务模块需要公共 UI 组件就依赖 CommonRes, 如果不需要就只依赖 CommonSDK
+
+    api rootProject.ext.dependencies["autolayout"]
     api(rootProject.ext.dependencies["cardview-v7"]) {
         exclude module: 'support-annotations'
     }
     api rootProject.ext.dependencies["gridlayout-v7"]
     api rootProject.ext.dependencies["constraint-layout"]
-    api 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    api rootProject.ext.dependencies["pickerview"]
+    api rootProject.ext.dependencies["photoview"]
+    api rootProject.ext.dependencies["smartrefreshlayout"]
+    api rootProject.ext.dependencies["recyclerview-adapterhelper"]
+    api rootProject.ext.dependencies["bga-banner"]
+    api rootProject.ext.dependencies["flyco-tablayout"]
     api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
-
-    api rootProject.ext.dependencies["paginate"]
-    api rootProject.ext.dependencies["lottie"]
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    api rootProject.ext.dependencies["countdownview"]
+    api rootProject.ext.dependencies["flowlayout"]
+//    api rootProject.ext.dependencies["paginate"]
+//    api rootProject.ext.dependencies["lottie"]
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'

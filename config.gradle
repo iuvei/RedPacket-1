@@ -3,7 +3,7 @@ ext {
     android = [
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
-            minSdkVersion    : 17,
+            minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 1,
             versionName      : "1.0.0"
@@ -21,8 +21,7 @@ ext {
             espressoSdkVersion      : "3.0.1",
             canarySdkVersion        : "1.5.4",
             fragmentationVersion    : "1.1.6",
-            dbflowVersion           : "4.2.4",
-            pickerViewVersion       : "4.1.8",
+            dbflowVersion           : "4.2.4"
     ]
 
     dependencies = [
@@ -68,6 +67,8 @@ ext {
             "circleimageview"         : "de.hdodenhof:circleimageview:2.2.0",
             "smartrefreshlayout"      :"com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18",
             "recyclerview-adapterhelper"      :"com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44",
+            "flowlayout"      :"com.hyman:flowlayout-lib:1.1.2",
+            "countdownview"      :"com.github.iwgang:countdownview:2.1.6",
 
             //rx2
             "rxandroid2"               : "io.reactivex.rxjava2:rxandroid:2.0.2",
@@ -103,13 +104,14 @@ ext {
             "fragmentation"            : "me.yokeyword:fragmentation:${version["fragmentationVersion"]}",
             "fragmentation-core"       : "me.yokeyword:fragmentation-core:${version["fragmentationVersion"]}",
             "fragmentation-swipeback"  : "me.yokeyword:fragmentation-swipeback:${version["fragmentationVersion"]}",
-            "utilcode"                  : "com.blankj:utilcode:1.10.0",
+            "utilcode"                  : "com.blankj:utilcode:1.25.8",
             "arms"                      : "me.jessyan:arms:2.5.0",
             "arms-imageloader"         : "me.jessyan:arms-imageloader-glide:2.5.0",
             "autolayout"               : "com.zhy:autolayout:1.4.5",
             "arms-autolayout"          : "me.jessyan:arms-autolayout:2.5.0",
             "arms-autosize"            : "me.jessyan:autosize:1.0.6",
-            "matisse"                   : "com.zhihu.android:matisse:0.5.2-beta4",
+            "luban"                    : "top.zibin:Luban:1.1.8",
+//            "matisse"                   : "com.zhihu.android:matisse:0.5.2-beta4",
 
 
             //test
@@ -124,8 +126,7 @@ ext {
             "logger"                   : "com.orhanobut:logger:2.2.0",
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
-            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
-            "pickerview"               : "com.contrarywind:Android-PickerView:${version["pickerViewVersion"]}"
+            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1"
     ]
 
 

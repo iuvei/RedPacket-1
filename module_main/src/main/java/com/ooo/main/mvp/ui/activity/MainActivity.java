@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.app.IMHelper;
@@ -64,6 +65,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
+@Route(path = RouterHub.APP_MAINACTIVITY)
 public class MainActivity extends BaseSupportActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R2.id.viewPager)

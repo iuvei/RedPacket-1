@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
@@ -34,8 +35,10 @@ import me.jessyan.armscomponent.commonres.view.popupwindow.SelectItemPopupWindow
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.utils.MyFileUtils;
+import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.ooo.main.app.MainConstants.REQUEST_CODE_EDIT_NICKNAME;
 
 
 /**
@@ -68,7 +71,7 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
 
     private MemberInfo mMemberInfo;
 
-    private static final String mSexs[] = {"男","女","男","女","男","女","男","女","男","女","男","女","男","女","男","女"};
+    private static final String mSexs[] = {"男","女"};
     private static final String mPictureFrom[] = {"相册","拍照"};
     private String mCameraSavePath,mCropSavePath;
     private ProgressDialogUtils progressDialogUtils;
@@ -102,7 +105,6 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
         Bundle bundle = getIntent().getExtras();
         if (null != bundle) {
             mMemberInfo = (MemberInfo) bundle.getSerializable("memberInfo");
-
             if(null != mMemberInfo)
                 refreshMemberInfo(mMemberInfo);
         }
@@ -115,7 +117,9 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
             showSelectPicturePopupWindow(view);
 
         } else if (i == R.id.ll_nickname) {
-            EditNicknameActivity.start(mContext);
+            Intent intent = new Intent(mContext, EditNicknameActivity.class);
+            startActivityForResult(intent,REQUEST_CODE_EDIT_NICKNAME);
+//            EditNicknameActivity.start(mContext);
 
         } else if (i == R.id.ll_sex) {
             showSelectSexPopupWindow(view);
@@ -130,6 +134,8 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
 
     @Override
     public void refreshMemberInfo(MemberInfo memberInfo) {
+        UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(memberInfo.getAvatarUrl());
+        UserPreferenceManager.getInstance().setCurrentUserNick(memberInfo.getNickname());
         ImageLoader.displayHeaderImage(mContext,memberInfo.getAvatarUrl(),ivAvatar);
         tvNickname.setText(memberInfo.getNickname());
         tvSex.setText(memberInfo.getSex()==MemberInfo.FAMALE  ? "女" : "男");
@@ -152,13 +158,18 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
     private SelectItemPopupWindow mSelectSexPopupWindow;
     private void showSelectSexPopupWindow(View view){
         if(null == mSelectSexPopupWindow){
-            mSelectSexPopupWindow = new SelectItemPopupWindow(mContext, Arrays.asList(mSexs), (adapter, v, position) -> {
+            mSelectSexPopupWindow = new SelectItemPopupWindow<String>(mContext, Arrays.asList(mSexs), (adapter, v, position) -> {
                 String sex = (String) adapter.getItem(position);
                 tvSex.setText(sex);
-                int sexStatus = position == 0 ? 1 :0;
+                int sexStatus = position == 0 ? 1 : 0;
                 mMemberInfo.setSex(sexStatus);
 
-            });
+            }) {
+                @Override
+                public void setItemInfo(BaseViewHolder helper, String item) {
+                    helper.setText(R.id.tv_content,item);
+                }
+            };
         }
         mSelectSexPopupWindow.openPopWindow(view);
     }
@@ -166,14 +177,19 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
     private SelectItemPopupWindow mSelectPicturePopupWindow;
     private void showSelectPicturePopupWindow(View view){
         if(null == mSelectPicturePopupWindow){
-            mSelectPicturePopupWindow = new SelectItemPopupWindow(mContext, Arrays.asList(mPictureFrom), (adapter, v, position) -> {
-                if(position == 0){
+            mSelectPicturePopupWindow = new SelectItemPopupWindow<String>(mContext, Arrays.asList(mPictureFrom), (adapter, v, position) -> {
+                if (position == 0) {
                     ActionUtils.openSystemAblum((Activity) mContext);
-                }else{
+                } else {
                     mCameraSavePath = MyFileUtils.getNewCacheFilePath(mContext, Constants.IMAGE_CODE);
-                    ActionUtils.openCamera(mContext,mCameraSavePath);
+                    ActionUtils.openCamera(mContext, mCameraSavePath);
                 }
-            });
+            }) {
+                @Override
+                public void setItemInfo(BaseViewHolder helper, String item) {
+                    helper.setText(R.id.tv_content,item);
+                }
+            };
         }
         mSelectPicturePopupWindow.openPopWindow(view);
     }
@@ -203,7 +219,7 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
     @Override
     public void showMessage(@NonNull String message) {
         if(null != message)
-        ToastUtils.showShort(message);
+            ToastUtils.showShort(message);
     }
 
     @Override
@@ -222,19 +238,13 @@ public class MemberInfoActivity extends BaseSupportActivity<MemberInfoPresenter>
         super.onActivityResult(requestCode, resultCode, data);
         if (RESULT_OK != resultCode) return;
         if (requestCode == Constants.REQUEST_CODE_SYSTEM_ALBUM) {
-//            String photoPath = MyFileUtils.getRealPathFromUri(mContext, data.getData());
-//            Uri uri = ActionUtils.getUriForFile(new File(photoPath));
-
             mCropSavePath = MyFileUtils.getNewCacheFilePath(mContext,Constants.IMAGE_CODE);
-//            Uri desUri = ActionUtils.getUriForFile(new File(mCropSavePath));
             Uri desUri = Uri.fromFile(new File(mCropSavePath));
             ActionUtils.cropImageUri(mContext,data.getData(),desUri,1,1,300,300);
 
         } else if (requestCode == Constants.REQUEST_CODE_CAMERA) {
-            Uri uri = ActionUtils.getUriForFile(new File(mCameraSavePath));
-
+            Uri uri = MyFileUtils.getUriForFile(new File(mCameraSavePath));
             mCropSavePath = MyFileUtils.getNewCacheFilePath(mContext,Constants.IMAGE_CODE);
-//            Uri desUri = ActionUtils.getUriForFile(new File(mCropSavePath));
             Uri desUri = Uri.fromFile(new File(mCropSavePath));
             ActionUtils.cropImageUri(mContext,uri,desUri,1,1,300,300);
 

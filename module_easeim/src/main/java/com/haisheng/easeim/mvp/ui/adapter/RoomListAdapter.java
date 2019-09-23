@@ -5,32 +5,27 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.mvp.model.entity.CallRecordEntity;
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.util.DateUtils;
 
-import java.util.Date;
 import java.util.List;
 
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 
-import static com.haisheng.easeim.mvp.model.entity.CallRecordEntity.CallTypeStatus.VOICE;
-
-public class RoomListAdapter extends BaseQuickAdapter<RoomBean,BaseViewHolder> {
+public class RoomListAdapter extends BaseQuickAdapter<ChatRoomBean,BaseViewHolder> {
 
     private int typeStatus;
 
-    public RoomListAdapter(List<RoomBean> infos) {
+    public RoomListAdapter(List<ChatRoomBean> infos) {
         super(R.layout.item_room, infos);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, RoomBean item) {
+    protected void convert(BaseViewHolder helper, ChatRoomBean item) {
         ImageView ivRoom = helper.getView(R.id.iv_room);
-        ImageLoader.displayHeaderImage(mContext,item.getImgUrl(),ivRoom);
+        ImageLoader.displayImage(mContext,item.getImgUrl(),R.drawable.ic_launcher,R.drawable.ic_launcher,ivRoom);
         helper.setText(R.id.tv_room_name,item.getName());
         if(typeStatus == Constants.IM.TYPE_MESSAGE){
             EMConversation conversation = EMClient.getInstance().chatManager().getConversation(item.getHxId());

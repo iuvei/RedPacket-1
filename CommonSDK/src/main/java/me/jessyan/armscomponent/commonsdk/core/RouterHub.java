@@ -63,7 +63,12 @@ public interface RouterHub {
     String MAIN_MAINACTIVITY = MAIN + "/MainActivity";
     String MAIN_SELFFRAGMENT = MAIN + "/SelfFragment";
     String MAIN_RANKFRAGMENT = MAIN + "/RankFragment";
+    String APP_MAINACTIVITY = APP + "/MainActivity";
 
+    /**
+     * main
+     */
+    String MAIN_BILLLISTACTIVITY = MAIN + "/BillListActivity";
 
     /**
      * 即时通讯分组
@@ -73,6 +78,8 @@ public interface RouterHub {
     String IM_CALLWAITACTIVITY = IM  + "/CallWaitActivity";
     String IM_CONTACTFRAGMENT = IM  + "/ContactFragment";
     String IM_CALLLISTACTIVITY= IM  + "/CallListActivity";
+    String IM_REDPACKETDETAILACTIVITY= IM  + "/RedpacketDetailActivity";
+    String IM_CUSTOMERSERVICELISTACTIVITY= IM  + "/CustomerServiceListActivity";
 
 
     String IM_ROOMLISTFRAGMENT = IM  + "/RoomListFragment";

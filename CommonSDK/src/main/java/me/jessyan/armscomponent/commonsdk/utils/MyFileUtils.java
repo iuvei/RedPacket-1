@@ -9,10 +9,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Base64;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +26,17 @@ import java.util.Date;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 
 public class MyFileUtils {
+
+    public static Uri getUriForFile(File file){
+        // 判断版本大于等于7.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
+            String authorities = AppUtils.getAppPackageName()+".my.fileProvider";;
+            return FileProvider.getUriForFile( Utils.getApp(), authorities, file);
+        } else {
+            return Uri.fromFile(file);
+        }
+    }
 
     /**
      * 获取 一个新文件的的缓存路径

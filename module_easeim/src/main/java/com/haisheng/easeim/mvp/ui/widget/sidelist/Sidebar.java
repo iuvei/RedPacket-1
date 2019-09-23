@@ -51,11 +51,11 @@ public class Sidebar extends View{
 		init();
 	}
 
-	private String[] sections; 
+	private String[] sections;
 
 	private void init(){
-	    String st = "搜";
-        sections= new String[]{st,"A","B","C","D","E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","#"};
+		String st = "搜";
+		sections= new String[]{st,"A","B","C","D","E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","#"};
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setColor(Color.parseColor("#8C8C8C"));
 		paint.setTextAlign(Align.CENTER);
@@ -89,22 +89,22 @@ public class Sidebar extends View{
 		}
 		return index;
 	}
-	
+
 	private void setHeaderTextAndscroll(MotionEvent event){
-		 if (mListView == null) {
-		        //check the mListView to avoid NPE. but the mListView shouldn't be null
-		        //need to check the call stack later
-		        return;
-		    }
+		if (mListView == null) {
+			//check the mListView to avoid NPE. but the mListView shouldn't be null
+			//need to check the call stack later
+			return;
+		}
 		String headerString = sections[sectionForPoint(event.getY())];
 		header.setText(headerString);
 		RecyclerView.Adapter adapter = mListView.getAdapter();
 		if(sectionIndex == null){
-    		if(adapter instanceof SectionIndexer){
-    		    sectionIndex = (SectionIndexer)adapter;
-    		}else{
-    		    throw new RuntimeException("listview sets adapter does not implement SectionIndexer interface");
-    		}
+			if(adapter instanceof SectionIndexer){
+				sectionIndex = (SectionIndexer)adapter;
+			}else{
+				throw new RuntimeException("listview sets adapter does not implement SectionIndexer interface");
+			}
 		}
 		String[] adapterSections = (String[]) sectionIndex.getSections();
 		try {
@@ -119,33 +119,33 @@ public class Sidebar extends View{
 		} catch (Exception e) {
 			Log.e("setHeaderTextAndScroll", e.getMessage());
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:{
-			if(header == null){
-				//header = (TextView) ((View)getParent()).findViewById(R.id.tv_floating_header);
+			case MotionEvent.ACTION_DOWN:{
+				if(header == null){
+					//header = (TextView) ((View)getParent()).findViewById(R.id.tv_floating_header);
+				}
+				setHeaderTextAndscroll(event);
+				header.setVisibility(View.VISIBLE);
+				setBackgroundResource(R.drawable.sidebar_background_pressed);
+				return true;
 			}
-			setHeaderTextAndscroll(event);
-			header.setVisibility(View.VISIBLE);
-			setBackgroundResource(R.drawable.sidebar_background_pressed);
-			return true;
-		}
-		case MotionEvent.ACTION_MOVE:{
-			setHeaderTextAndscroll(event);
-			return true;
-		}
-		case MotionEvent.ACTION_UP:
-			header.setVisibility(View.INVISIBLE);
-			setBackgroundColor(Color.TRANSPARENT);
-			return true;
-		case MotionEvent.ACTION_CANCEL:
-			header.setVisibility(View.INVISIBLE);
-			setBackgroundColor(Color.TRANSPARENT);
-			return true;
+			case MotionEvent.ACTION_MOVE:{
+				setHeaderTextAndscroll(event);
+				return true;
+			}
+			case MotionEvent.ACTION_UP:
+				header.setVisibility(View.INVISIBLE);
+				setBackgroundColor(Color.TRANSPARENT);
+				return true;
+			case MotionEvent.ACTION_CANCEL:
+				header.setVisibility(View.INVISIBLE);
+				setBackgroundColor(Color.TRANSPARENT);
+				return true;
 		}
 		return super.onTouchEvent(event);
 	}

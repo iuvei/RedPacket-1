@@ -8,12 +8,13 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
-import com.zhihu.matisse.engine.ImageEngine;
 
 import me.jessyan.armscomponent.commonres.R;
 
 
-public class MyGlideEngine implements ImageEngine {
+/*
+public class MyGlideEngine
+        implements ImageEngine {
 
     @Override
     public void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
@@ -75,3 +76,4 @@ public class MyGlideEngine implements ImageEngine {
     }
 
 }
+*/

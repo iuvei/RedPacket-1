@@ -21,6 +21,35 @@
     <application>
         <activity android:name=".mvp.ui.activity.ChatDetailsActivity"></activity>
         <activity android:name=".mvp.ui.activity.ContactInfoActivity" />
+        <activity android:name=".mvp.ui.activity.UserListActivity"></activity>
+        <activity android:name=".mvp.ui.activity.SearchContactActivity" />
+        <activity
+            android:name=".mvp.ui.activity.CustomerServiceListActivity"
+            android:label="@string/custiner_service_list" />
+        <activity
+            android:name=".mvp.ui.activity.RedpacketDetailActivity"
+            android:label="@string/redpacket_detail" />
+        <activity
+            android:name=".mvp.ui.activity.SendGunControlRedpacketActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/gun_control_redpacket"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.activity.SendWelfarRedpacketActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/welfare_redpacket"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.activity.SendNiuniuRedpacketActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/niuniu_redpacket"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.activity.SendMineRedpacketActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/mine_redpacket"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".mvp.ui.activity.FriendConversationListActivity"
             android:label="@string/friend_conversation_list" />

@@ -25,6 +25,32 @@
             android:textSize="@dimen/text_normal"
             android:textColor="@color/common_text" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ease_alert_click_bg"
+        style="@style/public_CommonPadding_s"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/text_theme"
+            android:text="零钱："/>
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_refresh_white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/text_theme"
+            tools:text="0.00"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,6 +78,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
+        <TextView
+            android:id="@+id/tv_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_web_rechange"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/public_recharge"/>
+
+        <TextView
+            android:id="@+id/tv_game_rules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_recharge"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_how_play"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/chat_game_rules"/>
+
+        <TextView
+            android:id="@+id/tv_league"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_game_rules"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:layout_marginRight="@dimen/spacing_m"
+            android:drawableTop="@drawable/ic_jiameng"
+            android:drawablePadding="@dimen/spacing_xxs"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/common_text_light"
+            android:text="@string/chat_league"/>
 
     </RelativeLayout>
 </LinearLayout>

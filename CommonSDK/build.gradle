@@ -48,35 +48,21 @@ dependencies {
     api rootProject.ext.dependencies["arms-autosize"]
     api rootProject.ext.dependencies["androideventbus"]
 
-    api rootProject.ext.dependencies["pickerview"]
-    api rootProject.ext.dependencies["matisse"]
-
-    api rootProject.ext.dependencies["circleimageview"]
-    api rootProject.ext.dependencies["photoview"]
-    api rootProject.ext.dependencies["autolayout"]
-    api rootProject.ext.dependencies["smartrefreshlayout"]
-    api rootProject.ext.dependencies["recyclerview-adapterhelper"]
-
-    api rootProject.ext.dependencies["bga-banner"]
-    api rootProject.ext.dependencies["flyco-tablayout"]
-
-    api rootProject.ext.dependencies["amap-location"]
-
     //db
     api rootProject.ext.dependencies["dbflow"]
     api rootProject.ext.dependencies["dbflow-core"]
     api rootProject.ext.dependencies["dbflow-rx2"]
 
     //tools
-    api 'top.zibin:Luban:1.1.8'
+    api rootProject.ext.dependencies["luban"]
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["fragmentation-core"]
     api rootProject.ext.dependencies["utilcode"]
-    //    api rootProject.ext.dependencies["statusbarutil"]
     api(rootProject.ext.dependencies["arouter"]) {
         exclude module: 'support-v4'
         exclude module: 'support-annotations'
     }
     api rootProject.ext.dependencies["retrofit-url-manager"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
 }

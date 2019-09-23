@@ -1,15 +1,30 @@
 package com.haisheng.easeim.di.module;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.haisheng.easeim.mvp.contract.ChatContract;
+import com.haisheng.easeim.mvp.contract.GroupInfoContract;
+import com.haisheng.easeim.mvp.contract.RoomListContract;
 import com.haisheng.easeim.mvp.model.ChatModel;
+import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
+import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
 import com.jess.arms.di.scope.ActivityScope;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
+import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -27,11 +42,29 @@ import com.jess.arms.integration.IRepositoryManager;
 @Module
 public class GroupInfoModule {
 
-//    @Binds
+    //    @Binds
 //    abstract GroupInfoContract.Model bindRoomInfoModel(RoomInfoModel model);
     @ActivityScope
     @Provides
-    public RedpacketModel provideRedpacketModel(IRepositoryManager iRepositoryManager) {
-        return new RedpacketModel(iRepositoryManager);
+    public ChatRoomModel provideChatRoomModel(IRepositoryManager iRepositoryManager) {
+        return new ChatRoomModel(iRepositoryManager);
+    }
+
+    @ActivityScope
+    @Provides
+    static RecyclerView.LayoutManager provideLayoutManager(GroupInfoContract.View view) {
+        return new GridLayoutManager(view.getActivity(),5);
+    }
+
+    @ActivityScope
+    @Provides
+    static List<UserInfo> provideUserList() {
+        return new ArrayList<>();
+    }
+
+    @ActivityScope
+    @Provides
+    static UserGridAdapter provideUserGridAdapter(List<UserInfo> list){
+        return new UserGridAdapter(list);
     }
 }

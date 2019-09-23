@@ -26,13 +26,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import me.jessyan.armscomponent.commonres.base.StatusActivity;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class SystemMessagesActivity extends StatusActivity<SystemMessagesPresenter> implements SystemMessagesContract.View {
+public class SystemMessagesActivity extends BaseSupportActivity<SystemMessagesPresenter> implements SystemMessagesContract.View {
 
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
@@ -59,20 +58,13 @@ public class SystemMessagesActivity extends StatusActivity<SystemMessagesPresent
                 .inject(this);
     }
 
-//    @Override
-//    public int initView(@Nullable Bundle savedInstanceState) {
-//        return R.layout.activity_recycler;
-//    }
-
     @Override
-    public int bindLayout() {
+    public int initView(@Nullable Bundle savedInstanceState) {
         return  R.layout.activity_recycler;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        super.initData(savedInstanceState);
-
         setTitle(R.string.system_message);
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
@@ -99,8 +91,7 @@ public class SystemMessagesActivity extends StatusActivity<SystemMessagesPresent
     }
 
     @Override
-    public void showContent() {
-        super.showContent();
+    public void scrollToBottom(){
         mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
     }
 

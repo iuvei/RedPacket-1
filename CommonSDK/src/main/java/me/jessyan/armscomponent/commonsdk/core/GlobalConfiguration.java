@@ -21,12 +21,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.ClientModule;
 import com.jess.arms.di.module.GlobalConfigModule;
@@ -35,28 +30,15 @@ import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 import com.raizlabs.android.dbflow.config.CommonSDKGeneratedDatabaseHolder;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
 import me.jessyan.armscomponent.commonsdk.BuildConfig;
-import me.jessyan.armscomponent.commonsdk.R;
 import me.jessyan.armscomponent.commonsdk.http.Api;
 import me.jessyan.armscomponent.commonsdk.http.SSLSocketClient;
 import me.jessyan.armscomponent.commonsdk.http.interceptor.HeaderInterceptor;
-import me.jessyan.armscomponent.commonsdk.http.interceptor.ReceivedCookiesInterceptor;
-import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.OkHttpClient;
-import timber.log.Timber;
 
 
 /**

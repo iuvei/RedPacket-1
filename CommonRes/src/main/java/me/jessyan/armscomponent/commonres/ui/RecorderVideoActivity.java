@@ -241,7 +241,7 @@ public class RecorderVideoActivity extends BaseSupportActivity implements IView 
 
     @SuppressLint("NewApi")
     private boolean initRecorder() {
-        if (!SDCardUtils.isSDCardEnable()) {
+        if (!SDCardUtils.isSDCardEnableByEnvironment()) {
             showNoSDCardDialog();
             return false;
         }

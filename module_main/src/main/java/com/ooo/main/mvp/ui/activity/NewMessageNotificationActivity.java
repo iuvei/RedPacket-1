@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
+import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -74,7 +75,7 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "新消息通知" );
-        boolean newMessageNotification = SpUtils.getValue ( this,"newMessageNotification", true);
+        boolean newMessageNotification = SpUtils.getValue ( this,Constants.IM.SHARED_KEY_SETTING_SOUND, true);
         boolean notificationDetails = SpUtils.getValue ( this,"notificationDetails", true);
         boolean voice = SpUtils.getValue ( this,"voice", true);
         boolean vibrate = SpUtils.getValue ( this,"vibrate", true);
@@ -96,7 +97,7 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 IMHelper.getInstance ().getModel ().setSettingMsgNotification ( isChecked );
-                SpUtils.put ( NewMessageNotificationActivity.this,"newMessageNotification", isChecked);
+                SpUtils.put ( NewMessageNotificationActivity.this, Constants.IM.SHARED_KEY_SETTING_SOUND, isChecked);
             }
         } );
         swbVibration.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {

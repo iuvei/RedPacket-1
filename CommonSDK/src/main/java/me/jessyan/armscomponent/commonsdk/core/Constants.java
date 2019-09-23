@@ -30,6 +30,7 @@ import java.util.List;
 public interface Constants {
     int NUMBER_OF_PAGE = 10;
 
+    String ACCOUT_TOKEN_OVERDUE ="token_overdue";
     //电话号码正则
     String PHONE_REGULAR = "^1[3-9]\\d{9}$";
 

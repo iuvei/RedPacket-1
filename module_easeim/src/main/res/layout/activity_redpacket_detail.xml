@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include layout="@layout/public_include_title"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_red_title"/>
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+                        android:layout_marginTop="@dimen/spacing_m"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/icon_default_avatar"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/text_sub_title"
+                    android:textColor="@color/common_text"
+                    tools:text="测试"/>
+
+                <TextView
+                    android:id="@+id/tv_money_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:textStyle="bold"
+                    tools:text="9-6"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_countdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_normal"
+                        android:textColor="@color/common_text"
+                        android:text="本包剩余时间"/>
+                    <cn.iwgang.countdownview.CountdownView
+                        android:id="@+id/cdv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:layout_gravity="center"
+                        app:isHideTimeBackground="true"
+                        app:isShowMinute="true"
+                        app:isShowSecond="true"
+                        app:suffix=":"
+                        app:suffixGravity="center"
+                        app:isTimeTextBold="true"
+                        app:suffixTextColor="@color/text_red"
+                        app:suffixTextSize="@dimen/text_normal"
+                        app:timeTextColor="@color/text_red"
+                        app:timeTextSize="@dimen/text_normal" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_settlement_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text_light"
+                    android:textStyle="bold"
+                    tools:text="结算中"/>
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/public_CommonPadding_m"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:background="@color/public_white"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_garb_redpacket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

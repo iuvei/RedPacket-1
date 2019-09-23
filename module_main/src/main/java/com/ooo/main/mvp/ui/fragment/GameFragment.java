@@ -31,7 +31,6 @@ import me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.entity.AdBannerInfo;
 import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
-import pl.droidsonroids.gif.GifImageView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -55,19 +54,19 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
     @BindView(R2.id.tv_notices)
     TextView tvNotices;
     @BindView(R2.id.giv_game_redpacket)
-    GifImageView givGameRedpacket;
+    ImageView givGameRedpacket;
     @BindView(R2.id.tv_game_redpacket)
     TextView tvGameRedpacket;
     @BindView(R2.id.giv_game_electronic)
-    GifImageView givGameElectronic;
+    ImageView givGameElectronic;
     @BindView(R2.id.tv_game_electronic)
     TextView tvGameElectronic;
     @BindView(R2.id.giv_game_chess)
-    GifImageView givGameChess;
+    ImageView givGameChess;
     @BindView(R2.id.tv_game_chess)
     TextView tvGameChess;
     @BindView(R2.id.giv_game_leisure)
-    GifImageView givGameLeisure;
+    ImageView givGameLeisure;
     @BindView(R2.id.tv_game_leisure)
     TextView tvGameLeisure;
 

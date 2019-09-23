@@ -26,6 +26,7 @@ import com.hyphenate.easeui.EaseConstant;
  */
 public class IMConstants extends EaseConstant {
 
+    public static final String IS_CONFLICT = "isConflict";
     public static final String NEW_FRIENDS_USERNAME = "item_new_friends";
     public static final String GROUP_USERNAME = "item_groups";
     public static final String CHAT_ROOM = "item_chatroom";
@@ -59,11 +60,31 @@ public class IMConstants extends EaseConstant {
     public static final String OP_REQUEST_TOBE_SPEAKER = "request_tobe_speaker";
     public static final String OP_REQUEST_TOBE_AUDIENCE = "request_tobe_audience";
 
-    public static final String IS_CONFLICT = "isConflict";
+
+    //红包
+    public static final String MESSAGE_ATTR_TYPE = "isforb";
+    public static final String MESSAGE_ATTR_CONENT= "content";
+    public static final String MESSAGE_ATTR_REDPACKET_STATUS= "redpacketStatus";
+
+    public static final int ROOM_TYPE_MINE_REDPACKET = 0;
+    public static final int ROOM_TYPE_GUN_CONTROL_REDPACKET = 1;
+    public static final int ROOM_TYPE_NIUNIU_REDPACKET = 2;
+    public static final int ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET = 3;
+    public static final int ROOM_TYPE_WELFARE_REDPACKET = 4;
+
+    public static final int MSG_TYPE_MINE_REDPACKET = 0;
+    public static final int MSG_TYPE_GUN_CONTROL_REDPACKET = 1;
+    public static final int MSG_TYPE_NIUNIU_REDPACKET = 2;
+    public static final int MSG_TYPE_WELFARE_REDPACKET = 3;
+    public static final int MSG_TYPE_GUN_CONTROL_SETTLEMENT  = 5;
+    public static final int MSG_TYPE_NIUNIU_SETTLEMENT  = 6;
+
 
     //
     public static final int CONVERSATION_ALL = 0;
     public static final int CONVERSATION_FRIEND = 1;
     public static final int CONVERSATION_GROUP = 2;
+
+    public static final int REQUEST_CODE_SEND_REDPACKET = 0x301;
 
 }

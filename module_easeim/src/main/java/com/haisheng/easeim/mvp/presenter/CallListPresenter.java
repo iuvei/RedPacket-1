@@ -89,33 +89,19 @@ public class CallListPresenter extends BasePresenter<CallListContract.Model, Cal
                     @Override
                     public void onNext(BaseResponse<List<CallRecordEntity>> data) {
                         if(data.isSuccess()){
-                            List<CallRecordEntity> entities = data.getResult();
                             if (pullToRefresh){
                                 mDatas.clear();//如果是下拉刷新则清空列表
-                                if(null != entities && entities.size() >0){
-                                    mRootView.showContent();
-                                }else{
-                                    mRootView.showEmptyView();
-                                }
                             }
                             preEndIndex = mDatas.size();//更新之前列表总长度,用于确定加载更多的起始位置
-                            mDatas.addAll(data.getResult());
+                            List<CallRecordEntity> entities = data.getResult();
+                            if(null!=entities && entities.size()>0)
+                                mDatas.addAll(data.getResult());
                             if (pullToRefresh)
                                 mAdapter.notifyDataSetChanged();
                             else
                                 mAdapter.notifyItemRangeInserted(preEndIndex, data.getResult().size());
-                        }else{
-                            if(!mIsInit)
-                                mRootView.showErrorView();
                         }
                         mRootView.showMessage(data.getMessage());
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        super.onError(t);
-                        if(!mIsInit)
-                            mRootView.showErrorView();
                     }
 
                 });

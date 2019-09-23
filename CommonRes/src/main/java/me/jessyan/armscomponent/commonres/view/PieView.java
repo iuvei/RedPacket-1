@@ -41,8 +41,8 @@ public class PieView extends View {
     private int mCount = mStrings.length;
 
     // private int[] mImages = new int[]{R.drawable.iphone, R.drawable.danfan, R.drawable.f040, R.drawable.ipad, R.drawable.f015};
-    private int[] mImages = new int[]{R.drawable.ic_empty_zhihu, R.drawable.ic_empty_zhihu,
-            R.drawable.ic_empty_zhihu, R.drawable.ic_empty_zhihu, R.drawable.ic_empty_zhihu};
+    private int[] mImages = new int[]{R.drawable.ic_default, R.drawable.ic_default,
+            R.drawable.ic_default, R.drawable.ic_default, R.drawable.ic_default};
 
     private int[] sectorColor = new int[]{Color.parseColor("#FF0D56"), Color.parseColor("#FFDEAD")};
 

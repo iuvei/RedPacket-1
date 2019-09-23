@@ -2,7 +2,7 @@ package com.haisheng.easeim.mvp.contract;
 
 import android.app.Activity;
 
-import com.haisheng.easeim.mvp.model.entity.CallRecordEntity;
+import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.jess.arms.mvp.IView;
@@ -20,7 +20,16 @@ public interface ChatContract {
         void setBarTitle(String title);
         void refreshSelectLast();
         void refreshList();
+        void setBalanceInfo(double balance);
+        void joinRoomSuccessfully();
+        void showRedPacket(CheckRedpacketInfo checkRedpacketInfo, EMMessage message);
+        void grabRedpacketSuccessfully(Long redpacketId,int type);
+        void grabRedpacketFail();
 
+        void showRefresh();
+        void finishRefresh();
+        void openAnimation(android.view.View view);
+        void closeAnimation(android.view.View view);
         Activity getActivity();
     }
 

@@ -7,6 +7,7 @@ import com.haisheng.easeim.mvp.model.entity.RoomBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -21,6 +22,26 @@ public interface ContactService {
             @Field("token") String token,
             @Field("page") int pageNumber
     );
+
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=checkfriend")
+    Observable<BaseResponse<List<UserInfo>>> searchContact(
+            @Field("token") String token,
+            @Field("checkfriend") String field
+    );
+
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=serverlist")
+    Observable<BaseResponse<List<UserInfo>>> serverList(
+            @Field("token") String token
+    );
+
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=serverurl")
+    Observable<BaseResponse<String>> serverUrl(
+            @Field("token") String token
+    );
+
 
     /**
      *
@@ -50,6 +71,8 @@ public interface ContactService {
             @Field("remark") String remark,
             @Field("fuid") String fuid
     );
+
+
 
 
 }

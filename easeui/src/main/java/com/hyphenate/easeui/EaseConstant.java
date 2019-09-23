@@ -34,6 +34,8 @@ public class EaseConstant {
     public static final String EXTRA_CHAT_TYPE = "chatType";
     public static final String EXTRA_USER_ID = "userId";
 
+    public static final String MESSAGE_ATTR_AVATARURL = "avatarURLPath";
+    public static final String MESSAGE_ATTR_NICKNAME = "nickname";
     //收费
     public static final String MESSAGE_ATTR_CHARGE_COINS = "charge_coins";
     public static final String MESSAGE_ATTR_IS_PAID = "is_paid";

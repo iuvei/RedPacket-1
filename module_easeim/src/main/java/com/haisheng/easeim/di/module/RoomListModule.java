@@ -9,9 +9,8 @@ import dagger.Provides;
 import com.haisheng.easeim.mvp.contract.RoomListContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
-import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 
@@ -58,13 +57,13 @@ public class RoomListModule {
 
     @FragmentScope
     @Provides
-    static List<RoomBean> provideRoomBeanList() {
+    static List<ChatRoomBean> provideRoomBeanList() {
         return new ArrayList<>();
     }
 
     @FragmentScope
     @Provides
-    static RoomListAdapter provideRoomListAdapter(List<RoomBean> list){
+    static RoomListAdapter provideRoomListAdapter(List<ChatRoomBean> list){
         return new RoomListAdapter(list);
     }
 

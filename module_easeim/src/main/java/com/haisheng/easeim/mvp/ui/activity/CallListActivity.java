@@ -30,15 +30,13 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import me.jessyan.armscomponent.commonres.base.StatusActivity;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
-import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 @Route(path = RouterHub.IM_CALLLISTACTIVITY)
-public class CallListActivity extends StatusActivity<CallListPresenter> implements CallListContract.View ,OnRefreshListener,OnRefreshLoadMoreListener {
+public class CallListActivity extends BaseSupportActivity<CallListPresenter> implements CallListContract.View ,OnRefreshListener,OnRefreshLoadMoreListener {
 
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -60,29 +58,32 @@ public class CallListActivity extends StatusActivity<CallListPresenter> implemen
                 .inject(this);
     }
 
+    @Override
+    public int initView(@Nullable Bundle savedInstanceState) {
+        return  R.layout.activity_recycler;
+    }
+
 //    @Override
 //    public int initView(@Nullable Bundle savedInstanceState) {
 //        return R.layout.activity_recycler;
 //    }
 
-    @Override
-    public int bindLayout() {
-        return R.layout.activity_recycler;
-    }
+//    @Override
+//    public int bindLayout() {
+//        return R.layout.activity_recycler;
+//    }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        super.initData(savedInstanceState);
         initRecyclerView();
-
         mPresenter.initDatas();
     }
 
-    @Override
-    public void onClickErrorLoadData(View v) {
-        super.onClickErrorLoadData(v);
-        mPresenter.requestDatas(true);
-    }
+//    @Override
+//    public void onClickErrorLoadData(View v) {
+//        super.onClickErrorLoadData(v);
+//        mPresenter.requestDatas(true);
+//    }
 
     //初始化RecyclerView
     private void initRecyclerView() {

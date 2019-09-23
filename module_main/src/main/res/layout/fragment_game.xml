@@ -82,7 +82,7 @@
                 android:gravity="center_horizontal">
 
 
-                <pl.droidsonroids.gif.GifImageView
+                <ImageView
                     android:id="@+id/giv_game_redpacket"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -114,7 +114,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
-                <pl.droidsonroids.gif.GifImageView
+                <ImageView
                     android:id="@+id/giv_game_electronic"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -146,7 +146,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
-                <pl.droidsonroids.gif.GifImageView
+                <ImageView
                     android:id="@+id/giv_game_chess"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -178,7 +178,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal">
-            <pl.droidsonroids.gif.GifImageView
+            <ImageView
                 android:id="@+id/giv_game_leisure"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

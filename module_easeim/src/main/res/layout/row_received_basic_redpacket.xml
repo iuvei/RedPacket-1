@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="13dp" >
+
+    <TextView
+        android:id="@+id/timestamp"
+        style="@style/chat_text_date_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_chat_activity" >
+
+        <com.hyphenate.easeui.widget.EaseImageView
+            android:id="@+id/iv_userhead"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/margin_chat_activity"
+            android:src="@drawable/ease_default_avatar"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:id="@+id/bubble"
+            android:layout_width="@dimen/mine_redpacket_width"
+            android:layout_height="@dimen/mine_redpacket_height"
+            android:layout_below="@+id/tv_userid"
+            android:layout_marginLeft="@dimen/margin_chat_activity"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:background="@drawable/ic_receive_red_nor">
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginRight="@dimen/spacing_m"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:gravity="center_vertical"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:text="恭喜发财，大吉大利"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_sub_title"/>
+
+            <TextView
+                android:id="@+id/tv_center_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="98dp"
+                android:layout_marginRight="@dimen/spacing_m"
+                android:layout_marginTop="@dimen/spacing_xxl"
+                android:visibility="invisible"
+                android:gravity="center_vertical"
+                android:text="@string/check_redpacket"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_normal"/>
+
+            <TextView
+                android:id="@+id/tv_redpacket_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_message"
+                android:layout_alignLeft="@id/tv_message"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:layout_marginRight="@dimen/spacing_m"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@string/check_redpacket"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_normal"/>
+
+            <TextView
+                android:id="@+id/tv_redpacket_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:maxLines="1"
+                android:layout_marginBottom="@dimen/spacing_xxs"
+                android:layout_marginLeft="@dimen/spacing_l"
+                android:text="红包"
+                android:textSize="@dimen/text_small"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/chat_nick_margin_left"
+            android:textSize="@dimen/chat_nick_text_size"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

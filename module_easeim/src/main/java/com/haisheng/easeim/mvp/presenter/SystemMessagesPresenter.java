@@ -53,13 +53,8 @@ public class SystemMessagesPresenter extends BasePresenter<SystemMessagesContrac
                             List<SystemMessage> systemMessages = data.getResult();
                             if(null != systemMessages && systemMessages.size()>0){
                                 mDatas.addAll(systemMessages);
-                                mRootView.showContent();
-                            }else{
-                                mRootView.showEmptyView();
                             }
                             mAdapter.notifyDataSetChanged();
-                        }else{
-                            mRootView.showErrorView();
                         }
                         mRootView.showMessage(data.getMessage());
                     }

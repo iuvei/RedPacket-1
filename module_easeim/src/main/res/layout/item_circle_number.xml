@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tv_specs"
+    android:layout_width="@dimen/btn_solid_circle_size"
+    android:layout_height="@dimen/btn_solid_circle_size"
+    android:layout_margin="@dimen/spacing_s"
+    android:background="@drawable/btn_solid_circle_bg"
+    android:textSize="@dimen/text_small"
+    android:textColor="@color/text_white">
+</Button>

@@ -17,12 +17,14 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBillRecordComponent;
 import com.ooo.main.mvp.contract.BillRecordContract;
+import com.ooo.main.mvp.model.entity.BillBean;
 import com.ooo.main.mvp.model.entity.BillRecordInfo;
 import com.ooo.main.mvp.presenter.BillRecordPresenter;
 import com.ooo.main.mvp.ui.adapter.BillRecordAdapter;
@@ -43,6 +45,8 @@ import butterknife.BindView;
 import me.jessyan.armscomponent.commonres.view.popupwindow.SelectItemPopupWindow;
 import me.jessyan.armscomponent.commonres.view.recyclerview.SpaceItemDecoration;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -73,6 +77,8 @@ public class BillRecordActivity extends BaseSupportActivity<BillRecordPresenter>
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     BillRecordAdapter mAdapter;
+
+//    public static final String
 
     private int mTitleResId;
     private int mTotalTextResId;
@@ -166,6 +172,16 @@ public class BillRecordActivity extends BaseSupportActivity<BillRecordPresenter>
         ArmsUtils.configRecyclerView(recyclerView, mLayoutManager);
         recyclerView.setAdapter(mAdapter);
         mAdapter.addHeaderView(getHeadView());
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BillBean billBean = (BillBean) adapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putLong("roomId",billBean.getRoomId());
+                bundle.putLong("redpacketId",billBean.getRedPacketId());
+                ARouterUtils.navigation(mContext,RouterHub.IM_REDPACKETDETAILACTIVITY,bundle);
+            }
+        });
     }
 
     private View getHeadView() {
@@ -203,14 +219,19 @@ public class BillRecordActivity extends BaseSupportActivity<BillRecordPresenter>
     private void showSelectTypePopupWindow(View v){
         if(null!=mTypes ){
             if(null == mSelectTypePopupWindow){
-                mSelectTypePopupWindow = new SelectItemPopupWindow(mContext,"请选择账单类型", mTypes, new SelectItemPopupWindow.OnItemClickListener() {
+                mSelectTypePopupWindow = new SelectItemPopupWindow<String>(mContext, "请选择账单类型", mTypes, new SelectItemPopupWindow.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         mType = (String) adapter.getItem(position);
                         tvSelectType.setText(mType);
                         refreshLayout.autoRefresh();
                     }
-                });
+                }) {
+                    @Override
+                    public void setItemInfo(BaseViewHolder helper, String item) {
+                        helper.setText(R.id.tv_content,item);
+                    }
+                };
             }
             mSelectTypePopupWindow.openPopWindow(v);
         }else{

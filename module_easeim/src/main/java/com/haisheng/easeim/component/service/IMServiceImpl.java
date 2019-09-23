@@ -2,13 +2,20 @@ package com.haisheng.easeim.component.service;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.Utils;
 import com.haisheng.easeim.R;
+import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.app.IMHelper;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import me.jessyan.armscomponent.commonsdk.component.im.service.IMService;
@@ -88,7 +95,17 @@ public class IMServiceImpl implements IMService {
 
     @Override
     public int getUnreadIMMsgCountTotal() {
-        return EMClient.getInstance().chatManager().getUnreadMessageCount();
+        int count = 0;
+        Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+        if(null!=conversations){
+            synchronized (conversations) {
+                for (EMConversation conversation : conversations.values()) {
+                    count+= conversation.getUnreadMsgCount();
+                }
+            }
+        }
+        return  count;
+//        return EMClient.getInstance().chatManager().getUnreadMessageCount();
     }
 
     @Override

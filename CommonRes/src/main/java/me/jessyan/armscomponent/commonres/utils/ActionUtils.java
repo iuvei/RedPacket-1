@@ -21,15 +21,14 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import java.io.File;
 import java.util.List;
 
 import me.jessyan.armscomponent.commonres.R;
 import me.jessyan.armscomponent.commonres.ui.RecorderVideoActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
+import me.jessyan.armscomponent.commonsdk.utils.MyFileUtils;
+
 /**
  * Created by Administrator on 2017/11/4.
  */
@@ -46,6 +45,13 @@ public class ActionUtils {
         ToastUtils.showShort("复制成功~");
     }
 
+    public static void openBrowser(Context context,String url){
+        Intent intent= new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        context.startActivity(intent);
+    }
     /**
      * 打开相机
      * @param mContext
@@ -62,7 +68,7 @@ public class ActionUtils {
                         Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); // 隐式调用
                         if ( null == photoIntent.resolveActivity(mContext.getPackageManager()) || null == imagePath )
                             return;
-                        Uri uri = getUriForFile(new File(imagePath));
+                        Uri uri = MyFileUtils.getUriForFile(new File(imagePath));
                         photoIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
                         mContext.startActivityForResult(photoIntent, Constants.REQUEST_CODE_CAMERA);
                     } else {
@@ -130,18 +136,18 @@ public class ActionUtils {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (granted) { // Always true pre-M
-                        Matisse.from(mContext)
-                                .choose(MimeType.ofImage(), false) // 选择 mime 的类型
-                                .showSingleMediaType(true)
-                                .capture(true)
-                                .captureStrategy(new CaptureStrategy(true , AppUtils.getAppPackageName()+".my.fileProvider"))
-                                .maxSelectable(1) // 图片选择的最多数量
-                                .gridExpectedSize(mContext.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                                .thumbnailScale(0.85f) // 缩略图的比例
-                                .theme(R.style.public_matisse)
-                                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
-                                .forResult(Constants.REQUEST_CODE_RADIO_ALBUM); // 设置作为标记的请求码
+//                        Matisse.from(mContext)
+//                                .choose(MimeType.ofImage(), false) // 选择 mime 的类型
+//                                .showSingleMediaType(true)
+//                                .capture(true)
+//                                .captureStrategy(new CaptureStrategy(true , AppUtils.getAppPackageName()+".my.fileProvider"))
+//                                .maxSelectable(1) // 图片选择的最多数量
+//                                .gridExpectedSize(mContext.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+//                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+//                                .thumbnailScale(0.85f) // 缩略图的比例
+//                                .theme(R.style.public_matisse)
+//                                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
+//                                .forResult(Constants.REQUEST_CODE_RADIO_ALBUM); // 设置作为标记的请求码
                     } else {
                         ToastUtils.showShort(mContext.getString(R.string.public_lack_of_permissions));
                     }
@@ -162,18 +168,18 @@ public class ActionUtils {
                 .request(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (granted) { // Always true pre-M
-                        Matisse.from(mContext)
-                                .choose(MimeType.ofImage(), false) // 选择 mime 的类型
-                                .showSingleMediaType(true)
-                                .capture(true)
-                                .captureStrategy(new CaptureStrategy(true , AppUtils.getAppPackageName()+".my.fileProvider"))
-                                .maxSelectable(maxSelectable) // 图片选择的最多数量
-                                .gridExpectedSize(mContext.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                                .thumbnailScale(0.85f) // 缩略图的比例
-                                .theme(R.style.public_matisse)
-                                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
-                                .forResult(Constants.REQUEST_CODE_MULTI_ALBUM); // 设置作为标记的请求码
+//                        Matisse.from(mContext)
+//                                .choose(MimeType.ofImage(), false) // 选择 mime 的类型
+//                                .showSingleMediaType(true)
+//                                .capture(true)
+//                                .captureStrategy(new CaptureStrategy(true , AppUtils.getAppPackageName()+".my.fileProvider"))
+//                                .maxSelectable(maxSelectable) // 图片选择的最多数量
+//                                .gridExpectedSize(mContext.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+//                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+//                                .thumbnailScale(0.85f) // 缩略图的比例
+//                                .theme(R.style.public_matisse)
+//                                .imageEngine(new MyGlideEngine()) // 使用的图片加载引擎
+//                                .forResult(Constants.REQUEST_CODE_MULTI_ALBUM); // 设置作为标记的请求码
                     } else {
                         ToastUtils.showShort(mContext.getString(R.string.public_lack_of_permissions));
                     }
@@ -244,28 +250,28 @@ public class ActionUtils {
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_CLIP);
     }
 
-        /**
-         * 转换 content:// uri
-         */
-        public static Uri getImageContentUri(Activity activity,Uri uri) {
-            String filePath = uri.getPath();
-            Cursor cursor = activity.getContentResolver().query(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{MediaStore.Images.Media._ID},
-                    MediaStore.Images.Media.DATA + "=? ",
-                    new String[]{filePath}, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor
-                        .getColumnIndex(MediaStore.MediaColumns._ID));
-                Uri baseUri = Uri.parse("content://media/external/images/media");
-                return Uri.withAppendedPath(baseUri, "" + id);
-            } else {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.DATA, filePath);
-                return activity.getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            }
+    /**
+     * 转换 content:// uri
+     */
+    public static Uri getImageContentUri(Activity activity,Uri uri) {
+        String filePath = uri.getPath();
+        Cursor cursor = activity.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[]{MediaStore.Images.Media._ID},
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[]{filePath}, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.DATA, filePath);
+            return activity.getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         }
+    }
 
     /**
      * 裁剪图片
@@ -336,7 +342,7 @@ public class ActionUtils {
             intent = new Intent();
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setAction(Intent.ACTION_VIEW);
-            Uri uri = getUriForFile(file);
+            Uri uri = MyFileUtils.getUriForFile(file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(uri,mimeType);
         }
@@ -351,7 +357,7 @@ public class ActionUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("oneshot", 0);
         intent.putExtra("configchange", 0);
-        Uri uri =getUriForFile(file);
+        Uri uri = MyFileUtils.getUriForFile(file);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setDataAndType(uri, "video/mp4");
         return intent;
@@ -372,20 +378,11 @@ public class ActionUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("oneshot", 0);
         intent.putExtra("configchange", 0);
-        Uri uri =getUriForFile(file);
+        Uri uri =MyFileUtils.getUriForFile(file);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setDataAndType(uri, "audio/*");
         return intent;
     }
 
-    public static Uri getUriForFile(File file){
-        // 判断版本大于等于7.0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-            String authorities = AppUtils.getAppPackageName()+".my.fileProvider";;
-            return FileProvider.getUriForFile(Utils.getApp(), authorities, file);
-        } else {
-            return Uri.fromFile(file);
-        }
-    }
+
 }

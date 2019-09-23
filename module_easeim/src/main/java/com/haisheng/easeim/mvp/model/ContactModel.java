@@ -15,7 +15,10 @@ import javax.inject.Inject;
 
 import com.haisheng.easeim.mvp.contract.ContactContract;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
@@ -44,6 +47,25 @@ public class ContactModel extends BaseModel{
         return mRepositoryManager.obtainRetrofitService(ContactService.class)
                 .contactList(token,pageNumber);
     }
+
+    public Observable<BaseResponse<List<UserInfo>>> searchContact(String field) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .searchContact(token,field);
+    }
+
+    public Observable<BaseResponse<List <UserInfo>>> serverList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .serverList(token);
+    }
+
+    public Observable<BaseResponse<String>> serverUrl() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .serverUrl(token);
+    }
+
 
     public Observable<PublicResponseBean> delFriend(String fuid) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();

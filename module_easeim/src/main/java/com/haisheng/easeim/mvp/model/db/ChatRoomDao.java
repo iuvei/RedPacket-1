@@ -14,12 +14,8 @@
 package com.haisheng.easeim.mvp.model.db;
 
 
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
-import com.haisheng.easeim.mvp.model.entity.RoomBean_Table;
-import com.raizlabs.android.dbflow.config.FlowManager;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
 
 import java.util.List;
 
@@ -36,39 +32,41 @@ public class ChatRoomDao {
 	}
 
 
-	public boolean saveChatRoom(RoomBean roomBean){
+	public boolean saveChatRoom(ChatRoomBean roomBean){
 		return roomBean.save();
 	}
 
-	/**
+/*	*//**
 	 * save room list
-	 * 
+	 *
 	 * @param roomList
-	 */
-	public void saveRoomList(List<RoomBean> roomList) {
+	 *//*
+	public void saveRoomList(List<ChatRoomBean> roomList) {
+		Delete.table(ChatRoomBean_Table.class);
+
 		FlowManager.getDatabase(IMDatabase.class)
-				.executeTransaction(new ProcessModelTransaction.Builder<RoomBean>(
+				.executeTransaction(new ProcessModelTransaction.Builder<ChatRoomBean>(
 						BaseModel::save
 				).addAll(roomList).build());
-	}
+	}*/
 
 	/**
 	 * get room list
-	 * 
+	 *
 	 * @return
 	 */
-	public List<RoomBean> getRoomList() {
-		return SQLite.select().from(RoomBean.class).queryList();
+	public List<ChatRoomBean> getRoomList() {
+		return SQLite.select().from(ChatRoomBean.class).queryList();
 	}
 
-	/**
+/*	*//**
 	 * delete a room
 	 * @param id
-	 */
+	 *//*
 	public void deleteRoom(Long id){
 		SQLite.delete()
-				.from(RoomBean.class)
-				.where(RoomBean_Table.id.eq(id))
+				.from(ChatRoomBean.class)
+				.where(ChatRoomBean_Table.id.eq(id))
 				.query();
-	}
+	}*/
 }

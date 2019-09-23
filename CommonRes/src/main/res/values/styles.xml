@@ -39,6 +39,7 @@
         <item name="actionOverflowMenuStyle">@style/public_OverflowMenu</item>
         <!--加入toolbar溢出ListView风格-->
         <item name="android:dropDownListViewStyle">@style/public_AppDropDownListViewStyle</item>
+        <item name="android:textColorSecondary">@color/text_white</item>
     </style>
 
     <style name="public_OverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
@@ -89,6 +90,13 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="public_CommonPadding_xs">
+        <item name="android:paddingTop">@dimen/spacing_xxs</item>
+        <item name="android:paddingBottom">@dimen/spacing_xxs</item>
+        <item name="android:paddingLeft">@dimen/spacing_l</item>
+        <item name="android:paddingRight">@dimen/spacing_l</item>
+    </style>
+
     <style name="public_CommonPadding_s">
         <item name="android:paddingTop">@dimen/spacing_s</item>
         <item name="android:paddingBottom">@dimen/spacing_s</item>
@@ -111,9 +119,9 @@
     </style>
 
     <style name="public_CommonTitleText">
-        <item name="android:textSize">@dimen/text_title</item>
-        <item name="android:textColor">@color/public_color_06CB7E</item>
-        <!--<item name="android:textStyle">bold</item>-->
+        <item name="android:textSize">@dimen/public_font_16sp</item>
+        <item name="android:textColor">@color/public_color_FF06CB7E</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="public_CommonText">
@@ -150,26 +158,26 @@
     </style>
 
     <!-- 图片选择器主题 -->
-    <style name="public_matisse" parent="public_AppTheme">
-        <item name="toolbar">@style/public_ToolbarTheme</item>
-        <item name="album.dropdown.title.color">@color/zhihu_album_dropdown_title_text</item>
-        <item name="album.dropdown.count.color">@color/zhihu_album_dropdown_count_text</item>
-        <item name="album.element.color">@android:color/white</item>
-        <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</item>
-        <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
-        <item name="album.emptyView.textColor">@color/zhihu_album_empty_view</item>
-        <item name="item.placeholder">@color/zhihu_item_placeholder</item>
-        <item name="item.checkCircle.backgroundColor">@color/zhihu_item_checkCircle_backgroundColor</item>
-        <item name="item.checkCircle.borderColor">@color/zhihu_item_checkCircle_borderColor</item>
-        <item name="page.bg">@color/zhihu_page_bg</item>
-        <item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>
-        <item name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</item>
-        <item name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</item>
-        <item name="preview.bottomToolbar.back.textColor">@color/zhihu_preview_bottom_toolbar_back_text</item>
-        <item name="preview.bottomToolbar.apply.textColor">@color/zhihu_preview_bottom_toolbar_apply</item>
-        <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
-        <item name="capture.textColor">@color/zhihu_capture</item>
-    </style>
+    <!--    <style name="public_matisse" parent="public_AppTheme">
+            <item name="toolbar">@style/public_ToolbarTheme</item>
+            <item name="album.dropdown.title.color">@color/zhihu_album_dropdown_title_text</item>
+            <item name="album.dropdown.count.color">@color/zhihu_album_dropdown_count_text</item>
+            <item name="album.element.color">@android:color/white</item>
+            <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</item>
+            <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
+            <item name="album.emptyView.textColor">@color/zhihu_album_empty_view</item>
+            <item name="item.placeholder">@color/zhihu_item_placeholder</item>
+            <item name="item.checkCircle.backgroundColor">@color/zhihu_item_checkCircle_backgroundColor</item>
+            <item name="item.checkCircle.borderColor">@color/zhihu_item_checkCircle_borderColor</item>
+            <item name="page.bg">@color/zhihu_page_bg</item>
+            <item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>
+            <item name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</item>
+            <item name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</item>
+            <item name="preview.bottomToolbar.back.textColor">@color/zhihu_preview_bottom_toolbar_back_text</item>
+            <item name="preview.bottomToolbar.apply.textColor">@color/zhihu_preview_bottom_toolbar_apply</item>
+            <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
+            <item name="capture.textColor">@color/zhihu_capture</item>
+        </style>-->
 
     <style name="public_unReadCountText">
         <item name="android:gravity">center</item>

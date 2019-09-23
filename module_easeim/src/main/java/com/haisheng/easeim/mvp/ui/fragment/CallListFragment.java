@@ -31,11 +31,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import javax.inject.Inject;
 import butterknife.BindView;
-import me.jessyan.armscomponent.commonres.base.StatusFragment;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
-public class CallListFragment extends StatusFragment<CallListPresenter> implements CallListContract.View ,OnRefreshListener,OnRefreshLoadMoreListener {
+public class CallListFragment extends BaseSupportFragment<CallListPresenter> implements CallListContract.View ,OnRefreshListener,OnRefreshLoadMoreListener {
 
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -63,9 +62,14 @@ public class CallListFragment extends StatusFragment<CallListPresenter> implemen
     }
 
     @Override
+    public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_call_list, container, false);
+    }
+
+/*    @Override
     public int bindLayout() {
         return R.layout.fragment_call_list;
-    }
+    }*/
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -83,11 +87,11 @@ public class CallListFragment extends StatusFragment<CallListPresenter> implemen
         mPresenter.initDatas();
     }
 
-    @Override
-    public void onClickErrorLoadData(View v) {
-        super.onClickErrorLoadData(v);
-        mPresenter.requestDatas(true);
-    }
+//    @Override
+//    public void onClickErrorLoadData(View v) {
+//        super.onClickErrorLoadData(v);
+//        mPresenter.requestDatas(true);
+//    }
 
     //初始化RecyclerView
     private void initRecyclerView() {

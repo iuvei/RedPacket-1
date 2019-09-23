@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- item包含menu表示该menu是item下的子菜单 -->
+    <item
+        android:id="@+id/item_bill_detail"
+        android:title="账单详情"
+        app:showAsAction="always" />
+</menu>

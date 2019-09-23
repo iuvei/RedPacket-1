@@ -26,7 +26,7 @@ import java.util.List;
 import me.jessyan.armscomponent.commonres.R;
 
 
-public class SelectItemPopupWindow {
+public abstract class SelectItemPopupWindow<T> {
     private Context mContext;
     private CustomPopupWindow mPopupWindow;
 
@@ -35,14 +35,21 @@ public class SelectItemPopupWindow {
     private Button btnCancel;
 
     private String mTitle;
-    private List<String> mDatas;
+    private List<T> mDatas;
+    private int mItemLayoutResId;
 
-    public SelectItemPopupWindow(Context context, List<String> datas,OnItemClickListener onItemClickListener){
-        this(context,null,datas,onItemClickListener);
+    public SelectItemPopupWindow(Context context, List<T> datas,OnItemClickListener onItemClickListener){
+        this(context,"提示",datas,onItemClickListener);
     }
 
-    public SelectItemPopupWindow(Context context,String title, List<String> datas,OnItemClickListener onItemClickListener) {
+    public SelectItemPopupWindow(Context context,String title, List<T> datas,OnItemClickListener onItemClickListener) {
+        this(context,R.layout.item_text,title,datas,onItemClickListener);
+    }
+
+    public SelectItemPopupWindow(Context context,int itemLayoutResId,String title, List<T> datas,OnItemClickListener onItemClickListener){
         mContext = context;
+        mItemLayoutResId = itemLayoutResId;
+        mTitle = title;
         mDatas = datas;
         mOnItemClickListener = onItemClickListener;
 
@@ -61,6 +68,7 @@ public class SelectItemPopupWindow {
         @Override
         public void initPopupView(View contentView) {
             tvTitle = contentView.findViewById(R.id.tv_title);
+            tvTitle.setText(mTitle);
             recyclerView = contentView.findViewById(R.id.recyclerView);
             btnCancel = contentView.findViewById(R.id.btn_cancel);
             btnCancel.setOnClickListener(mOnClickListener);
@@ -81,6 +89,8 @@ public class SelectItemPopupWindow {
         }
     };
 
+    public abstract void setItemInfo(BaseViewHolder helper, T item);
+
     public interface OnItemClickListener{
         void onItemClick(BaseQuickAdapter adapter, View view, int position);
     }
@@ -89,15 +99,15 @@ public class SelectItemPopupWindow {
         mOnItemClickListener = onItemClickListener;
     }
 
-    class StrinItemAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+    class StrinItemAdapter extends BaseQuickAdapter<T,BaseViewHolder>{
 
-        public StrinItemAdapter(@Nullable List<String> data) {
-            super(R.layout.item_text, data);
+        public StrinItemAdapter(@Nullable List<T> data) {
+            super(mItemLayoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            helper.setText(R.id.tv_content,item);
+        protected void convert(BaseViewHolder helper, T item) {
+            setItemInfo(helper,item);
         }
     }
 

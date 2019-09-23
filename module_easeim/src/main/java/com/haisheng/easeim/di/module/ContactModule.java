@@ -3,14 +3,9 @@ package com.haisheng.easeim.di.module;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.haisheng.easeim.mvp.contract.RoomListContract;
-import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
 import com.haisheng.easeim.mvp.ui.adapter.ContactAdapter;
-import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
 import com.jess.arms.di.scope.FragmentScope;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;

@@ -1,19 +1,11 @@
 package com.haisheng.easeim.mvp.model;
 
-import android.app.Application;
-
-import com.blankj.utilcode.util.Utils;
-import com.google.gson.Gson;
-import com.haisheng.easeim.R;
-import com.haisheng.easeim.mvp.contract.ChatContract;
+import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
+import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.exceptions.HyphenateException;
-import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -22,8 +14,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.http.Api;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 
 public class ChatRoomModel extends BaseModel {
@@ -31,6 +25,37 @@ public class ChatRoomModel extends BaseModel {
     @Inject
     public ChatRoomModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
+    }
+
+
+    public Observable<BaseResponse<List<ChatRoomBean>>> roomList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .roomList(token);
+    }
+
+    public Observable<BaseResponse<List<UserInfo>>> roomUserList(Long roomId, int pageNumber) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .roomUserList(token,roomId,pageNumber);
+    }
+
+    public Observable<BaseResponse<List<ChatRoomBean>>> messageList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .messageList(token);
+    }
+
+    public Observable<BaseResponse<ChatRoomBean>> roomDetail(Long roomId) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .roomDetail(token,roomId);
+    }
+
+    public Observable<BaseResponse> quitRoom(Long roomId) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .quitRoom(token,roomId);
     }
 
 

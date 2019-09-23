@@ -9,15 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerRoomListComponent;
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.haisheng.easeim.mvp.ui.activity.CustomerServiceListActivity;
 import com.haisheng.easeim.mvp.ui.activity.FriendConversationListActivity;
 import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
 import com.hyphenate.easeui.EaseConstant;
@@ -33,12 +36,18 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.view.popupwindow.NotescontactPopupWindow;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
+import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -65,6 +74,9 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
     SmartRefreshLayout refreshLayout;
 
     RelativeLayout rlMyFriends;
+    TextView tvFriendsDescribe;
+    ImageView ivFriendsRoundRed;
+    RelativeLayout rlCustomerService;
 
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
@@ -73,7 +85,6 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
 
     private ProgressDialogUtils progressDialogUtils;
     private View mEmptyView;
-
     private int mTypeStatus;
 
     public static RoomListFragment newInstance() {
@@ -102,8 +113,8 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
         if(null != bundle){
             mTypeStatus = bundle.getInt("typeStatus");
         }
-
         initRecyclerView();
+//        mPresenter.initDatas(mTypeStatus);
     }
 
     //初始化RecyclerView
@@ -119,36 +130,58 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
 
         mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.public_empty_page,null,false);
         if(mTypeStatus == Constants.IM.TYPE_MESSAGE){
-            mAdapter.addHeaderView(getHeadView());
-            mPresenter.initMessageListener();
+            getHeadViews();
         }
 
         mAdapter.setEmptyView(mEmptyView);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                RoomBean roomBean = (RoomBean) adapter.getItem(position);
-                mPresenter.joinRoom(roomBean.getHxId());
+                ChatRoomBean roomBean = (ChatRoomBean) adapter.getItem(position);
+                mPresenter.roomDetail(roomBean.getId());
             }
         });
     }
 
-    private View getHeadView(){
-        View headView = LayoutInflater.from(mContext).inflate(R.layout.view_conversation_head,null,false);
-        rlMyFriends = headView.findViewById(R.id.rl_my_friends);
-        rlMyFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void getHeadViews(){
+        View headView1 = LayoutInflater.from(mContext).inflate(R.layout.item_online_customer_service,null,false);
+        rlCustomerService = headView1.findViewById(R.id.rl_online_customer_service);
+        rlCustomerService.setOnClickListener(mOnClickListener);
+        mAdapter.addHeaderView(headView1);
+
+        View headView2 = LayoutInflater.from(mContext).inflate(R.layout.item_my_friends,null,false);
+        rlMyFriends = headView2.findViewById(R.id.rl_my_friends);
+        tvFriendsDescribe = headView2.findViewById(R.id.tv_friends_describe);
+        ivFriendsRoundRed = headView2.findViewById(R.id.iv_friends_round_red);
+        rlMyFriends.setOnClickListener(mOnClickListener);
+        mAdapter.addHeaderView(headView2);
+    }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            if(id == R.id.rl_online_customer_service){
+                showNotescontactPopupWindow(v);
+
+            }else if(id == R.id.rl_my_friends){
                 launchActivity(new Intent(mContext, FriendConversationListActivity.class));
             }
-        });
-        return headView;
-    }
+        }
+    };
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        mPresenter.initDatas();
+        mPresenter.initDatas(mTypeStatus);
+        if(mTypeStatus == Constants.IM.TYPE_MESSAGE){
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Subscriber(tag = EventBusHub.EVENTBUS_IM_REFRESH_CONVERSATION_LIST)
+    private void updateList(String tag) {
+        mPresenter.requestDatas();
     }
 
     @Override
@@ -161,37 +194,41 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
 
     @Override
     public void showRefresh() {
-        refreshLayout.autoRefresh();
+        refreshLayout.autoRefreshAnimationOnly();
     }
 
     @Override
     public void finishRefresh() {
-        refreshLayout.finishRefresh();
+        if(null!=refreshLayout)
+            refreshLayout.finishRefresh();
+    }
+
+    private NotescontactPopupWindow mNotescontactPopupWindow;
+    private void showNotescontactPopupWindow(View view){
+        if( null == mNotescontactPopupWindow ){
+            mNotescontactPopupWindow = new NotescontactPopupWindow(mContext);
+        }
+        mNotescontactPopupWindow.openPopWindow(view);
     }
 
     @Override
-    public void showEmptyView() {
-        mEmptyView.setVisibility(View.VISIBLE);
+    public void setMyFriendsUnreadCount(int unreadCount) {
+        if(unreadCount>0){
+            ivFriendsRoundRed.setVisibility(View.VISIBLE);
+            String sUnreadCount = unreadCount > 99 ? "99+": String.valueOf(unreadCount);
+            tvFriendsDescribe.setText(mContext.getString(R.string.has_unread_mssages,sUnreadCount));
+        }else{
+            ivFriendsRoundRed.setVisibility(View.INVISIBLE);
+            tvFriendsDescribe.setText(mContext.getString(R.string.no_unread_messages));
+        }
     }
 
     @Override
-    public void setConflict(boolean isConflict) {
-
-    }
-
-    @Override
-    public void onConnectionDisconnected() {
-
-    }
-
-    @Override
-    public void onConnectionConnected() {
-
-    }
-
-    @Override
-    public void joinRoomSuccessfully(String roomId) {
-        ChatActivity.start(getActivity(),roomId,  EaseConstant.CHATTYPE_CHATROOM);
+    public void joinRoomSuccessfully(ChatRoomBean chatRoomInfo) {
+        ChatActivity.start(mContext,chatRoomInfo);
+        if(mTypeStatus ==  Constants.IM.TYPE_ROOM){
+            EventBus.getDefault().post(EventBusHub.EVENTBUS_IM_REFRESH_CONVERSATION_LIST, EventBusHub.EVENTBUS_IM_REFRESH_CONVERSATION_LIST);
+        }
     }
 
     private void showProgress(final boolean show) {
@@ -232,5 +269,4 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
     public void killMyself() {
 
     }
-
 }

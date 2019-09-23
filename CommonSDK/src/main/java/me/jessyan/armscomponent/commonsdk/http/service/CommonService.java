@@ -15,7 +15,13 @@
  */
 package me.jessyan.armscomponent.commonsdk.http.service;
 
+import io.reactivex.Observable;
+import me.jessyan.armscomponent.commonsdk.entity.VersionEntity;
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import retrofit2.Retrofit;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 /**
  * ================================================
@@ -25,6 +31,12 @@ import retrofit2.Retrofit;
  */
 public interface CommonService {
 
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=android")
+    Observable <BaseResponse <VersionEntity>> checkVersion();
 
-
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=goldmoney")
+    Observable<BaseResponse<Double>> getBalance(
+            @Field("token") String token
+    );
 }

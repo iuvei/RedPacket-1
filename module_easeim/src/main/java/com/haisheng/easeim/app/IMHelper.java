@@ -50,6 +50,8 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
+import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
@@ -76,7 +78,7 @@ public class IMHelper {
     private EaseUI easeUI;
     private IMModel mIMModel = null;
 
-//    private IRepositoryManager mRepositoryManager;
+    //    private IRepositoryManager mRepositoryManager;
     private ContactModel mContactModel;
 
     private CallReceiver callReceiver;
@@ -293,17 +295,43 @@ public class IMHelper {
 
             @Override
             public boolean isMsgVibrateAllowed(EMMessage message) {
-                return mIMModel.getSettingMsgVibrate();
+//                return mIMModel.getSettingMsgVibrate();
+                return false;
             }
 
             @Override
             public boolean isMsgSoundAllowed(EMMessage message) {
-                return mIMModel.getSettingMsgSound();
+//                return mIMModel.getSettingMsgSound();
+                boolean isAllowed =  (boolean) SpUtils.getValue (mAppContext, Constants.IM.SHARED_KEY_SETTING_SOUND,true);
+                if(message == null){
+                    return isAllowed;
+                }
+                if(!isAllowed){
+                    return false;
+                }else{
+                    String chatUsename = null;
+                    List<String> notNotifyIds = null;
+                    // get user or group id which was blocked to show message notifications
+                    if (message.getChatType() == EMMessage.ChatType.Chat) {
+                        chatUsename = message.getFrom();
+                        notNotifyIds = mIMModel.getDisabledIds();
+                    } else {
+                        chatUsename = message.getTo();
+                        notNotifyIds = mIMModel.getDisabledGroups();
+                    }
+
+                    if (notNotifyIds == null || !notNotifyIds.contains(chatUsename)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             }
 
             @Override
             public boolean isMsgNotifyAllowed(EMMessage message) {
-                if(message == null){
+                return false;
+               /* if(message == null){
                     return mIMModel.getSettingMsgNotification();
                 }
                 if(!mIMModel.getSettingMsgNotification()){
@@ -325,7 +353,7 @@ public class IMHelper {
                     } else {
                         return false;
                     }
-                }
+                }*/
             }
         });
         //set emoji icon provider
@@ -813,7 +841,8 @@ public class IMHelper {
 //                    }
                     // in background, do not refresh UI, notify it in notification bar
                     if(!easeUI.hasForegroundActivies()){
-                        getNotifier().notify(message);
+//                        getNotifier().notify(message);
+                        getNotifier().vibrateAndPlayTone(message);
                     }
                 }
             }
@@ -1003,9 +1032,12 @@ public class IMHelper {
     @SuppressLint("WrongConstant")
     protected void onUserException(String exception){
         EMLog.e(TAG, "onUserException: " + exception);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(exception,true);
+
         ARouter.getInstance()
-                .build(RouterHub.MAIN_MAINACTIVITY)
-                .withBoolean( exception , true)  //参数：键：key 值：123
+                .build(RouterHub.APP_MAINACTIVITY)
+                .with( bundle)  //参数：键：key 值：123
                 .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                 .navigation();
     }
@@ -1156,9 +1188,9 @@ public class IMHelper {
         Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
         List<EMConversation> lists = new ArrayList <> (  );
         for (Map.Entry<String, EMConversation> entry : conversations.entrySet())
-             {
-                 lists.add ( entry.getValue() );
-             }
+        {
+            lists.add ( entry.getValue() );
+        }
         return lists;
     }
 
@@ -1166,7 +1198,7 @@ public class IMHelper {
         List <com.hyphenate.chat.EMConversation> allConversation = getAllConversations();
         for (int i=0;i<allConversation.size ();i++) {
             //删除和某个user会话，如果需要保留聊天记录，传false
-           allConversation.get ( i ).clearAllMessages ();
+            allConversation.get ( i ).clearAllMessages ();
         }
     }
 
@@ -1180,4 +1212,5 @@ public class IMHelper {
             e.printStackTrace ();
         }
     }
+
 }

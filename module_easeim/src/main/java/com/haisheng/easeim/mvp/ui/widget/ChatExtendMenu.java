@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haisheng.easeim.R;
@@ -44,7 +43,7 @@ public class ChatExtendMenu extends RelativeLayout {
 
     private boolean mIsBoy = true;
 
-//    private ChatExtendItemEntity mSelectedEntity;
+    //    private ChatExtendItemEntity mSelectedEntity;
     private RecyclerView.Adapter mTempAdapter;
 
     public ChatExtendMenu(Context context) {
@@ -161,7 +160,7 @@ public class ChatExtendMenu extends RelativeLayout {
         protected void convert(BaseViewHolder helper, ChatExtendItemEntity item) {
             if(item != null){
                 helper.setText(R.id.tvName,item.getName())
-                .setImageResource(R.id.imgIcon,item.getImgResId());
+                        .setImageResource(R.id.imgIcon,item.getImgResId());
             }
         }
 

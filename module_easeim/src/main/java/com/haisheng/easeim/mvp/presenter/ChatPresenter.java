@@ -1,68 +1,51 @@
 package com.haisheng.easeim.mvp.presenter;
 
-import android.app.Activity;
 import android.app.Application;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.SupportActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.app.IMHelper;
+import com.haisheng.easeim.mvp.model.ChatRoomModel;
+import com.haisheng.easeim.mvp.model.RedpacketModel;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
+import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.adapter.EMAChatRoomManagerListener;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
-import com.hyphenate.easeui.ui.EaseChatRoomListener;
-import com.hyphenate.easeui.ui.EaseGroupListener;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.easeui.utils.EaseUserUtils;
-import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
-import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.armscomponent.commonsdk.entity.GiftEntity;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.http.CommonModel;
 import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-
 import javax.inject.Inject;
-
 import com.haisheng.easeim.mvp.contract.ChatContract;
-
+import com.jess.arms.utils.RxLifecycleUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.File;
 import java.util.List;
 
@@ -77,6 +60,12 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+    @Inject
+    ChatRoomModel mChatRoomModel;
+    @Inject
+    RedpacketModel mRedpacketModel;
+    @Inject
+    CommonModel mCommonModel;
 
     protected EMConversation conversation;
     // "正在输入"功能的开关，打开后本设备发送消息将持续发送cmd类型消息通知对方"正在输入"
@@ -98,64 +87,10 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         super(model, rootView);
     }
 
-    public void setBundle(Bundle bundle){
-        chatType = bundle.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
-        toChatUsername = bundle.getString(EaseConstant.EXTRA_USER_ID);
-        isRoaming = IMHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM);
+    public void initDatas(String toChatUsername,int chatType){
+        this.toChatUsername = toChatUsername;
+        this.chatType = chatType;
     }
-
-    public void sendMsgTypingBegin(){
-        mTypingHandler.sendEmptyMessage(MSG_TYPING_BEGIN);
-    }
-    // to handle during-typing actions.
-    private Handler mTypingHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TYPING_BEGIN: // Notify typing start
-                    if (!turnOnTyping) return;
-                    // Only support single-chat type conversation.
-                    if (chatType != EaseConstant.CHATTYPE_SINGLE)
-                        return;
-                    if (hasMessages(MSG_TYPING_END)) {
-                        // reset the MSG_TYPING_END handler msg.
-                        removeMessages(MSG_TYPING_END);
-                    } else {
-                        // Send TYPING-BEGIN cmd msg
-                        EMMessage beginMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
-                        EMCmdMessageBody body = new EMCmdMessageBody(ACTION_TYPING_BEGIN);
-                        // Only deliver this cmd msg to online users
-                        body.deliverOnlineOnly(true);
-                        beginMsg.addBody(body);
-                        beginMsg.setTo(toChatUsername);
-                        EMClient.getInstance().chatManager().sendMessage(beginMsg);
-                    }
-                    sendEmptyMessageDelayed(MSG_TYPING_END, TYPING_SHOW_TIME);
-                    break;
-
-                case MSG_TYPING_END:
-                    if (!turnOnTyping) return;
-                    // Only support single-chat type conversation.
-                    if (chatType != EaseConstant.CHATTYPE_SINGLE)
-                        return;
-                    // remove all pedding msgs to avoid memory leak.
-                    removeCallbacksAndMessages(null);
-                    // Send TYPING-END cmd msg
-                    EMMessage endMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
-                    EMCmdMessageBody body = new EMCmdMessageBody(ACTION_TYPING_END);
-                    // Only deliver this cmd msg to online users
-                    body.deliverOnlineOnly(true);
-                    endMsg.addBody(body);
-                    endMsg.setTo(toChatUsername);
-                    EMClient.getInstance().chatManager().sendMessage(endMsg);
-                    break;
-
-                default:
-                    super.handleMessage(msg);
-                    break;
-            }
-        }
-    };
 
     public void onConversationInit(){
         conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername, EaseCommonUtils.getConversationType(chatType), true);
@@ -179,13 +114,54 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         EMClient.getInstance().chatManager().removeMessageListener(mMessageListener);
     }
 
-
     public void fetchHistoryMessages(){
         if (!isRoaming) {
             loadMoreLocalMessage();
         } else {
             loadMoreRoamingMessages();
         }
+    }
+
+    public void joinRoom(final String roomId){
+        mChatRoomModel.joinChatRoom(roomId)
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<EMChatRoom>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<EMChatRoom> response) {
+                        if (response.isSuccess()) {
+                            mRootView.joinRoomSuccessfully();
+
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                            mRootView.killMyself();
+                        }
+                    }
+                });
+    }
+
+    public void getBalanceInfo(boolean isShowDialog){
+        mCommonModel.getBalance()
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    if(isShowDialog)
+                        mRootView.showLoading();//显示下拉刷新的进度条
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    if(isShowDialog)
+                        mRootView.hideLoading();//隐藏下拉刷新的进度条
+                })
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<Double>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<Double> response) {
+                        if (response.isSuccess()) {
+                            mRootView.setBalanceInfo(response.getResult());
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
     }
 
     private String getMsgId(){
@@ -198,9 +174,15 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
             mRootView.showMessage(mApplication.getString(R.string.no_more_messages));
             return;
         }
-//        listView.getFirstVisiblePosition() == 0
         mModel.loadMoreMsgFromDB(conversation,getMsgId(),pagesize)
-                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    mRootView.finishRefresh();//隐藏下拉刷新的进度条
+                })
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<List<EMMessage>>>(mErrorHandler) {
                     @Override
                     public void onNext(BaseResponse<List<EMMessage>> baseResponse) {
@@ -225,7 +207,14 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         }
         mModel.fetchHistoryMessages( toChatUsername, chatType, pagesize, getMsgId())
                 .concatMap(baseResponse -> mModel.loadMoreMsgFromDB(conversation, getMsgId(), pagesize))
-                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    mRootView.finishRefresh();//隐藏下拉刷新的进度条
+                })
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<List<EMMessage>>>(mErrorHandler) {
                     @Override
                     public void onNext(BaseResponse<List<EMMessage>> baseResponse) {
@@ -264,10 +253,9 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                     mRootView.refreshSelectLast();
                     conversation.markMessageAsRead(message.getMsgId());
                 }
-                EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+//                EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
             }
         }
-
         @Override
         public void onCmdMessageReceived(List<EMMessage> messages) {
             for (final EMMessage msg : messages) {
@@ -280,28 +268,23 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                 }
             }
         }
-
         @Override
         public void onMessageRead(List<EMMessage> list) {
             mRootView.refreshSelectLast();
         }
-
         @Override
         public void onMessageDelivered(List<EMMessage> list) {
             mRootView.refreshList();
         }
-
         @Override
         public void onMessageRecalled(List<EMMessage> list) {
             mRootView.refreshList();
         }
-
         @Override
         public void onMessageChanged(EMMessage emMessage, Object o) {
             mRootView.refreshList();
         }
     };
-
 
     /**
      * send image
@@ -434,26 +417,46 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         sendMessage(message);
     }
 
+    public void sendRedpacketMessage(RedpacketBean redpacketInfo){
+        int type = redpacketInfo.getType();
+        String sMessage = "[红包]";
+        if(type == IMConstants.MSG_TYPE_MINE_REDPACKET){
+            sMessage = "[扫雷红包]";
+        }else if(type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
+            sMessage = "[禁抢红包]";
+        }else if(type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET){
+            sMessage = "[牛牛红包]";
+        }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
+            sMessage = "[福利红包]";
+        }
+        EMMessage message = EMMessage.createTxtSendMessage(sMessage, toChatUsername);
+        // 增加自己特定的属性
+        message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, redpacketInfo.getType());
+        try {
+            message.setAttribute(IMConstants.MESSAGE_ATTR_CONENT, new JSONObject(new Gson().toJson(redpacketInfo)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sendMessage(message);
+    }
 
     public void sendMessage(EMMessage message){
         if (message == null) {
             return;
         }
-
         if (chatType == EaseConstant.CHATTYPE_GROUP){
             message.setChatType(EMMessage.ChatType.GroupChat);
         }else if(chatType == EaseConstant.CHATTYPE_CHATROOM){
             message.setChatType(EMMessage.ChatType.ChatRoom);
         }
-
+        message.setAttribute(IMConstants.MESSAGE_ATTR_AVATARURL, UserPreferenceManager.getInstance().getCurrentUserAvatarUrl());
+        message.setAttribute(IMConstants.MESSAGE_ATTR_NICKNAME, UserPreferenceManager.getInstance().getCurrentUserNick());
         message.setMessageStatusCallback(messageStatusCallback);
-
         // Send message.
         EMClient.getInstance().chatManager().sendMessage(message);
         //refresh ui
         mRootView.refreshSelectLast();
     }
-
     protected EMCallBack messageStatusCallback = new EMCallBack() {
         @Override
         public void onSuccess() {
@@ -480,6 +483,60 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         haveMoreData = true;
     }
 
+    public void checkRedpacket(Long roomId,RedpacketBean redpacketBean,EMMessage message){
+        mRedpacketModel.checkRedpacket(roomId,redpacketBean.getId(),redpacketBean.getWelfareStatus())
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<CheckRedpacketInfo>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<CheckRedpacketInfo> response) {
+                        if (response.isSuccess()) {
+                            CheckRedpacketInfo checkRedpacketInfo = response.getResult();
+                            if(checkRedpacketInfo.getStatus() != 0){
+                                message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,response.getStatus());
+                                EMClient.getInstance().chatManager().saveMessage(message);
+                                mRootView.refreshList();
+                            }
+                            mRootView.showRedPacket(checkRedpacketInfo,message);
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
+    }
+
+    public void grabRedpacket(Long roomId, RedpacketBean redpacketBean, EMMessage message, View animView){
+        mRedpacketModel.grabRedpacket(roomId,redpacketBean.getId(),redpacketBean.getWelfareStatus())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    mRootView.openAnimation(animView);
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    mRootView.closeAnimation(animView);
+                })
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
+                .subscribe(new ErrorHandleSubscriber<BaseResponse>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                        if (response.isSuccess()) {
+                            message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,1);
+                            EMClient.getInstance().chatManager().saveMessage(message);
+                            mRootView.refreshList();
+
+                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus());
+                        }else{
+                            mRootView.grabRedpacketFail();
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.grabRedpacketFail();
+                    }
+                });
+    }
 
     @Override
     public void onDestroy() {

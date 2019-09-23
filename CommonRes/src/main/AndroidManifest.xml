@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".ui.WebviewActivity" />
+        <activity android:name=".ui.LongImageActivity" />
         <activity
             android:name=".dialog.AppSettingsDialogHolderActivity"
             android:exported="false"

@@ -29,7 +29,7 @@
     <string name="chat_group_rules">群规</string>
     <string name="chat_help">帮助</string>
     <string name="chat_customer_service">客服</string>
-    <string name="chat_make_money">客服</string>
+    <string name="chat_make_money">赚钱</string>
 
     <!-- 会话 -->
     <string name="no_unread_messages">暂无未读消息</string>
@@ -69,6 +69,7 @@
 
     <!-- -->
     <string name="friend_conversation_list">好友会话列表</string>
+    <string name="custiner_service_list">客服列表</string>
 
 
     <!-- 个人信息页 -->
@@ -85,5 +86,35 @@
     <string name="res_tate">接通率:%d%%</string>
 
     <string name="check_and_pay_coins">继续查看并支付 %d爱豆</string>
+
+    <!-- 红包 -->
+    <string name="redpacket_detail">红包详情</string>
+    <string name="mine_redpacket">扫雷红包</string>
+    <string name="gun_control_redpacket">禁抢红包</string>
+    <string name="niuniu_redpacket">牛牛红包</string>
+    <string name="welfare_redpacket">福利红包</string>
+    <string name="send_mine_redpacket">发送雷包</string>
+    <string name="redpacket_money_not_less_than">红包金额不能小于：%.2f元</string>
+    <string name="redpacket_money_not_more_than">红包金额不能大于：%.2f元</string>
+    <string name="redpacket_money_scope">红包发布范围：%.2f-%.2f元</string>
+    <string name="redpacket_number_scope">红包个数范围：%d-%d</string>
+    <string name="redpacket_number_not_empty">红包个数不能为空!</string>
+    <string name="mine_scope">雷数范围：0-9</string>
+    <string name="send_redpacket">塞入进红包</string>
+
+    <string name="redpacket_already_received">红包已领取</string>
+    <string name="redpackets_have_expired">红包已过期</string>
+    <string name="redpackets_are_gone">红包已抢完</string>
+    <string name="check_redpacket">查看红包</string>
+
+    <string name="send_redpacket_user">发包用户【%s】</string>
+    <string name="send_redpacket_money">发包金额【￥%.2f】</string>
+    <string name="send_redpacket_number">发包数量【%d】</string>
+    <string name="redpacket_game_rules">红包玩法【%s】</string>
+    <string name="mine_number">埋雷号码【%s】</string>
+    <string name="bomb_number">中雷数量【%d】</string>
+    <string name="redpacket_odds">红包赔率【%.2f】</string>
+    <string name="award_money">奖励金额【￥%.2f】</string>
+
 
 </resources>

@@ -2,11 +2,12 @@ package com.haisheng.easeim.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
-public class ContactInfo {
+public class ContactInfo implements Serializable {
 
     @SerializedName("server")
     private List<UserInfo> customerServiceUsers;

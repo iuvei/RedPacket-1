@@ -2,25 +2,25 @@ package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
 import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.Pair;
 
 import com.haisheng.easeim.R;
+import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.RoomBean;
+import com.haisheng.easeim.mvp.model.db.ChatRoomDao;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
-import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
-import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
@@ -36,10 +36,12 @@ import com.haisheng.easeim.mvp.contract.RoomListContract;
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.utils.RxLifecycleUtils;
 
+import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -70,10 +72,11 @@ public class RoomListPresenter extends BasePresenter<IModel, RoomListContract.Vi
     ChatRoomModel mChatRoomModel;
 
     @Inject
-    List<RoomBean> mDatas;
+    List<ChatRoomBean> mDatas;
     @Inject
     RoomListAdapter mAdapter;
 
+    private int mTypeStatus;
     private boolean mIsInit = false;
     private final static int MSG_REFRESH = 2;
 
@@ -82,61 +85,79 @@ public class RoomListPresenter extends BasePresenter<IModel, RoomListContract.Vi
         super(rootView);
     }
 
-    public void initDatas(){
-        if(!mIsInit)
+    public void initDatas(int typeStatus){
+        mTypeStatus =typeStatus;
+        if(!mIsInit){
             requestDatas();
+        }
+        if(mTypeStatus == Constants.IM.TYPE_MESSAGE){
+            EMClient.getInstance().chatManager().addMessageListener(messageListener);
+        }
     }
 
-    public void initMessageListener(){
-        EMClient.getInstance().addConnectionListener(connectionListener);
-        EMClient.getInstance().chatManager().addMessageListener(messageListener);
-    }
+//    private List<ChatRoomBean> mHeaderDatas = new ArrayList<>();
+//    private void initHeadrDatas(){
+//        if(mHeaderDatas.isEmpty()){
+//            ChatRoomBean customerServiceUser = new ChatRoomBean();
+//            customerServiceUser.setName(mApplication.getString(R.string.official_customer_service));
+//            customerServiceUser.setDescribe("有问题,找客服");
+//            mHeaderDatas.add(customerServiceUser);
+//            ChatRoomBean myFriendsUser = new ChatRoomBean();
+//            myFriendsUser.setName("我的好友");
+//            myFriendsUser.setDescribe(mApplication.getString(R.string.no_more_messages));
+//            mHeaderDatas.add(customerServiceUser);
+//            mHeaderDatas.add(myFriendsUser);
+//        }
+//    }
 
     public void requestDatas(){
-        mRedpacketModel.roomList()
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> {
-                    if(mIsInit){
-                        mRootView.showRefresh();//显示下拉刷新的进度条
-                    }
-                }).subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> {
-                    if(mIsInit){
-                        mRootView.finishRefresh();//隐藏下拉刷新的进度条
-                    }
-                })
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<List<RoomBean>>>(mErrorHandler) {
-                    @Override
-                    public void onNext(BaseResponse<List<RoomBean>> response) {
-                        if (response.isSuccess()) {
-                            mIsInit = true;
-                            mDatas.clear();
-                            List<RoomBean> roomBeans = response.getResult();
-                            if(null!=roomBeans && roomBeans.size()>0){
-                                mDatas.addAll(roomBeans);
-                            }else{
-                                mRootView.showEmptyView();
-                            }
-                            mAdapter.notifyDataSetChanged();
-                        }else{
-                            mRootView.showMessage(response.getMessage());
+        Observable<BaseResponse<List<ChatRoomBean>>> observable;
+        if(mTypeStatus == Constants.IM.TYPE_ROOM){
+            observable = mChatRoomModel.roomList();
+        }else{
+            observable = mChatRoomModel.messageList();
+        }
+        if(null != observable){
+            observable.subscribeOn(Schedulers.io())
+                    .doOnSubscribe(disposable -> {
+                        if(mIsInit){
+                            mRootView.showRefresh();//显示下拉刷新的进度条
                         }
-                    }
-                });
+                    }).subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        if(mIsInit){
+                            mRootView.finishRefresh();//隐藏下拉刷新的进度条
+                        }
+                    })
+                    .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
+                    .subscribe(new ErrorHandleSubscriber<BaseResponse<List<ChatRoomBean>>>(mErrorHandler) {
+                        @Override
+                        public void onNext(BaseResponse<List<ChatRoomBean>> response) {
+                            if (response.isSuccess()) {
+                                mIsInit = true;
+                                mDatas.clear();
+                                List<ChatRoomBean> roomBeans = response.getResult();
+                                if(null!=roomBeans && roomBeans.size()>0){
+                                    mDatas.addAll(roomBeans);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }else{
+                                mRootView.showMessage(response.getMessage());
+                            }
+                        }
+                    });
+        }
     }
 
-
-    public void joinRoom(final String roomId){
-        mChatRoomModel.joinChatRoom(roomId)
+    public void roomDetail(Long roomId){
+        mChatRoomModel.roomDetail(roomId)
                 .compose(RxUtils.applySchedulers(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<EMChatRoom>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<ChatRoomBean>>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<EMChatRoom> response) {
+                    public void onNext(BaseResponse<ChatRoomBean> response) {
                         if (response.isSuccess()) {
-                            mRootView.joinRoomSuccessfully(roomId);
-
+                            mRootView.joinRoomSuccessfully(response.getResult());
                         }else{
                             mRootView.showMessage(response.getMessage());
                         }
@@ -147,61 +168,41 @@ public class RoomListPresenter extends BasePresenter<IModel, RoomListContract.Vi
     private Handler handler = new Handler(){
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
-                case 0:
-                    mRootView.onConnectionDisconnected();
-                    break;
-                case 1:
-                    mRootView.onConnectionConnected();
-                    break;
-
                 case MSG_REFRESH:
+                    mRootView.setMyFriendsUnreadCount(getMyFriendsUnreadCount());
                     mAdapter.notifyDataSetChanged();
-                    break;
-
-                default:
+                    EventBus.getDefault().post(EventBusHub.EVENTBUS_IM_UNREAD_COUNT,EventBusHub.EVENTBUS_IM_UNREAD_COUNT);
                     break;
             }
         }
     };
 
-
-    protected EMConnectionListener connectionListener = new EMConnectionListener() {
-
-        @Override
-        public void onDisconnected(int error) {
-            if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE || error == EMError.SERVER_SERVICE_RESTRICTED
-                    || error == EMError.USER_KICKED_BY_CHANGE_PASSWORD || error == EMError.USER_KICKED_BY_OTHER_DEVICE) {
-                mRootView.setConflict(true);
-            } else {
-                handler.sendEmptyMessage(0);
+    private int getMyFriendsUnreadCount(){
+        int unreadCount = 0;
+        Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+        synchronized (conversations) {
+            for (EMConversation conversation : conversations.values()) {
+                if(!conversation.isGroup()){
+                    unreadCount+=conversation.getUnreadMsgCount();
+                }
             }
         }
-
-        @Override
-        public void onConnected() {
-            handler.sendEmptyMessage(1);
-        }
-    };
+        return unreadCount;
+    }
 
     private EMMessageListener messageListener = new EMMessageListener() {
-
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
             sendRefreshOrder();
         }
-
         @Override
         public void onCmdMessageReceived(List<EMMessage> messages) {}
-
         @Override
         public void onMessageRead(List<EMMessage> messages) {}
-
         @Override
         public void onMessageDelivered(List<EMMessage> message) {}
-
         @Override
         public void onMessageRecalled(List<EMMessage> messages) { }
-
         @Override
         public void onMessageChanged(EMMessage message, Object change) {}
     };
@@ -212,26 +213,15 @@ public class RoomListPresenter extends BasePresenter<IModel, RoomListContract.Vi
         }
     }
 
-    @Subscriber(tag = EventBusHub.EVENTBUS_IM_REFRESH_CONVERSATION)
-    private void updateWithTag(String msg){
-        sendRefreshOrder();
-    }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         if(null !=messageListener){
             EMClient.getInstance().chatManager().removeMessageListener(messageListener);
         }
-        if(null != connectionListener){
-            EMClient.getInstance().removeConnectionListener(connectionListener);
-        }
-
         this.mErrorHandler = null;
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
     }
-
 }
