@@ -1,6 +1,7 @@
 package com.haisheng.easeim.mvp.ui.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -50,6 +51,19 @@ public class ChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnClickL
     public ChatPrimaryMenu(Context context) {
         super(context);
         init(context, null);
+    }
+
+    public void setTalkingEnable(boolean enable){
+        editText.setEnabled ( enable );
+        rlFace.setEnabled ( enable );
+        if (enable){
+            //可以聊天
+            editText.setHint ( "" );
+        }else{
+            //不可以聊天
+            editText.setHint ( "该群已被禁言" );
+            faceNormal.setImageResource ( R.drawable.ease_chatting_biaoqing_btn_normal );
+        }
     }
 
     private void init(final Context context, AttributeSet attrs) {

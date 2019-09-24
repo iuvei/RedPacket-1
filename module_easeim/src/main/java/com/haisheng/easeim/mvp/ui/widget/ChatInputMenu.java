@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class ChatInputMenu extends LinearLayout {
     FrameLayout primaryMenuContainer, emojiconMenuContainer;
-    protected EaseChatPrimaryMenuBase chatPrimaryMenu;
+    protected ChatPrimaryMenu chatPrimaryMenu;
     protected EaseEmojiconMenuBase emojiconMenu;
     protected ChatExtendMenu chatExtendMenu;
     protected FrameLayout chatExtendMenuContainer;
@@ -123,7 +123,7 @@ public class ChatInputMenu extends LinearLayout {
      * @param customPrimaryMenu
      */
     public void setCustomPrimaryMenu(EaseChatPrimaryMenuBase customPrimaryMenu){
-        this.chatPrimaryMenu = customPrimaryMenu;
+        this.chatPrimaryMenu = (ChatPrimaryMenu) customPrimaryMenu;
     }
     
     public EaseChatPrimaryMenuBase getPrimaryMenu(){
@@ -303,6 +303,10 @@ public class ChatInputMenu extends LinearLayout {
 
     public void setChatInputMenuListener(ChatInputMenuListener listener) {
         this.listener = listener;
+    }
+
+    public void setTalkingEnable(boolean enable) {
+        chatPrimaryMenu.setTalkingEnable(enable);
     }
 
     public interface ChatInputMenuListener {

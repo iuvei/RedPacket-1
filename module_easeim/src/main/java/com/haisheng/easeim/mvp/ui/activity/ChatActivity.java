@@ -212,6 +212,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     private void initView() {
+        initInputMenu();
+        initExtendMenuItem();
         tvTitle.setText ( toChatUsername );
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
@@ -234,6 +236,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 mChatRoomListener = new ChatRoomListener ();
                 EMClient.getInstance ().chatroomManager ().addChatRoomChangeListener ( mChatRoomListener );
                 mPresenter.joinRoom(toChatUsername);
+                inputMenu.setTalkingEnable(false);
             }
             llBalance.setVisibility(View.VISIBLE);
         }
@@ -244,9 +247,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 mPresenter.joinRoom(mChatRoomBean.getHxId());
             }
         });
-
-        initInputMenu();
-        initExtendMenuItem();
         initRefreshLayout();
 
     }
