@@ -267,6 +267,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 ChatDetailsActivity.start (this,userInfo);
             }else{
                 //群聊
+                GroupInfoActivity.start(mContext, mChatRoomBean);
             }
         }
     }
@@ -517,7 +518,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     @Override
     public void setBarTitle(String title) {
-       tvTitle.setText ( title );
+
     }
 
     @Override

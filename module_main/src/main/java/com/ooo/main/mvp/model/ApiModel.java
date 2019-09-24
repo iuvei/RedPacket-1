@@ -1,6 +1,5 @@
 package com.ooo.main.mvp.model;
 
-import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
@@ -83,7 +82,6 @@ public class ApiModel extends BaseModel{
     }
     /**
      * 获取银行卡列表
-     * @return
      */
     public Observable<BlankCardBean> getBlankCardList() {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -96,7 +94,6 @@ public class ApiModel extends BaseModel{
      * cardopen	是	String	开户行
      * cardaddress	是	String	开户地址
      * type	是	String	1借记卡，2非借记卡
-     * @return
      */
     public Observable<AddBlankCardBean> addBlankCard(String cardcode, String cardopen, String cardaddress, String type) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -212,7 +209,6 @@ public class ApiModel extends BaseModel{
     /**
      * 获取佣金列表
      * @param page
-     * @return
      */
     public Observable<CommisonListBean> getCommissionList(int page) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -223,8 +219,6 @@ public class ApiModel extends BaseModel{
     /**
      * 获取佣金排行榜
      * type	是	string	1昨天 2今天 3本周
-     * @param type
-     * @return
      */
     public Observable<RankingBean> getRankingList(String type) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
@@ -233,7 +227,6 @@ public class ApiModel extends BaseModel{
 
     /**
      *获取推广海报
-     * @return
      */
     public Observable<PostersBean> getSharelist() {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -243,7 +236,6 @@ public class ApiModel extends BaseModel{
 
     /**
      * 游戏规则说明
-     * @return
      */
     public Observable<GameRuleBean> getGameRule() {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
@@ -253,8 +245,7 @@ public class ApiModel extends BaseModel{
 
     /**
      * 邀请手机联系人
-     * @param jsonString
-     * @return
+     * information	是	JSON	手机,手机
      */
     public Observable<PublicBean> inviteContact(String jsonString) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
@@ -266,7 +257,6 @@ public class ApiModel extends BaseModel{
      * 获取充值记录
      * @param page   页数
      * @param paytype
-     * @return
      */
     public Observable<RechargeRecordBean> getRechargeRecord(int page, String paytype) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -276,8 +266,7 @@ public class ApiModel extends BaseModel{
 
     /**
      * 获取通讯录好友
-     * @param mobile
-     * @return
+     * mobile	是	string	字符串逗号隔开
      */
     public Observable<ContactForMobileBean> getContactForMobile(String mobile) {
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
@@ -286,7 +275,6 @@ public class ApiModel extends BaseModel{
 
     /**
      * 获取充值金额列表
-     * @return
      */
     public Observable<RechargeMoneyBean> getRechargeMoneyList() {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -298,7 +286,6 @@ public class ApiModel extends BaseModel{
      * 获取充值信息
      * @param money  充值金额
      * @param payType
-     * @return
      */
     public Observable<GetRechargeInfoBean> getRechargeInfo(String money,String payType) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -312,7 +299,6 @@ public class ApiModel extends BaseModel{
      * paymoney	是	int	充值金额
      * payname	是	int	转账户名
      * payimg	是	int	上传凭证
-     * @return
      */
     public Observable<SubmitRechargeInfo> submitRechargeInfo(String paycodeid, String paymoney,String payname,String payimg) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
@@ -322,9 +308,7 @@ public class ApiModel extends BaseModel{
 
     /**
      * token	是	string	无
-     * roomid	是	long	无
-     * @param roomId
-     * @return
+     * roomId	是	long	无
      */
     public Observable<BaseResponse <ChatRoomBean>> roomDetail(long roomId) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
