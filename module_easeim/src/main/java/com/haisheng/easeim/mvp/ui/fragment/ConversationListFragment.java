@@ -28,6 +28,7 @@ import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerConversationListComponent;
 import com.haisheng.easeim.di.module.ConversationListModule;
 import com.haisheng.easeim.mvp.contract.ConversationListContract;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.presenter.ConversationListPresenter;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
 import com.hyphenate.chat.EMClient;
@@ -54,6 +55,7 @@ import butterknife.Unbinder;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
@@ -152,7 +154,8 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                     showMessage ( username );
                     if (conversation.isGroup ()) {
                         if (conversation.getType () == EMConversation.EMConversationType.ChatRoom) {
-                            ChatActivity.start ( (Activity) mContext, username, EaseConstant.CHATTYPE_CHATROOM );
+                            //获取群组详情
+                            mPresenter.roomDetail ( ConvertNumUtils.stringToLong ( username ) );
                         } else {
                             ChatActivity.start ( (Activity) mContext, username, EaseConstant.CHATTYPE_GROUP );
                         }
@@ -230,6 +233,11 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         conversationListView.init ( conversationList );
         int countTotal = EMClient.getInstance ().chatManager ().getUnreadMessageCount ();
         EventBus.getDefault ().post ( countTotal, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
+    }
+
+    @Override
+    public void joinRoomSuccessfully(ChatRoomBean result) {
+        ChatActivity.start ( getActivity (), result );
     }
 
     @Override

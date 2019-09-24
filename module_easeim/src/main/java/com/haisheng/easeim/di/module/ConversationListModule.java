@@ -1,5 +1,6 @@
 package com.haisheng.easeim.di.module;
 
+import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.ConversationModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.jess.arms.di.scope.FragmentScope;
@@ -34,5 +35,11 @@ public class ConversationListModule {
     @Provides
     public ConversationModel provideConversationModel(IRepositoryManager iRepositoryManager) {
         return new ConversationModel(iRepositoryManager);
+    }
+
+    @FragmentScope
+    @Provides
+    public ChatRoomModel provideChatRoomModel(IRepositoryManager iRepositoryManager) {
+        return new ChatRoomModel(iRepositoryManager);
     }
 }

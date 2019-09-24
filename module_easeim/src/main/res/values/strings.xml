@@ -23,10 +23,10 @@
     <string name="chat_camera">拍照</string>
     <string name="chat_welfare">福利</string>
     <string name="chat_league">加盟</string>
-    <string name="chat_redpacket">红包</string>
-    <string name="chat_recharge">充值</string>
-    <string name="chat_game_rules">玩法</string>
-    <string name="chat_group_rules">群规</string>
+    <string name="chat_redpacket">发红包</string>
+    <string name="chat_recharge">幸运大转盘</string>
+    <string name="chat_game_rules">余额</string>
+    <string name="chat_group_rules">排行榜</string>
     <string name="chat_help">帮助</string>
     <string name="chat_customer_service">客服</string>
     <string name="chat_make_money">赚钱</string>

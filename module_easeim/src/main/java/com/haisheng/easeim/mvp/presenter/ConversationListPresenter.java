@@ -4,7 +4,9 @@ import android.app.Application;
 import android.os.Handler;
 import android.util.Pair;
 
+import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.ConversationModel;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
@@ -17,7 +19,10 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
 import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
+import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 import javax.inject.Inject;
 
@@ -45,6 +50,8 @@ public class ConversationListPresenter extends BasePresenter<IModel, Conversatio
     AppManager mAppManager;
     @Inject
     ConversationModel mConversationModel;
+    @Inject
+    ChatRoomModel mChatRoomModel;
 
     private int mTag;
     private final static int MSG_REFRESH = 2;
@@ -165,5 +172,20 @@ public class ConversationListPresenter extends BasePresenter<IModel, Conversatio
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void roomDetail(Long roomId){
+        mChatRoomModel.roomDetail(roomId)
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber <BaseResponse <ChatRoomBean>> (mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<ChatRoomBean> response) {
+                        if (response.isSuccess()) {
+                            mRootView.joinRoomSuccessfully(response.getResult());
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
     }
 }

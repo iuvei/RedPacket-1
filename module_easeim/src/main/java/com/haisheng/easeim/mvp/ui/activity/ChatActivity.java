@@ -112,9 +112,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int ITEM_WELFARE = 100;
     private static final int ITEM_LEAGUE = 101;
     private static final int ITEM_REDPACKET = 102;
-    private static final int ITEM_RECHARGE = 103;
-    private static final int ITEM_GAME_RULES = 104;
-    private static final int ITEM_GROUP_RULES = 105;
+    private static final int ITEM_LUCKY_DRAW = 103;
+    private static final int ITEM_BALANCE = 104;
+    private static final int ITEM_LIST = 105;
     private static final int ITEM_HELP = 106;
     private static final int ITEM_CUSTOMER_SERVICE = 107;
     private static final int ITEM_PHOTO = 108;
@@ -313,26 +313,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     protected void initExtendMenuItem() {
         List <ChatExtendItemEntity> entities = new ArrayList <> ();
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
-            entities.add(new ChatExtendItemEntity(ITEM_GAME_RULES, getString(R.string.chat_game_rules), R.drawable.icon_plugin_rp));
-            entities.add(new ChatExtendItemEntity(ITEM_HELP, getString(R.string.chat_help), R.drawable.ic_tab_help));
-            entities.add(new ChatExtendItemEntity(ITEM_LEAGUE, getString(R.string.chat_league), R.drawable.ic_tab_join));
-            entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_tab_custom));
-            entities.add(new ChatExtendItemEntity(ITEM_RECHARGE, getString(R.string.chat_recharge), R.drawable.ic_tab_recharge));
-            entities.add(new ChatExtendItemEntity(ITEM_MAKE_MONEY, getString(R.string.chat_make_money), R.drawable.ic_tab_money));
             entities.add(new ChatExtendItemEntity(ITEM_PHOTO, getString(R.string.chat_photo), R.drawable.ic_tab_photo));
             entities.add(new ChatExtendItemEntity(ITEM_CAMEAR, getString(R.string.chat_camera), R.drawable.ic_tab_camera));
         }else{
-            entities.add(new ChatExtendItemEntity(ITEM_WELFARE, getString(R.string.chat_welfare), R.drawable.ic_tab_reward));
-            entities.add(new ChatExtendItemEntity(ITEM_LEAGUE, getString(R.string.chat_league), R.drawable.ic_tab_join));
             entities.add(new ChatExtendItemEntity(ITEM_REDPACKET, getString(R.string.chat_redpacket), R.drawable.ic_tab_red));
-            entities.add(new ChatExtendItemEntity(ITEM_RECHARGE, getString(R.string.chat_recharge), R.drawable.ic_tab_recharge));
-            entities.add(new ChatExtendItemEntity(ITEM_GAME_RULES, getString(R.string.chat_game_rules), R.drawable.icon_plugin_rp));
-            entities.add(new ChatExtendItemEntity(ITEM_GROUP_RULES, getString(R.string.chat_group_rules), R.drawable.ic_tab_rule));
-            entities.add(new ChatExtendItemEntity(ITEM_HELP, getString(R.string.chat_help), R.drawable.ic_tab_help));
+            entities.add(new ChatExtendItemEntity( ITEM_LUCKY_DRAW, getString(R.string.chat_recharge), R.drawable.ic_tab_recharge));
+            entities.add(new ChatExtendItemEntity( ITEM_BALANCE, getString(R.string.chat_game_rules), R.drawable.icon_plugin_rp));
             entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_tab_custom));
-            entities.add(new ChatExtendItemEntity(ITEM_PHOTO, getString(R.string.chat_photo), R.drawable.ic_tab_photo));
-            entities.add(new ChatExtendItemEntity(ITEM_CAMEAR, getString(R.string.chat_camera), R.drawable.ic_tab_camera));
-            entities.add(new ChatExtendItemEntity(ITEM_MAKE_MONEY, getString(R.string.chat_make_money), R.drawable.ic_tab_money));
+            entities.add(new ChatExtendItemEntity( ITEM_LIST, getString(R.string.chat_group_rules), R.drawable.ic_tab_rule));
         }
 
         inputMenu.initExtendMenuItem ( entities, mOnItemClickListener );
@@ -343,35 +331,27 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             ChatExtendItemEntity entity = (ChatExtendItemEntity) adapter.getItem ( position );
             switch (entity.getId()) {
-                case ITEM_WELFARE:
-                    SendWelfarRedpacketActivity.start(mContext, mChatRoomBean);
-                    break;
-                case ITEM_GROUP_RULES:
+                case ITEM_LIST:
+                    //排行榜
                     LongImageActivity.start(mContext,mChatRoomBean.getGroupRulesImgUrl());
                     break;
                 case ITEM_REDPACKET:
+                    //红包
                     sendRedpacket();
                     break;
-                case ITEM_LEAGUE:
-                    //ARouterUtils.navigation(mContext,RouterHub.MAIN_PROXYCENTERACTIVITY);
+                case ITEM_LUCKY_DRAW:
+                    //抽奖
+                    ARouterUtils.navigation(mContext,RouterHub.MAIN_LUCKYWHEELACTIVITY);
                     break;
-                case ITEM_HELP:
-                   // WebviewActivity.start(mContext,"帮助中心", Api.URL_HELP);
-                    break;
-                case ITEM_RECHARGE:
-                    //ARouterUtils.navigation(mContext,RouterHub.MAIN_RECHARGECENTERACTIVITY);
-                    break;
-                case ITEM_GAME_RULES:
-                    if(null!=mChatRoomBean){
-                        LongImageActivity.start(mContext,mChatRoomBean.getGameRulesImgUrl());;
-                    }else{
-                        //WebviewActivity.start(mContext,"玩法规则",Api.URL_GAME_RULES);
-                    }
+                case ITEM_BALANCE:
+                    //余额
                     break;
                 case ITEM_CUSTOMER_SERVICE:
+                    //客服
                     showNotescontactPopupWindow(view);
                     break;
                 case ITEM_PHOTO:
+                    //照片
                     if(null!=mChatRoomBean && mChatRoomBean.getBannedStatus() == 1){
                         showMessage("本群已禁止聊天");
                         return;
@@ -379,16 +359,13 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     ActionUtils.openSystemAblum((Activity) mContext);
                     break;
                 case ITEM_CAMEAR:
+                    //拍照
                     if(null!=mChatRoomBean && mChatRoomBean.getBannedStatus() == 1){
                         showMessage("本群已禁止聊天");
                         return;
                     }
                     mCameraSavePath = MyFileUtils.getNewCacheFilePath(mContext, Constants.IMAGE_CODE);
                     ActionUtils.openCamera(mContext,mCameraSavePath);
-                    break;
-                case ITEM_MAKE_MONEY:
-                    //赚钱
-                    //ARouterUtils.navigation(mContext,RouterHub.MAIN_SHAREMAKEMONEYACTIVITY);
                     break;
             }
         }

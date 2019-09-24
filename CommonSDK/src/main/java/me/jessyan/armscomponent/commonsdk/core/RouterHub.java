@@ -69,6 +69,7 @@ public interface RouterHub {
      * main
      */
     String MAIN_BILLLISTACTIVITY = MAIN + "/BillListActivity";
+    String MAIN_LUCKYWHEELACTIVITY = MAIN + "/LuckyWheelActivity";
 
     /**
      * 即时通讯分组
