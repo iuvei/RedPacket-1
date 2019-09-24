@@ -105,9 +105,9 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
+            ivBack.setVisibility ( View.GONE );
+            tvTitle.setText ( mChatRoomBean.getName () );
         }
-        ivBack.setVisibility ( View.GONE );
-        tvTitle.setText ( mChatRoomBean.getName () );
         etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
         etRedpacketNumber.setText ( String.valueOf ( mChatRoomBean.getRedpacketNumber () ) );
         tvMoneyScope.setText ( String.format ( getString ( R.string.redpacket_money_scope ), mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );

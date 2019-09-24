@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -28,10 +29,12 @@ import com.lzj.pass.dialog.PayPassDialog;
 import com.lzj.pass.dialog.PayPassView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -45,26 +48,30 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
     EditText etTotalMoney;
     @BindView(R2.id.et_redpacket_number)
     EditText etRedpacketNumber;
+    @BindView(R2.id.iv_back)
+    ImageView ivBack;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
 
     public static void start(Activity context, ChatRoomBean chatRoomBean) {
-        Intent intent = new Intent(context, SendNiuniuRedpacketActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("chatRoom", chatRoomBean);
-        intent.putExtras(bundle);
-        context.startActivityForResult(intent, IMConstants.REQUEST_CODE_SEND_REDPACKET);
+        Intent intent = new Intent ( context, SendNiuniuRedpacketActivity.class );
+        Bundle bundle = new Bundle ();
+        bundle.putSerializable ( "chatRoom", chatRoomBean );
+        intent.putExtras ( bundle );
+        context.startActivityForResult ( intent, IMConstants.REQUEST_CODE_SEND_REDPACKET );
     }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerSendRedpacketComponent //如找不到该类,请编译一下项目
-                .builder()
-                .appComponent(appComponent)
-                .view(this)
-                .build()
-                .inject(this);
+                .builder ()
+                .appComponent ( appComponent )
+                .view ( this )
+                .build ()
+                .inject ( this );
     }
 
     @Override
@@ -74,164 +81,181 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getExtras();
-        if(null != bundle){
-            mChatRoomBean = (ChatRoomBean) bundle.getSerializable("chatRoom");
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        Bundle bundle = getIntent ().getExtras ();
+        if (null != bundle) {
+            mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
+            ivBack.setVisibility ( View.GONE );
+            tvTitle.setText ( mChatRoomBean.getName () );
         }
-        etTotalMoney.setHint(String.format("%.2f-%.2f",mChatRoomBean.getMinMoney(),mChatRoomBean.getMaxMoney()));
-        etRedpacketNumber.setHint(String.format("%d-%d",mChatRoomBean.getMinRedpacketNumber(),mChatRoomBean.getMaxRedpacketNumber()));
+        etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
+        etRedpacketNumber.setHint ( String.format ( "%d-%d", mChatRoomBean.getMinRedpacketNumber (), mChatRoomBean.getMaxRedpacketNumber () ) );
 
-        etTotalMoney.addTextChangedListener(new TextWatcher() {
+        etTotalMoney.addTextChangedListener ( new TextWatcher () {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkTotalMoney();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        etRedpacketNumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkRedpacketNumber();
+                checkTotalMoney ();
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
-        });
+            public void afterTextChanged(Editable s) {
+            }
+        } );
+
+        etRedpacketNumber.addTextChangedListener ( new TextWatcher () {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkRedpacketNumber ();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        } );
     }
 
     @OnClick(R2.id.btn_send_redpacket)
     public void onViewClicked() {
-        if(!checkTotalMoney() && !checkRedpacketNumber()){
+        if (!checkTotalMoney () && !checkRedpacketNumber ()) {
             return;
         }
-        String sTotalMoney = etTotalMoney.getText().toString();
-        int totalMoney = Integer.valueOf(sTotalMoney);
-        String sRedpacketNumber = etRedpacketNumber.getText().toString();
-        int redpacketNumber = Integer.valueOf(sRedpacketNumber);
-        payDialog ( redpacketNumber, totalMoney);
+        String sTotalMoney = etTotalMoney.getText ().toString ();
+        int totalMoney = Integer.valueOf ( sTotalMoney );
+        String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
+        int redpacketNumber = Integer.valueOf ( sRedpacketNumber );
+        payDialog ( redpacketNumber, totalMoney );
     }
 
     //1 默认方式(推荐)
-    private void payDialog(int redpacketNumber,int totalMoney) {
-        final PayPassDialog dialog=new PayPassDialog(this);
-        dialog.getPayViewPass()
-                .setPayClickListener(new PayPassView.OnPayClickListener() {
+    private void payDialog(int redpacketNumber, int totalMoney) {
+        final PayPassDialog dialog = new PayPassDialog ( this );
+        dialog.getPayViewPass ()
+                .setPayClickListener ( new PayPassView.OnPayClickListener () {
                     @Override
                     public void onPassFinish(String passContent) {
-                        dialog.dismiss();
+                        dialog.dismiss ();
                         //6位输入完成回调
-                        mPresenter.sendRedpacket(mChatRoomBean.getId(),null,redpacketNumber,totalMoney,0,passContent);
+                        mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 0, passContent );
                     }
+
                     @Override
                     public void onPayClose() {
-                        dialog.dismiss();
+                        dialog.dismiss ();
                         //关闭弹框
                     }
+
                     @Override
                     public void onPayForget() {
-                        dialog.dismiss();
+                        dialog.dismiss ();
                         //点击忘记密码回调
                         ARouter.getInstance ().build ( RouterHub.MAIN_FORGETPAYPASSWORDACTIVITY ).navigation ();
                     }
-                });
+                } );
     }
 
-    private boolean checkTotalMoney(){
-        String sTotalMoney = etTotalMoney.getText().toString();
-        if(!TextUtils.isEmpty(sTotalMoney)){
-            int totalMoney = Integer.valueOf(sTotalMoney);
-            tvMoney.setText(String.format("￥%d",totalMoney));
-            if(totalMoney>mChatRoomBean.getMaxMoney()){
-                tvHint.setVisibility(View.VISIBLE);
-                tvHint.setText(String.format(getString( R.string.redpacket_money_not_more_than),mChatRoomBean.getMaxMoney()));
-            }else if(totalMoney<mChatRoomBean.getMinMoney()){
-                tvHint.setVisibility(View.VISIBLE);
-                tvHint.setText(String.format(getString( R.string.redpacket_money_not_less_than),mChatRoomBean.getMinMoney()));
-            }else{
-                tvHint.setVisibility(View.INVISIBLE);
+    private boolean checkTotalMoney() {
+        String sTotalMoney = etTotalMoney.getText ().toString ();
+        if (!TextUtils.isEmpty ( sTotalMoney )) {
+            int totalMoney = Integer.valueOf ( sTotalMoney );
+            tvMoney.setText ( String.format ( "￥%d", totalMoney ) );
+            if (totalMoney > mChatRoomBean.getMaxMoney ()) {
+                tvHint.setVisibility ( View.VISIBLE );
+                tvHint.setText ( String.format ( getString ( R.string.redpacket_money_not_more_than ), mChatRoomBean.getMaxMoney () ) );
+            } else if (totalMoney < mChatRoomBean.getMinMoney ()) {
+                tvHint.setVisibility ( View.VISIBLE );
+                tvHint.setText ( String.format ( getString ( R.string.redpacket_money_not_less_than ), mChatRoomBean.getMinMoney () ) );
+            } else {
+                tvHint.setVisibility ( View.INVISIBLE );
                 return true;
             }
-        }else{
-            tvHint.setVisibility(View.VISIBLE);
-            tvHint.setText(String.format(getString( R.string.redpacket_money_not_less_than),mChatRoomBean.getMinMoney()));
-            tvMoney.setText("￥0");
+        } else {
+            tvHint.setVisibility ( View.VISIBLE );
+            tvHint.setText ( String.format ( getString ( R.string.redpacket_money_not_less_than ), mChatRoomBean.getMinMoney () ) );
+            tvMoney.setText ( "￥0" );
         }
         return false;
     }
 
-    private boolean checkRedpacketNumber(){
-        String sRedpacketNumber = etRedpacketNumber.getText().toString();
-        if(!TextUtils.isEmpty(sRedpacketNumber)){
-            int redpacketNumber = Integer.valueOf(sRedpacketNumber);
-            if(redpacketNumber>mChatRoomBean.getMaxRedpacketNumber() || redpacketNumber<mChatRoomBean.getMinRedpacketNumber()){
-                tvHint.setVisibility(View.VISIBLE);
-                tvHint.setText(String.format(getString( R.string.redpacket_number_scope),mChatRoomBean.getMinRedpacketNumber(),mChatRoomBean.getMaxRedpacketNumber()));
-            }else{
-                tvHint.setVisibility(View.INVISIBLE);
+    private boolean checkRedpacketNumber() {
+        String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
+        if (!TextUtils.isEmpty ( sRedpacketNumber )) {
+            int redpacketNumber = Integer.valueOf ( sRedpacketNumber );
+            if (redpacketNumber > mChatRoomBean.getMaxRedpacketNumber () || redpacketNumber < mChatRoomBean.getMinRedpacketNumber ()) {
+                tvHint.setVisibility ( View.VISIBLE );
+                tvHint.setText ( String.format ( getString ( R.string.redpacket_number_scope ), mChatRoomBean.getMinRedpacketNumber (), mChatRoomBean.getMaxRedpacketNumber () ) );
+            } else {
+                tvHint.setVisibility ( View.INVISIBLE );
                 return true;
             }
-        }else{
-            tvHint.setVisibility(View.VISIBLE);
-            tvHint.setText( R.string.redpacket_number_not_empty);
+        } else {
+            tvHint.setVisibility ( View.VISIBLE );
+            tvHint.setText ( R.string.redpacket_number_not_empty );
         }
         return false;
     }
 
     private void showProgress(final boolean show) {
         if (progressDialogUtils == null) {
-            progressDialogUtils = ProgressDialogUtils.getInstance(mContext);
-            progressDialogUtils.setMessage(getString( R.string.public_loading));
+            progressDialogUtils = ProgressDialogUtils.getInstance ( mContext );
+            progressDialogUtils.setMessage ( getString ( R.string.public_loading ) );
         }
         if (show) {
-            progressDialogUtils.show();
+            progressDialogUtils.show ();
         } else {
-            progressDialogUtils.dismiss();
+            progressDialogUtils.dismiss ();
         }
     }
 
     @Override
     public void showLoading() {
-        showProgress(true);
+        showProgress ( true );
     }
 
     @Override
     public void hideLoading() {
-        showProgress(false);
+        showProgress ( false );
     }
 
     @Override
     public void showMessage(@NonNull String message) {
 //        checkNotNull(message);
-        ToastUtils.showShort(message);
+        ToastUtils.showShort ( message );
     }
 
     @Override
     public void launchActivity(@NonNull Intent intent) {
-        checkNotNull(intent);
-        ArmsUtils.startActivity(intent);
+        checkNotNull ( intent );
+        ArmsUtils.startActivity ( intent );
     }
 
     @Override
     public void killMyself() {
-        finish();
+        finish ();
     }
 
     @Override
     public void sendSuccessfully(RedpacketBean redpacketInfo) {
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("redpacketInfo",redpacketInfo);
-        intent.putExtras(bundle);
-        setResult(RESULT_OK,intent);
-        finish();
+        Intent intent = new Intent ();
+        Bundle bundle = new Bundle ();
+        bundle.putSerializable ( "redpacketInfo", redpacketInfo );
+        intent.putExtras ( bundle );
+        setResult ( RESULT_OK, intent );
+        finish ();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind ( this );
     }
 }
