@@ -165,6 +165,9 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     }
 
     private String getMsgId(){
+        if (conversation==null){
+            return "";
+        }
         return (conversation.getAllMessages() != null && conversation.getAllMessages().size() > 0) ? conversation.getAllMessages().get(0).getMsgId() : "";
     }
 

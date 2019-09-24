@@ -1,6 +1,7 @@
 package com.haisheng.easeim.mvp.model.api.service;
 
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 
@@ -33,7 +34,7 @@ public interface RedpacketService {
             @Field("nums") int redpacketNumber,
             @Field("gold") double money,
             @Field("welfare") int welfareStatus,
-            @Field("password") String password
+            @Field("passpwd") String password
     );
 
     @FormUrlEncoded
@@ -61,6 +62,18 @@ public interface RedpacketService {
             @Field("roomid") Long roomId,
             @Field("setid") Long redpacketId,
             @Field("welfare") int welfareStatus
+    );
+
+
+    /**
+     * 检测是否设置支付密码
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=pwd2")
+    Observable<CheckPayPasswordBean> checkPayPasswrod(
+            @Field("token") String token
     );
 
 }

@@ -172,7 +172,7 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
     @Override
     public void joinRoomSuccessfully(ChatRoomBean result) {
         Bundle bundle = new Bundle (  );
-        bundle.putString("userId", result.getId ()+"");
+        bundle.putString("userId", result.getHxId ()+"");
         bundle.putInt("chatType", EaseConstant.CHATTYPE_CHATROOM);
         bundle.putSerializable("chatRoomInfo", result);
         ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();

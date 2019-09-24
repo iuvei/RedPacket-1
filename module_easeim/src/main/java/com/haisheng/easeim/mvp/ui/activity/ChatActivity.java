@@ -168,7 +168,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     public static void start(Context context, ChatRoomBean chatRoomInfo) {
         Intent intent = new Intent(context, ChatActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("userId", chatRoomInfo.getHxId());
+        bundle.putString("userId", chatRoomInfo.getHxId ()+"");
         bundle.putInt("chatType", EaseConstant.CHATTYPE_CHATROOM);
         bundle.putSerializable("chatRoomInfo", chatRoomInfo);
         intent.putExtras(bundle);
@@ -346,6 +346,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     break;
                 case ITEM_BALANCE:
                     //余额
+                    mPresenter.getBalanceInfo(true);
                     break;
                 case ITEM_CUSTOMER_SERVICE:
                     //客服

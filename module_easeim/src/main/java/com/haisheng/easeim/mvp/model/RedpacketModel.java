@@ -3,6 +3,7 @@ package com.haisheng.easeim.mvp.model;
 import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
 import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.jess.arms.integration.IRepositoryManager;
@@ -42,6 +43,15 @@ public class RedpacketModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
                 .redpacketDetail(token,roomId,redpacketId,welfareStatus);
+    }
+
+    /**
+     * 检测是否设置支付密码
+     */
+    public Observable<CheckPayPasswordBean> checkPayPasswrod() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
+                .checkPayPasswrod(token);
     }
 
 

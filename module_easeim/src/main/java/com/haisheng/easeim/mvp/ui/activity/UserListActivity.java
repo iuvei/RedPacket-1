@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
@@ -27,7 +28,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -55,25 +59,27 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     UserListAdapter mAdapter;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
 
     private Long mRoomId;
 
     public static void start(Context context, Long roomId) {
-        Intent intent = new Intent(context, UserListActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putLong("roomId",roomId);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        Intent intent = new Intent ( context, UserListActivity.class );
+        Bundle bundle = new Bundle ();
+        bundle.putLong ( "roomId", roomId );
+        intent.putExtras ( bundle );
+        context.startActivity ( intent );
     }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerUserListComponent //如找不到该类,请编译一下项目
-                .builder()
-                .appComponent(appComponent)
-                .view(this)
-                .build()
-                .inject(this);
+                .builder ()
+                .appComponent ( appComponent )
+                .view ( this )
+                .build ()
+                .inject ( this );
     }
 
     @Override
@@ -83,58 +89,61 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getExtras();
-        if(null!=bundle){
-            mRoomId = bundle.getLong("roomId");
-            setTitle("群成员");
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        tvTitle.setText ( "群成员" );
+        Bundle bundle = getIntent ().getExtras ();
+        if (null != bundle) {
+            mRoomId = bundle.getLong ( "roomId" );
+            setTitle ( "群成员" );
         }
 
-        initRefreshView();
-        initRecyclerView();
-        mPresenter.initDatas(mRoomId);
+        initRefreshView ();
+        initRecyclerView ();
+        mPresenter.initDatas ( mRoomId );
     }
 
-    private void initRefreshView(){
-        refreshLayout.setRefreshHeader(new ClassicsHeader (mContext));
-        refreshLayout.setRefreshFooter(new ClassicsFooter (mContext));
-        refreshLayout.setOnRefreshListener(this);
+    private void initRefreshView() {
+        refreshLayout.setRefreshHeader ( new ClassicsHeader ( mContext ) );
+        refreshLayout.setRefreshFooter ( new ClassicsFooter ( mContext ) );
+        refreshLayout.setOnRefreshListener ( this );
     }
 
     //初始化RecyclerView
     private void initRecyclerView() {
-        recyclerView.addItemDecoration(new DividerItemDecoration (mContext, DividerItemDecoration.VERTICAL));
-        ArmsUtils.configRecyclerView(recyclerView, mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration ( new DividerItemDecoration ( mContext, DividerItemDecoration.VERTICAL ) );
+        ArmsUtils.configRecyclerView ( recyclerView, mLayoutManager );
+        recyclerView.setAdapter ( mAdapter );
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas(true);
+        mPresenter.requestDatas ( true );
     }
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas(false);
+        mPresenter.requestDatas ( false );
     }
 
     @Override
     public void showLoading() {
-        refreshLayout.autoRefreshAnimationOnly();
+        refreshLayout.autoRefreshAnimationOnly ();
     }
 
     @Override
     public void hideLoading() {
-        refreshLayout.finishRefresh();
+        refreshLayout.finishRefresh ();
     }
 
     @Override
     public void startLoadMore() {
-        refreshLayout.autoLoadMore();
+        refreshLayout.autoLoadMore ();
     }
 
     @Override
     public void endLoadMore() {
-        refreshLayout.finishLoadMore();
+        refreshLayout.finishLoadMore ();
     }
 
     @Override
@@ -145,19 +154,30 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
 
     @Override
     public void showMessage(@NonNull String message) {
-        checkNotNull(message);
-        ArmsUtils.snackbarText(message);
+        checkNotNull ( message );
+        ArmsUtils.snackbarText ( message );
     }
 
     @Override
     public void launchActivity(@NonNull Intent intent) {
-        checkNotNull(intent);
-        ArmsUtils.startActivity(intent);
+        checkNotNull ( intent );
+        ArmsUtils.startActivity ( intent );
     }
 
     @Override
     public void killMyself() {
-        finish();
+        finish ();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind ( this );
+    }
+
+    @OnClick(R2.id.iv_back)
+    public void onViewClicked() {
+        finish ();
+    }
 }

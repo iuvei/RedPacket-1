@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
@@ -60,6 +61,28 @@ public class SendRedpacketPresenter extends BasePresenter <IModel, SendRedpacket
                             mRootView.sendSuccessfully(response.getResult());
                         }else{
                             mRootView.showMessage(response.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.showMessage(t.getMessage());
+                    }
+                });
+    }
+
+
+    public void checkPayPasswrod(){
+        mRedpacketModel.checkPayPasswrod()
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber <CheckPayPasswordBean> (mErrorHandler) {
+                    @Override
+                    public void onNext(CheckPayPasswordBean response) {
+                        if (response.getStatus () == 1) {
+                            mRootView.checkPayPasswordSuccessfully(response);
+                        }else{
+                            mRootView.checkPayPasswordFail();
                         }
                     }
 

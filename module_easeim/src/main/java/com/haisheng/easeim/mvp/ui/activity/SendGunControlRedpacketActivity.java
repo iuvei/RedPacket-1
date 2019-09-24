@@ -22,6 +22,7 @@ import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.SendRedpacketPresenter;
 import com.jess.arms.di.component.AppComponent;
@@ -41,6 +42,8 @@ import java.util.Set;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -72,6 +75,9 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
     private int mCurrentRedpacketNumber = 0;
+    private StringBuilder sbBoom;
+    private Integer money;
+    private BaseDialog dialog;
 
     public static void start(Activity context, ChatRoomBean chatRoomBean) {
         Intent intent = new Intent ( context, SendGunControlRedpacketActivity.class );
@@ -191,7 +197,7 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
             showMessage ( "红包金额不能为空!" );
             return;
         }
-        int money = Integer.valueOf ( sMoney );
+        money = Integer.valueOf ( sMoney );
         if (money > mChatRoomBean.getMaxMoney () || money < mChatRoomBean.getMinMoney ()) {
             showMessage ( String.format ( "红包金额只能输入%.0f - %.0f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
             return;
@@ -206,13 +212,13 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
             showMessage ( "雷数至少选一个数!" );
             return;
         }
-        StringBuilder sbBoom = new StringBuilder ();
+        sbBoom = new StringBuilder ();
         Iterator <Integer> value = mineNumbers.iterator ();
         sbBoom.append ( MINE_NUMBERS[value.next ()] );
         while (value.hasNext ()) {
             sbBoom.append ( "," ).append ( MINE_NUMBERS[value.next ()] );
         }
-        payDialog ( sbBoom.toString (), money );
+        mPresenter.checkPayPasswrod ();
     }
 
     //1 默认方式(推荐)
@@ -290,6 +296,47 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
         intent.putExtras ( bundle );
         setResult ( RESULT_OK, intent );
         finish ();
+    }
+
+    @Override
+    public void checkPayPasswordSuccessfully(CheckPayPasswordBean response) {
+        if (response.isHasPayPassword ()){
+            payDialog ( sbBoom.toString (), money );
+        }else{
+            showAuthDialog();
+        }
+    }
+
+    @Override
+    public void checkPayPasswordFail() {
+
+    }
+
+    private void showAuthDialog() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "还没有设置支付密码，是否前往设置" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        ARouter.getInstance ().build ( RouterHub.MAIN_PAYPASSWORDACTIVITY ).navigation ();
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        finish ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.haisheng.easeim.mvp.contract;
 
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
@@ -22,6 +23,10 @@ public interface SendRedpacketContract {
     interface View extends IView {
 
         void sendSuccessfully(RedpacketBean redpacketInfo);
+
+        void checkPayPasswordSuccessfully(CheckPayPasswordBean response);
+
+        void checkPayPasswordFail();
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

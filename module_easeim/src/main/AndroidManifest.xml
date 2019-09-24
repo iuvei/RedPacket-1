@@ -58,7 +58,7 @@
             android:label="@string/room_info" /> <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="1147190820148699#pinduoduo" /> <!-- 声明SDK所需的service SDK核心功能 -->
+            android:value="1158190904083516#tianxin" /> <!-- 声明SDK所需的service SDK核心功能 -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
             android:exported="true" />

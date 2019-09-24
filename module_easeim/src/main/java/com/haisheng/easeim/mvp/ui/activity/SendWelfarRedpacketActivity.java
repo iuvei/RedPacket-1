@@ -20,6 +20,7 @@ import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.SendRedpacketPresenter;
 import com.jess.arms.di.component.AppComponent;
@@ -30,6 +31,8 @@ import com.lzj.pass.dialog.PayPassView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -52,6 +55,9 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
+    private BaseDialog dialog;
+    private Integer totalMoney;
+    private Integer redpacketNumber;
 
     public static void start(Activity context, ChatRoomBean chatRoomBean) {
         Intent intent = new Intent ( context, SendWelfarRedpacketActivity.class );
@@ -125,11 +131,10 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
             return;
         }
         String sTotalMoney = etTotalMoney.getText ().toString ();
-        int totalMoney = Integer.valueOf ( sTotalMoney );
+        totalMoney = Integer.valueOf ( sTotalMoney );
         String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
-        int redpacketNumber = Integer.valueOf ( sRedpacketNumber );
-
-        payDialog ( redpacketNumber, totalMoney );
+        redpacketNumber = Integer.valueOf ( sRedpacketNumber );
+        mPresenter.checkPayPasswrod ();
     }
 
     //1 默认方式(推荐)
@@ -247,6 +252,47 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
         intent.putExtras ( bundle );
         setResult ( RESULT_OK, intent );
         finish ();
+    }
+
+    @Override
+    public void checkPayPasswordSuccessfully(CheckPayPasswordBean response) {
+        if (response.isHasPayPassword ()){
+            payDialog ( redpacketNumber, totalMoney );
+        }else{
+            showAuthDialog();
+        }
+    }
+
+    @Override
+    public void checkPayPasswordFail() {
+
+    }
+
+    private void showAuthDialog() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "还没有设置支付密码，是否前往设置" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        ARouter.getInstance ().build ( RouterHub.MAIN_PAYPASSWORDACTIVITY ).navigation ();
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        finish ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
     @Override
