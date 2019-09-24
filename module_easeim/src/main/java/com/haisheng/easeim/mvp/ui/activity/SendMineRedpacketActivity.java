@@ -105,7 +105,6 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
-            ivBack.setVisibility ( View.GONE );
             tvTitle.setText ( mChatRoomBean.getName () );
         }
         etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
@@ -151,32 +150,34 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         String sTotalMoney = etTotalMoney.getText ().toString ();
         int totalMoney = Integer.valueOf ( sTotalMoney );
         String sMineNumber = etMineNumber.getText ().toString ();
-        payDialog ( sMineNumber,totalMoney );
+        payDialog ( sMineNumber, totalMoney );
     }
 
     //1 默认方式(推荐)
-    private void payDialog(String sbBoom,double money) {
-        final PayPassDialog dialog=new PayPassDialog(this);
-        dialog.getPayViewPass()
-                .setPayClickListener(new PayPassView.OnPayClickListener() {
+    private void payDialog(String sbBoom, double money) {
+        final PayPassDialog dialog = new PayPassDialog ( this );
+        dialog.getPayViewPass ()
+                .setPayClickListener ( new PayPassView.OnPayClickListener () {
                     @Override
                     public void onPassFinish(String passContent) {
                         dialog.dismiss ();
                         //6位输入完成回调
-                        mPresenter.sendRedpacket ( mChatRoomBean.getId (), sbBoom, mChatRoomBean.getRedpacketNumber (), money, 0,passContent );
+                        mPresenter.sendRedpacket ( mChatRoomBean.getId (), sbBoom, mChatRoomBean.getRedpacketNumber (), money, 0, passContent );
                     }
+
                     @Override
                     public void onPayClose() {
-                        dialog.dismiss();
+                        dialog.dismiss ();
                         //关闭弹框
                     }
+
                     @Override
                     public void onPayForget() {
-                        dialog.dismiss();
+                        dialog.dismiss ();
                         //点击忘记密码回调
                         ARouter.getInstance ().build ( RouterHub.MAIN_FORGETPAYPASSWORDACTIVITY ).navigation ();
                     }
-                });
+                } );
     }
 
     private boolean checkTotalMoney() {
@@ -269,5 +270,10 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+    }
+
+    @OnClick(R2.id.iv_back)
+    public void onViewBackClicked() {
+        finish ();
     }
 }

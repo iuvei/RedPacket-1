@@ -86,7 +86,6 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
-            ivBack.setVisibility ( View.GONE );
             tvTitle.setText ( mChatRoomBean.getName () );
         }
         etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
@@ -257,5 +256,10 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+    }
+
+    @OnClick(R2.id.iv_back)
+    public void onViewBackClicked() {
+        finish ();
     }
 }

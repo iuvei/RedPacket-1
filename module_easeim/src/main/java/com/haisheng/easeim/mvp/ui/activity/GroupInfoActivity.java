@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -41,6 +40,7 @@ import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -57,7 +57,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class GroupInfoActivity extends BaseSupportActivity<GroupInfoPresenter> implements GroupInfoContract.View {
+public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> implements GroupInfoContract.View {
 
     @BindView(R2.id.rv_user)
     RecyclerView rvUser;
@@ -79,28 +79,30 @@ public class GroupInfoActivity extends BaseSupportActivity<GroupInfoPresenter> i
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     UserGridAdapter mAdapter;
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
 
     private IMModel mIMModel;
-    private List<String> mDisabledGroupIds = new ArrayList<>();
+    private List <String> mDisabledGroupIds = new ArrayList <> ();
     private ChatRoomBean mChatRoomBean;
     private ProgressDialogUtils progressDialogUtils;
 
     public static void start(Context context, ChatRoomBean chatRoomInfo) {
-        Intent intent = new Intent(context, GroupInfoActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("chatRoomInfo", chatRoomInfo);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        Intent intent = new Intent ( context, GroupInfoActivity.class );
+        Bundle bundle = new Bundle ();
+        bundle.putSerializable ( "chatRoomInfo", chatRoomInfo );
+        intent.putExtras ( bundle );
+        context.startActivity ( intent );
     }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerGroupInfoComponent //如找不到该类,请编译一下项目
-                .builder()
-                .appComponent(appComponent)
-                .view(this)
-                .build()
-                .inject(this);
+                .builder ()
+                .appComponent ( appComponent )
+                .view ( this )
+                .build ()
+                .inject ( this );
     }
 
     @Override
@@ -110,71 +112,74 @@ public class GroupInfoActivity extends BaseSupportActivity<GroupInfoPresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getExtras();
+        StatusBarUtils.setTranslucentStatus ( this );
+        StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        tvTitle.setText ( "群信息" );
+        Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
-            mChatRoomBean = (ChatRoomBean) bundle.getSerializable("chatRoomInfo");
+            mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoomInfo" );
         }
-        mIMModel = IMHelper.getInstance().getModel();
+        mIMModel = IMHelper.getInstance ().getModel ();
 
-        List<String> disabledGroups= mIMModel.getDisabledGroups();
-        if(null!=disabledGroups)
-            mDisabledGroupIds.addAll(mIMModel.getDisabledGroups());
-        boolean isDisabled = !mDisabledGroupIds.contains(mChatRoomBean.getHxId());
-        switchVoiceNotify.setChecked(!isDisabled);
+        List <String> disabledGroups = mIMModel.getDisabledGroups ();
+        if (null != disabledGroups)
+            mDisabledGroupIds.addAll ( mIMModel.getDisabledGroups () );
+        boolean isDisabled = !mDisabledGroupIds.contains ( mChatRoomBean.getHxId () );
+        switchVoiceNotify.setChecked ( !isDisabled );
 
-        switchVoiceNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchVoiceNotify.setOnCheckedChangeListener ( new CompoundButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (null == mDisabledGroupIds) {
-                        mDisabledGroupIds = new ArrayList<>();
+                        mDisabledGroupIds = new ArrayList <> ();
                     }
-                    mDisabledGroupIds.add(mChatRoomBean.getHxId());
+                    mDisabledGroupIds.add ( mChatRoomBean.getHxId () );
                 } else {
                     if (null != mDisabledGroupIds) {
-                        mDisabledGroupIds.remove(mChatRoomBean.getHxId());
+                        mDisabledGroupIds.remove ( mChatRoomBean.getHxId () );
                     }
                 }
-                mIMModel.setDisabledGroups(mDisabledGroupIds);
+                mIMModel.setDisabledGroups ( mDisabledGroupIds );
             }
-        });
-        initRecyclerView();
+        } );
+        initRecyclerView ();
         if (null != mChatRoomBean) {
-            setChatRoomInfo(mChatRoomBean);
+            setChatRoomInfo ( mChatRoomBean );
         }
     }
 
     //初始化RecyclerView
     private void initRecyclerView() {
-        ArmsUtils.configRecyclerView(rvUser, mLayoutManager);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        ArmsUtils.configRecyclerView ( rvUser, mLayoutManager );
+        mAdapter.setOnItemClickListener ( new BaseQuickAdapter.OnItemClickListener () {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
             }
-        });
-        rvUser.setAdapter(mAdapter);
+        } );
+        rvUser.setAdapter ( mAdapter );
 
-        tvUserNumber.setOnClickListener(new View.OnClickListener() {
+        tvUserNumber.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                UserListActivity.start(mContext,mChatRoomBean.getId());
+                UserListActivity.start ( mContext, mChatRoomBean.getId () );
             }
-        });
+        } );
     }
 
 
     @OnClick({R2.id.ll_group_rules, R2.id.ll_game_rules, R2.id.btn_delect_exit})
     public void onViewClicked(View view) {
-        int i = view.getId();
+        int i = view.getId ();
         if (i == R.id.ll_group_rules) {
-            LongImageActivity.start(mContext,mChatRoomBean.getGroupRulesImgUrl());
+            LongImageActivity.start ( mContext, mChatRoomBean.getGroupRulesImgUrl () );
 
         } else if (i == R.id.ll_game_rules) {
-            LongImageActivity.start(mContext,mChatRoomBean.getGameRulesImgUrl());
+            LongImageActivity.start ( mContext, mChatRoomBean.getGameRulesImgUrl () );
 
         } else if (i == R.id.btn_delect_exit) {
-            mPresenter.quitRoom(mChatRoomBean.getId());
+            mPresenter.quitRoom ( mChatRoomBean.getId () );
         }
     }
 
@@ -194,22 +199,22 @@ public class GroupInfoActivity extends BaseSupportActivity<GroupInfoPresenter> i
 
     @Override
     public void setChatRoomInfo(ChatRoomBean chatRoomInfo) {
-        List<UserInfo> userInfos = chatRoomInfo.getUserInfos();
-        if (userInfos.size() > 15) {
-            userInfos = userInfos.subList(0, 15);
+        List <UserInfo> userInfos = chatRoomInfo.getUserInfos ();
+        if (userInfos.size () > 15) {
+            userInfos = userInfos.subList ( 0, 15 );
         }
-        mAdapter.setNewData(userInfos);
-        tvUserNumber.setText(String.format("全部群成员（%d）>", chatRoomInfo.getUserNumber()));
-        tvGroupName.setText(chatRoomInfo.getName());
-        tvGroupAffiche.setText(chatRoomInfo.getAffiche());
-        tvGroupNotice.setText(chatRoomInfo.getNotice());
-        tvGameRules.setText(chatRoomInfo.getGameRules());
-        tvGroupRules.setText(chatRoomInfo.getGroupRules());
+        mAdapter.setNewData ( userInfos );
+        tvUserNumber.setText ( String.format ( "全部群成员（%d）>", chatRoomInfo.getUserNumber () ) );
+        tvGroupName.setText ( chatRoomInfo.getName () );
+        tvGroupAffiche.setText ( chatRoomInfo.getAffiche () );
+        tvGroupNotice.setText ( chatRoomInfo.getNotice () );
+        tvGameRules.setText ( chatRoomInfo.getGameRules () );
+        tvGroupRules.setText ( chatRoomInfo.getGroupRules () );
     }
 
     @Override
     public void quitSuccessful() {
-        ARouterUtils.navigation(mContext, RouterHub.APP_MAINACTIVITY);
+        ARouterUtils.navigation ( mContext, RouterHub.APP_MAINACTIVITY );
     }
 
     @Override
@@ -219,42 +224,53 @@ public class GroupInfoActivity extends BaseSupportActivity<GroupInfoPresenter> i
 
     private void showProgress(final boolean show) {
         if (progressDialogUtils == null) {
-            progressDialogUtils = ProgressDialogUtils.getInstance(mContext);
-            progressDialogUtils.setMessage(getString(R.string.public_loading));
+            progressDialogUtils = ProgressDialogUtils.getInstance ( mContext );
+            progressDialogUtils.setMessage ( getString ( R.string.public_loading ) );
         }
         if (show) {
-            progressDialogUtils.show();
+            progressDialogUtils.show ();
         } else {
-            progressDialogUtils.dismiss();
+            progressDialogUtils.dismiss ();
         }
     }
 
     @Override
     public void showLoading() {
-        showProgress(true);
+        showProgress ( true );
     }
 
     @Override
     public void hideLoading() {
-        showProgress(false);
+        showProgress ( false );
     }
 
     @Override
     public void showMessage(@NonNull String message) {
 //        checkNotNull(message);
-        ToastUtils.showShort(message);
+        ToastUtils.showShort ( message );
     }
 
     @Override
     public void launchActivity(@NonNull Intent intent) {
-        checkNotNull(intent);
-        ArmsUtils.startActivity(intent);
+        checkNotNull ( intent );
+        ArmsUtils.startActivity ( intent );
     }
 
     @Override
     public void killMyself() {
-        finish();
+        finish ();
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind ( this );
+    }
+
+    @OnClick(R2.id.iv_back)
+    public void onViewBackClicked() {
+        finish ();
+    }
 }

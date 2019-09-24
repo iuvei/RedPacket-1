@@ -103,7 +103,6 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
-            ivBack.setVisibility ( View.GONE );
             tvTitle.setText ( mChatRoomBean.getName () );
         }
         etTotalMoney.setHint ( String.format ( "%.0f-%.0f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
@@ -298,5 +297,10 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
         super.onCreate ( savedInstanceState );
         // TODO: add setContentView(...) invocation
         ButterKnife.bind ( this );
+    }
+
+    @OnClick(R2.id.iv_back)
+    public void onViewBackClicked() {
+        finish ();
     }
 }
