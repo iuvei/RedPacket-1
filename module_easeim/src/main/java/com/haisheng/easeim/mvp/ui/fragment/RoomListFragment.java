@@ -138,7 +138,7 @@ public class RoomListFragment extends BaseSupportFragment<RoomListPresenter> imp
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ChatRoomBean roomBean = (ChatRoomBean) adapter.getItem(position);
-                mPresenter.roomDetail(roomBean.getId());
+                mPresenter.roomDetail(roomBean.getId()+"","");
             }
         });
     }

@@ -383,7 +383,8 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResponse <ChatRoomBean>> roomDetail(
             @Field("token") String token,
-            @Field("roomid") long roomid
+            @Field("roomid") String roomid,
+            @Field("hxgroupid") String hxgroupid
     );
 
 

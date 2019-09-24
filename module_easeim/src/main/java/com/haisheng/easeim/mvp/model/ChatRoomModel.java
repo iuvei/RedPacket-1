@@ -46,10 +46,10 @@ public class ChatRoomModel extends BaseModel {
                 .messageList(token);
     }
 
-    public Observable<BaseResponse<ChatRoomBean>> roomDetail(Long roomId) {
+    public Observable<BaseResponse<ChatRoomBean>> roomDetail(String roomId,String hxgroupid) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
-                .roomDetail(token,roomId);
+                .roomDetail(token,roomId,hxgroupid);
     }
 
     public Observable<BaseResponse> quitRoom(Long roomId) {

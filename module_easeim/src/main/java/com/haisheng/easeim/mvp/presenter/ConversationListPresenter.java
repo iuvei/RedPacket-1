@@ -174,8 +174,8 @@ public class ConversationListPresenter extends BasePresenter<IModel, Conversatio
         this.mApplication = null;
     }
 
-    public void roomDetail(Long roomId){
-        mChatRoomModel.roomDetail(roomId)
+    public void roomDetail(String roomId,String hxgroupid){
+        mChatRoomModel.roomDetail(roomId,hxgroupid)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber <BaseResponse <ChatRoomBean>> (mErrorHandler) {
                     @Override

@@ -52,7 +52,7 @@ public class BillingDetailBean implements Serializable {
          */
 
         private Object paytype;
-        private int allmoney;
+        private double allmoney;
         private List <ListBean> list;
 
         public Object getPaytype() {
@@ -63,11 +63,11 @@ public class BillingDetailBean implements Serializable {
             this.paytype = paytype;
         }
 
-        public int getAllmoney() {
+        public double getAllmoney() {
             return allmoney;
         }
 
-        public void setAllmoney(int allmoney) {
+        public void setAllmoney(double allmoney) {
             this.allmoney = allmoney;
         }
 

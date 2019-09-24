@@ -310,9 +310,9 @@ public class ApiModel extends BaseModel{
      * token	是	string	无
      * roomId	是	long	无
      */
-    public Observable<BaseResponse <ChatRoomBean>> roomDetail(long roomId) {
+    public Observable<BaseResponse <ChatRoomBean>> roomDetail(String roomId,String hxgroupid) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
-                .roomDetail(token,roomId);
+                .roomDetail(token,roomId,hxgroupid);
     }
 }

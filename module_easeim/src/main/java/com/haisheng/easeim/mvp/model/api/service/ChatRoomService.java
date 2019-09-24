@@ -39,7 +39,8 @@ public interface ChatRoomService {
     @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=groupdetail")
     Observable<BaseResponse<ChatRoomBean>> roomDetail(
             @Field("token") String token,
-            @Field("roomid") Long roomId
+            @Field("roomid") String roomId,
+            @Field("hxgroupid") String hxgroupid
     );
 
 

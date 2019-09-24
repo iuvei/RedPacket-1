@@ -99,7 +99,7 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
             @Override
             public void onItemClick(AdapterView <?> adapterView, View view, int i, long l) {
                 RedPacketGameRomeBean.ResultBean itemBean = (RedPacketGameRomeBean.ResultBean) lvRoom.getItemAtPosition ( i );
-                mPresenter.roomDetail ( ConvertNumUtils.stringToLong ( itemBean.getId () ) );
+                mPresenter.roomDetail ( itemBean.getId ()+"","" );
             }
         } );
     }

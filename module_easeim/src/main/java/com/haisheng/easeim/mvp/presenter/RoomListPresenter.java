@@ -150,8 +150,8 @@ public class RoomListPresenter extends BasePresenter<IModel, RoomListContract.Vi
         }
     }
 
-    public void roomDetail(Long roomId){
-        mChatRoomModel.roomDetail(roomId)
+    public void roomDetail(String roomId,String hxgroupid){
+        mChatRoomModel.roomDetail(roomId,hxgroupid)
                 .compose(RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<ChatRoomBean>>(mErrorHandler) {
                     @Override

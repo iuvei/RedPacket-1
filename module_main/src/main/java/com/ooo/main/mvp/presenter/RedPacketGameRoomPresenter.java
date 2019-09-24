@@ -83,8 +83,8 @@ public class RedPacketGameRoomPresenter extends BasePresenter <IModel, RedPacket
                 } );
     }
 
-    public void roomDetail(Long roomId){
-        apiModel.roomDetail(roomId)
+    public void roomDetail(String roomId,String hxgroupid){
+        apiModel.roomDetail(roomId,hxgroupid)
                 .compose(RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<ChatRoomBean>>(mErrorHandler) {
                     @Override

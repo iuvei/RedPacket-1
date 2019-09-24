@@ -1,6 +1,7 @@
 package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
@@ -52,6 +53,7 @@ public class SendRedpacketPresenter extends BasePresenter <IModel, SendRedpacket
     }
 
     public void sendRedpacket(Long roomId,String booms,int redpacketNumber,double money,int welfareStatus,String password){
+        Log.e ( "TAg","sendRedpacket" );
         mRedpacketModel.sendRedpacket(roomId,booms,redpacketNumber,money,welfareStatus,password)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber <BaseResponse <RedpacketBean>> (mErrorHandler) {

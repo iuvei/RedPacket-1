@@ -155,7 +155,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                     if (conversation.isGroup ()) {
                         if (conversation.getType () == EMConversation.EMConversationType.ChatRoom) {
                             //获取群组详情
-                            mPresenter.roomDetail ( ConvertNumUtils.stringToLong ( username ) );
+                            mPresenter.roomDetail ( "",username );
                         } else {
                             ChatActivity.start ( (Activity) mContext, username, EaseConstant.CHATTYPE_GROUP );
                         }
