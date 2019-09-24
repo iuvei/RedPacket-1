@@ -69,6 +69,7 @@ import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.lzj.pass.dialog.PayPassDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;

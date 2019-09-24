@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.CountDownUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -46,6 +48,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <p>
  * 忘记支付密码
  */
+@Route ( path = RouterHub.MAIN_FORGETPAYPASSWORDACTIVITY)
 public class ForgetPayPasswordActivity extends BaseSupportActivity <ForgetPayPasswordPresenter> implements ForgetPayPasswordContract.View {
 
     @BindView(R2.id.iv_back)

@@ -53,4 +53,5 @@ dependencies {
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
+    api 'com.github.lzjin:AlipayPassDialog:2.0'
 }

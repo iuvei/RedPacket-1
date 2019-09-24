@@ -20,10 +20,10 @@ public class RedpacketModel extends BaseModel{
         super(repositoryManager);
     }
 
-    public Observable<BaseResponse<RedpacketBean>> sendRedpacket(Long roomId, String booms, int redpacketNumber, double money, int welfareStatus) {
+    public Observable<BaseResponse<RedpacketBean>> sendRedpacket(Long roomId, String booms, int redpacketNumber, double money, int welfareStatus,String password) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
-                .sendRedpacket(token,roomId,booms,redpacketNumber,money,welfareStatus);
+                .sendRedpacket(token,roomId,booms,redpacketNumber,money,welfareStatus,password);
     }
 
     public Observable<BaseResponse<CheckRedpacketInfo>> checkRedpacket(Long roomId, Long redpacketId, int welfareStatus) {

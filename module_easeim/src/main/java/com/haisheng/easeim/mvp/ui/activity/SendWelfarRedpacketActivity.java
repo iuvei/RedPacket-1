@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
@@ -23,11 +24,14 @@ import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.SendRedpacketPresenter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.lzj.pass.dialog.PayPassDialog;
+import com.lzj.pass.dialog.PayPassView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -114,8 +118,32 @@ public class SendWelfarRedpacketActivity  extends BaseSupportActivity <SendRedpa
         String sRedpacketNumber = etRedpacketNumber.getText().toString();
         int redpacketNumber = Integer.valueOf(sRedpacketNumber);
 
+        payDialog ( redpacketNumber,totalMoney );
+    }
 
-        mPresenter.sendRedpacket(mChatRoomBean.getId(),null,redpacketNumber,totalMoney,1);
+    //1 默认方式(推荐)
+    private void payDialog(int redpacketNumber,int totalMoney) {
+        final PayPassDialog dialog=new PayPassDialog(this);
+        dialog.getPayViewPass()
+                .setPayClickListener(new PayPassView.OnPayClickListener() {
+                    @Override
+                    public void onPassFinish(String passContent) {
+                        dialog.dismiss ();
+                        //6位输入完成回调
+                        mPresenter.sendRedpacket(mChatRoomBean.getId(),null,redpacketNumber,totalMoney,1,passContent);
+                    }
+                    @Override
+                    public void onPayClose() {
+                        dialog.dismiss();
+                        //关闭弹框
+                    }
+                    @Override
+                    public void onPayForget() {
+                        dialog.dismiss();
+                        //点击忘记密码回调
+                        ARouter.getInstance ().build ( RouterHub.MAIN_FORGETPAYPASSWORDACTIVITY ).navigation ();
+                    }
+                });
     }
 
     private boolean checkTotalMoney(){

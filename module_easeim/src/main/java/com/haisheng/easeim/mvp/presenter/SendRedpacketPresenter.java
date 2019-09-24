@@ -50,8 +50,8 @@ public class SendRedpacketPresenter extends BasePresenter <IModel, SendRedpacket
         super(rootView);
     }
 
-    public void sendRedpacket(Long roomId,String booms,int redpacketNumber,double money,int welfareStatus){
-        mRedpacketModel.sendRedpacket(roomId,booms,redpacketNumber,money,welfareStatus)
+    public void sendRedpacket(Long roomId,String booms,int redpacketNumber,double money,int welfareStatus,String password){
+        mRedpacketModel.sendRedpacket(roomId,booms,redpacketNumber,money,welfareStatus,password)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber <BaseResponse <RedpacketBean>> (mErrorHandler) {
                     @Override

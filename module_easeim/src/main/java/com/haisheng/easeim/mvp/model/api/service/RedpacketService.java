@@ -15,6 +15,15 @@ import retrofit2.http.POST;
 
 public interface RedpacketService {
 
+    /**
+     * 发包
+     * token	是	string	无
+     * gold	是	int	发包金额
+     * roomid	否	int	房间ID
+     * boom	否	int	中雷尾数	如1 如果是多雷 1,2 /福利包或牛牛包可不传
+     * welfare	否	int	是否福利包默认0	是否福利包0否1是
+     * @return
+     */
     @FormUrlEncoded
     @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=setred")
     Observable<BaseResponse<RedpacketBean>> sendRedpacket(
@@ -23,7 +32,8 @@ public interface RedpacketService {
             @Field("boom") String booms,
             @Field("nums") int redpacketNumber,
             @Field("gold") double money,
-            @Field("welfare") int welfareStatus
+            @Field("welfare") int welfareStatus,
+            @Field("password") String password
     );
 
     @FormUrlEncoded
