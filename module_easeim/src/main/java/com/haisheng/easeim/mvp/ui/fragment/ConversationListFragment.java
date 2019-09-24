@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.haisheng.easeim.R;
@@ -55,7 +52,6 @@ import butterknife.Unbinder;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
-import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
@@ -133,7 +129,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         ivBack.setVisibility ( View.GONE );
         tvTitle.setText ( "聊天" );
         ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setBackgroundResource ( R.mipmap.alipay );
+        ivRight.setBackgroundResource ( R.drawable.ic_talk_add );
         Bundle bundle = getArguments ();
         if (null != bundle) {
             mTag = bundle.getInt ( "tag" );

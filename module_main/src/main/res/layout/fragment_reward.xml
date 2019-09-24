@@ -37,9 +37,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_scan"/>
                 <TextView
                     android:text="扫一扫"
                     style="@style/discover_layout_text_style" />
@@ -54,9 +54,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_promote"/>
                 <TextView
                     android:text="推广海报"
                     style="@style/discover_layout_text_style" />
@@ -70,10 +70,11 @@
                 android:id="@+id/layout_underline_query"
                 style="@style/discover_layout"
                 >
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_fount_underline" />
                 <TextView
                     android:text="下线查询"
                     style="@style/discover_layout_text_style" />
@@ -88,9 +89,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_underlist"/>
                 <TextView
                     android:text="下线列表"
                     style="@style/discover_layout_text_style" />
@@ -105,9 +106,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_lucky"/>
                 <TextView
                     android:text="幸运大转盘"
                     style="@style/discover_layout_text_style" />
@@ -122,9 +123,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_skm"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_glod"/>
                 <TextView
                     android:text="佣金列表"
                     style="@style/discover_layout_text_style" />
@@ -139,9 +140,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_glod_list"/>
                 <TextView
                     android:text="佣金排行榜"
                     style="@style/discover_layout_text_style" />
@@ -156,9 +157,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_game_lei"/>
                 <TextView
                     android:text="扫雷游戏奖励说明"
                     style="@style/discover_layout_text_style" />
@@ -173,9 +174,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_glod_readme"/>
                 <TextView
                     android:text="佣金排行榜奖励说明"
                     style="@style/discover_layout_text_style" />
@@ -190,9 +191,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_found_game_contral"/>
                 <TextView
                     android:text="禁抢游戏说明"
                     style="@style/discover_layout_text_style" />
@@ -207,9 +208,9 @@
                 style="@style/discover_layout"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fount_game_niuniu"/>
                 <TextView
                     android:text="牛牛游戏说明"
                     style="@style/discover_layout_text_style" />

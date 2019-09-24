@@ -118,7 +118,7 @@ public class ContactFragment extends BaseSupportFragment <ContactPresenter> impl
         StatusBarUtils.setStatusBarDarkTheme ( getActivity (), true );
         ivBack.setVisibility ( View.GONE );
         tvTitle.setText ( "通讯录" );
-        ivRight.setImageResource ( R.mipmap.alipay );
+        ivRight.setImageResource ( R.drawable.ic_talk_add );
         ivRight.setVisibility ( View.VISIBLE );
         setListener();
 

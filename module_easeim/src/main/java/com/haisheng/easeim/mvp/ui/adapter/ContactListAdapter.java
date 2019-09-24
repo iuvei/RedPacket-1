@@ -90,9 +90,9 @@ public class ContactListAdapter extends BaseListAdapter <UserInfo> {
         if (position == 0){
             viewHolder.tvLetter.setText ( "☆" );
             viewHolder.tvLetter.setVisibility ( View.VISIBLE );
-            Glide.with ( parent.getContext () ).load ( R.mipmap.alipay ).into ( viewHolder.ivHeadPic );
+            Glide.with ( parent.getContext () ).load ( R.drawable.ic_new_friend ).into ( viewHolder.ivHeadPic );
         }else if (position == 1){
-            Glide.with ( parent.getContext () ).load ( R.mipmap.alipay ).into ( viewHolder.ivHeadPic );
+            Glide.with ( parent.getContext () ).load ( R.drawable.ic_group_talking ).into ( viewHolder.ivHeadPic );
         }else if (positions.contains ( position )){
             viewHolder.tvLetter.setText ( bArray[positions.indexOf ( position )] );
             viewHolder.tvLetter.setVisibility ( View.VISIBLE );

@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_unfold"
+        android:src="@drawable/ic_talkadd_friend"
         android:layout_marginTop="@dimen/spacing_m"
         android:layout_marginBottom="@dimen/spacing_m"/>
     <TextView
@@ -35,7 +35,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_unfold"
+        android:src="@drawable/ic_talk_scan"
         android:layout_marginTop="@dimen/spacing_m"
         android:layout_marginBottom="@dimen/spacing_m"/>
     <TextView
@@ -55,7 +55,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_unfold"
+        android:src="@drawable/ic_talk_qr"
         android:layout_marginTop="@dimen/spacing_m"
         android:layout_marginBottom="@dimen/spacing_m"/>
     <TextView
