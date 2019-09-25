@@ -5,6 +5,7 @@ import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
@@ -52,6 +53,27 @@ public class RedpacketModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
                 .checkPayPasswrod(token);
+    }
+
+
+    /**
+     * 发包记录
+     *
+     */
+    public Observable<RedPacketRecordBean> getRedPacketRecord(String paytype,int page) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
+                .getRedPacketRecord(token,paytype,page);
+    }
+
+    /**
+     * 抢包记录
+     *
+     */
+    public Observable<RedPacketRecordBean> getGrapRedPacketRecord(String paytype,int page) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
+                .getGrapRedPacketRecord(token,paytype,page);
     }
 
 

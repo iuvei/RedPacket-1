@@ -19,9 +19,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application>
-        <activity android:name=".mvp.ui.activity.ChatDetailsActivity"></activity>
+        <activity android:name=".mvp.ui.activity.RedPacketRecordActivity"></activity>
+        <activity android:name=".mvp.ui.activity.ChatDetailsActivity" />
         <activity android:name=".mvp.ui.activity.ContactInfoActivity" />
-        <activity android:name=".mvp.ui.activity.UserListActivity"></activity>
+        <activity android:name=".mvp.ui.activity.UserListActivity" />
         <activity android:name=".mvp.ui.activity.SearchContactActivity" />
         <activity
             android:name=".mvp.ui.activity.CustomerServiceListActivity"
@@ -49,7 +50,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/mine_redpacket"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".mvp.ui.activity.FriendConversationListActivity"
             android:label="@string/friend_conversation_list" />

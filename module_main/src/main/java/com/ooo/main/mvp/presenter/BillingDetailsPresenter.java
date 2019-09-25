@@ -62,16 +62,20 @@ public class BillingDetailsPresenter extends BasePresenter <IModel, BillingDetai
         this.mApplication = null;
     }
 
-    public void getBillingDetails(){
-        apiModel.getBillingDetails ( "2019-09-03","2050-09-03","1" )
+    public void getBillingDetails(int page){
+        apiModel.getBillingDetails ( "2019-09-03","2050-09-03",page+"" )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <BillingDetailBean> (mErrorHandler) {
                     @Override
                     public void onNext(BillingDetailBean billingDetailBean) {
                         if (billingDetailBean.getStatus ()==1) {
-                            mRootView.getBillingDetailsSuccess(billingDetailBean.getResult ().getList ());
+                            if (page==1) {
+                                mRootView.getBillingRecordRefreashSuccessfully ( billingDetailBean.getResult () );
+                            }else{
+                                mRootView.getBillingRecordRecordLoadMoreSuccess ( billingDetailBean.getResult () );
+                            }
                         }else{
-                            mRootView.getBillingDetailsFail();
+                            mRootView.getBillingRecordRecordFail();
                         }
                     }
                 } );

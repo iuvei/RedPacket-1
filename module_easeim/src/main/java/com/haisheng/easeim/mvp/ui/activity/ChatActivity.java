@@ -50,6 +50,7 @@ import com.haisheng.easeim.mvp.ui.widget.EaseChatVoiceCallPresenter;
 import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
+import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -456,7 +457,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                         String sSettlementInfo = message.getStringAttribute(IMConstants.MESSAGE_ATTR_CONENT, "");
                         if (!TextUtils.isEmpty(sSettlementInfo)) {
                             NiuniuSettlementInfo settlementInfo = new Gson().fromJson(sSettlementInfo, NiuniuSettlementInfo.class);
-                            RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), settlementInfo.getRedpacketId(), 0);
+                            RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), settlementInfo.getRedpacketId(), 0,settlementInfo.getRoomType (  ));
                         }
                     }
                     return true;
@@ -528,7 +529,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private boolean isRabShow = false;
 
     /**
-     * 鏄剧ず绾㈠寘
+     * 显示红包
      */
     @Override
     public void showRedPacket(CheckRedpacketInfo checkRedpacketInfo, EMMessage emMessage) {
@@ -572,7 +573,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 if (builder != null) {
                     builder.dismiss();
                 }
-                RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, redpacketBean.getWelfareStatus());
+                RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, redpacketBean.getWelfareStatus(),redpacketBean.getRoomType (  ));
             }
         });
         CommonDialog commonDialog = builder.create();
@@ -595,10 +596,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
-    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus) {
+    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType) {
         isRabShow = false;
         playSound();
-        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus);
+        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,redType);
     }
 
     @Override
@@ -839,6 +840,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         } else if (requestCode == IMConstants.REQUEST_CODE_SEND_REDPACKET) {
             Bundle bundle = data.getExtras();
             RedpacketBean redpacketBean = (RedpacketBean) bundle.getSerializable("redpacketInfo");
+            redpacketBean.setRoomid ( mChatRoomBean.getId ()+"" );
             mPresenter.sendRedpacketMessage(redpacketBean);
         }
 

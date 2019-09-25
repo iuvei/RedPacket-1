@@ -2,6 +2,7 @@ package com.haisheng.easeim.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 import com.haisheng.easeim.app.IMConstants;
+import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,8 @@ public class RedpacketBean implements Serializable {
     private double money;
     @SerializedName("isforb")
     private int type;
+    @SerializedName("roomid")
+    private String roomid;
     @SerializedName("nums")
     private int number;
     @SerializedName("boom")
@@ -37,6 +40,7 @@ public class RedpacketBean implements Serializable {
 
     @SerializedName("list")
     private List<GarbRedpacketBean> garbRedpackets;
+    private String redPackType;
 
     public int getStatus() {
         return status;
@@ -129,5 +133,31 @@ public class RedpacketBean implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getRoomid() {
+        return roomid;
+    }
+
+    public void setRoomid(String roomid) {
+        this.roomid = roomid;
+    }
+
+    public void setRoomType(String redPackType){
+        this.redPackType = redPackType;
+    }
+
+    public RedPacketUtil.RedType getRoomType(){
+        if (redPackType.equals ( "扫雷红包" )){
+            return RedPacketUtil.RedType.SAO_LEI;
+        }else if(redPackType.equals ( "禁抢红包" )){
+            return RedPacketUtil.RedType.GAME_CONTRAL;
+        }else if(redPackType.equals ( "牛牛红包" )){
+            return RedPacketUtil.RedType.NIU_NIU;
+        }else if(redPackType.equals ( "福利红包" )){
+            return RedPacketUtil.RedType.FU_LI;
+        }else{
+            return RedPacketUtil.RedType.NONE;
+        }
     }
 }

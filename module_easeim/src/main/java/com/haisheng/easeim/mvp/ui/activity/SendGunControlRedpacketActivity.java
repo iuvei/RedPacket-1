@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -127,7 +128,12 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
             @Override
             public void onSelected(Set <Integer> selectPosSet) {
                 Iterator <Integer> value = selectPosSet.iterator ();
-                mCurrentRedpacketNumber = REDPACKET_NUMBERS[value.next ()];
+                if (!value.hasNext ()){
+                    mCurrentRedpacketNumber = 0;
+                    return;
+                }
+                int i = value.next ();
+                mCurrentRedpacketNumber = REDPACKET_NUMBERS[i];
                 tflMineNumbers.setMaxSelectCount ( mCurrentRedpacketNumber > 7 ? 7 : mCurrentRedpacketNumber );
                 if (mCurrentRedpacketNumber == 10) {
                     tflMineNumbers.setMaxSelectCount ( 8 );

@@ -94,7 +94,6 @@ public class RedpacketDetailPresenter extends BasePresenter <IModel, RedpacketDe
                             mIsInit = true;
                             RedpacketBean redpacketInfo = data.getResult();
                             mRootView.setRedpacketInfo(redpacketInfo);
-
                             mDatas.clear();//如果是下拉刷新则清空列表
                             List<GarbRedpacketBean> entities = redpacketInfo.getGarbRedpackets();
                             if(null != entities && entities.size() >0){

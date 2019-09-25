@@ -432,6 +432,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
             sMessage = "[福利红包]";
         }
+        redpacketInfo.setRoomType ( sMessage );
         EMMessage message = EMMessage.createTxtSendMessage(sMessage, toChatUsername);
         // 增加自己特定的属性
         message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, redpacketInfo.getType());
@@ -526,7 +527,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             EMClient.getInstance().chatManager().saveMessage(message);
                             mRootView.refreshList();
 
-                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus());
+                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean.getRoomType ());
                         }else{
                             mRootView.grabRedpacketFail();
                             mRootView.showMessage(response.getMessage());

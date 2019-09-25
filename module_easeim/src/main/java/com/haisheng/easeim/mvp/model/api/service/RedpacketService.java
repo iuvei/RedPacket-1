@@ -3,6 +3,7 @@ package com.haisheng.easeim.mvp.model.api.service;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 
 import java.util.List;
@@ -75,5 +76,33 @@ public interface RedpacketService {
     Observable<CheckPayPasswordBean> checkPayPasswrod(
             @Field("token") String token
     );
+
+
+    /**
+     * 发包记录
+     * token	是	string	无
+     * page	是	int	无
+     * paytype	是	string	无
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=setredrecord")
+    Observable<RedPacketRecordBean> getRedPacketRecord(
+            @Field("token") String token,
+            @Field("paytype") String paytype,
+            @Field("page") int page
+            );
+    /**
+     * 收到红包记录
+     * token	是	string	无
+     * page	是	int	无
+     * paytype	是	string	无
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=getredrecord")
+    Observable<RedPacketRecordBean> getGrapRedPacketRecord(
+            @Field("token") String token,
+            @Field("paytype") String paytype,
+            @Field("page") int page
+            );
 
 }

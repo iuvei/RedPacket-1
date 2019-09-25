@@ -23,6 +23,7 @@ import com.haisheng.easeim.mvp.model.entity.GarbRedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.RedpacketDetailPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.GarbRepacketAdapter;
+import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -94,13 +95,16 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
 
     private Long mRoomId, mRedpacketId;
     private int mWelfareStatus;
+    private int paytype = 0;
+    private RedpacketBean redpacketInfo;
 
-    public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus) {
+    public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
         Bundle bundle = new Bundle ();
         bundle.putLong ( "roomId", roomId );
         bundle.putLong ( "redpacketId", redpacketId );
         bundle.putInt ( "welfareStatus", welfareStatus );
+        bundle.putInt ( "paytype", redType.getValue () );
         intent.putExtras ( bundle );
         context.startActivityForResult ( intent, IMConstants.REQUEST_CODE_SEND_REDPACKET );
     }
@@ -125,13 +129,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "红包详情" );
-        tvRight.setVisibility ( View.VISIBLE );
-        tvRight.setText ( "账单详情" );
+        tvRight.setText ( "红包记录" );
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mRoomId = bundle.getLong ( "roomId" );
             mRedpacketId = bundle.getLong ( "redpacketId" );
             mWelfareStatus = bundle.getInt ( "welfareStatus" );
+            paytype = bundle.getInt ( "paytype" );
         }
         cdvTime.setOnCountdownEndListener ( new CountdownView.OnCountdownEndListener () {
             @Override
@@ -154,7 +158,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         tvRight.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                ARouterUtils.navigation ( mContext, RouterHub.MAIN_BILLLISTACTIVITY );
+                //红包记录
+                RedPacketRecordActivity.start ( RedpacketDetailActivity.this,paytype,redpacketInfo );
             }
         } );
     }
@@ -208,7 +213,9 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
 
     @Override
     public void setRedpacketInfo(RedpacketBean redpacketInfo) {
+        this.redpacketInfo = redpacketInfo;
         ImageLoader.displayHeaderImage ( mContext, redpacketInfo.getAvatarUrl (), ivAvatar );
+        tvRight.setVisibility ( View.VISIBLE );
         tvNickname.setText ( redpacketInfo.getNickname () );
         int type = redpacketInfo.getType ();
         if (type == IMConstants.MSG_TYPE_MINE_REDPACKET) {

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -68,6 +69,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
     SmartRefreshLayout refreshLayout;
     private List <BillingDetailBean.ResultBean.ListBean> recordBeans;
     private BillingRecordAdapter recycleAdapter;
+    private int page;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -90,7 +92,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "账单" );
         recordBeans = new ArrayList <> (  );
-        getBillingRecord();
+        getBillingRecord(1);
         recycleAdapter = new BillingRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器
@@ -108,18 +110,15 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         refreshLayout.setOnRefreshListener(new OnRefreshListener () {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh (2000/*,false*/);//传入false表示加载失败
-                recordBeans.clear ();
-                getBillingRecord ();
-                recycleAdapter.setDatas ( recordBeans );
+                page = 1;
+                getBillingRecord (page);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener () {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                getBillingRecord ();
-                recycleAdapter.addData ( recordBeans );
+                page++;
+                getBillingRecord (page);
             }
         });
         recycleAdapter.setItemClickListener ( new BillingRecordAdapter.ItemClickListener () {
@@ -132,8 +131,8 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         } );
     }
 
-    private void getBillingRecord() {
-        mPresenter.getBillingDetails ();
+    private void getBillingRecord(int page) {
+        mPresenter.getBillingDetails (page);
     }
 
     @Override
@@ -176,12 +175,26 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
     }
 
     @Override
-    public void getBillingDetailsSuccess(List <BillingDetailBean.ResultBean.ListBean> listBeans) {
-        recycleAdapter.setDatas ( listBeans );
+    public void getBillingRecordRecordLoadMoreSuccess(BillingDetailBean.ResultBean result) {
+        refreshLayout.finishLoadMore ();
+        if (result!=null ){
+            recycleAdapter.addData ( result.getList () );
+            if (result.getList ()==null ||result.getList ().size ()<=0){
+                ToastUtils.showShort ( "没有更多数据" );
+            }
+        }
     }
 
     @Override
-    public void getBillingDetailsFail() {
+    public void getBillingRecordRefreashSuccessfully(BillingDetailBean.ResultBean result) {
+        refreshLayout.finishRefresh ();
+        if (result!=null ){
+            recycleAdapter.setDatas ( result.getList () );
+        }
+    }
+
+    @Override
+    public void getBillingRecordRecordFail() {
 
     }
 }
