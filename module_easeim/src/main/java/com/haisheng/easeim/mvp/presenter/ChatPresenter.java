@@ -461,6 +461,16 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         //refresh ui
         mRootView.refreshSelectLast();
     }
+
+    //发送领取红包信息
+    public void sendGetRedPacketMessage(RedpacketBean redpacketBean) {
+        EMMessage message = EMMessage.createTxtSendMessage ("领取红包", toChatUsername);
+        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
+        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
+//        message.setAttribute(IMConstants.MESSAGE_ATTR_CHARGE_COINS,chargeCoins);
+        sendMessage(message);
+    }
+
     protected EMCallBack messageStatusCallback = new EMCallBack() {
         @Override
         public void onSuccess() {
@@ -527,7 +537,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             EMClient.getInstance().chatManager().saveMessage(message);
                             mRootView.refreshList();
 
-                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean.getRoomType ());
+                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean.getRoomType (),redpacketBean);
                         }else{
                             mRootView.grabRedpacketFail();
                             mRootView.showMessage(response.getMessage());

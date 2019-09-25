@@ -48,6 +48,7 @@ import com.haisheng.easeim.mvp.ui.widget.ChatExtendMenu;
 import com.haisheng.easeim.mvp.ui.widget.ChatInputMenu;
 import com.haisheng.easeim.mvp.ui.widget.EaseChatVoiceCallPresenter;
 import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
 import com.haisheng.easeim.mvp.utils.RedPacketUtil;
@@ -70,7 +71,6 @@ import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.lzj.pass.dialog.PayPassDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -596,9 +596,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
-    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType) {
+    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType, RedpacketBean redpacketBean) {
         isRabShow = false;
         playSound();
+        //发送领取红包消息
+        mPresenter.sendGetRedPacketMessage (redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,redType);
     }
 
@@ -979,6 +981,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     EaseChatRowPresenter presenter = new ChatSettlementPresenter();
                     return presenter;
 
+                }else if (type == IMConstants.MSG_TYPE_GET_REDPACKET){
+                    //领取红包信息
+                    EaseChatRowPresenter presenter = new ChatGetRedPacketPresenter ();
+                    return presenter;
                 }
             }
             return null;

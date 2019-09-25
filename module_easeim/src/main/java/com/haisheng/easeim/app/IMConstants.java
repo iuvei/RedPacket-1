@@ -78,6 +78,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_WELFARE_REDPACKET = 3;
     public static final int MSG_TYPE_GUN_CONTROL_SETTLEMENT  = 5;
     public static final int MSG_TYPE_NIUNIU_SETTLEMENT  = 6;
+    //获取红包状态
+    public static final int MSG_TYPE_GET_REDPACKET  = 7;
 
 
     //
@@ -86,5 +88,10 @@ public class IMConstants extends EaseConstant {
     public static final int CONVERSATION_GROUP = 2;
 
     public static final int REQUEST_CODE_SEND_REDPACKET = 0x301;
+
+    //领取红包字段
+    public static final String GET_REDPACKET_IS_MYINFO = "is_myInfo";
+    public static final String GET_REDPACKET_MSG_NAME = "msg_name";
+    public static final String GET_REDPACKET_MSG_TYPE = "msg_type";
 
 }
