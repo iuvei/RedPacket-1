@@ -600,7 +600,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         isRabShow = false;
         playSound();
         //发送领取红包消息
-        mPresenter.sendGetRedPacketMessage (redpacketBean);
+        mPresenter.sendGetRedPacketMessage (this,redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,redType);
     }
 
@@ -843,6 +843,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             Bundle bundle = data.getExtras();
             RedpacketBean redpacketBean = (RedpacketBean) bundle.getSerializable("redpacketInfo");
             redpacketBean.setRoomid ( mChatRoomBean.getId ()+"" );
+            //发送红包消息
             mPresenter.sendRedpacketMessage(redpacketBean);
         }
 
@@ -971,6 +972,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
                 }
                 int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
+                String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_CLUES,"" );
+                ToastUtils.showShort ( type+";"+clus );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET
                         || type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET || type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET) {
@@ -981,7 +984,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     EaseChatRowPresenter presenter = new ChatSettlementPresenter();
                     return presenter;
 
-                }else if (type == IMConstants.MSG_TYPE_GET_REDPACKET){
+                }else if (type == IMConstants.MSG_TYPE_GET_REDPACKET || IMConstants.GET_REDPACKET_MSG_CLUES.equals ( clus )){
                     //领取红包信息
                     EaseChatRowPresenter presenter = new ChatGetRedPacketPresenter ();
                     return presenter;

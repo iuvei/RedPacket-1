@@ -90,8 +90,11 @@ public class IMConstants extends EaseConstant {
     public static final int REQUEST_CODE_SEND_REDPACKET = 0x301;
 
     //领取红包字段
-    public static final String GET_REDPACKET_IS_MYINFO = "is_myInfo";
-    public static final String GET_REDPACKET_MSG_NAME = "msg_name";
-    public static final String GET_REDPACKET_MSG_TYPE = "msg_type";
+    public static final String GET_REDPACKET_MSG_SENDNAME = "msg_sendname"; //发包人昵称
+    public static final String GET_REDPACKET_MSG_SENDHXID = "msg_send_hxid"; //发包人hxid
+    public static final String GET_REDPACKET_MSG_GETNAME = "msg_getname"; //领包人昵称
+    public static final String GET_REDPACKET_MSG_GETHXID = "msg_get_hxid"; //领包人hxid
+    public static final String GET_REDPACKET_MSG_TYPE = "msg_type";   //领取红包信息类型
+    public static final String GET_REDPACKET_MSG_CLUES = "msg_clues"; //领取红包标识
 
 }

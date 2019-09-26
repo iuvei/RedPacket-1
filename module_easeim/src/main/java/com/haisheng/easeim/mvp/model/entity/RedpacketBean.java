@@ -25,6 +25,8 @@ public class RedpacketBean implements Serializable {
     private int number;
     @SerializedName("boom")
     private String boomNumbers;
+    @SerializedName("hxid")
+    private String hxid;
 
     @SerializedName("addtime")
     private String creatTime;
@@ -145,6 +147,14 @@ public class RedpacketBean implements Serializable {
 
     public void setRoomType(String redPackType){
         this.redPackType = redPackType;
+    }
+
+    public String getHxid() {
+        return hxid;
+    }
+
+    public void setHxid(String hxid) {
+        this.hxid = hxid;
     }
 
     public RedPacketUtil.RedType getRoomType(){

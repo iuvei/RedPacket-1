@@ -53,7 +53,6 @@ public class SendRedpacketPresenter extends BasePresenter <IModel, SendRedpacket
     }
 
     public void sendRedpacket(Long roomId,String booms,int redpacketNumber,double money,int welfareStatus,String password){
-        Log.e ( "TAg","sendRedpacket" );
         mRedpacketModel.sendRedpacket(roomId,booms,redpacketNumber,money,welfareStatus,password)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber <BaseResponse <RedpacketBean>> (mErrorHandler) {

@@ -1,18 +1,19 @@
 package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.hyphenate.EMCallBack;
@@ -24,7 +25,6 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
@@ -34,6 +34,7 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.entity.GiftEntity;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import me.jessyan.armscomponent.commonsdk.http.CommonModel;
@@ -463,12 +464,27 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     }
 
     //发送领取红包信息
-    public void sendGetRedPacketMessage(RedpacketBean redpacketBean) {
+    public void sendGetRedPacketMessage(Context context,RedpacketBean redpacketBean) {
         EMMessage message = EMMessage.createTxtSendMessage ("领取红包", toChatUsername);
+        //领取红包的类型
         message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
-        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
+        String nickname = SpUtils.getValue ( context,"nickname","" );
+        String id = SpUtils.getValue ( context,"hxid","" );
+        if (redpacketBean.getHxid ().equals ( id )){
+            //自己领取自己发出的红包
+            message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,nickname );
+            message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,id );
+        }else{
+            //领取了别人的包
+            message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,redpacketBean.getNickname () );
+            message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,redpacketBean.getHxid () );
+        }
+        message.setAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,nickname);
+        message.setAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,id);
+        message.setAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,IMConstants.GET_REDPACKET_MSG_CLUES );
 //        message.setAttribute(IMConstants.MESSAGE_ATTR_CHARGE_COINS,chargeCoins);
-        sendMessage(message);
+        message.setChatType(EMMessage.ChatType.ChatRoom);
+        EMClient.getInstance().chatManager ().sendMessage ( message );
     }
 
     protected EMCallBack messageStatusCallback = new EMCallBack() {

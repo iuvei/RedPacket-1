@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerLoginComponent;
 import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.presenter.LoginPresenter;
@@ -250,9 +250,11 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
         }
 
         @Override
-        public void loginSuccessful() {
+        public void loginSuccessful(String id) {
             SpUtils.put ( this,"username",etPhone.getText ().toString ().trim () );
             SpUtils.put ( this,"password",etPassword.getText ().toString ().trim () );
+            SpUtils.put ( this,"nickname", AppLifecyclesImpl.getUserinfo ().getNickname () );
+            SpUtils.put ( this,"hxid", id );
             launchActivity(new Intent(this, MainActivity.class));
             mAppManager.killAll(MainActivity.class);
         }

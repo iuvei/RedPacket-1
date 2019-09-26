@@ -56,6 +56,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
     public IMService mIMService;
 
     private String mToken;
+    private String id;
 
     @Inject
     public LoginPresenter(LoginContract.View rootView) {
@@ -74,6 +75,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     String avatarUrl = resultInfo.getAvatarUrl();
                     String nickname = resultInfo.getNickname();
                     String hxUsername = resultInfo.getHxUsername();
+                    id = resultInfo.getHxUsername ();
                     int gender = resultInfo.getGender ();
                     AppLifecyclesImpl.getUserinfo ().setAvatarUrl ( avatarUrl );
                     AppLifecyclesImpl.getUserinfo ().setNickname ( nickname );
@@ -82,7 +84,6 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     UserPreferenceManager.getInstance().setCurrentUserHxId(hxUsername);
                     UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(avatarUrl);
                     UserPreferenceManager.getInstance().setCurrentUserNick(nickname);
-
                     return mIMService.loginIM(resultInfo.getHxUsername(),resultInfo.getHxPassword());
                 })
                 .compose(RxUtils.applySchedulers(mRootView))
@@ -92,7 +93,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                         mRootView.showMessage(response.getMessage());
                         if (response.isSuccess()) {
                             UserPreferenceManager.getInstance().setCurrentUserToken(mToken);
-                            mRootView.loginSuccessful();
+                            mRootView.loginSuccessful(id);
                         }
                     }
                 });
@@ -151,7 +152,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                         mRootView.showMessage(response.getMessage());
                         if (response.isSuccess()) {
                             UserPreferenceManager.getInstance().setCurrentUserToken(mToken);
-                            mRootView.loginSuccessful();
+                            mRootView.loginSuccessful( id );
                         }
                     }
                 });

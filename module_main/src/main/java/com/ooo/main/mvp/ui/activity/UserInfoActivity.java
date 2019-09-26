@@ -31,6 +31,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.StatusBarHeightView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -253,5 +254,6 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     @Override
     public void saveSuccess() {
         tvNickname.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
+        SpUtils.put ( this,"nickname", AppLifecyclesImpl.getUserinfo ().getNickname () );
     }
 }
