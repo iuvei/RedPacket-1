@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -200,6 +201,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     @Override
     public void setChatRoomInfo(ChatRoomBean chatRoomInfo) {
         List <UserInfo> userInfos = chatRoomInfo.getUserInfos ();
+        for (int i = 0;i<userInfos.size ();i++){
+            if (userInfos.get ( i ).getNickname ().equals ( "群主" ) && TextUtils.isEmpty ( userInfos.get ( i ).getHxId () )){
+                userInfos.remove ( i );
+                break;
+            }
+        }
         if (userInfos.size () > 15) {
             userInfos = userInfos.subList ( 0, 15 );
         }

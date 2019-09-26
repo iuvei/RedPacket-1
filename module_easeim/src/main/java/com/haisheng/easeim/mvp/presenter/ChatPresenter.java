@@ -179,6 +179,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         if (!haveMoreData) {
             mRootView.hideLoading();
             mRootView.showMessage(mApplication.getString(R.string.no_more_messages));
+            mRootView.finishRefresh();//隐藏下拉刷新的进度条
             return;
         }
         mModel.loadMoreMsgFromDB(conversation,getMsgId(),pagesize)
@@ -210,6 +211,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         if (!haveMoreData) {
             mRootView.hideLoading();
             mRootView.showMessage(mApplication.getString(R.string.no_more_messages));
+            mRootView.finishRefresh();//隐藏下拉刷新的进度条
             return;
         }
         mModel.fetchHistoryMessages( toChatUsername, chatType, pagesize, getMsgId())

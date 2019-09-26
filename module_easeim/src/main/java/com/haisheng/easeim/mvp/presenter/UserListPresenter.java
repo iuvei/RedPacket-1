@@ -1,6 +1,7 @@
 package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.haisheng.easeim.mvp.contract.UserListContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
@@ -100,6 +101,12 @@ public class UserListPresenter extends BasePresenter <IModel, UserListContract.V
                             List<UserInfo> entities = response.getResult();
                             int itemCount = 0;
                             if(null != entities && entities.size()>0){
+                                for (int i=0;i<entities.size ();i++){
+                                    if (entities.get ( i ).getNickname ().equals ( "群主" ) && TextUtils.isEmpty ( entities.get ( i ).getHxId () )){
+                                        entities.remove ( i );
+                                        break;
+                                    }
+                                }
                                 mDatas.addAll(entities);
                                 itemCount = entities.size();
                             }

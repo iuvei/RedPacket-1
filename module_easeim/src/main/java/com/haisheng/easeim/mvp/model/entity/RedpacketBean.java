@@ -27,6 +27,8 @@ public class RedpacketBean implements Serializable {
     private String boomNumbers;
     @SerializedName("hxid")
     private String hxid;
+    @SerializedName("getedtime")
+    private String getedtime;
 
     @SerializedName("addtime")
     private String creatTime;
@@ -152,6 +154,14 @@ public class RedpacketBean implements Serializable {
         this.hxid = hxid;
     }
 
+    public String getGetedtime() {
+        return getedtime;
+    }
+
+    public void setGetedtime(String getedtime) {
+        this.getedtime = getedtime;
+    }
+
     public RedPacketUtil.RedType getRoomType(){
         if(type == IMConstants.MSG_TYPE_MINE_REDPACKET){
             return RedPacketUtil.RedType.SAO_LEI;
@@ -164,4 +174,5 @@ public class RedpacketBean implements Serializable {
         }
         return RedPacketUtil.RedType.NONE;
     }
+
 }
