@@ -30,16 +30,21 @@ public class ChatGetRedpacket extends EaseChatRow {
     protected void onFindViewById() {
         getUser = findViewById( R.id.tv_get_user);
         sendUser = findViewById( R.id.tv_send_user);
-        ll_msg = findViewById( R.id.ll_msg);
+        ll_msg = findViewById( R.id.ll_packetMsg);
     }
 
 
     @Override
     protected void onViewUpdate(EMMessage msg) {
-        String   getName = msg.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,"");
-        String   getHXID = msg.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,"");
-        String  sendName = msg.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,"");
-        String  sendGHXID = msg.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,"");
+
+    }
+
+    @Override
+    protected void onSetUpView() {
+        String   getName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,"");
+        String   getHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,"");
+        String  sendName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,"");
+        String  sendGHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,"");
         String hxid = SpUtils.getValue ( context,"hxid","" );
         if (hxid.equals ( getHXID )){
             //你领取了红包
@@ -62,11 +67,6 @@ public class ChatGetRedpacket extends EaseChatRow {
                 ll_msg.setVisibility ( GONE );
             }
         }
-    }
-
-    @Override
-    protected void onSetUpView() {
-
     }
 
 

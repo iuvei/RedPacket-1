@@ -974,7 +974,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
                 }
                 int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
-                String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_CLUES,"" );
+                String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,"" );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET
                         || type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET || type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET) {

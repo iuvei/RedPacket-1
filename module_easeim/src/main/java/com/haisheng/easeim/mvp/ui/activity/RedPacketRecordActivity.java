@@ -145,7 +145,9 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
         recycleAdapter.setItemClickListener ( new SendRedPacketRecordAdapter.ItemClickListener () {
             @Override
             public void onItemClick(List <RedPacketRecordBean.ResultBean.ListBean> data, int position) {
-
+                RedPacketRecordBean.ResultBean.ListBean bean = data.get ( position );
+                RedpacketDetailActivity.start(RedPacketRecordActivity.this, ConvertNumUtils.stringToLong ( bean.getId() ),
+                        ConvertNumUtils.stringToLong ( bean.getSetid () ), redpacketBean.getWelfareStatus (),redpacketBean.getRoomType ());
             }
         } );
     }
