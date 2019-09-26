@@ -163,7 +163,11 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
     @Subscriber(tag  = "uploadImgSuccessfully")
     public void onMessageEvent(LoginResultInfo info) {
         Glide.with ( this ).load ( info.getAvatarUrl () ).into ( ivHead );
-        //更新信息
+        //更新信息 获取昵称头像路劲，从images开始截取后面的路劲保存到数据库里
+        String urlPath = info.getAvatarUrl ();
+        int firstPos = urlPath.indexOf ( "images" );
+        String realUrl = urlPath.substring ( firstPos );
+        info.setAvatarUrl ( realUrl );
         mPresenter.updateMemberInfo ( info );
     }
 

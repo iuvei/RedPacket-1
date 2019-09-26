@@ -72,6 +72,7 @@ public interface RouterHub {
     String MAIN_LUCKYWHEELACTIVITY = MAIN + "/LuckyWheelActivity";
     String MAIN_FORGETPAYPASSWORDACTIVITY = MAIN + "/ForgetPayPasswordActivity";
     String MAIN_PAYPASSWORDACTIVITY = MAIN + "/PayPasswordActivity";
+    String MAIN_COMMISSIONLISTACTIVITY = MAIN + "/CommissionListActivity";
 
     /**
      * 即时通讯分组

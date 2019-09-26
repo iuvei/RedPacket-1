@@ -8,10 +8,10 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.IMConstants;
+import com.haisheng.easeim.mvp.contract.ChatContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
@@ -28,10 +28,20 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.RxLifecycleUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -42,13 +52,6 @@ import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import javax.inject.Inject;
-import com.haisheng.easeim.mvp.contract.ChatContract;
-import com.jess.arms.utils.RxLifecycleUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.File;
-import java.util.List;
 
 
 @ActivityScope
@@ -433,7 +436,6 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
             sMessage = "[福利红包]";
         }
-        redpacketInfo.setRoomType ( sMessage );
         EMMessage message = EMMessage.createTxtSendMessage(sMessage, toChatUsername);
         // 增加自己特定的属性
         message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, redpacketInfo.getType());
@@ -454,8 +456,8 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         }else if(chatType == EaseConstant.CHATTYPE_CHATROOM){
             message.setChatType(EMMessage.ChatType.ChatRoom);
         }
-        message.setAttribute(IMConstants.MESSAGE_ATTR_AVATARURL, UserPreferenceManager.getInstance().getCurrentUserAvatarUrl());
-        message.setAttribute(IMConstants.MESSAGE_ATTR_NICKNAME, UserPreferenceManager.getInstance().getCurrentUserNick());
+        message.setAttribute(EaseConstant.MESSAGE_ATTR_AVATARURL, UserPreferenceManager.getInstance().getCurrentUserAvatarUrl());
+        message.setAttribute(EaseConstant.MESSAGE_ATTR_NICKNAME, UserPreferenceManager.getInstance().getCurrentUserNick());
         message.setMessageStatusCallback(messageStatusCallback);
         // Send message.
         EMClient.getInstance().chatManager().sendMessage(message);
@@ -470,7 +472,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
         String nickname = SpUtils.getValue ( context,"nickname","" );
         String id = SpUtils.getValue ( context,"hxid","" );
-        if (redpacketBean.getHxid ().equals ( id )){
+        if (id.equals ( redpacketBean.getHxid () )){
             //自己领取自己发出的红包
             message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,nickname );
             message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,id );

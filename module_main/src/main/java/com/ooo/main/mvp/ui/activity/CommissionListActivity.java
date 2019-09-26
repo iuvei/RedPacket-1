@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -31,6 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -49,6 +51,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  * 佣金排行榜
  */
+@Route ( path = RouterHub.MAIN_COMMISSIONLISTACTIVITY)
 public class CommissionListActivity extends BaseActivity <CommissionListPresenter> implements CommissionListContract.View {
 
     @BindView(R2.id.iv_back)

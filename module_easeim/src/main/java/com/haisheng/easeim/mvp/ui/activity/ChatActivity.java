@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -319,10 +320,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             entities.add(new ChatExtendItemEntity(ITEM_CAMEAR, getString(R.string.chat_camera), R.drawable.ic_tab_camera));
         }else{
             entities.add(new ChatExtendItemEntity(ITEM_REDPACKET, getString(R.string.chat_redpacket), R.drawable.ic_tab_red));
-            entities.add(new ChatExtendItemEntity( ITEM_LUCKY_DRAW, getString(R.string.chat_recharge), R.drawable.ic_tab_recharge));
-            entities.add(new ChatExtendItemEntity( ITEM_BALANCE, getString(R.string.chat_game_rules), R.drawable.icon_plugin_rp));
-            entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_tab_custom));
-            entities.add(new ChatExtendItemEntity( ITEM_LIST, getString(R.string.chat_group_rules), R.drawable.ic_tab_rule));
+            entities.add(new ChatExtendItemEntity( ITEM_LUCKY_DRAW, getString(R.string.chat_recharge), R.drawable.ic_fount_lucky));
+            entities.add(new ChatExtendItemEntity( ITEM_BALANCE, getString(R.string.chat_game_rules), R.drawable.ic_balance));
+            entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_talk_service));
+            entities.add(new ChatExtendItemEntity( ITEM_LIST, getString(R.string.chat_group_rules), R.drawable.ic_fount_glod_list));
         }
 
         inputMenu.initExtendMenuItem ( entities, mOnItemClickListener );
@@ -335,7 +336,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             switch (entity.getId()) {
                 case ITEM_LIST:
                     //排行榜
-                    LongImageActivity.start(mContext,mChatRoomBean.getGroupRulesImgUrl());
+                    ARouterUtils.navigation ( mContext,RouterHub.MAIN_COMMISSIONLISTACTIVITY );
                     break;
                 case ITEM_REDPACKET:
                     //红包
@@ -457,6 +458,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                         String sSettlementInfo = message.getStringAttribute(IMConstants.MESSAGE_ATTR_CONENT, "");
                         if (!TextUtils.isEmpty(sSettlementInfo)) {
                             NiuniuSettlementInfo settlementInfo = new Gson().fromJson(sSettlementInfo, NiuniuSettlementInfo.class);
+                            settlementInfo.setRoomType ( "牛牛红包" );
                             RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), settlementInfo.getRedpacketId(), 0,settlementInfo.getRoomType (  ));
                         }
                     }
@@ -973,7 +975,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }
                 int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
                 String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_CLUES,"" );
-                ToastUtils.showShort ( type+";"+clus );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET
                         || type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET || type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET) {

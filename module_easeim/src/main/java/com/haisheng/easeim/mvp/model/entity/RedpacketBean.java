@@ -42,7 +42,6 @@ public class RedpacketBean implements Serializable {
 
     @SerializedName("list")
     private List<GarbRedpacketBean> garbRedpackets;
-    private String redPackType;
 
     public int getStatus() {
         return status;
@@ -145,10 +144,6 @@ public class RedpacketBean implements Serializable {
         this.roomid = roomid;
     }
 
-    public void setRoomType(String redPackType){
-        this.redPackType = redPackType;
-    }
-
     public String getHxid() {
         return hxid;
     }
@@ -158,16 +153,15 @@ public class RedpacketBean implements Serializable {
     }
 
     public RedPacketUtil.RedType getRoomType(){
-        if (redPackType.equals ( "扫雷红包" )){
+        if(type == IMConstants.MSG_TYPE_MINE_REDPACKET){
             return RedPacketUtil.RedType.SAO_LEI;
-        }else if(redPackType.equals ( "禁抢红包" )){
+        }else if(type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
             return RedPacketUtil.RedType.GAME_CONTRAL;
-        }else if(redPackType.equals ( "牛牛红包" )){
+        }else if(type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET){
             return RedPacketUtil.RedType.NIU_NIU;
-        }else if(redPackType.equals ( "福利红包" )){
+        }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
             return RedPacketUtil.RedType.FU_LI;
-        }else{
-            return RedPacketUtil.RedType.NONE;
         }
+        return RedPacketUtil.RedType.NONE;
     }
 }

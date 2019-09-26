@@ -109,9 +109,9 @@ public class ChatBasicRedpacket extends EaseChatRow {
             RedpacketBean redpacketBean = new Gson().fromJson(sRedpacketInfo, RedpacketBean.class);
             if(null != usernickView)
                 usernickView.setText(redpacketBean.getNickname());
-            if(null != userAvatarView)
-                ImageLoader.displayHeaderImage(context,redpacketBean.getAvatarUrl(),userAvatarView);
-
+            if(null != userAvatarView) {
+                ImageLoader.displayHeaderImage ( context, redpacketBean.getAvatarUrl(), userAvatarView );
+            }
             if(mType== IMConstants.MSG_TYPE_MINE_REDPACKET){
                 tvMessage.setText(String.format("%.0f-%s",redpacketBean.getMoney(),redpacketBean.getBoomNumbers()));
                 tvRedpacketType.setText( R.string.mine_redpacket);
