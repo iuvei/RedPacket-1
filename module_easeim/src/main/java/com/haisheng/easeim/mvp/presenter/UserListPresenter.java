@@ -51,75 +51,12 @@ public class UserListPresenter extends BasePresenter <IModel, UserListContract.V
     ChatRoomModel mChatRoomModel;
 
     @Inject
-    List<UserInfo> mDatas;
-    @Inject
-    UserListAdapter mAdapter;
-
-    private Long mRoomId;
-
-    private boolean mIsInit = false;
-    private int preEndIndex = 0;
-    private int pageNumber = 0;
-
-    @Inject
     public UserListPresenter(UserListContract.View rootView) {
         super(rootView);
     }
 
-    public void initDatas(Long roomId){
-        mRoomId = roomId;
-        if(!mIsInit)
-            requestDatas(true);
-    }
-    public void requestDatas(final boolean pullToRefresh){
-        mChatRoomModel.roomUserList(mRoomId,pageNumber)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> {
-                    if (pullToRefresh)
-                        mRootView.showLoading();//显示下拉刷新的进度条
-                    else
-                        mRootView.startLoadMore();//显示上拉加载更多的进度条
-                }).subscribeOn( AndroidSchedulers.mainThread())
-                .observeOn( AndroidSchedulers.mainThread())
-                .doFinally(() -> {
-                    if (pullToRefresh)
-                        mRootView.hideLoading();//隐藏下拉刷新的进度条
-                    else
-                        mRootView.endLoadMore();//隐藏上拉加载更多的进度条
-                })
-                .compose( RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
-                .subscribe(new ErrorHandleSubscriber <BaseResponse <List<UserInfo>>> (mErrorHandler) {
-                    @Override
-                    public void onNext(BaseResponse <List<UserInfo>> response) {
-                        if (response.isSuccess()) {
-                            mIsInit = true;
-                            if (pullToRefresh){
-                                mDatas.clear();
-                            }
-                            preEndIndex = mDatas.size();//更新之前列表总长度,用于确定加载更多的起始位置
-                            pageNumber++;//更新之前列表总长度,用于确定加载更多的起始位置
-                            List<UserInfo> entities = response.getResult();
-                            int itemCount = 0;
-                            if(null != entities && entities.size()>0){
-                                for (int i=0;i<entities.size ();i++){
-                                    if (entities.get ( i ).getNickname ().equals ( "群主" ) && TextUtils.isEmpty ( entities.get ( i ).getHxId () )){
-                                        entities.remove ( i );
-                                        break;
-                                    }
-                                }
-                                mDatas.addAll(entities);
-                                itemCount = entities.size();
-                            }
-                            if (pullToRefresh)
-                                mAdapter.notifyDataSetChanged();
-                            else
-                                mAdapter.notifyItemRangeInserted(preEndIndex, itemCount);
-                        }else{
-                            mRootView.showMessage(response.getMessage());
-                        }
-                    }
-                });
-    }
+
+
 
     @Override
     public void onDestroy() {

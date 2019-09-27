@@ -1,13 +1,16 @@
 package com.haisheng.easeim.mvp.ui.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.haisheng.easeim.R;
@@ -15,22 +18,21 @@ import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerUserListComponent;
 import com.haisheng.easeim.mvp.contract.UserListContract;
 import com.haisheng.easeim.mvp.presenter.UserListPresenter;
-import com.haisheng.easeim.mvp.ui.adapter.UserListAdapter;
+import com.haisheng.easeim.mvp.ui.adapter.GroupUserListAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.view.SideBar;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -48,26 +50,27 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class UserListActivity extends BaseSupportActivity <UserListPresenter> implements UserListContract.View, OnRefreshListener, OnLoadMoreListener {
+public class UserListActivity extends BaseSupportActivity <UserListPresenter> implements UserListContract.View {
 
-    @BindView(R2.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R2.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
-
-    @Inject
-    RecyclerView.LayoutManager mLayoutManager;
-    @Inject
-    UserListAdapter mAdapter;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.et_serach)
+    EditText etSerach;
+    @BindView(R2.id.iv_close)
+    ImageView ivClose;
+    @BindView(R2.id.listview)
+    ListView listview;
+    @BindView(R2.id.sidebar)
+    SideBar sidebar;
 
-    private Long mRoomId;
+    private GroupUserListAdapter adapter;
+    private ArrayList<UserInfo> contactList;
+    private List <UserInfo> searchContact = new ArrayList <> (  );
 
-    public static void start(Context context, Long roomId) {
+    public static void start(Context context, ArrayList <UserInfo> userInfos) {
         Intent intent = new Intent ( context, UserListActivity.class );
         Bundle bundle = new Bundle ();
-        bundle.putLong ( "roomId", roomId );
+        bundle.putSerializable ( "userlist", userInfos );
         intent.putExtras ( bundle );
         context.startActivity ( intent );
     }
@@ -92,65 +95,84 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "群成员" );
+        initRecyclerView ();
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
-            mRoomId = bundle.getLong ( "roomId" );
-            setTitle ( "群成员" );
+            contactList = (ArrayList <UserInfo>) bundle.getSerializable ( "userlist" );
+            if (contactList!=null && contactList.size ()>0) {
+                Collections.sort ( contactList, new Comparator <UserInfo> () {
+                    @Override
+                    public int compare(UserInfo userInfo, UserInfo t1) {
+                        return userInfo.getSpelling ().compareTo ( t1.getSpelling () );
+                    }
+                } );
+                //加载所有好友
+                adapter.setData ( contactList );
+            }
         }
 
-        initRefreshView ();
-        initRecyclerView ();
-        mPresenter.initDatas ( mRoomId );
+        setListener();
     }
 
-    private void initRefreshView() {
-        refreshLayout.setRefreshHeader ( new ClassicsHeader ( mContext ) );
-        refreshLayout.setRefreshFooter ( new ClassicsFooter ( mContext ) );
-        refreshLayout.setOnRefreshListener ( this );
+    private void setListener() {
+        // 右侧sideBar监听
+        sidebar.setOnTouchingLetterChangedListener ( new SideBar.OnTouchingLetterChangedListener () {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                // 该字母首次出现的位置
+                int position = adapter.getPositionForSection(s);
+                if (position != -1) {
+                    listview.setSelection(position);
+                }
+            }
+        } );
+
+        etSerach.addTextChangedListener ( new TextWatcher () {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String search = etSerach.getText ().toString ().trim ();
+                if (search.length ()>0){
+                    searchContact.clear ();
+                    ivClose.setVisibility ( View.VISIBLE );
+                    for (int j=0;j<contactList.size ();j++){
+                        if (contactList.get ( j ).getNickname ().contains ( search )){
+                            searchContact.add ( contactList.get ( j ) );
+                        }
+                    }
+                    adapter.setData ( searchContact );
+                }else{
+                    ivClose.setVisibility ( View.INVISIBLE );
+                    adapter.setData ( contactList );
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        } );
+
+        ivClose.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                etSerach.setText ( "" );
+            }
+        } );
+
     }
 
     //初始化RecyclerView
     private void initRecyclerView() {
-        recyclerView.addItemDecoration ( new DividerItemDecoration ( mContext, DividerItemDecoration.VERTICAL ) );
-        ArmsUtils.configRecyclerView ( recyclerView, mLayoutManager );
-        recyclerView.setAdapter ( mAdapter );
-    }
 
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas ( true );
+        contactList = new ArrayList <> (  );
+        adapter = new GroupUserListAdapter ( contactList );
+        listview.setAdapter ( adapter );
     }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas ( false );
-    }
-
-    @Override
-    public void showLoading() {
-        refreshLayout.autoRefreshAnimationOnly ();
-    }
-
-    @Override
-    public void hideLoading() {
-        refreshLayout.finishRefresh ();
-    }
-
-    @Override
-    public void startLoadMore() {
-        refreshLayout.autoLoadMore ();
-    }
-
-    @Override
-    public void endLoadMore() {
-        refreshLayout.finishLoadMore ();
-    }
-
-    @Override
-    public Activity getActivity() {
-        return this;
-    }
-
 
     @Override
     public void showMessage(@NonNull String message) {
@@ -176,8 +198,13 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
         ButterKnife.bind ( this );
     }
 
-    @OnClick(R2.id.iv_back)
-    public void onViewClicked() {
-        finish ();
+    @OnClick({R2.id.iv_back, R2.id.iv_close})
+    public void onViewClicked(View view) {
+        int i = view.getId ();
+        if (i == R.id.iv_back) {
+            finish ();
+        } else if (i == R.id.iv_close) {
+            etSerach.setText ( "" );
+        }
     }
 }

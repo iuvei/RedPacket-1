@@ -44,11 +44,6 @@ public class UserListModule {
         return new ChatRoomModel(iRepositoryManager);
     }
 
-    @ActivityScope
-    @Provides
-    static RecyclerView.LayoutManager provideLayoutManager(UserListContract.View view) {
-        return new LinearLayoutManager(view.getActivity());
-    }
 
     @ActivityScope
     @Provides

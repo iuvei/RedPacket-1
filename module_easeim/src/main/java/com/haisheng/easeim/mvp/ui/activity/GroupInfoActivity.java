@@ -83,6 +83,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     private List <String> mDisabledGroupIds = new ArrayList <> ();
     private ChatRoomBean mChatRoomBean;
     private ProgressDialogUtils progressDialogUtils;
+    private ArrayList <UserInfo> groupUserList; //群成员列表
 
     public static void start(Context context, ChatRoomBean chatRoomInfo) {
         Intent intent = new Intent ( context, GroupInfoActivity.class );
@@ -168,7 +169,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         tvUserNumber.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                UserListActivity.start ( mContext, mChatRoomBean.getId () );
+                UserListActivity.start ( mContext, groupUserList );
             }
         } );
     }
@@ -213,6 +214,8 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
                 break;
             }
         }
+
+        groupUserList = new ArrayList <> ( userInfos );
         if (userInfos.size () > 14) {
             userInfos = userInfos.subList ( 0, 14 );
         }
