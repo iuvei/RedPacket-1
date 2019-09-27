@@ -109,6 +109,38 @@
                     android:textColor="@color/common_text"
                     android:background="@color/public_white"/>
 
+                <LinearLayout
+                    android:id="@+id/ll_niuniu_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="庄赢"/>
+                    <TextView
+                        android:id="@+id/tv_banker_win"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textColor="@color/public_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="闲赢"/>
+                    <TextView
+                        android:id="@+id/tv_buy_win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textColor="@color/public_red"/>
+                </LinearLayout>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_garb_redpacket"
                     android:layout_width="match_parent"

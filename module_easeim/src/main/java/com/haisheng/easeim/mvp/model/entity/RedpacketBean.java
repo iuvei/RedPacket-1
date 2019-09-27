@@ -34,6 +34,10 @@ public class RedpacketBean implements Serializable {
 
     @SerializedName("lasttime")
     private Long countdown;
+    @SerializedName("villagenums")
+    private String villagenums;
+    @SerializedName("notbuynums")
+    private String notbuynums;
 
     private int welfareStatus;
 
@@ -161,5 +165,19 @@ public class RedpacketBean implements Serializable {
         this.getedtime = getedtime;
     }
 
+    public String getVillagenums() {
+        return villagenums;
+    }
 
+    public void setVillagenums(String villagenums) {
+        this.villagenums = villagenums;
+    }
+
+    public String getNotbuynums() {
+        return notbuynums;
+    }
+
+    public void setNotbuynums(String notbuynums) {
+        this.notbuynums = notbuynums;
+    }
 }

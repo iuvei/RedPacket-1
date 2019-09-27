@@ -90,6 +90,12 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     TextView tvTitle;
     @BindView(R2.id.tv_right)
     TextView tvRight;
+    @BindView(R2.id.ll_niuniu_result)
+    LinearLayout ll_niuniu_result;
+    @BindView(R2.id.tv_banker_win)
+    TextView tv_banker_win;
+    @BindView(R2.id.tv_buy_win)
+    TextView tv_buy_win;
 
 
     private Long mRoomId, mRedpacketId;
@@ -216,6 +222,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         ImageLoader.displayHeaderImage ( mContext, redpacketInfo.getAvatarUrl (), ivAvatar );
         tvRight.setVisibility ( View.VISIBLE );
         tvNickname.setText ( redpacketInfo.getNickname () );
+        ll_niuniu_result.setVisibility ( View.GONE );
         int type = redpacketInfo.getType ();
         if (type == IMConstants.MSG_TYPE_MINE_REDPACKET) {
             tvMoneyNumber.setText ( String.format ( "￥%.2f-[%s]", redpacketInfo.getMoney (), redpacketInfo.getBoomNumbers () ) );
@@ -236,6 +243,9 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 tvSettlementStatus.setVisibility ( View.VISIBLE );
                 tvSettlementStatus.setText ( "本包游戏已截止" );
             }
+            ll_niuniu_result.setVisibility ( View.VISIBLE );
+            tv_banker_win.setText ( redpacketInfo.getVillagenums ()+"" );
+            tv_buy_win.setText ( redpacketInfo.getNotbuynums ()+"" );
             tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
 
         } else if (type == IMConstants.MSG_TYPE_WELFARE_REDPACKET) {
