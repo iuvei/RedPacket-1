@@ -3,73 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout"/>
-    <TextView
-        android:id="@+id/tv_money"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_l"
+        android:background="@color/public_white"
+        android:layout_marginLeft="@dimen/spacing_xl"
+        android:layout_marginRight="@dimen/spacing_xl"
         android:layout_marginTop="@dimen/spacing_xl"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/common_text"
-        android:textSize="@dimen/text_big"
-        android:text="￥0"/>
-
-    <TextView
-        android:id="@+id/tv_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_m"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
-        android:textColor="@color/text_red"
-        android:textSize="@dimen/text_normal"
-        tools:text="红包金额不能大于100.00元"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_m"
-        android:padding="@dimen/spacing_l"
-        android:background="@color/public_white"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_normal"
-            android:text="总金额"/>
-
-        <EditText
-            android:id="@+id/et_total_money"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:background="@null"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_normal"
-            android:inputType="number"
-            android:maxLength="8"
-            tools:text="111"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_m"
-            android:textColor="@color/common_text"
-            android:textSize="@dimen/text_normal"
-            android:text="元"/>
-    </LinearLayout>
-
-    <View style="@style/public_CommonLine"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_l"
-        android:background="@color/public_white"
-        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_m"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -99,14 +47,69 @@
             android:textSize="@dimen/text_normal"
             android:text="个"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/spacing_xl">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="游戏倍数："/>
+    <TextView
+        android:id="@+id/tv_multiple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="倍"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_l"
+        android:background="@color/public_white"
+        android:layout_marginLeft="@dimen/spacing_xl"
+        android:layout_marginRight="@dimen/spacing_xl"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:layout_marginBottom="@dimen/spacing_m"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_normal"
+            android:text="总金额"/>
+
+        <EditText
+            android:id="@+id/et_total_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|end"
+            android:background="@null"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_normal"
+            android:inputType="number"
+            android:maxLength="8"
+            tools:text="111"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/text_normal"
+            android:text="元"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/tv_money_scope"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_l"
-        android:layout_marginTop="@dimen/spacing_xs"
-        android:layout_marginBottom="@dimen/spacing_xs"
+        android:layout_marginLeft="@dimen/spacing_xl"
         android:textColor="@color/common_text_light"
         android:textSize="@dimen/text_small"
         android:text="红包发布范围：7.00-100.00元"/>
@@ -116,7 +119,11 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_l"
         android:background="@color/public_white"
-        android:gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/spacing_xl"
+        android:layout_marginRight="@dimen/spacing_xl"
+        android:layout_marginTop="@dimen/spacing_xl"
+        android:layout_marginBottom="@dimen/spacing_m"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -139,39 +146,31 @@
             android:maxLength="1"
             tools:text="1"/>
     </LinearLayout>
+
     <TextView
-        android:id="@+id/tv_mine_scope"
+        android:id="@+id/tv_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_l"
-        android:layout_marginTop="@dimen/spacing_xs"
-        android:layout_marginBottom="@dimen/spacing_xs"
-        android:textColor="@color/common_text_light"
-        android:textSize="@dimen/text_small"
-        android:text="@string/mine_scope"/>
+        android:layout_marginTop="@dimen/spacing_m"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/text_normal"
+        tools:text="红包金额不能大于100.00元"/>
 
     <TextView
         android:id="@+id/btn_send_redpacket"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_xl"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/spacing_xxxl"
         android:layout_marginTop="@dimen/spacing_xxl"
-        android:layout_marginEnd="@dimen/spacing_xl"
+        android:layout_marginEnd="@dimen/spacing_xxxl"
         android:padding="@dimen/spacing_m"
-        android:background="@drawable/btn_common_selector"
+        android:background="@drawable/btn_ad_shape"
         android:gravity="center"
         android:text="@string/send_redpacket"
         android:textColor="@color/public_white"
         android:textSize="@dimen/text_normal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_m"
-        android:layout_gravity="center"
-        android:textColor="@color/common_text_light"
-        android:textSize="@dimen/text_small"
-        android:text="未领取的红包，将于5分钟后发起退款"/>
 
 
 </LinearLayout>

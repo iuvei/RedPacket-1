@@ -211,7 +211,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
             userInfos = userInfos.subList ( 0, 15 );
         }
         mAdapter.setNewData ( userInfos );
-        tvUserNumber.setText ( String.format ( "全部群成员（%d）>", chatRoomInfo.getUserNumber () ) );
+        tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
         tvGroupName.setText ( chatRoomInfo.getName () );
         tvGroupAffiche.setText ( chatRoomInfo.getAffiche () );
         tvGroupNotice.setText ( chatRoomInfo.getNotice () );

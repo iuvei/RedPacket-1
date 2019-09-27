@@ -73,6 +73,8 @@ public class ChatRoomBean extends BaseModel implements Serializable {
     private String gameRules;
     @SerializedName("playingurl")
     private String gameRulesImgUrl;
+    @SerializedName("compensate")
+    private String compensate;
 
     @SerializedName("basenums")
     private int userNumber;
@@ -269,5 +271,13 @@ public class ChatRoomBean extends BaseModel implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getCompensate() {
+        return compensate;
+    }
+
+    public void setCompensate(String compensate) {
+        this.compensate = compensate;
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.contract.ChatContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
@@ -161,6 +162,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                     public void onNext(BaseResponse<Double> response) {
                         if (response.isSuccess()) {
                             mRootView.setBalanceInfo(response.getResult());
+                            AppLifecyclesImpl.setBalance ( response.getResult () );
                         }else{
                             mRootView.showMessage(response.getMessage());
                         }

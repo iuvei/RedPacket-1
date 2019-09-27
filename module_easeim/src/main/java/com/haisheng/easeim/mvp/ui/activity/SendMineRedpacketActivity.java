@@ -17,6 +17,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
@@ -56,8 +57,6 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacketPresenter> implements SendRedpacketContract.View {
 
-    @BindView(R2.id.tv_money)
-    TextView tvMoney;
     @BindView(R2.id.tv_hint)
     TextView tvHint;
     @BindView(R2.id.et_total_money)
@@ -68,12 +67,12 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
     TextView tvMoneyScope;
     @BindView(R2.id.et_mine_number)
     EditText etMineNumber;
-    @BindView(R2.id.tv_mine_scope)
-    TextView tvMineScope;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_multiple)
+    TextView tvMultiple;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
@@ -112,8 +111,9 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
             tvTitle.setText ( mChatRoomBean.getName () );
+            tvMultiple.setText ( mChatRoomBean.getCompensate () );
         }
-        etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
+        etTotalMoney.setHint ( "余额："+ AppLifecyclesImpl.getBalance () );
         etRedpacketNumber.setText ( String.valueOf ( mChatRoomBean.getRedpacketNumber () ) );
         tvMoneyScope.setText ( String.format ( getString ( R.string.redpacket_money_scope ), mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
 
@@ -190,7 +190,6 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         String sTotalMoney = etTotalMoney.getText ().toString ();
         if (!TextUtils.isEmpty ( sTotalMoney )) {
             int totalMoney = Integer.valueOf ( sTotalMoney );
-            tvMoney.setText ( String.format ( "￥%d", totalMoney ) );
             if (totalMoney > mChatRoomBean.getMaxMoney ()) {
                 tvHint.setVisibility ( View.VISIBLE );
                 tvHint.setText ( String.format ( getString ( R.string.redpacket_money_not_more_than ), mChatRoomBean.getMaxMoney () ) );
@@ -204,7 +203,6 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         } else {
             tvHint.setVisibility ( View.VISIBLE );
             tvHint.setText ( String.format ( getString ( R.string.redpacket_money_not_less_than ), mChatRoomBean.getMinMoney () ) );
-            tvMoney.setText ( "￥0" );
         }
         return false;
     }
@@ -273,10 +271,10 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
 
     @Override
     public void checkPayPasswordSuccessfully(CheckPayPasswordBean response) {
-        if (response.isHasPayPassword ()){
+        if (response.isHasPayPassword ()) {
             payDialog ( sMineNumber, totalMoney );
-        }else{
-            showAuthDialog();
+        } else {
+            showAuthDialog ();
         }
     }
 

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.haisheng.easeim.mvp.model.api.Api;
 import com.hyphenate.easeui.EaseUI;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.utils.ArmsUtils;
@@ -14,7 +13,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import com.haisheng.easeim.BuildConfig;
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 
 /**
@@ -27,6 +25,8 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
  * ================================================
  */
 public class AppLifecyclesImpl implements AppLifecycles {
+
+    private static double balance;
 
     @Override
     public void attachBaseContext(@NonNull Context base) {
@@ -64,5 +64,13 @@ public class AppLifecyclesImpl implements AppLifecycles {
     @Override
     public void onTerminate(@NonNull Application application) {
 
+    }
+
+    public static void setBalance(double money){
+        balance = money;
+    }
+
+    public static double getBalance(){
+        return balance;
     }
 }
