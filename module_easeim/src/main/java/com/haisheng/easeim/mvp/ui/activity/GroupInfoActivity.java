@@ -9,8 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -37,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
@@ -66,8 +65,6 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     TextView tvUserNumber;
     @BindView(R2.id.tv_group_name)
     TextView tvGroupName;
-    @BindView(R2.id.tv_group_affiche)
-    TextView tvGroupAffiche;
     @BindView(R2.id.tv_group_notice)
     TextView tvGroupNotice;
     @BindView(R2.id.tv_group_rules)
@@ -75,12 +72,11 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     @BindView(R2.id.tv_game_rules)
     TextView tvGameRules;
     @BindView(R2.id.switch_voice_notify)
-    Switch switchVoiceNotify;
+    SwitchButton switchVoiceNotify;
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     UserGridAdapter mAdapter;
-    @BindView(R2.id.tv_title)
     TextView tvTitle;
 
     private IMModel mIMModel;
@@ -115,6 +111,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
+        tvTitle = findViewById ( R.id.tv_title );
         tvTitle.setText ( "群信息" );
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
@@ -128,9 +125,9 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         boolean isDisabled = !mDisabledGroupIds.contains ( mChatRoomBean.getHxId () );
         switchVoiceNotify.setChecked ( !isDisabled );
 
-        switchVoiceNotify.setOnCheckedChangeListener ( new CompoundButton.OnCheckedChangeListener () {
+        switchVoiceNotify.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked) {
                     if (null == mDisabledGroupIds) {
                         mDisabledGroupIds = new ArrayList <> ();
@@ -144,6 +141,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
                 mIMModel.setDisabledGroups ( mDisabledGroupIds );
             }
         } );
+
         initRecyclerView ();
         if (null != mChatRoomBean) {
             setChatRoomInfo ( mChatRoomBean );
@@ -180,9 +178,11 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.ll_group_rules) {
+            //群规则
             LongImageActivity.start ( mContext, mChatRoomBean.getGroupRulesImgUrl () );
 
         } else if (i == R.id.ll_game_rules) {
+            //群公告
             LongImageActivity.start ( mContext, mChatRoomBean.getGameRulesImgUrl () );
 
         } else if (i == R.id.btn_delect_exit) {
@@ -220,7 +220,6 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         userInfos.add ( new UserInfo () );
         mAdapter.setNewData ( userInfos );
         tvGroupName.setText ( chatRoomInfo.getName () );
-        tvGroupAffiche.setText ( chatRoomInfo.getAffiche () );
         tvGroupNotice.setText ( chatRoomInfo.getNotice () );
         tvGameRules.setText ( chatRoomInfo.getGameRules () );
         tvGroupRules.setText ( chatRoomInfo.getGroupRules () );

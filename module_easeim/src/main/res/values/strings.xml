@@ -60,11 +60,14 @@
 
     <!-- 群信息 -->
     <string name="room_info">群信息</string>
-    <string name="group_affiche">群公告</string>
     <string name="group_notice">群二维码</string>
     <string name="group_rules">群规则</string>
-    <string name="game_rules">玩法</string>
-    <string name="voice_notify">声音免打扰</string>
+    <string name="game_rules">群公告</string>
+    <string name="game_nickname">我在本群的昵称</string>
+    <string name="voice_notify">消息免打扰</string>
+    <string name="show_top">置顶聊天</string>
+    <string name="show_group_nickname">显示群成员昵称</string>
+    <string name="show_clear_message">清空聊天记录</string>
     <string name="delete_and_exit">删除并退出</string>
 
     <!-- -->

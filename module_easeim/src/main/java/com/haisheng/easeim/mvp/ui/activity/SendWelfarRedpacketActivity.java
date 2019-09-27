@@ -16,6 +16,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
@@ -52,6 +53,10 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
     EditText etRedpacketNumber;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_redpacket_money)
+    TextView tvRedpacketMoney;
+    @BindView(R2.id.tv_redpacket_num)
+    TextView tvRedpacketNum;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
@@ -90,9 +95,10 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
             tvTitle.setText ( mChatRoomBean.getName () );
+            etTotalMoney.setHint ( "余额："+ AppLifecyclesImpl.getBalance () );
+            tvRedpacketMoney.setText ( "红包金额"+ mChatRoomBean.getWelfareMinMoney ()+"-"+mChatRoomBean.getWelfareMaxMoney ());
+            tvRedpacketNum.setText ( "红包金额"+ mChatRoomBean.getWelfareMinRedpacketNumber ()+"-"+mChatRoomBean.getWelfareMaxRedpacketNumber ());
         }
-        etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getWelfareMinMoney (), mChatRoomBean.getWelfareMaxMoney () ) );
-        etRedpacketNumber.setHint ( String.format ( "%d-%d", mChatRoomBean.getWelfareMinRedpacketNumber (), mChatRoomBean.getWelfareMaxRedpacketNumber () ) );
 
         etTotalMoney.addTextChangedListener ( new TextWatcher () {
             @Override

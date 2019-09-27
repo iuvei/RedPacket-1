@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout"/>
@@ -79,6 +80,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/tv_group_notice"
                     android:layout_width="wrap_content"
@@ -90,71 +92,9 @@
             </LinearLayout>
             <View style="@style/public_CommonLine"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/public_CommonPadding_m"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/group_affiche"/>
-
-                <TextView
-                    android:id="@+id/tv_group_affiche"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/spacing_xl"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/common_text_light"
-                    tools:text="测试"/>
-            </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
-
-
-            <View style="@style/public_CommonLine"/>
-            <LinearLayout
-                android:id="@+id/ll_group_rules"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/public_CommonPadding_m"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/group_rules"/>
-
-                <TextView
-                    android:id="@+id/tv_group_rules"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/spacing_xl"
-                    android:drawableRight="@drawable/icon_group_set"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/common_text_light"
-                    tools:text="测试"/>
-
-            </LinearLayout>
-
-            <View style="@style/public_CommonLine"/>
-            <LinearLayout
                 android:id="@+id/ll_game_rules"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 style="@style/public_CommonPadding_m"
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
@@ -172,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/spacing_xl"
-                    android:drawableRight="@drawable/icon_group_set"
+                    android:drawableRight="@drawable/ic_arrow_right"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textSize="@dimen/text_small"
@@ -180,9 +120,76 @@
                     tools:text="测试"/>
             </LinearLayout>
 
+            <View style="@style/public_CommonLine"/>
+
+
+            <View style="@style/public_CommonLine"/>
+            <LinearLayout
+                android:id="@+id/ll_group_rules"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:text="@string/group_rules"/>
+
+                <TextView
+                    android:id="@+id/tv_group_rules"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/spacing_xl"
+                    android:drawableRight="@drawable/ic_arrow_right"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/common_text_light"
+                    tools:text="测试"/>
+
+            </LinearLayout>
+
+            <View style="@style/discover_style_view"/>
+
+            <LinearLayout
+                android:id="@+id/ll_group_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_nickname"
+                    android:textColor="@color/common_text"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/tv_group_nickName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/spacing_xl"
+                    android:drawableRight="@drawable/ic_arrow_right"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/common_text_light"
+                    tools:text="测试"/>
+
+            </LinearLayout>
+            <View style="@style/discover_style_view"></View>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/spacing_xs"
                 style="@style/public_CommonPadding_m"
                 android:background="@color/public_white"
@@ -196,11 +203,87 @@
                     android:textColor="@color/common_text"
                     android:text="@string/voice_notify"/>
 
-                <Switch
+                <me.jessyan.armscomponent.commonres.view.SwitchButton
                     android:id="@+id/switch_voice_notify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"/>
+                    app:sb_checked="false"
+                    android:layout_margin="@dimen/spacing_m"
+                    android:layout_gravity="center_vertical"
+                    app:sb_show_indicator="false"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_xs"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:text="@string/show_top"/>
+
+                <me.jessyan.armscomponent.commonres.view.SwitchButton
+                    android:id="@+id/switch_show_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:sb_checked="false"
+                    android:layout_margin="@dimen/spacing_m"
+                    android:layout_gravity="center_vertical"
+                    app:sb_show_indicator="false"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_xs"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:text="@string/show_group_nickname"/>
+
+                <me.jessyan.armscomponent.commonres.view.SwitchButton
+                    android:id="@+id/switch_show_group_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:sb_checked="false"
+                    android:layout_margin="@dimen/spacing_m"
+                    android:layout_gravity="center_vertical"
+                    app:sb_show_indicator="false"
+                    />
+            </LinearLayout>
+
+            <View style="@style/discover_style_view"></View>
+            <LinearLayout
+                android:id="@+id/ll_clear_message"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_clear_message"
+                    android:textColor="@color/common_text"
+                    android:textSize="@dimen/text_normal" />
             </LinearLayout>
 
             <TextView
@@ -210,7 +293,7 @@
                 android:layout_margin="@dimen/spacing_xxl"
                 style="@style/public_CommonPadding_m"
                 android:gravity="center_horizontal"
-                android:background="@drawable/btn_common_selector"
+                android:background="@drawable/btn_ad_shape"
                 android:text="@string/delete_and_exit"
                 android:textColor="@color/public_white"
                 android:textSize="@dimen/text_normal" />
