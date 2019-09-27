@@ -14,26 +14,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <View style="@style/discover_style_view"
+                android:layout_height="1dp"></View>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/public_white"/>
+            <View style="@style/discover_style_view"></View>
             <TextView
                 android:id="@+id/tv_user_number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@color/public_white"
-                android:padding="@dimen/spacing_xs"
-                android:gravity="center_horizontal"
+                android:paddingLeft="@dimen/spacing_xl"
+                android:paddingRight="@dimen/spacing_xl"
                 android:textSize="@dimen/text_normal"
-                android:textColor="@color/public_red"
-                tools:text="全部群成员（1000）>"/>
-
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/ic_arrow_right"
+                tools:text="全部成员（1000）"/>
+            <View style="@style/discover_style_view"></View>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/spacing_xs"
                 style="@style/public_CommonPadding_m"
                 android:background="@color/public_white"
@@ -58,7 +62,32 @@
                     android:textColor="@color/common_text_light"
                     tools:text="测试"/>
             </LinearLayout>
-
+            <View style="@style/public_CommonLine"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/public_CommonPadding_m"
+                android:background="@color/public_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    android:text="@string/group_notice"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_group_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/spacing_xl"
+                    android:drawableRight="@drawable/ic_arrow_right"
+                    />
+            </LinearLayout>
             <View style="@style/public_CommonLine"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,32 +117,7 @@
             </LinearLayout>
 
             <View style="@style/public_CommonLine"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/public_CommonPadding_m"
-                android:background="@color/public_white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/group_notice"/>
 
-                <TextView
-                    android:id="@+id/tv_group_notice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/spacing_xl"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/common_text_light"
-                    tools:text="测试"/>
-            </LinearLayout>
 
             <View style="@style/public_CommonLine"/>
             <LinearLayout

@@ -1,4 +1,4 @@
-package com.ooo.main.mvp.ui.adapter;
+package me.jessyan.armscomponent.commonres.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter.CHOOSE_MODE.CUSTOM_MODE;
+import static me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter.CHOOSE_MODE.MULTI_MODE;
+import static me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter.CHOOSE_MODE.SINGLER;
+
 /**
  * @author lanjian
  * email 819715035@qq.com
@@ -22,7 +26,7 @@ public abstract class MyMultipleListViewBaseAdapter<T> extends BaseAdapter {
 
     public List<T> datas;
     private Context context;
-    private MyMultipleListViewAdapter.CHOOSE_MODE chooseMode;
+    private CHOOSE_MODE chooseMode;
     private int maxChooseCount = 10;
     private int minChooseCount = 0;
     private String minChooseTips = "选中数量不能小于最小值";
@@ -326,7 +330,7 @@ public abstract class MyMultipleListViewBaseAdapter<T> extends BaseAdapter {
     /**
      * 设置选择模式
      */
-    public void setChooseMode(MyMultipleListViewAdapter.CHOOSE_MODE chooseMode){
+    public void setChooseMode(CHOOSE_MODE chooseMode){
         this.chooseMode = chooseMode;
     }
 

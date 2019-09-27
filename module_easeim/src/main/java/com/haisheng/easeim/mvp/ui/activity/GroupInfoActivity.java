@@ -159,6 +159,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 
             }
         } );
+        mAdapter.setAddGroupContactListener ( new UserGridAdapter.AddGroupContactListener () {
+            @Override
+            public void onAddGroupContact() {
+                MyContactListActivity.star ( GroupInfoActivity.this,mChatRoomBean.getId () );
+            }
+        } );
         rvUser.setAdapter ( mAdapter );
 
         tvUserNumber.setOnClickListener ( new View.OnClickListener () {
@@ -207,11 +213,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
                 break;
             }
         }
-        if (userInfos.size () > 15) {
-            userInfos = userInfos.subList ( 0, 15 );
+        if (userInfos.size () > 14) {
+            userInfos = userInfos.subList ( 0, 14 );
         }
-        mAdapter.setNewData ( userInfos );
         tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
+        userInfos.add ( new UserInfo () );
+        mAdapter.setNewData ( userInfos );
         tvGroupName.setText ( chatRoomInfo.getName () );
         tvGroupAffiche.setText ( chatRoomInfo.getAffiche () );
         tvGroupNotice.setText ( chatRoomInfo.getNotice () );

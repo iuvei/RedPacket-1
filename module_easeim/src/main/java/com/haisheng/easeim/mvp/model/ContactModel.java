@@ -78,4 +78,9 @@ public class ContactModel extends BaseModel{
         return mRepositoryManager.obtainRetrofitService(ContactService.class)
                 .setRemark (token,remark,fuid);
     }
+
+    public Observable<PublicResponseBean> invitedJoinRoom(String roomid, String fuid) {
+        return mRepositoryManager.obtainRetrofitService(ContactService.class)
+                .invitedJoinRoom (roomid,fuid);
+    }
 }

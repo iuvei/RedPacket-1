@@ -72,6 +72,21 @@ public interface ContactService {
             @Field("fuid") String fuid
     );
 
+    /**
+     * 邀请好友加入聊天室
+     * roomid	是	string	房间id
+     * friendid	是	string	好友-用户id
+     * @param roomid
+     * @param friendid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=addchatroom")
+    Observable<PublicResponseBean> invitedJoinRoom(
+            @Field("roomid") String roomid,
+            @Field("friendid") String friendid
+    );
+
 
 
 

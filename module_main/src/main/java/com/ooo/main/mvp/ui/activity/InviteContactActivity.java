@@ -25,7 +25,7 @@ import com.ooo.main.mvp.contract.InviteContactContract;
 import com.ooo.main.mvp.model.entity.PhoneContacts;
 import com.ooo.main.mvp.presenter.InviteContactPresenter;
 import com.ooo.main.mvp.ui.adapter.MyMultipleListViewAdapter;
-import com.ooo.main.mvp.ui.adapter.MyMultipleListViewBaseAdapter;
+import me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;

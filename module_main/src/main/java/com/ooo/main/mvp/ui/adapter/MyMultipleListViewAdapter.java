@@ -12,6 +12,8 @@ import com.ooo.main.mvp.model.entity.PhoneContacts;
 
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter;
+
 /**
  * @author lanjian
  * email 819715035@qq.com
