@@ -3,6 +3,8 @@ package com.haisheng.easeim.mvp.model.api.service;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.ProfitRecordBean;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 
@@ -103,6 +105,24 @@ public interface RedpacketService {
             @Field("token") String token,
             @Field("paytype") String paytype,
             @Field("page") int page
+            );
+
+    /**
+     * 盈亏记录
+     * token	是	string	无
+     * time1	是	string	无
+     * time2	是	string	无
+     * page	是	int	无
+     * paytype	是	string	无
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=UserInfo&do=Apis&m=sz_yi&op=profit")
+    Observable<ProfitRecordBean> getProfitRecord(
+            @Field("token") String token,
+            @Field("time1") String time1,
+            @Field("time2") String time2,
+            @Field("page") int page,
+            @Field("paytype") String paytype
             );
 
 }

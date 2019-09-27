@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.haisheng.easeim.BuildConfig;
-import com.haisheng.easeim.mvp.model.api.Api;
 
 /**
  * ================================================

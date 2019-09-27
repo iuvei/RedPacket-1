@@ -120,6 +120,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int ITEM_PHOTO = 108;
     private static final int ITEM_CAMEAR = 109;
     private static final int ITEM_MAKE_MONEY = 110;
+    private static final int ITEM_PROFIT = 111;//盈亏记录
 
     private static final int MESSAGE_TYPE_SENT_VOICE_CALL = 1;
     private static final int MESSAGE_TYPE_RECV_VOICE_CALL = 2;
@@ -321,6 +322,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             entities.add(new ChatExtendItemEntity( ITEM_BALANCE, getString(R.string.chat_game_rules), R.drawable.ic_balance));
             entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_talk_service));
             entities.add(new ChatExtendItemEntity( ITEM_LIST, getString(R.string.chat_group_rules), R.drawable.ic_fount_glod_list));
+            if (mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET
+                    || mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET){
+                entities.add(new ChatExtendItemEntity( ITEM_PROFIT, getString(R.string.chat_group_profit), R.drawable.icon_yk_record));
+            }
         }
 
         inputMenu.initExtendMenuItem ( entities, mOnItemClickListener );
@@ -350,6 +355,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 case ITEM_CUSTOMER_SERVICE:
                     //客服
                     showNotescontactPopupWindow(view);
+                    break;
+                case ITEM_PROFIT:
+                    //盈亏记录
+                    openActivity ( NiuNiuRecordActivity.class );
                     break;
                 case ITEM_PHOTO:
                     //照片

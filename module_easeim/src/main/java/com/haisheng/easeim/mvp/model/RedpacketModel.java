@@ -5,6 +5,8 @@ import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.ProfitRecordBean;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.jess.arms.integration.IRepositoryManager;
@@ -74,6 +76,20 @@ public class RedpacketModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
                 .getGrapRedPacketRecord(token,paytype,page);
+    }
+
+    /**
+     * 盈亏记录
+     * token	是	string	无
+     * time1	是	string	无
+     * time2	是	string	无
+     * page	是	int	无
+     * paytype	是	string	无
+     */
+    public Observable<ProfitRecordBean> getProfitRecord(String time1, String time2, int page, String paytype) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(RedpacketService.class)
+                .getProfitRecord(token,time1,time2,page,paytype);
     }
 
 
