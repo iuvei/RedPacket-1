@@ -24,7 +24,6 @@ import com.haisheng.easeim.mvp.model.entity.GarbRedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.RedpacketDetailPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.GarbRepacketAdapter;
-import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -42,7 +41,6 @@ import cn.iwgang.countdownview.CountdownView;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
-import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -99,13 +97,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     private int paytype = 0;
     private RedpacketBean redpacketInfo;
 
-    public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType) {
+    public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, int redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
         Bundle bundle = new Bundle ();
         bundle.putLong ( "roomId", roomId );
         bundle.putLong ( "redpacketId", redpacketId );
         bundle.putInt ( "welfareStatus", welfareStatus );
-        bundle.putInt ( "paytype", redType.getValue () );
+        bundle.putInt ( "paytype", redType );
         intent.putExtras ( bundle );
         context.startActivityForResult ( intent, IMConstants.REQUEST_CODE_SEND_REDPACKET );
     }

@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,7 +51,6 @@ import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
-import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -80,7 +78,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
@@ -458,8 +455,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                         String sSettlementInfo = message.getStringAttribute(IMConstants.MESSAGE_ATTR_CONENT, "");
                         if (!TextUtils.isEmpty(sSettlementInfo)) {
                             NiuniuSettlementInfo settlementInfo = new Gson().fromJson(sSettlementInfo, NiuniuSettlementInfo.class);
-                            settlementInfo.setRoomType ( "牛牛红包" );
-                            RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), settlementInfo.getRedpacketId(), 0,settlementInfo.getRoomType (  ));
+                            RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), settlementInfo.getRedpacketId(), 0,mChatRoomBean.getType ());
                         }
                     }
                     return true;
@@ -575,7 +571,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 if (builder != null) {
                     builder.dismiss();
                 }
-                RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, redpacketBean.getWelfareStatus(),redpacketBean.getRoomType (  ));
+                RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, redpacketBean.getWelfareStatus(),mChatRoomBean.getType ());
             }
         });
         CommonDialog commonDialog = builder.create();
@@ -598,12 +594,12 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
-    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedPacketUtil.RedType redType, RedpacketBean redpacketBean) {
+    public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedpacketBean redpacketBean) {
         isRabShow = false;
         playSound();
         //发送领取红包消息
         mPresenter.sendGetRedPacketMessage (this,redpacketBean);
-        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,redType);
+        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
     }
 
     @Override
@@ -854,12 +850,16 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private void sendRedpacket() {
         int roomType = mChatRoomBean.getType();
         if (roomType == IMConstants.ROOM_TYPE_MINE_REDPACKET) {
+            //扫雷详情
             SendMineRedpacketActivity.start(mContext, mChatRoomBean);
         } else if (roomType == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
+            //禁抢详情
             SendGunControlRedpacketActivity.start(mContext, mChatRoomBean);
         } else if (roomType == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET || roomType == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
+            //牛牛详情
             SendNiuniuRedpacketActivity.start(mContext, mChatRoomBean);
         } else if (roomType == IMConstants.ROOM_TYPE_WELFARE_REDPACKET) {
+            //福利详情
             SendWelfarRedpacketActivity.start(mContext, mChatRoomBean);
         }
     }

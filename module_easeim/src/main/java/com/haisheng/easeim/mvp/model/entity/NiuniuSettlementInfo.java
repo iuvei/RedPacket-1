@@ -1,8 +1,6 @@
 package com.haisheng.easeim.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
-import com.haisheng.easeim.mvp.utils.RedPacketUtil;
-import com.haisheng.easeim.mvp.utils.RedPacketUtil.RedType;
 
 import java.io.Serializable;
 
@@ -94,17 +92,4 @@ public class NiuniuSettlementInfo implements Serializable {
         this.redPackType = redPackType;
     }
 
-    public RedType getRoomType(){
-        if (redPackType.equals ( "扫雷红包" )){
-            return RedType.SAO_LEI;
-        }else if(redPackType.equals ( "禁抢红包" )){
-            return RedType.GAME_CONTRAL;
-        }else if(redPackType.equals ( "牛牛红包" )){
-            return RedType.NIU_NIU;
-        }else if(redPackType.equals ( "福利红包" )){
-            return RedType.FU_LI;
-        }else{
-            return RedType.NONE;
-        }
-    }
 }

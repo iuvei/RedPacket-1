@@ -17,6 +17,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
@@ -55,6 +56,10 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_redpacket_money)
+    TextView tvRedpacketMoney;
+    @BindView(R2.id.tv_redpacket_num)
+    TextView tvRedpacketNum;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
@@ -93,8 +98,10 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
             tvTitle.setText ( mChatRoomBean.getName () );
+            tvRedpacketMoney.setText ( "红包金额" +mChatRoomBean.getMinMoney ()+"-"+ mChatRoomBean.getMaxMoney ()+"元" );
+            tvRedpacketNum.setText ( "红包个数" +mChatRoomBean.getMinRedpacketNumber ()+"-"+ mChatRoomBean.getMaxRedpacketNumber () +"个");
         }
-        etTotalMoney.setHint ( String.format ( "%.2f-%.2f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
+        etTotalMoney.setHint ( "余额："+ AppLifecyclesImpl.getBalance () );
         etRedpacketNumber.setHint ( String.format ( "%d-%d", mChatRoomBean.getMinRedpacketNumber (), mChatRoomBean.getMaxRedpacketNumber () ) );
 
         etTotalMoney.addTextChangedListener ( new TextWatcher () {

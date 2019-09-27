@@ -2,7 +2,6 @@ package com.haisheng.easeim.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.utils.RedPacketUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -162,17 +161,5 @@ public class RedpacketBean implements Serializable {
         this.getedtime = getedtime;
     }
 
-    public RedPacketUtil.RedType getRoomType(){
-        if(type == IMConstants.MSG_TYPE_MINE_REDPACKET){
-            return RedPacketUtil.RedType.SAO_LEI;
-        }else if(type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
-            return RedPacketUtil.RedType.GAME_CONTRAL;
-        }else if(type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET){
-            return RedPacketUtil.RedType.NIU_NIU;
-        }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
-            return RedPacketUtil.RedType.FU_LI;
-        }
-        return RedPacketUtil.RedType.NONE;
-    }
 
 }

@@ -559,7 +559,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             EMClient.getInstance().chatManager().saveMessage(message);
                             mRootView.refreshList();
 
-                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean.getRoomType (),redpacketBean);
+                            mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean);
                         }else{
                             mRootView.grabRedpacketFail();
                             mRootView.showMessage(response.getMessage());

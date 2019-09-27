@@ -66,11 +66,11 @@ public class IMConstants extends EaseConstant {
     public static final String MESSAGE_ATTR_CONENT= "content";
     public static final String MESSAGE_ATTR_REDPACKET_STATUS= "redpacketStatus";
 
-    public static final int ROOM_TYPE_MINE_REDPACKET = 0;
-    public static final int ROOM_TYPE_GUN_CONTROL_REDPACKET = 1;
-    public static final int ROOM_TYPE_NIUNIU_REDPACKET = 2;
-    public static final int ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET = 3;
-    public static final int ROOM_TYPE_WELFARE_REDPACKET = 4;
+    public static final int ROOM_TYPE_MINE_REDPACKET = 0; //扫雷房间
+    public static final int ROOM_TYPE_GUN_CONTROL_REDPACKET = 1; //禁抢房间
+    public static final int ROOM_TYPE_NIUNIU_REDPACKET = 2; //牛牛房间
+    public static final int ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET = 3; //牛牛翻倍房间
+    public static final int ROOM_TYPE_WELFARE_REDPACKET = 4; //福利房间
 
     public static final int MSG_TYPE_MINE_REDPACKET = 0;
     public static final int MSG_TYPE_GUN_CONTROL_REDPACKET = 1;

@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerRedPacketRecordComponent;
 import com.haisheng.easeim.mvp.contract.RedPacketRecordContract;
 import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
@@ -146,8 +147,8 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
             @Override
             public void onItemClick(List <RedPacketRecordBean.ResultBean.ListBean> data, int position) {
                 RedPacketRecordBean.ResultBean.ListBean bean = data.get ( position );
-                RedpacketDetailActivity.start(RedPacketRecordActivity.this, ConvertNumUtils.stringToLong ( bean.getId() ),
-                        ConvertNumUtils.stringToLong ( bean.getSetid () ), redpacketBean.getWelfareStatus (),redpacketBean.getRoomType ());
+                RedpacketDetailActivity.start(RedPacketRecordActivity.this, ConvertNumUtils.stringToLong ( bean.getRoomid () ),
+                        ConvertNumUtils.stringToLong ( bean.getSetid () ), redpacketBean.getWelfareStatus (),payType);
             }
         } );
     }
@@ -157,18 +158,17 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
         if (type == 1){
            //收到的包
             switch (payType){
-                case 0:
-                    payTypeString="";
-                    break;
-                case 1:
+                case IMConstants.ROOM_TYPE_MINE_REDPACKET:
                     payTypeString="扫雷抢包";
                     break;
-                case 2:
+                case IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET:
+                    payTypeString="无法抢包";
                     break;
-                case 3:
+                case IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET:
+                case IMConstants.ROOM_TYPE_NIUNIU_REDPACKET:
                     payTypeString="牛牛抢包";
                     break;
-                case 4:
+                case IMConstants.ROOM_TYPE_WELFARE_REDPACKET:
                     payTypeString="福利抢包";
                     break;
             }
@@ -176,19 +176,17 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
         }else{
             //发出的包
             switch (payType){
-                case 0:
-                    payTypeString="";
-                    break;
-                case 1:
+                case IMConstants.ROOM_TYPE_MINE_REDPACKET:
                     payTypeString="扫雷发包";
                     break;
-                case 2:
+                case IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET:
                     payTypeString="禁抢发包";
                     break;
-                case 3:
+                case IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET:
+                case IMConstants.ROOM_TYPE_NIUNIU_REDPACKET:
                     payTypeString="牛牛发包";
                     break;
-                case 4:
+                case IMConstants.ROOM_TYPE_WELFARE_REDPACKET:
                     payTypeString="福利发包";
                     break;
             }
