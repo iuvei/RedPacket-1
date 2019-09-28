@@ -17,7 +17,7 @@
             android:id="@+id/iv_contact_head"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/alipay"
+            android:src="@drawable/ic_talkadd_friend"
             />
         <RelativeLayout
             android:layout_width="match_parent"

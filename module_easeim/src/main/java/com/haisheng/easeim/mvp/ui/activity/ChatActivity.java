@@ -209,7 +209,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.mipmap.alipay );
+        ivRight.setImageResource ( R.drawable.ic_group_talking );
     }
 
     private void initView() {

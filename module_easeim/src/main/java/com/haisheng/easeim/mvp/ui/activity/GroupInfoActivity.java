@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -71,6 +72,8 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     TextView tvGroupRules;
     @BindView(R2.id.tv_game_rules)
     TextView tvGameRules;
+    @BindView(R2.id.ll_clear_message)
+    TextView llClearMessage;
     @BindView(R2.id.switch_voice_notify)
     SwitchButton switchVoiceNotify;
     @Inject
@@ -123,23 +126,14 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         List <String> disabledGroups = mIMModel.getDisabledGroups ();
         if (null != disabledGroups)
             mDisabledGroupIds.addAll ( mIMModel.getDisabledGroups () );
-        boolean isDisabled = !mDisabledGroupIds.contains ( mChatRoomBean.getHxId () );
-        switchVoiceNotify.setChecked ( !isDisabled );
-
+        boolean isNotify = SpUtils.getValue ( this,mChatRoomBean.getHxId (),false );
+        switchVoiceNotify.setChecked ( isNotify );
         switchVoiceNotify.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked) {
-                    if (null == mDisabledGroupIds) {
-                        mDisabledGroupIds = new ArrayList <> ();
-                    }
-                    mDisabledGroupIds.add ( mChatRoomBean.getHxId () );
-                } else {
-                    if (null != mDisabledGroupIds) {
-                        mDisabledGroupIds.remove ( mChatRoomBean.getHxId () );
-                    }
-                }
-                mIMModel.setDisabledGroups ( mDisabledGroupIds );
+                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
+                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
+                SpUtils.put ( GroupInfoActivity.this,mChatRoomBean.getHxId (),isChecked );
             }
         } );
 
@@ -170,6 +164,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
             @Override
             public void onClick(View v) {
                 UserListActivity.start ( mContext, groupUserList );
+            }
+        } );
+        llClearMessage.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                IMHelper.getInstance ().delectContact ( mChatRoomBean.getHxId () );
             }
         } );
     }

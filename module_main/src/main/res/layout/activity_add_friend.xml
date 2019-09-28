@@ -40,7 +40,7 @@
             android:id="@+id/iv_address_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/avatar_b_usr"/>
+            android:src="@drawable/ic_match_phone"/>
         <TextView
             android:id="@+id/tv_address_book"
             android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
             android:id="@+id/iv_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/avatar_b_usr"/>
+            android:src="@drawable/ic_scan"/>
         <TextView
             android:id="@+id/tv_scan"
             android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
             android:id="@+id/iv_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/avatar_b_usr"/>
+            android:src="@drawable/ic_inviat_contact"/>
         <TextView
             android:id="@+id/tv_contact"
             android:layout_width="wrap_content"
