@@ -23,6 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
+import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerNiuNiuRecordComponent;
 import com.haisheng.easeim.mvp.contract.NiuNiuRecordContract;
 import com.haisheng.easeim.mvp.model.entity.ProfitRecordBean;
@@ -44,6 +45,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.view.popupwindow.SelectItemPopupWindow;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -143,7 +145,9 @@ public class NiuNiuRecordActivity extends BaseActivity <NiuNiuRecordPresenter> i
         recycleAdapter.setItemClickListener ( new ProfitRecordAdapter.ItemClickListener () {
             @Override
             public void onItemClick(List <ProfitRecordBean.ResultBean.ListBean> data, int position) {
-
+                ProfitRecordBean.ResultBean.ListBean bean = data.get ( position );
+                RedpacketDetailActivity.start ( NiuNiuRecordActivity.this, ConvertNumUtils.stringToLong ( bean.getRoomid () ),
+                        ConvertNumUtils.stringToLong ( bean.getSetid () ),0, IMConstants.ROOM_TYPE_NIUNIU_REDPACKET );
             }
         } );
     }
@@ -198,12 +202,12 @@ public class NiuNiuRecordActivity extends BaseActivity <NiuNiuRecordPresenter> i
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.ll_select_type, R2.id.tv_start_time, R2.id.tv_end_time})
+    @OnClick({R2.id.iv_back, R2.id.tv_select_type, R2.id.tv_start_time, R2.id.tv_end_time})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
             finish ();
-        } else if (i == R.id.ll_select_type) {
+        } else if (i == R.id.tv_select_type) {
             showSelectTypePopupWindow(llSelectType);
         } else if (i == R.id.tv_start_time) {
             showStartTimePickerView ();

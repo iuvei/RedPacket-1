@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tv_time"
         android:layout_alignParentRight="true"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:textSize="@dimen/text_small"
         android:textColor="@color/text_blue"
         android:text="详情>>"/>

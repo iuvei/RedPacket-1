@@ -3,6 +3,7 @@ package com.haisheng.easeim.mvp.ui.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,12 @@ public class ProfitRecordAdapter extends RecyclerView.Adapter <ProfitRecordAdapt
         }
         holder.tv_time.setText ( bean.getAddtime () );
         holder.tv_money.setText ( bean.getGold () );
-        holder.tv_detail.setText ( bean.getDetails () );
+        holder.tv_describe.setText ( bean.getDetails () );
+        if (!TextUtils.isEmpty ( bean.getRoomid () ) && !TextUtils.isEmpty ( bean.getSetid () )){
+            holder.tv_detail.setVisibility ( View.VISIBLE );
+        }else{
+            holder.tv_detail.setVisibility ( View.GONE );
+        }
         holder.tv_detail.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
