@@ -134,13 +134,18 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "红包详情" );
-        tvRight.setText ( "红包记录" );
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mRoomId = bundle.getLong ( "roomId" );
             mRedpacketId = bundle.getLong ( "redpacketId" );
             mWelfareStatus = bundle.getInt ( "welfareStatus" );
             paytype = bundle.getInt ( "paytype" );
+            if (paytype== IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
+            paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET){
+                tvRight.setText ( "账单记录" );
+            }else{
+                tvRight.setText ( "红包记录" );
+            }
         }
         cdvTime.setOnCountdownEndListener ( new CountdownView.OnCountdownEndListener () {
             @Override
@@ -163,8 +168,14 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         tvRight.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                //红包记录
-                RedPacketRecordActivity.start ( RedpacketDetailActivity.this,paytype,redpacketInfo );
+                if (paytype== IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
+                        paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET){
+                    //盈亏记录
+                    openActivity ( NiuNiuRecordActivity.class );
+                }else{
+                    //红包记录
+                    RedPacketRecordActivity.start ( RedpacketDetailActivity.this,paytype,redpacketInfo );
+                }
             }
         } );
     }

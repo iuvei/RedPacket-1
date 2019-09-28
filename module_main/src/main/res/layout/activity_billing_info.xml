@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <include
         android:id="@+id/title_layout"
         layout="@layout/title_layout"></include>
@@ -66,23 +66,34 @@
             android:layout_marginTop="@dimen/spacing_m"
             android:layout_alignParentRight="true"
             android:textColor="@color/public_black"/>
-        <TextView
-            android:id="@+id/remark"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="备注"
             android:layout_marginTop="@dimen/spacing_m"
             android:layout_below="@+id/take_money_time"
-            android:textColor="@color/public_black"/>
-        <TextView
-            android:id="@+id/tv_remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99.00"
-            android:layout_below="@+id/tv_take_money_time"
-            android:layout_marginTop="@dimen/spacing_m"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/public_black"/>
+            >
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_remark"
+                android:textColor="@color/public_black"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="99.0000000000000000000000"
+                android:textColor="@color/public_black"
+                android:layout_marginLeft="@dimen/spacing_m"
+                app:layout_constraintLeft_toRightOf="@+id/remark"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
     <View style="@style/discover_style_view"
         android:layout_below="@+id/rl_info"

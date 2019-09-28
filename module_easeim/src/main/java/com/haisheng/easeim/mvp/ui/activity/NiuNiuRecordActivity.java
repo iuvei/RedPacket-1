@@ -276,6 +276,9 @@ public class NiuNiuRecordActivity extends BaseActivity <NiuNiuRecordPresenter> i
         if (result!=null ){
             recycleAdapter.setDatas ( result.getList () );
         }
+        if (result.getList ()==null ||result.getList ().size ()<=0){
+            ToastUtils.showShort ( "没有数据" );
+        }
         mTypes = result.getPaytype ();
     }
 

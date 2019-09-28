@@ -141,7 +141,7 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
     @OnClick({R2.id.ll_game_redpacket, R2.id.ll_game_electronic, R2.id.ll_game_chess, R2.id.ll_game_leisure})
     public void onViewClicked(View view) {
         int i = view.getId ();
-        mCurrentSelectedView.setVisibility ( View.GONE );
+       // mCurrentSelectedView.setVisibility ( View.GONE );
         if (i == R.id.ll_game_redpacket) {
             //红包
             mCurrentSelectedView = roundRedpacket;
@@ -149,20 +149,22 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
                 getFragmentManager ().beginTransaction ().show ( redPacketFragment ).hide ( electronicFragment ).commit ();
             }
         } else if (i == R.id.ll_game_electronic) {
+            ToastUtils.showShort ( "敬请期待" );
+            return;
             //棋牌
-            mCurrentSelectedView = roundElectronic;
+           /* mCurrentSelectedView = roundElectronic;
             if (electronicFragment==null){
                 electronicFragment = new GameElectronicFragment ();
                 getFragmentManager ().beginTransaction ().add ( R.id.frameLayout_game,electronicFragment ).hide ( redPacketFragment ).commit ();
             }else{
                 getFragmentManager ().beginTransaction ().show ( electronicFragment ).hide ( redPacketFragment ).commit ();
-            }
+            }*/
         } else if (i == R.id.ll_game_chess) {
             //彩票
-            ToastUtils.showShort ( "正在开发中" );
+            ToastUtils.showShort ( "敬请期待" );
         } else if (i == R.id.ll_game_leisure) {
             //捕鱼
-            ToastUtils.showShort ( "余额不足，请您在充值后再体验游戏！" );
+            ToastUtils.showShort ( "敬请期待" );
         }
         mCurrentSelectedView.setVisibility ( View.VISIBLE );
     }
