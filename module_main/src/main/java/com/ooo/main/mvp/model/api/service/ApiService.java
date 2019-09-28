@@ -340,6 +340,8 @@ public interface ApiService {
     );
 
     /**
+     *
+     * 前往充值
      * token	是	string	无
      * money	是	int	充值金额
      * pay_type	是	string	充值方式
@@ -371,6 +373,18 @@ public interface ApiService {
             @Field("paymoney") String paymoney,
             @Field("payname") String payname,
             @Field("payimg") String payimg
+    );
+
+
+    /**
+     * 线下充值列表
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=onlinepaylist")
+    @FormUrlEncoded
+    Observable<GetRechargeInfoBean> onlinePayList(
+            @Field("token") String token
     );
 
     /**

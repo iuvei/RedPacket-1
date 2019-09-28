@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/btn_ad_round_white"
+    android:layout_marginBottom="@dimen/spacing_xl"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_takePhoto"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="拍照"
+        android:textColor="@color/public_color_53A8F4"
+        android:gravity="center"
+        android:textSize="@dimen/text_normal"/>
+    <View
+        android:id="@+id/line1"
+        android:layout_below="@+id/tv_takePhoto"
+        style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:id="@+id/tv_take_image"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="相册"
+        android:textColor="@color/public_color_53A8F4"
+        android:gravity="center"
+        android:layout_below="@+id/line1"
+        android:textSize="@dimen/text_normal"/>
+    <View
+        android:id="@+id/line2"
+        android:layout_below="@+id/tv_take_image"
+        style="@style/discover_style_view"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="取消"
+        android:layout_below="@+id/line2"
+        android:textColor="@color/public_color_53A8F4"
+        android:gravity="center"
+        android:textSize="@dimen/text_normal"/>
+</RelativeLayout>

@@ -283,7 +283,7 @@ public class ApiModel extends BaseModel{
     }
 
     /**
-     * 获取充值信息
+     * 前往充值
      * @param money  充值金额
      * @param payType
      */
@@ -291,6 +291,16 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .getRechargeInfo (token,money,payType);
+    }
+
+    /**
+     * 线下充值列表
+     * @return
+     */
+    public Observable<GetRechargeInfoBean> onlinePayList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .onlinePayList (token);
     }
 
     /**

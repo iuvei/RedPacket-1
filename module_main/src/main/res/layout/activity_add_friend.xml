@@ -38,8 +38,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_address_book"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_match_phone"/>
         <TextView
             android:id="@+id/tv_address_book"
@@ -68,8 +68,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_scan"/>
         <TextView
             android:id="@+id/tv_scan"
@@ -98,8 +98,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_contact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_inviat_contact"/>
         <TextView
             android:id="@+id/tv_contact"
