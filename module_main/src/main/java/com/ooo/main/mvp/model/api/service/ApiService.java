@@ -359,7 +359,7 @@ public interface ApiService {
     /**
      * 提交充值信息
      * token	是	string	无
-     * paycodeid	是	int	充值通道
+     * paycodeid	是	int	充值通道  1 微信 2支付宝 3银行
      * paymoney	是	int	充值金额
      * payname	是	int	转账户名
      * payimg	是	int	上传凭证
@@ -385,6 +385,18 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<GetRechargeInfoBean> onlinePayList(
             @Field("token") String token
+    );
+
+    /**
+     * 通过类型获取充值信息
+     * type	是	string	1 微信 2支付宝 3银行
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=onlinepay")
+    @FormUrlEncoded
+    Observable<GetRechargeInfoBean> onlinePayInfo(
+            @Field("type") String token
     );
 
     /**

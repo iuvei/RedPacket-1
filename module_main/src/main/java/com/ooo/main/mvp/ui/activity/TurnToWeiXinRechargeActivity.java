@@ -10,29 +10,39 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerTurnToWeiXinRechargeComponent;
 import com.ooo.main.mvp.contract.TurnToWeiXinRechargeContract;
+import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
 import com.ooo.main.mvp.presenter.TurnToWeiXinRechargePresenter;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.CopyUtil;
 import me.jessyan.armscomponent.commonres.utils.FileUtil;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -62,7 +72,10 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
     ImageView ivUploadPic;
     @BindView(R2.id.iv_qrcode)
     ImageView ivQrcode;
+    @BindView(R2.id.btn_submit)
+    Button btnSubmit;
     private String picUrl;
+    private List <GetRechargeInfoBean.ResultBean> recharge;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -87,7 +100,8 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
         tvRight.setText ( "客服" );
         tvRight.setVisibility ( View.VISIBLE );
         String money = getIntent ().getStringExtra ( "money" );
-        mPresenter.onlinePayList ( );
+        tvMoney.setText ( (ConvertNumUtils.stringToDouble ( money ) + (int) (Math.random () * 100) / 100.0) + "" );
+        mPresenter.onlinePayInfo ( "1" );
     }
 
     public static void start(Context context, String money) {
@@ -130,46 +144,58 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_right,R2.id.btn_copy_money, R2.id.btn_cancel, R2.id.btn_submit,R2.id.iv_uploadPic})
+    @OnClick({R2.id.iv_back, R2.id.tv_right, R2.id.btn_copy_money, R2.id.btn_cancel, R2.id.btn_submit, R2.id.iv_uploadPic})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
             finish ();
         } else if (i == R.id.tv_right) {
-
+            //客服
+            Bundle bundle = new Bundle ();
+            bundle.putString ( "userId", ConfigUtil.SERVICE_HOMEPAGE );
+            bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
+            bundle.putSerializable ( "isService", true );
+            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
         } else if (i == R.id.btn_copy_money) {
             CopyUtil.getInstance ().copyString ( this, tvMoney.getText ().toString ().trim () );
         } else if (i == R.id.btn_cancel) {
             finish ();
         } else if (i == R.id.btn_submit) {
-            String payCodeId = "";
             String payMoney = tvMoney.getText ().toString ().trim ();
-            String payName = "";
-            mPresenter.submitRechargeInfo ( payCodeId, payMoney, payName, picUrl );
-        }else if (i == R.id.iv_uploadPic) {
+            if (TextUtils.isEmpty ( picUrl )) {
+                ToastUtils.showShort ( "请先上传充值凭证" );
+                return;
+            }
+            if (recharge == null) {
+                ToastUtils.showShort ( "暂无充值信息" );
+                return;
+            }
+            mPresenter.submitRechargeInfo ( "1", payMoney, recharge.get ( 0 ).getPayname (), picUrl );
+            btnSubmit.setEnabled ( false );
+        } else if (i == R.id.iv_uploadPic) {
             //上传凭证
-            showChoosePic(view);
+            showChoosePic ( view );
         }
     }
 
-    public void showChoosePic(View view){
+    public void showChoosePic(View view) {
         //保存图片
-        View contentView = View.inflate ( this, com.haisheng.easeim.R.layout.popuwindow_choose_pictype,null );
-        PopuWindowsUtils popuWindowsUtils = new PopuWindowsUtils ( this,0.7f,ivUploadPic,contentView,true );
-        popuWindowsUtils.showAtLocation(view.getRootView (), Gravity.CENTER,Gravity.BOTTOM );
+        View contentView = View.inflate ( this, com.haisheng.easeim.R.layout.popuwindow_choose_pictype, null );
+        PopuWindowsUtils popuWindowsUtils = new PopuWindowsUtils ( this, 0.7f, ivUploadPic, contentView, true );
+        popuWindowsUtils.showAtLocation ( view.getRootView (), Gravity.CENTER, Gravity.BOTTOM );
         contentView.findViewById ( com.haisheng.easeim.R.id.tv_takePhoto ).setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
                 popuWindowsUtils.dismiss ();
                 //拍照
-                Intent intent = new Intent(
-                        MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent (
+                        MediaStore.ACTION_IMAGE_CAPTURE );
                 //下面这句指定调用相机拍照后的照片存储的路径
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
-                        .fromFile(new File ( Environment
-                                .getExternalStorageDirectory(),
-                                "xiaoma.jpg")));
-                startActivityForResult(intent, 2);
+                intent.putExtra ( MediaStore.EXTRA_OUTPUT, Uri
+                        .fromFile ( new File ( Environment
+                                .getExternalStorageDirectory (),
+                                "xiaoma.jpg" ) ) );
+                startActivityForResult ( intent, 2 );
             }
         } );
         contentView.findViewById ( com.haisheng.easeim.R.id.tv_take_image ).setOnClickListener ( new View.OnClickListener () {
@@ -177,11 +203,11 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
             public void onClick(View view) {
                 popuWindowsUtils.dismiss ();
                 //相册
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(
+                Intent intent = new Intent ( Intent.ACTION_PICK, null );
+                intent.setDataAndType (
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        "image/*");
-                startActivityForResult(intent, 1);
+                        "image/*" );
+                startActivityForResult ( intent, 1 );
             }
         } );
         contentView.findViewById ( com.haisheng.easeim.R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
@@ -196,30 +222,30 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult ( requestCode, resultCode, data );
         if (resultCode != Activity.RESULT_CANCELED) {
             switch (requestCode) {
                 // 如果是直接从相册获取
                 case 1:
-                    startPhotoZoom(data.getData());
+                    startPhotoZoom ( data.getData () );
                     break;
                 // 如果是调用相机拍照时
                 case 2:
-                    File temp = new File(Environment.getExternalStorageDirectory()
-                            + "/xiaoma.jpg");
-                    startPhotoZoom(Uri.fromFile(temp));
+                    File temp = new File ( Environment.getExternalStorageDirectory ()
+                            + "/xiaoma.jpg" );
+                    startPhotoZoom ( Uri.fromFile ( temp ) );
                     break;
                 // 取得裁剪后的图片
                 case 3:
                     if (data != null) {
-                        setPicToView(data);
+                        setPicToView ( data );
                     }
                     break;
                 default:
                     break;
 
             }
-            super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult ( requestCode, resultCode, data );
         }
     }
 
@@ -229,18 +255,18 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        Intent intent = new Intent ( "com.android.camera.action.CROP" );
+        intent.setDataAndType ( uri, "image/*" );
         //下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("crop", "true");
+        intent.putExtra ( "crop", "true" );
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra ( "aspectX", 1 );
+        intent.putExtra ( "aspectY", 1 );
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3);
+        intent.putExtra ( "outputX", 150 );
+        intent.putExtra ( "outputY", 150 );
+        intent.putExtra ( "return-data", true );
+        startActivityForResult ( intent, 3 );
     }
 
     /**
@@ -249,13 +275,13 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
      * @param picdata
      */
     private void setPicToView(Intent picdata) {
-        Bundle extras = picdata.getExtras();
+        Bundle extras = picdata.getExtras ();
         if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
+            Bitmap photo = extras.getParcelable ( "data" );
             //图片路径
             String urlpath = FileUtil.saveFile ( this, "temphead.jpg", photo );
             mPresenter.upLoadPic ( urlpath );
-            System.out.println("----------路径----------" + urlpath);
+            System.out.println ( "----------路径----------" + urlpath );
         }
     }
 
@@ -263,5 +289,31 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
     public void uploadImgSuccessfully(String picUrl) {
         this.picUrl = picUrl;
         Glide.with ( this ).load ( picUrl ).into ( ivUploadPic );
+    }
+
+    @Override
+    public void getRechargeInfoSuccess(List <GetRechargeInfoBean.ResultBean> result) {
+        if (result != null && result.size () > 0) {
+            recharge = result;
+            Glide.with ( this ).load ( result.get ( 0 ).getPayurl () ).into ( ivQrcode );
+        } else {
+            ToastUtils.showShort ( "暂无充值信息" );
+        }
+    }
+
+    @Override
+    public void getRechargeInfoFail() {
+
+    }
+
+    @Override
+    public void submitRechargeInfoSuccess(String result) {
+        ToastUtils.showShort ( result );
+        finish ();
+    }
+
+    @Override
+    public void submitRechargeInfoFail() {
+        btnSubmit.setEnabled ( true );
     }
 }

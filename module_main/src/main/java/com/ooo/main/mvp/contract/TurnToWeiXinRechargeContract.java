@@ -2,6 +2,9 @@ package com.ooo.main.mvp.contract;
 
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
+
+import java.util.List;
 
 
 /**
@@ -21,6 +24,14 @@ public interface TurnToWeiXinRechargeContract {
     interface View extends IView {
 
         void uploadImgSuccessfully(String result);
+
+        void getRechargeInfoSuccess(List<GetRechargeInfoBean.ResultBean> result);
+
+        void getRechargeInfoFail();
+
+        void submitRechargeInfoSuccess(String result);
+
+        void submitRechargeInfoFail();
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
@@ -75,17 +76,17 @@ public class TurnToYinLianRechargePresenter extends BasePresenter <IModel, TurnT
         this.mApplication = null;
     }
 
-    public void getRechargeInfo(String money,String payType){
-        apiModel.getRechargeInfo ( money,payType )
+    public void onlinePayInfo(String type){
+        apiModel.onlinePayInfo ( type )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <GetRechargeInfoBean> (mErrorHandler) {
                     @Override
                     public void onNext(GetRechargeInfoBean bean) {
-                       /* if (bean.getStatus ()==1) {
-                            mRootView.getRechargeInfoSuccess(bean.getResult ().getWechat ());
+                        if (bean.getStatus ()==1) {
+                            mRootView.getRechargeInfoSuccess(bean.getResult ());
                         }else{
                             mRootView.getRechargeInfoFail();
-                        }*/
+                        }
                     }
                 } );
     }
@@ -96,11 +97,12 @@ public class TurnToYinLianRechargePresenter extends BasePresenter <IModel, TurnT
                 .subscribe ( new ErrorHandleSubscriber <SubmitRechargeInfo> (mErrorHandler) {
                     @Override
                     public void onNext(SubmitRechargeInfo bean) {
-                       /* if (bean.getStatus ()==1) {
-                            mRootView.getRechargeInfoSuccess(bean.getResult ().getWechat ());
+                        if (bean.getStatus ()==1) {
+                            mRootView.submitRechargeInfoSuccess(bean.getResult ());
                         }else{
-                            mRootView.getRechargeInfoFail();
-                        }*/
+                            ToastUtils.showShort ( bean.getResult () );
+                            mRootView.submitRechargeInfoFail();
+                        }
                     }
                 } );
     }

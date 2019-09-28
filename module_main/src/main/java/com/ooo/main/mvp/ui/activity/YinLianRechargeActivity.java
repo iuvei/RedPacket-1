@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -32,6 +34,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -197,7 +201,12 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
             TurnToYinLianRechargeActivity.start ( this,money,name );
 
         } else if (i == R.id.tv_right) {
-
+            //客服
+            Bundle bundle = new Bundle ();
+            bundle.putString ( "userId", ConfigUtil.SERVICE_HOMEPAGE );
+            bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
+            bundle.putSerializable ( "isService", true );
+            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
         }
     }
 

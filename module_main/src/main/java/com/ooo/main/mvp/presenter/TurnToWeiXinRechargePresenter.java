@@ -4,11 +4,22 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.mvp.IModel;
+import com.ooo.main.mvp.contract.TurnToWeiXinRechargeContract;
+import com.ooo.main.mvp.model.ApiModel;
+import com.ooo.main.mvp.model.MemberModel;
+import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
+import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
+
+import java.io.File;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -20,18 +31,6 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-
-import javax.inject.Inject;
-
-import com.jess.arms.mvp.IModel;
-import com.ooo.main.mvp.contract.TurnToWeiXinRechargeContract;
-import com.ooo.main.mvp.model.ApiModel;
-import com.ooo.main.mvp.model.MemberModel;
-import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
-import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
-import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
-
-import java.io.File;
 
 
 /**
@@ -76,17 +75,17 @@ public class TurnToWeiXinRechargePresenter extends BasePresenter <IModel, TurnTo
         this.mApplication = null;
     }
 
-    public void onlinePayList(){
-        apiModel.onlinePayList ( )
+    public void onlinePayInfo(String type){
+        apiModel.onlinePayInfo ( type )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <GetRechargeInfoBean> (mErrorHandler) {
                     @Override
                     public void onNext(GetRechargeInfoBean bean) {
-                       /* if (bean.getStatus ()==1) {
-                            mRootView.getRechargeInfoSuccess(bean.getResult ().getWechat ());
+                        if (bean.getStatus ()==1) {
+                            mRootView.getRechargeInfoSuccess(bean.getResult ());
                         }else{
                             mRootView.getRechargeInfoFail();
-                        }*/
+                        }
                     }
                 } );
     }
@@ -97,11 +96,12 @@ public class TurnToWeiXinRechargePresenter extends BasePresenter <IModel, TurnTo
                 .subscribe ( new ErrorHandleSubscriber <SubmitRechargeInfo> (mErrorHandler) {
                     @Override
                     public void onNext(SubmitRechargeInfo bean) {
-                       /* if (bean.getStatus ()==1) {
-                            mRootView.getRechargeInfoSuccess(bean.getResult ().getWechat ());
+                        if (bean.getStatus ()==1) {
+                            mRootView.submitRechargeInfoSuccess(bean.getResult ());
                         }else{
-                            mRootView.getRechargeInfoFail();
-                        }*/
+                            ToastUtils.showShort ( bean.getResult () );
+                            mRootView.submitRechargeInfoFail();
+                        }
                     }
                 } );
     }

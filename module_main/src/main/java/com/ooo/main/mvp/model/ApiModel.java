@@ -304,6 +304,16 @@ public class ApiModel extends BaseModel{
     }
 
     /**
+     * 通过类型获取充值信息
+     * type	是	string	1 微信 2支付宝 3银行
+     * @return
+     */
+    public Observable<GetRechargeInfoBean> onlinePayInfo(String type) {
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .onlinePayInfo (type);
+    }
+
+    /**
      * 提交充值信息
      * paycodeid	是	int	充值通道
      * paymoney	是	int	充值金额

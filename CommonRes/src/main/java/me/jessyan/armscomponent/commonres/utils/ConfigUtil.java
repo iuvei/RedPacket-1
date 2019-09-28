@@ -16,6 +16,6 @@ public class ConfigUtil {
     public static final String SERVICE_GAME_SAOLEI_INSIDE = "kf-sl02"; //扫雷游戏内客服
     public static final String SERVICE_MYPAGE = "kf-my"; //我的页面客服
     public static final String SERVICE_GAME_CONTROL_ROOM = "kf-jq01"; //禁抢房间客服
-    public static final String SERVICE_GAME_FULI_ROOM = ""; //福利房间客服
-    public static final String SERVICE_GAME_FULI_INSIDE = ""; //福利游戏内客服
+    public static final String SERVICE_GAME_FULI_ROOM = "kf-fl01"; //福利房间客服
+    public static final String SERVICE_GAME_FULI_INSIDE = "kf-fl02"; //福利游戏内客服
 }
