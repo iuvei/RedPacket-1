@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.utils.ArmsUtils;
@@ -39,8 +42,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -208,6 +213,11 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             startActivity ( new Intent ( getActivity (), BalanceActivity.class ) );
         } else if (i == R.id.ll_customer_service) {
             //客服
+            Bundle bundle = new Bundle (  );
+            bundle.putString("userId", ConfigUtil.SERVICE_MYPAGE );
+            bundle.putInt("chatType", EaseConstant.CHATTYPE_SINGLE);
+            bundle.putSerializable("isService", true);
+            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
         } else if (i == R.id.ll_recharge) {
             //充值
             if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){

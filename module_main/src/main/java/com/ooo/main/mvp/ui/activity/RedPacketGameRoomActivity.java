@@ -32,6 +32,7 @@ import org.simple.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
@@ -154,7 +155,25 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
         if (i == R.id.iv_back) {
             finish ();
         } else if (i == R.id.ll_recharge) {
-
+            //充值
+          if(bannerEntity!=null) {
+              if (bannerEntity.getUrl ().equals ( "0" )) {
+                 //扫雷区";
+                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_SAOLEI_ROOM,true );
+              } else if (bannerEntity.getUrl ().equals ( "1" )) {
+                 // return "禁抢区";
+                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_CONTROL_ROOM,true );
+              } else if (bannerEntity.getUrl ().equals ( "2" )) {
+                  //return "牛牛不翻倍";
+                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+              } else if (bannerEntity.getUrl ().equals ( "3" )) {
+                  //return "牛牛翻倍";
+                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+              } else if (bannerEntity.getUrl ().equals ( "4" )) {
+                  //return "福利区";
+                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_FULI_ROOM,true );
+              }
+          }
         }
     }
 

@@ -79,6 +79,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.view.popupwindow.NotescontactPopupWindow;
@@ -155,6 +156,15 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     public static void start(Context context, String toChatUsername) {
         start ( context, toChatUsername, EaseConstant.CHATTYPE_SINGLE );
     }
+    public static void start(Context context, String toChatUsername,boolean isService) {
+        Intent intent = new Intent ( context, ChatActivity.class );
+        Bundle bundle = new Bundle ();
+        bundle.putString ( "userId", toChatUsername );
+        bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
+        bundle.putBoolean ( "isService", isService );
+        intent.putExtras ( bundle );
+        context.startActivity ( intent );
+    }
 
     public static void start(Context context, String toChatUsername, int chatType) {
         Intent intent = new Intent ( context, ChatActivity.class );
@@ -208,8 +218,13 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
-        ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.drawable.ic_group_talking );
+        boolean isService = bundle.getBoolean ( "isService" );
+        if (isService){
+            ivRight.setVisibility ( View.GONE );
+        }else {
+            ivRight.setVisibility ( View.VISIBLE );
+            ivRight.setImageResource ( R.drawable.ic_group_talking );
+        }
     }
 
     private void initView() {
@@ -354,7 +369,20 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     break;
                 case ITEM_CUSTOMER_SERVICE:
                     //客服
-                    showNotescontactPopupWindow(view);
+                    int roomType = mChatRoomBean.getType();
+                    if (roomType == IMConstants.ROOM_TYPE_MINE_REDPACKET) {
+                        //扫雷详情
+                        ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_SAOLEI_INSIDE,true );
+                    } else if (roomType == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
+                        //禁抢详情
+                        ChatActivity.start ( ChatActivity.this, ConfigUtil.SERVICE_GAME_CONTROL_INSIDE,true );
+                    } else if (roomType == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET || roomType == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
+                        //牛牛详情
+                        ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_NIUNIU_INSIDE,true );
+                    } else if (roomType == IMConstants.ROOM_TYPE_WELFARE_REDPACKET) {
+                        //福利详情
+                        ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_FULI_INSIDE,true );
+                    }
                     break;
                 case ITEM_PROFIT:
                     //盈亏记录

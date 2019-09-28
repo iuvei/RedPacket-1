@@ -52,6 +52,7 @@ import butterknife.Unbinder;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
@@ -81,6 +82,8 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     Unbinder unbinder;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
+    @BindView(R2.id.ll_customer_service)
+    LinearLayout llService;
     private int mTag;
     private List <Long> userInfos;
 
@@ -173,6 +176,13 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         initRefreshLayout ();
 
         mPresenter.initDatas ( mTag );
+
+        llService.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                ChatActivity.start ( getActivity (), ConfigUtil.SERVICE_HOMEPAGE,true );
+            }
+        } );
     }
 
     private void initRefreshLayout() {
