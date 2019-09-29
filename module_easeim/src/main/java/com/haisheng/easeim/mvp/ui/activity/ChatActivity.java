@@ -79,6 +79,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
+import me.jessyan.armscomponent.commonres.utils.AndroidBug5497Workaround;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
@@ -203,6 +204,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Bundle bundle = getIntent ().getExtras ();
         toChatUsername = bundle.getString ( EaseConstant.EXTRA_USER_ID );
