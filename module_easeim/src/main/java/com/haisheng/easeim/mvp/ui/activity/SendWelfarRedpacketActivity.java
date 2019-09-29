@@ -96,8 +96,9 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
             tvTitle.setText ( mChatRoomBean.getName () );
             etTotalMoney.setHint ( "余额："+ AppLifecyclesImpl.getBalance () );
+            etRedpacketNumber.setHint ( mChatRoomBean.getWelfareMinRedpacketNumber ()+"-"+mChatRoomBean.getWelfareMaxRedpacketNumber () );
             tvRedpacketMoney.setText ( "红包金额"+ mChatRoomBean.getWelfareMinMoney ()+"-"+mChatRoomBean.getWelfareMaxMoney ());
-            tvRedpacketNum.setText ( "红包金额"+ mChatRoomBean.getWelfareMinRedpacketNumber ()+"-"+mChatRoomBean.getWelfareMaxRedpacketNumber ());
+            tvRedpacketNum.setText ( "红包个数"+ mChatRoomBean.getWelfareMinRedpacketNumber ()+"-"+mChatRoomBean.getWelfareMaxRedpacketNumber ());
         }
 
         etTotalMoney.addTextChangedListener ( new TextWatcher () {

@@ -182,12 +182,12 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
 
     @Override
     public void getLuckyDrawResultSuccess(StartLuckyDrawBean.ResultBean result) {
-        ivGo.setEnabled ( true );
-        ivGo.setImageResource ( R.drawable.go );
         zpan.rotate ( result.getPricekk () );
         zpan.setListener ( new PieView.RotateListener () {
             @Override
             public void value(String s) {
+                ivGo.setEnabled ( true );
+                ivGo.setImageResource ( R.drawable.go );
                 ToastUtils.showShort ( s );
             }
         } );

@@ -145,7 +145,7 @@ public class PieView extends View {
         }*/
     }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             float x = (event.getX() - mCenter);
@@ -174,7 +174,7 @@ public class PieView extends View {
         }
         return super.onTouchEvent(event);
     }
-
+*/
     @Override
     protected void onDraw(Canvas canvas) {
         //1.绘制背景
