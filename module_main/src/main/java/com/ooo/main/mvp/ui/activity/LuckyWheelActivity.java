@@ -142,6 +142,8 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
             openActivity ( LuckyDrawActivity.class );
         } else if (i == R.id.iv_go) {
             //启动转盘
+            ivGo.setEnabled ( false );
+            ivGo.setImageResource ( R.drawable.go_no );
             zpan.startRatate ();
             if (luckyNum<=0){
                 ToastUtils.showShort ( "抽奖次数为0" );
@@ -180,6 +182,8 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
 
     @Override
     public void getLuckyDrawResultSuccess(StartLuckyDrawBean.ResultBean result) {
+        ivGo.setEnabled ( true );
+        ivGo.setImageResource ( R.drawable.go );
         zpan.rotate ( result.getPricekk () );
         zpan.setListener ( new PieView.RotateListener () {
             @Override
