@@ -25,6 +25,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerTurnToWeiXinRechargeComponent;
 import com.ooo.main.mvp.contract.TurnToWeiXinRechargeContract;
 import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
@@ -170,7 +171,8 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
                 ToastUtils.showShort ( "暂无充值信息" );
                 return;
             }
-            mPresenter.submitRechargeInfo ( "1", payMoney, recharge.get ( 0 ).getPayname (), picUrl );
+            mPresenter.submitRechargeInfo ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"",
+                    recharge.get ( 0 ).getPaycode (),"1", payMoney, recharge.get ( 0 ).getPayname (), picUrl );
             btnSubmit.setEnabled ( false );
         } else if (i == R.id.iv_uploadPic) {
             //上传凭证

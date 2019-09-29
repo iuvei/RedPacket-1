@@ -26,6 +26,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerTurnToAlipyRechargeComponent;
 import com.ooo.main.mvp.contract.TurnToAlipyRechargeContract;
 import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
@@ -172,7 +173,8 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
                 ToastUtils.showShort ( "暂无充值信息" );
                 return;
             }
-            mPresenter.submitRechargeInfo ( "2", payMoney, recharge.get ( 0 ).getPayname (), picUrl );
+            mPresenter.submitRechargeInfo ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"",
+                    recharge.get ( 0 ).getPaycode () ,"2", payMoney, recharge.get ( 0 ).getPayname (), picUrl );
             btnSubmit.setEnabled ( false );
         } else if (i == R.id.iv_uploadPic) {
             //上传图片

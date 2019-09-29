@@ -363,6 +363,8 @@ public interface ApiService {
     /**
      * 提交充值信息
      * token	是	string	无
+     * uid	是	string	用户id
+     * paycode	是	string	无
      * paycodeid	是	int	充值通道  1 微信 2支付宝 3银行
      * paymoney	是	int	充值金额
      * payname	是	int	转账户名
@@ -373,6 +375,8 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<SubmitRechargeInfo> submitRechargeInfo(
             @Field("token") String token,
+            @Field("uid") String uid,
+            @Field("paycode") String paycode,
             @Field("paycodeid") String paycodeid,
             @Field("paymoney") String paymoney,
             @Field("payname") String payname,

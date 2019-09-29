@@ -28,6 +28,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.app.AppLifecyclesImpl;
 import com.ooo.main.di.component.DaggerTurnToYinLianRechargeComponent;
 import com.ooo.main.mvp.contract.TurnToYinLianRechargeContract;
 import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
@@ -218,7 +219,8 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
                 ToastUtils.showShort ( "暂无充值信息" );
                 return;
             }
-            mPresenter.submitRechargeInfo ( "3", payMoney, tvPayName.getText ().toString ().trim (), picUrl );
+            mPresenter.submitRechargeInfo ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"",
+                    recharge.get ( 0 ).getPaycode (),"3", payMoney, tvPayName.getText ().toString ().trim (), picUrl );
             btnSubmit.setEnabled ( false );
         } else if (i == R.id.iv_uploadPic) {
             //上传凭证
