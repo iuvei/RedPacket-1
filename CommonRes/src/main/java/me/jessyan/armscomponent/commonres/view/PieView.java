@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,10 +18,9 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import java.util.Arrays;
-
-import me.jessyan.armscomponent.commonres.R;
 
 /**
  * @author lanjian
@@ -34,22 +32,26 @@ public class PieView extends View {
     private static final String TAG = PieView.class.getSimpleName();
 
 
-    private String[] mStrings = new String[]{"66.66", "88.88", "666.66",
-            "iphoneX", "6.66", "8.88", "谢谢惠顾",
-            "13.14"};
+    private String[] mStrings = new String[]{"", "", "",
+            "", "", ""};
 
-    private int mCount = mStrings.length;
+    public void setmStrings(String[] mStrings) {
+        this.mStrings = mStrings;
+        angles = new int[mStrings.length];
+        invalidate ();
+    }
 
-    // private int[] mImages = new int[]{R.drawable.iphone, R.drawable.danfan, R.drawable.f040, R.drawable.ipad, R.drawable.f015};
+
+/*    // private int[] mImages = new int[]{R.drawable.iphone, R.drawable.danfan, R.drawable.f040, R.drawable.ipad, R.drawable.f015};
     private int[] mImages = new int[]{R.drawable.ic_default, R.drawable.ic_default,
-            R.drawable.ic_default, R.drawable.ic_default, R.drawable.ic_default};
+            R.drawable.ic_default, R.drawable.ic_default, R.drawable.ic_default};*/
 
     private int[] sectorColor = new int[]{Color.parseColor("#FF0D56"), Color.parseColor("#FFDEAD")};
 
-    /**
+    /*    *//**
      * 图片
-     */
-    private Bitmap[] mBitmaps = new Bitmap[mStrings.length];
+     *//*
+    private Bitmap[] mBitmaps = new Bitmap[mStrings.length];*/
 
     /**
      * 画背景
@@ -81,7 +83,7 @@ public class PieView extends View {
      */
     private int startAngle;
 
-    private int[] angles = new int[mCount];
+    private int[] angles = new int[mStrings.length];
 
     private float mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SHIFT, 48, getResources().getDisplayMetrics());
     private RectF sectorRectF;
@@ -95,6 +97,7 @@ public class PieView extends View {
      */
     private int position;
     private ObjectAnimator animator;
+    private ObjectAnimator notStopAnimator;
     private RotateListener listener;
     private int rotateToPosition;
 
@@ -137,9 +140,9 @@ public class PieView extends View {
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextSize(mTextSize);
 
-        for (int i = 0; i < mCount; i++) {
+       /* for (int i = 0; i < mCount; i++) {
             mBitmaps[i] = BitmapFactory.decodeResource(getResources(), mImages[i % 5]);
-        }
+        }*/
     }
 
     @Override
@@ -178,12 +181,12 @@ public class PieView extends View {
         //canvas.drawCircle(mCenter, mCenter, mCenter - getPaddingLeft() / 2, mBgPaint);
         //2.绘制扇形
         //2.1设置每一个扇形的角度
-        sweepAngle = 360 / mCount;
-        startAngle = 0;
+        sweepAngle = 360 / mStrings.length;
+        startAngle = -90-sweepAngle/2;
         //2.2设置扇形绘制的范围
         sectorRectF = new RectF(getPaddingLeft(), getPaddingLeft(),
                 mCenter * 2 - getPaddingLeft(), mCenter * 2 - getPaddingLeft());
-        for (int i = 0; i < mCount; i++) {
+        for (int i = 0; i < mStrings.length; i++) {
             mArcPaint.setColor(sectorColor[i % 2]);
             //sectorRectF 扇形绘制范围  startAngle 弧开始绘制角度 sweepAngle 每次绘制弧的角度
             // useCenter 是否连接圆心
@@ -191,7 +194,7 @@ public class PieView extends View {
             //3.绘制文字
             drawTexts(canvas, mStrings[i]);
             //4.绘制图片
-            drawIcons(canvas, mBitmaps[i]);
+            // drawIcons(canvas, mBitmaps[i]);
             angles[i] = startAngle;
             startAngle += sweepAngle;
         }
@@ -234,9 +237,9 @@ public class PieView extends View {
         //测量文字的宽度
         float textWidth = mTextPaint.measureText(mString);
         //水平偏移
-        int hOffset = (int) (mRadius * 2 * Math.PI / mCount / 2 - textWidth / 2);
+        int hOffset = (int) (mRadius * 2 * Math.PI / mStrings.length / 2 - textWidth / 2);
         //计算弧长 处理文字过长换行
-        int l = (int) ((360 / mCount) * Math.PI * mRadius / 180);
+        int l = (int) ((360 / mStrings.length) * Math.PI * mRadius / 180);
         if (textWidth > l * 4 / 5) {
             int index = mString.length() / 2;
             startText = mString.substring(0, index);
@@ -245,8 +248,8 @@ public class PieView extends View {
             float startTextWidth = mTextPaint.measureText(startText);
             float endTextWidth = mTextPaint.measureText(endText);
             //水平偏移
-            hOffset = (int) (mRadius * 2 * Math.PI / mCount / 2 - startTextWidth / 2);
-            int endHOffset = (int) (mRadius * 2 * Math.PI / mCount / 2 - endTextWidth / 2);
+            hOffset = (int) (mRadius * 2 * Math.PI / mStrings.length / 2 - startTextWidth / 2);
+            int endHOffset = (int) (mRadius * 2 * Math.PI / mStrings.length / 2 - endTextWidth / 2);
             //文字高度
             int h = (int) ((mTextPaint.ascent() + mTextPaint.descent()) * 1.5);
 
@@ -261,13 +264,28 @@ public class PieView extends View {
 
     }
 
+    public void startRatate(){
+        notStopAnimator = ObjectAnimator.ofFloat(PieView.this, "rotation", 0, 360);
+        notStopAnimator.setRepeatCount(-1);
+        notStopAnimator.setInterpolator(new LinearInterpolator ());
+        notStopAnimator.start();
+    }
+    public void endRatate(){
+        if (notStopAnimator!=null){
+            notStopAnimator.cancel ();
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void rotate(final int i) {
 
-        rotateToPosition = 360 / mCount * (mCount - i);
+        rotateToPosition = 360 / mStrings.length * (mStrings.length - i);
         float toDegree = 360f * 5 + rotateToPosition;
 
+        if (notStopAnimator!=null){
+            notStopAnimator.cancel ();
+        }
         animator = ObjectAnimator.ofFloat(PieView.this, "rotation", 0, toDegree);
         animator.setDuration(5000);
         animator.setRepeatCount(0);
@@ -283,16 +301,11 @@ public class PieView extends View {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                //指针指向的方向为270度
+                double sweepAngle = 360 / mStrings.length;
+                double startAngle = -90-sweepAngle/2;
                 if (listener != null) {
-                    rotateToPosition = 270 - rotateToPosition;
-                    if (rotateToPosition < 0) {
-                        rotateToPosition += 360;
-                    } else if (rotateToPosition == 0) {
-                        rotateToPosition = 270;
-                    }
-                    position = -Arrays.binarySearch(angles, rotateToPosition) - 1;
-                    listener.value(mStrings[position - 1]);
+                    position = Arrays.binarySearch(angles, (int) (startAngle+(360 / mStrings.length*i)));
+                    listener.value(mStrings[position]);
                 }
             }
 

@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.model.api.service;
 
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.ooo.main.mvp.model.entity.AddBlankCardBean;
 import com.ooo.main.mvp.model.entity.AdvertisingBean;
 import com.ooo.main.mvp.model.entity.AppVersionBean;
@@ -12,11 +13,14 @@ import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawListBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawSettingBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
+import com.ooo.main.mvp.model.entity.StartLuckyDrawBean;
 import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -411,6 +415,41 @@ public interface ApiService {
             @Field("token") String token,
             @Field("roomid") String roomid,
             @Field("hxgroupid") String hxgroupid
+    );
+
+    /**
+     * 转盘记录信息
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=turntable")
+    @FormUrlEncoded
+    Observable<LuckyDrawListBean> getTurnTableInfoList(
+            @Field("token") String token
+    );
+
+
+    /**
+     * 获取幸运转盘设置
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Tigergame&do=Apis&m=sz_yi&op=luckwelfset")
+    @FormUrlEncoded
+    Observable<LuckyDrawSettingBean> getTurnTableSettingInfo(
+            @Field("token") String token
+    );
+
+    /**
+     * 启动转盘
+     * token	是	string	无
+     * @param token
+     * @return
+     */
+    @POST("index.php?i=1&c=entry&p=Tigergame&do=Apis&m=sz_yi&op=luckwelf")
+    @FormUrlEncoded
+    Observable<StartLuckyDrawBean> startLuckyDraw(
+            @Field("token") String token
     );
 
 

@@ -11,20 +11,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.jess.arms.base.BaseActivity;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerLuckyWheelComponent;
 import com.ooo.main.mvp.contract.LuckyWheelContract;
+import com.ooo.main.mvp.model.entity.LuckyDrawSettingBean;
+import com.ooo.main.mvp.model.entity.StartLuckyDrawBean;
 import com.ooo.main.mvp.presenter.LuckyWheelPresenter;
 
-import java.util.Random;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.view.PieView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -55,11 +58,14 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
     TextView tvTitle;
     @BindView(R2.id.tv_right)
     TextView tvRight;
+    @BindView(R2.id.tv_luckynum)
+    TextView tvLuckyNum;
     @BindView(R2.id.zpan)
     PieView zpan;
     @BindView(R2.id.iv_go)
     ImageView ivGo;
-    private boolean isRunning=false;
+    private String[] mStrings;
+    private int luckyNum;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -84,21 +90,11 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
         tvRight.setVisibility ( View.VISIBLE );
         tvRight.setText ( "抽奖记录" );
         setListener ();
+        ivGo.setEnabled ( false );
+        mPresenter.getTurnTableSettingInfo ();
     }
 
     private void setListener() {
-        zpan.setListener(new PieView.RotateListener() {
-            @Override
-            public void value(String s) {
-                isRunning=false;
-               /* new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("鹿死谁手呢？")
-                        .setMessage(s)
-                        .setIcon(R.drawable.f015)
-                        .setNegativeButton("退出",null)
-                        .show();*/
-            }
-        });
 
     }
 
@@ -145,12 +141,62 @@ public class LuckyWheelActivity extends BaseSupportActivity <LuckyWheelPresenter
         } else if (i == R.id.tv_right) {
             openActivity ( LuckyDrawActivity.class );
         } else if (i == R.id.iv_go) {
-            if (!isRunning) {
-                Random random = new Random ();
-                //pieView.rotate(i[random.nextInt(4)]);
-                zpan.rotate ( 3 );
+            //启动转盘
+            zpan.startRatate ();
+            if (luckyNum<=0){
+                ToastUtils.showShort ( "抽奖次数为0" );
+                return;
             }
-            isRunning = true;
+            luckyNum--;
+            tvLuckyNum.setText ( "剩余抽奖次数："+luckyNum+"次" );
+            mPresenter.startLuckyDraw ();
         }
+    }
+
+    @Override
+    public void getLuckyDrawSettingSuccess(LuckyDrawSettingBean.ResultBean result) {
+        List<String> prizeItem = result.getList ();
+        if (result==null){
+            ToastUtils.showShort ( "暂无奖项" );
+            return;
+        }
+        mStrings = new String[prizeItem.size ()];
+        for (int i = 0;i<prizeItem.size ();i++){
+            mStrings[i] = prizeItem.get ( i );
+        }
+        zpan.setmStrings ( mStrings );
+        if (ConvertNumUtils.stringToInt ( result.getWelfarenums () )>0){
+            ivGo.setEnabled ( true );
+            ivGo.setImageResource ( R.drawable.go );
+        }
+        luckyNum = ConvertNumUtils.stringToInt ( result.getWelfarenums () );
+        tvLuckyNum.setText ( "剩余抽奖次数："+result.getWelfarenums ()+"次" );
+    }
+
+    @Override
+    public void getLuckyDrawSettingFail() {
+
+    }
+
+    @Override
+    public void getLuckyDrawResultSuccess(StartLuckyDrawBean.ResultBean result) {
+        zpan.rotate ( result.getPricekk () );
+        zpan.setListener ( new PieView.RotateListener () {
+            @Override
+            public void value(String s) {
+                ToastUtils.showShort ( s );
+            }
+        } );
+    }
+
+    @Override
+    public void getLuckyDrawResultFail() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        zpan.endRatate();
+        super.onDestroy ();
     }
 }

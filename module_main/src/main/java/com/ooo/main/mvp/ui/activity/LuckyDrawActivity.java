@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -18,6 +19,7 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerLuckyDrawComponent;
 import com.ooo.main.mvp.contract.LuckyDrawContract;
 import com.ooo.main.mvp.model.entity.LuckyBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawListBean;
 import com.ooo.main.mvp.presenter.LuckyDrawPresenter;
 import com.ooo.main.mvp.ui.adapter.LuckyRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -59,8 +61,9 @@ public class LuckyDrawActivity extends BaseActivity <LuckyDrawPresenter> impleme
     RecyclerView recyclerView;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    List<LuckyBean> luckyBeans;
+    List<LuckyDrawListBean.ResultBean> luckyBeans;
     private LuckyRecordAdapter recycleAdapter;
+    private int page;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -83,7 +86,6 @@ public class LuckyDrawActivity extends BaseActivity <LuckyDrawPresenter> impleme
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "抽奖记录" );
         luckyBeans = new ArrayList <> ();
-        getWithdrawalRecord ();
         recycleAdapter = new LuckyRecordAdapter ( this, luckyBeans );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager ( this, LinearLayoutManager.VERTICAL, false );
         //设置布局管理器
@@ -95,36 +97,29 @@ public class LuckyDrawActivity extends BaseActivity <LuckyDrawPresenter> impleme
         //设置分隔线
         recyclerView.addItemDecoration ( new DividerGridItemDecoration ( this ) );
         setListener ();
+        getWithdrawalRecord ();
     }
 
     private void setListener() {
-        refreshLayout.setOnRefreshListener ( new OnRefreshListener () {
+        /*refreshLayout.setOnRefreshListener ( new OnRefreshListener () {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh ( 2000/*,false*/ );//传入false表示加载失败
-                luckyBeans.clear ();
-                getWithdrawalRecord ();
-                recycleAdapter.setDatas ( luckyBeans );
+                page = 1;
+                getWithdrawalRecord (page);
             }
         } );
         refreshLayout.setOnLoadMoreListener ( new OnLoadMoreListener () {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore ( 2000/*,false*/ );//传入false表示加载失败
-                getWithdrawalRecord ();
-                recycleAdapter.addData ( luckyBeans );
+                page++;
+                getWithdrawalRecord (page);
             }
-        } );
+        } );*/
 
     }
 
     private void getWithdrawalRecord() {
-        for (int i = 0; i < 10; i++) {
-            LuckyBean luckyBean = new LuckyBean ();
-            luckyBean.setPrize ( "谢谢惠顾" );
-            luckyBean.setAward ( "未中奖" );
-            luckyBeans.add ( luckyBean );
-        }
+        mPresenter.getTurnTableInfoList ();
     }
 
     @Override
@@ -164,5 +159,19 @@ public class LuckyDrawActivity extends BaseActivity <LuckyDrawPresenter> impleme
     @OnClick(R2.id.iv_back)
     public void onViewClicked() {
         finish ();
+    }
+
+    @Override
+    public void getLuckyDrawListSuccess(List <LuckyDrawListBean.ResultBean> result) {
+        if (result!=null && result.size ()>0){
+            recycleAdapter.setDatas ( result );
+        }else{
+            ToastUtils.showShort ( "暂无抽奖记录" );
+        }
+    }
+
+    @Override
+    public void getLuckyDrawListFail() {
+
     }
 }

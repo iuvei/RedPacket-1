@@ -15,7 +15,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/zhuanpang_bg">
+        android:background="@mipmap/zhuanpang_bg"
+        >
         <me.jessyan.armscomponent.commonres.view.PieView
             android:id="@+id/zpan"
             android:layout_width="250dp"
@@ -26,10 +27,11 @@
             android:id="@+id/iv_go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/go"
+            android:src="@drawable/go_no"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
     <TextView
+        android:id="@+id/tv_luckynum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="剩余抽奖次数：0次"

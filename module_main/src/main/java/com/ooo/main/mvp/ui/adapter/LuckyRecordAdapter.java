@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ooo.main.R;
 import com.ooo.main.mvp.model.entity.LuckyBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawListBean;
 import com.ooo.main.mvp.model.entity.UnderLineBean;
 import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 
@@ -23,10 +24,10 @@ import java.util.List;
 public class LuckyRecordAdapter extends RecyclerView.Adapter <LuckyRecordAdapter.ViewHolder> {
 
     private Context context;
-    private List <LuckyBean> data;
+    private List <LuckyDrawListBean.ResultBean> data;
     private ItemClickListener itemClickListener;
 
-    public LuckyRecordAdapter(Context context, List <LuckyBean> data) {
+    public LuckyRecordAdapter(Context context, List <LuckyDrawListBean.ResultBean> data) {
         this.context = context;
         this.data = data;
 
@@ -36,11 +37,11 @@ public class LuckyRecordAdapter extends RecyclerView.Adapter <LuckyRecordAdapter
         this.itemClickListener = listener;
     }
 
-    public void setDatas(List <LuckyBean> datas){
+    public void setDatas(List <LuckyDrawListBean.ResultBean> datas){
         this.data = datas;
         notifyDataSetChanged();
     }
-    public void addData(List <LuckyBean> data){
+    public void addData(List <LuckyDrawListBean.ResultBean> data){
         this.data.addAll ( data );
         notifyDataSetChanged ();
     }
@@ -53,8 +54,8 @@ public class LuckyRecordAdapter extends RecyclerView.Adapter <LuckyRecordAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvPrize.setText ( data.get ( position ).getPrize () );
-        holder.tvReceive.setText ( data.get ( position ).getAward () );
+        holder.tvPrize.setText ( data.get ( position ).getGold () );
+        holder.tvReceive.setText ( "已领取" );
     }
 
     @Override

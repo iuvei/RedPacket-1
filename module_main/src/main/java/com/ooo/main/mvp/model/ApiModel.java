@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.model;
 
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.ooo.main.app.AppLifecyclesImpl;
@@ -16,11 +17,14 @@ import com.ooo.main.mvp.model.entity.ContactForMobileBean;
 import com.ooo.main.mvp.model.entity.DelectBlankCardBean;
 import com.ooo.main.mvp.model.entity.GameRuleBean;
 import com.ooo.main.mvp.model.entity.GetRechargeInfoBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawListBean;
+import com.ooo.main.mvp.model.entity.LuckyDrawSettingBean;
 import com.ooo.main.mvp.model.entity.PostersBean;
 import com.ooo.main.mvp.model.entity.PublicBean;
 import com.ooo.main.mvp.model.entity.RankingBean;
 import com.ooo.main.mvp.model.entity.RechargeMoneyBean;
 import com.ooo.main.mvp.model.entity.RechargeRecordBean;
+import com.ooo.main.mvp.model.entity.StartLuckyDrawBean;
 import com.ooo.main.mvp.model.entity.SubmitRechargeInfo;
 import com.ooo.main.mvp.model.entity.TakeMoneyBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
@@ -334,5 +338,35 @@ public class ApiModel extends BaseModel{
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
                 .roomDetail(token,roomId,hxgroupid);
+    }
+
+    /**
+     *转盘记录信息
+     * @return
+     */
+    public Observable<LuckyDrawListBean> getTurnTableInfoList() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getTurnTableInfoList(token);
+    }
+
+    /**
+     * 获取幸运转盘设置
+     * @return
+     */
+    public Observable<LuckyDrawSettingBean> getTurnTableSettingInfo() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .getTurnTableSettingInfo(token);
+    }
+
+    /**
+     * 启动幸运抽奖
+     * @return
+     */
+    public Observable<StartLuckyDrawBean> startLuckyDraw() {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService( ApiService.class)
+                .startLuckyDraw(token);
     }
 }

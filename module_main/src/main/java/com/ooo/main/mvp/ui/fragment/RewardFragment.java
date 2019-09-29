@@ -25,12 +25,14 @@ import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
 import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
+import com.ooo.main.mvp.ui.activity.WebviewLuckDrawActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -144,7 +146,8 @@ public class RewardFragment extends BaseSupportFragment {
             startActivity ( new Intent ( getActivity (), UnderLineListActivity.class ) );
         } else if (i == R.id.layout_luck) {
             //幸运大转盘
-            startActivity ( new Intent ( getActivity (), LuckyWheelActivity.class ) );
+//            WebviewLuckDrawActivity.start ( getActivity (),"幸运大抽奖", ConfigUtil.LINK_LUCKY_DRAW );
+            getActivity ().startActivity ( new Intent ( getActivity (),LuckyWheelActivity.class ) );
         } else if (i == R.id.layout_ommission_list) {
             //佣金列表
             startActivity ( new Intent ( getActivity (), CommisonActivity.class ) );

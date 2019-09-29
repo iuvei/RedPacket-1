@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application>
+        <activity android:name=".mvp.ui.activity.WebviewLuckDrawActivity"></activity>
         <activity android:name=".mvp.ui.activity.TurnToYinLianRechargeActivity"></activity>
         <activity android:name=".mvp.ui.activity.TurnToAlipyRechargeActivity" />
         <activity android:name=".mvp.ui.activity.TurnToWeiXinRechargeActivity" />

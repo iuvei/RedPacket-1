@@ -18,4 +18,9 @@ public class ConfigUtil {
     public static final String SERVICE_GAME_CONTROL_ROOM = "kf-jq01"; //禁抢房间客服
     public static final String SERVICE_GAME_FULI_ROOM = "kf-fl01"; //福利房间客服
     public static final String SERVICE_GAME_FULI_INSIDE = "kf-fl02"; //福利游戏内客服
+
+
+    public static final String LINK_LUCKY_DRAW = "http://5949.iiio.top/NewH5/turntable.html"; //幸运大转盘抽奖链接
+
+
 }
