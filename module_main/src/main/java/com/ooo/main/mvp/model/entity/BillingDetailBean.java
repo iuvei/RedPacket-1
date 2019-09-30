@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/17
  * description
  */

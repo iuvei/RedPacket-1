@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @author lanjian
  * creat at 2019/9/7
  * description 提现记录实体类
  */

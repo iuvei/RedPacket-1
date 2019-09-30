@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/27
  * description
  * 盈亏记录实体类

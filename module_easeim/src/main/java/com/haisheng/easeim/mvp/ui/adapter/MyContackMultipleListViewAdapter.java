@@ -18,7 +18,6 @@ import me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
 /**
- * @author lanjian
  * email 819715035@qq.com
  * creat at 2019/4/15 0015
  * description

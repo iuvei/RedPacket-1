@@ -20,7 +20,7 @@ import java.util.List;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/5
  * description
  *

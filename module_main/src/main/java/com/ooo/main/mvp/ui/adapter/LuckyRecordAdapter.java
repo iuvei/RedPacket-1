@@ -16,7 +16,7 @@ import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import java.util.List;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/5
  * description
  * 抽奖记录adapter

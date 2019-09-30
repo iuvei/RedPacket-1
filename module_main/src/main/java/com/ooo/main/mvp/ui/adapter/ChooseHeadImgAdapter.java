@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.ooo.main.R;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/5
  * description
  * 选择默认头像

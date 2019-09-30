@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/20
  * description
  * 游戏规则说明实体类

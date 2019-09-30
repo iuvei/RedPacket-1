@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/17
  * description 抢红包游戏实体类
  */

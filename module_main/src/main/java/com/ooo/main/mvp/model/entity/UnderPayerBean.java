@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/17
  * description 下级玩家实体类
  */

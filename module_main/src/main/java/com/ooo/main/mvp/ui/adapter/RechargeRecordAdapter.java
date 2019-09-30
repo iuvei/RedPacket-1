@@ -15,7 +15,6 @@ import com.ooo.main.mvp.model.entity.WithRecordBean;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/5
  * description
  * 充值记录adapter

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @author lanjian
  * creat at 2019/9/29
  * description
  * 启动幸运抽奖

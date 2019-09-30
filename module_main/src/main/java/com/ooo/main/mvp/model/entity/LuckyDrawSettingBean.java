@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/29
  * description
  * 幸运抽奖设置参数

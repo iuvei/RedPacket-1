@@ -15,7 +15,6 @@ import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
 /**
- * @author lanjian
  * creat at 2019/9/19
  * description
  */

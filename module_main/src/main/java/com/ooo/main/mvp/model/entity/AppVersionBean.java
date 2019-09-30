@@ -3,7 +3,6 @@ package com.ooo.main.mvp.model.entity;
 import java.io.Serializable;
 
 /**
- * @author lanjian
  * creat at 2019/9/18
  * description
  */

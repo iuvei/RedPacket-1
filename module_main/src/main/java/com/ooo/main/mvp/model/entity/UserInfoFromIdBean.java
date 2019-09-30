@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/20
  * description
  */

@@ -18,7 +18,6 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * @author lanjian
  * creat at 2019/9/5
  * description
  * 提现记录adapter

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 /**
- * @author lanjian
  * creat at 2019/9/29
  * description
  *

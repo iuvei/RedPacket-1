@@ -14,7 +14,6 @@ import com.ooo.main.R;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/5
  * description
  * 充值金额列表

@@ -12,7 +12,6 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 
 /**
- * @author lanjian
  * creat at 2019/9/5
  * description
  * 棋牌游戏

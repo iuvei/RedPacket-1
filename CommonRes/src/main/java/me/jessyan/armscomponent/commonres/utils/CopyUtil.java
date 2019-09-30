@@ -5,7 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/22
  * description
  * 复制版工具类

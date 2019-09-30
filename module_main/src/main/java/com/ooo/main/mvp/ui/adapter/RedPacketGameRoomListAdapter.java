@@ -14,7 +14,7 @@ import java.util.List;
 import me.jessyan.armscomponent.commonres.adapter.BaseListAdapter;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/17
  * description
  * 红包游戏的房间列表adapter

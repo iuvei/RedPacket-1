@@ -20,7 +20,6 @@ import android.widget.Checkable;
 import me.jessyan.armscomponent.commonres.R;
 
 /**
- * @author lanjian
  * creat at 2019/9/11
  * description
  */

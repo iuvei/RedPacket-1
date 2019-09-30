@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/20
  * description
  * 推广海报实体类

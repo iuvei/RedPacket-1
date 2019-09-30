@@ -23,7 +23,7 @@ import android.view.animation.LinearInterpolator;
 import java.util.Arrays;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/11
  * description
  */

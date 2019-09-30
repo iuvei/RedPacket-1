@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author lanjian
  * creat at 2019/9/16
  * description
  */

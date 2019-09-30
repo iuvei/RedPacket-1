@@ -8,7 +8,6 @@ import java.io.Serializable;
 import me.jessyan.armscomponent.commonsdk.utils.CharacterParser;
 
 /**
- * @author lanjian
  * creat at 2019/9/12
  * description
  */

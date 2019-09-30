@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * @author lanjian
  * creat at 2019/9/16
  * description
  * 相册路径

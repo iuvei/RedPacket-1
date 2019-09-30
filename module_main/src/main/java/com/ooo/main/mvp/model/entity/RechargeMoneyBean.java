@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lanjian
  * creat at 2019/9/21
  * description 充值金额列表实体类
  */

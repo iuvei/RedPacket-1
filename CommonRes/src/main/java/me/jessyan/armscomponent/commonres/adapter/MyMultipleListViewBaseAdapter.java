@@ -17,8 +17,6 @@ import static me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseA
 import static me.jessyan.armscomponent.commonres.adapter.MyMultipleListViewBaseAdapter.CHOOSE_MODE.SINGLER;
 
 /**
- * @author lanjian
- * email 819715035@qq.com
  * creat at 2019/4/15 0015
  * description 单选或者多选listview
  */

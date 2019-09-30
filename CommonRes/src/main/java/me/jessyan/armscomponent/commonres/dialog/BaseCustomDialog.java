@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import me.jessyan.armscomponent.commonres.R;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/6
  * description
  */

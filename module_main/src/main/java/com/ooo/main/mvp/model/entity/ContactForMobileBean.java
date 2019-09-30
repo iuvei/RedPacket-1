@@ -6,7 +6,6 @@ import java.util.List;
 import me.jessyan.armscomponent.commonsdk.utils.CharacterParser;
 
 /**
- * @author lanjian
  * creat at 2019/9/21
  * description 通讯录好友实体类
  */

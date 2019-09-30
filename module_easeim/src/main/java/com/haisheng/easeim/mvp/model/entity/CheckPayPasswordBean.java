@@ -1,7 +1,6 @@
 package com.haisheng.easeim.mvp.model.entity;
 
 /**
- * @author lanjian
  * creat at 2019/9/24
  * description
  */

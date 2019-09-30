@@ -1,7 +1,7 @@
 package me.jessyan.armscomponent.commonres.utils;
 
 /**
- * @author lanjian
+ * 0
  * creat at 2019/9/28
  * description
  */

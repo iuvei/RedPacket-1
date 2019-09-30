@@ -3,7 +3,6 @@ package me.jessyan.armscomponent.commonsdk.utils;
 import java.io.Serializable;
 
 /**
- * @author lanjian
  * creat at 2019/9/12
  * description
  */
