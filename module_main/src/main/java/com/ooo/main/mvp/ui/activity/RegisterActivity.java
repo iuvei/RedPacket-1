@@ -122,7 +122,7 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             return;
         }
         String verificationCode = etAuthCode.getText().toString();
-        if (TextUtils.isEmpty(verificationCode) || verificationCode.length() < 6) {
+        if (TextUtils.isEmpty(verificationCode)) {
             etAuthCode.requestFocus();
             showMessage("验证码不能为空/不可用!");
             return;

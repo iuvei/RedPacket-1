@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/title_layout_both_text"/>
+    <include layout="@layout/public_include_title"/>
     <me.jessyan.armscomponent.commonres.view.ProgressWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
