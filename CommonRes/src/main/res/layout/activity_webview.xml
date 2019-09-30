@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <me.jessyan.armscomponent.commonres.view.StatusBarHeightView
+        android:id="@+id/viewStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <include layout="@layout/public_include_title"/>
     <me.jessyan.armscomponent.commonres.view.ProgressWebView
         android:id="@+id/webView"

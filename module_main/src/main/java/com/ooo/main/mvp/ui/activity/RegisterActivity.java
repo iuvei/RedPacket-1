@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.CountDownUtils;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -73,7 +74,6 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus(this);
         StatusBarUtils.setStatusBarDarkTheme ( this,true );
-
         mCountDownUtils = new CountDownUtils(tvGetCode);
         mCountDownUtils.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +92,7 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
 
         } else if (i == R.id.tv_agreement) {
             //用户协议
-          WebviewActivity.start ( this,getString ( R.string.agreement ),"https://blog.csdn.net/weixin_40536539/article/details/78705904" );
+          WebviewActivity.start ( this,getString ( R.string.agreement ), ConfigUtil.LINK_REGISTER_ARGEEMENT );
         }else if (i==R.id.iv_back){
             finish ();
         }

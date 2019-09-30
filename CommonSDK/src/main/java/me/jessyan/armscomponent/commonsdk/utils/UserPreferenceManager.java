@@ -73,11 +73,11 @@ public class UserPreferenceManager {
         	mCurrUser = new UserInfo();
         	mCurrUser.setToken( mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_TOKEN, ""));
         	mCurrUser.setId( mSharedPreferences.getLong(SHARED_KEY_CURRENTUSER_ID, -1l));
-        	mCurrUser.setHxId(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_HXID, null));
-        	mCurrUser.setNickname(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_NICKNAME, null));
-        	mCurrUser.setAvatarUrl(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_AVATARURL, null));
+        	mCurrUser.setHxId(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_HXID, ""));
+        	mCurrUser.setNickname(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_NICKNAME, ""));
+        	mCurrUser.setAvatarUrl(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_AVATARURL, ""));
         	mCurrUser.setSexStatus(mSharedPreferences.getInt(SHARED_KEY_CURRENTUSER_SEX, 0  ));
-        	mCurrUser.setPhoneNumber(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_PHONE, null));
+        	mCurrUser.setPhoneNumber(mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_PHONE, ""));
         }
         return mCurrUser;
     }

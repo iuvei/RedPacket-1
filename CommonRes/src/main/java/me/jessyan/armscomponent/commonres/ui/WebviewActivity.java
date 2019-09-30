@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 
@@ -24,6 +25,7 @@ import me.jessyan.armscomponent.commonres.view.ProgressWebView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 public class WebviewActivity extends BaseSupportActivity {
@@ -76,6 +78,8 @@ public class WebviewActivity extends BaseSupportActivity {
     @SuppressLint("JavascriptInterface")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtils.setTranslucentStatus(this);
+        StatusBarUtils.setStatusBarDarkTheme ( this,true );
         Bundle bundle = getIntent().getExtras();
         mUrl = bundle.getString("url");
         mTitle = bundle.getString("title");
@@ -107,7 +111,9 @@ public class WebviewActivity extends BaseSupportActivity {
         CookieManager cm = CookieManager.getInstance();
         cm.setAcceptCookie(true);
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
-        cm.setCookie(mUrl, "token=" + token);
+        if (!TextUtils.isEmpty ( token )) {
+            cm.setCookie ( mUrl, "token=" + token );
+        }
         if (Build.VERSION.SDK_INT < 21) {
             CookieSyncManager.getInstance().sync();
         } else {
