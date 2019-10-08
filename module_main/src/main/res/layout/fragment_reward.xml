@@ -72,8 +72,8 @@
                 >
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_fount_underline" />
                 <TextView
                     android:text="下线查询"
@@ -193,7 +193,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_found_game_contral"/>
+                    android:src="@drawable/ic_fount_game_lei"/>
                 <TextView
                     android:text="禁抢游戏说明"
                     style="@style/discover_layout_text_style" />
@@ -210,7 +210,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_fount_game_niuniu"/>
+                    android:src="@drawable/ic_fount_game_lei"/>
                 <TextView
                     android:text="牛牛游戏说明"
                     style="@style/discover_layout_text_style" />

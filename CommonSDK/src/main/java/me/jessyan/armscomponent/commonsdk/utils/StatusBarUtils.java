@@ -113,6 +113,7 @@ public class StatusBarUtils {
             } else if (OSUtils.isFlyme()) {
                 setStatusBarFontIconDark(activity, TYPE_FLYME, dark);
             } else {//其他情况
+                setStatusBarColor(activity,Color.LTGRAY);//灰色
                 return false;
             }
 

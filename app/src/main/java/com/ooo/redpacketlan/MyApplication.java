@@ -46,7 +46,7 @@ public class MyApplication extends BaseApplication {
         Utils.init(this);
         ToastUtils.setGravity(Gravity.CENTER,0,0);
         ToastUtils.setMsgColor(ContextCompat.getColor(this,android.R.color.black));
-
+        ToastUtils.setBgColor ( ContextCompat.getColor(this,android.R.color.darker_gray) );
         Intent intent=new Intent(this,CheckExitService.class);
         startService(intent);
 

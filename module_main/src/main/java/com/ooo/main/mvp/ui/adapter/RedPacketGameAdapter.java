@@ -2,6 +2,8 @@ package com.ooo.main.mvp.ui.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -31,15 +33,25 @@ public class RedPacketGameAdapter extends BaseListAdapter <BannerEntity> {
             viewHolder = new ViewHolder ();
             convertView = View.inflate ( parent.getContext (), R.layout.item_redpacket_game,null );
             viewHolder.imageView = convertView.findViewById ( R.id.iv_game );
+            viewHolder.ivAnimal = convertView.findViewById ( R.id.iv_animal );
             convertView.setTag ( viewHolder );
         }else{
             viewHolder = (ViewHolder) convertView.getTag ();
         }
         Glide.with ( parent.getContext () ).load ( list.get ( position ).getImageUrl () ).into ( viewHolder.imageView );
+        // 平移动画
+        Animation translate = new TranslateAnimation (TranslateAnimation.RELATIVE_TO_PARENT,1f,
+                TranslateAnimation.RELATIVE_TO_PARENT,0f,
+                TranslateAnimation.RELATIVE_TO_PARENT,0f
+                ,TranslateAnimation.RELATIVE_TO_PARENT,0f);
+        translate.setDuration(3000);
+        translate.setRepeatCount ( -1 );
+        viewHolder.ivAnimal.startAnimation ( translate );
         return convertView;
     }
 
     class ViewHolder{
         ImageView imageView;
+        ImageView ivAnimal;
     }
 }

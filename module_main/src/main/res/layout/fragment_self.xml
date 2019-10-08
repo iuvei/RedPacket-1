@@ -132,8 +132,8 @@
                 style="@style/public_CommonPadding_m"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_balance"/>
                 <TextView
                     android:id="@+id/tv_proxy_center"
@@ -187,12 +187,16 @@
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_withdraw"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_withdraw"
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
+                    android:layout_marginLeft="12dp"
                     android:textColor="@color/common_text"
                     android:textSize="@dimen/text_sub_title"
                     android:text="@string/recharge"/>
@@ -206,12 +210,16 @@
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/icon_bill_records"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_bill_records"
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
+                    android:layout_marginLeft="12dp"
                     android:textColor="@color/common_text"
                     android:textSize="@dimen/text_sub_title"
                     android:text="@string/self_withdrawal"/>
@@ -224,12 +232,16 @@
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/icon_help_center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_help_center"
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
+                    android:layout_marginLeft="12dp"
                     android:textColor="@color/common_text"
                     android:textSize="@dimen/text_sub_title"
                     android:text="@string/self_bill"/>
@@ -243,12 +255,16 @@
                 android:background="@color/public_white"
                 android:gravity="center_vertical"
                 style="@style/public_CommonPadding_m">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_setting"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_setting"
                     android:drawableRight="@drawable/ic_arrow_right"
                     android:drawablePadding="@dimen/spacing_l"
+                    android:layout_marginLeft="12dp"
                     android:textColor="@color/common_text"
                     android:textSize="@dimen/text_sub_title"
                     android:text="@string/setting"/>

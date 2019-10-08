@@ -61,7 +61,7 @@
                 android:id="@+id/iv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_one"/>
+                android:src="@drawable/icon_balance"/>
             <TextView
                 android:id="@+id/tv_balanceNum"
                 android:layout_width="wrap_content"
@@ -90,6 +90,7 @@
         android:text="个人服务"
         android:layout_below="@+id/card_blance"
         android:layout_margin="@dimen/spacing_xl"
+        android:visibility="gone"
         />
     <LinearLayout
         android:id="@+id/layout_service1"
@@ -97,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_service"
         android:layout_marginTop="4dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -119,7 +121,7 @@
             android:drawablePadding="@dimen/spacing_s"
             android:text="扫一扫"
             android:gravity="center"
-            android:drawableTop="@mipmap/icon_one"/>
+            android:drawableTop="@drawable/ic_scan"/>
         <View style="@style/discover_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"></View>
@@ -131,13 +133,14 @@
             android:text="提现"
             android:drawablePadding="@dimen/spacing_s"
             android:gravity="center"
-            android:drawableTop="@mipmap/icon_one"/>
+            android:drawableTop="@drawable/ic_withdraw"/>
     </LinearLayout>
     <View
         android:id="@+id/line"
         android:layout_below="@+id/layout_service1"
         style="@style/discover_style_view"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:layout_height="1dp"></View>
     <LinearLayout
         android:id="@+id/layout_service2"
@@ -145,6 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/tv_recharge"
@@ -154,7 +158,7 @@
             android:text="充值"
             android:drawablePadding="@dimen/spacing_s"
             android:gravity="center"
-            android:drawableTop="@mipmap/icon_one"/>
+            android:drawableTop="@drawable/icon_bill_records"/>
         <View style="@style/discover_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"></View>
