@@ -39,7 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textSize="@dimen/text_big_title"
-        android:textColor="@color/black"
+        android:textColor="@color/public_black"
         android:layout_marginTop="@dimen/spacing_xxs"
         />
 </RelativeLayout>

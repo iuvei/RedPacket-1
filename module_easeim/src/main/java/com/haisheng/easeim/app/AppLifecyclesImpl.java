@@ -14,6 +14,8 @@ import com.squareup.leakcanary.RefWatcher;
 
 import com.haisheng.easeim.BuildConfig;
 
+import java.text.DecimalFormat;
+
 
 /**
  * ================================================
@@ -70,7 +72,8 @@ public class AppLifecyclesImpl implements AppLifecycles {
         balance = money;
     }
 
-    public static double getBalance(){
-        return balance;
+    public static String getBalance(){
+        DecimalFormat df = new DecimalFormat ("0.##");
+        return df.format ( balance );
     }
 }

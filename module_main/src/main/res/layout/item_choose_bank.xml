@@ -10,5 +10,5 @@
         android:text="中国银行"
         android:padding="@dimen/spacing_m"
         android:gravity="center_horizontal"
-        android:textColor="@color/black"/>
+        android:textColor="@color/public_black"/>
 </LinearLayout>

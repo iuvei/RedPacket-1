@@ -27,8 +27,6 @@ import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.SendRedpacketPresenter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.lzj.pass.dialog.PayPassDialog;
-import com.lzj.pass.dialog.PayPassView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +34,7 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.view.PayPassDialog;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -149,29 +148,14 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
 
     //1 默认方式(推荐)
     private void payDialog(int redpacketNumber, int totalMoney) {
-        final PayPassDialog dialog = new PayPassDialog ( this );
-        dialog.getPayViewPass ()
-                .setPayClickListener ( new PayPassView.OnPayClickListener () {
-                    @Override
-                    public void onPassFinish(String passContent) {
-                        dialog.dismiss ();
-                        //6位输入完成回调
-                        mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 0, passContent );
-                    }
-
-                    @Override
-                    public void onPayClose() {
-                        dialog.dismiss ();
-                        //关闭弹框
-                    }
-
-                    @Override
-                    public void onPayForget() {
-                        dialog.dismiss ();
-                        //点击忘记密码回调
-                        ARouter.getInstance ().build ( RouterHub.MAIN_FORGETPAYPASSWORDACTIVITY ).navigation ();
-                    }
-                } );
+        PayPassDialog dialog = new PayPassDialog ( this,etTotalMoney.getText ().toString () );
+        dialog.setPayPasswordInputListener ( new PayPassDialog.PayPasswordInputListener () {
+            @Override
+            public void inputFinish(String password) {
+                //6位输入完成回调
+                mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 0, password );
+            }
+        } );
     }
 
     private boolean checkTotalMoney() {
