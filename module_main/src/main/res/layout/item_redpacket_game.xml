@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/iv_game"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        tools:background="@mipmap/minesweeper_game"
         android:scaleType="centerCrop"/>
     <ImageView
         android:id="@+id/iv_animal"
-        android:layout_width="match_parent"
-        android:src="@color/black_deep"
+        android:layout_width="wrap_content"
+        android:background="@drawable/light"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:layout_height="100dp" />
 </RelativeLayout>
