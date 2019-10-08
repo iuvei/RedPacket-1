@@ -104,7 +104,7 @@
     <string name="redpacket_number_scope">红包个数范围：%d-%d</string>
     <string name="redpacket_number_not_empty">红包个数不能为空!</string>
     <string name="mine_scope">雷数范围：0-9</string>
-    <string name="send_redpacket">塞入进红包</string>
+    <string name="send_redpacket">塞钱进红包</string>
 
     <string name="redpacket_already_received">红包已领取</string>
     <string name="redpackets_have_expired">红包已过期</string>

@@ -96,12 +96,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="420dp">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/icon_contend_grab_bg"/>
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_mine_numbers"
@@ -117,7 +112,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_xxl"
+                            android:layout_marginTop="@dimen/spacing_xl"
                             android:padding="@dimen/spacing_l"
                             android:background="@color/public_white"
                             android:gravity="center_vertical"
@@ -155,12 +150,13 @@
 
                 <Button
                     android:id="@+id/btn_send_redpacket"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/spacing_xxl"
-                    android:background="@drawable/btn_send_redpacket_selector"/>
+                    android:text="@string/send_redpacket"
+                    android:textColor="@color/public_white"
+                    android:layout_margin="@dimen/spacing_xxl"
+                    android:layout_below="@+id/cv_mine_numbers"
+                    android:background="@drawable/btn_ad_shape"/>
 
             </RelativeLayout>
         </LinearLayout>
