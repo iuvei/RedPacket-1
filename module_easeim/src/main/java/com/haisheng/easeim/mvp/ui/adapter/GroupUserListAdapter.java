@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.haisheng.easeim.R;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,9 @@ import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
 /**
  * creat at 2019/9/19
- * description
+ * description 群成员列表
  */
-public class GroupUserListAdapter extends BaseListAdapter <UserInfo> {
+public class GroupUserListAdapter extends BaseListAdapter <GroupListBean.ResultBean> {
 
     private List<Integer> positions = new ArrayList <> (  );
     // 字母数组
@@ -27,18 +28,18 @@ public class GroupUserListAdapter extends BaseListAdapter <UserInfo> {
 
             "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
-    public GroupUserListAdapter(List <UserInfo> list) {
+    public GroupUserListAdapter(List <GroupListBean.ResultBean> list) {
         super ( list );
         isFirstPosition();
     }
 
-    public void setData(List <UserInfo> list){
+    public void setData(List <GroupListBean.ResultBean> list){
         this.list = list;
         isFirstPosition();
         notifyDataSetChanged ();
     }
 
-    public void addData(List <UserInfo> list){
+    public void addData(List <GroupListBean.ResultBean> list){
         this.list.addAll ( list );
         isFirstPosition();
         notifyDataSetChanged ();
@@ -75,7 +76,7 @@ public class GroupUserListAdapter extends BaseListAdapter <UserInfo> {
         }else{
             viewHolder = (ViewHolder) convertView.getTag ();
         }
-        Glide.with ( parent.getContext () ).load ( list.get ( position ).getAvatarUrl () ).into ( viewHolder.ivHeadPic );
+        Glide.with ( parent.getContext () ).load ( list.get ( position ).getAvatar () ).into ( viewHolder.ivHeadPic );
        if (positions.contains ( position )){
             viewHolder.tvLetter.setText ( bArray[positions.indexOf ( position )] );
             viewHolder.tvLetter.setVisibility ( View.VISIBLE );

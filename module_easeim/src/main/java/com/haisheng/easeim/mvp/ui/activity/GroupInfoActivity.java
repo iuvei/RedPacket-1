@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,18 +17,16 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
-import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.app.IMModel;
 import com.haisheng.easeim.di.component.DaggerGroupInfoComponent;
 import com.haisheng.easeim.mvp.contract.GroupInfoContract;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.presenter.GroupInfoPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-
-import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +44,8 @@ import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
-import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
-import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -91,7 +86,6 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     TextView tvGroupNickName;
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
-    @Inject
     UserGridAdapter mAdapter;
     TextView tvTitle;
 
@@ -99,9 +93,9 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     private List <String> mDisabledGroupIds = new ArrayList <> ();
     private ChatRoomBean mChatRoomBean;
     private ProgressDialogUtils progressDialogUtils;
-    private ArrayList <UserInfo> groupUserList; //群成员列表
+    private ArrayList <GroupListBean.ResultBean> groupUserList = new ArrayList <> (  ); //群成员列表
     private BaseDialog dialog;
-    private UserInfo myInfo;
+    private GroupListBean.ResultBean myInfo;
 
     public static void start(Context context, ChatRoomBean chatRoomInfo) {
         Intent intent = new Intent ( context, GroupInfoActivity.class );
@@ -128,6 +122,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mAdapter = new UserGridAdapter ( groupUserList );
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle = findViewById ( R.id.tv_title );
@@ -163,7 +158,11 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 
         initRecyclerView ();
         if (null != mChatRoomBean) {
-            setChatRoomInfo ( mChatRoomBean );
+            mPresenter.getGroupList ( mChatRoomBean.getId ()+"",1 );
+            tvGroupName.setText ( mChatRoomBean.getName () );
+            tvGroupNotice.setText ( mChatRoomBean.getNotice () );
+            tvGameRules.setText ( mChatRoomBean.getGameRules () );
+            tvGroupRules.setText ( mChatRoomBean.getGroupRules () );
         }
     }
 
@@ -260,18 +259,23 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 //        }
 //    }
 
-    @Override
-    public void setChatRoomInfo(ChatRoomBean chatRoomInfo) {
-        List <UserInfo> userInfos = chatRoomInfo.getUserInfos ();
+    public void setChatRoomInfo(GroupListBean chatRoomInfo) {
+        List <GroupListBean.ResultBean> userInfos = chatRoomInfo.getResult ();
+        if (userInfos == null){
+            return;
+        }
+        //删除群主成员
         for (int i = 0;i<userInfos.size ();i++){
-            if (userInfos.get ( i ).getNickname ().equals ( "群主" ) && TextUtils.isEmpty ( userInfos.get ( i ).getHxId () )){
+            if (userInfos.get ( i ).getNickname ().equals ( "群主" ) && TextUtils.isEmpty ( userInfos.get ( i ).getUid () )){
                 userInfos.remove ( i );
                 break;
             }
         }
+
         String uid = SpUtils.getValue ( this,"uid", "" );
         for (int i = 0;i<userInfos.size ();i++){
             if (userInfos.get ( i ).getUid ().equals ( uid )){
+                //显示自己在群组里的昵称
                 tvGroupNickName.setText ( userInfos.get ( i ).getNickname () );
                 myInfo = userInfos.get ( i );
                 break;
@@ -284,12 +288,8 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         }
         tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
 
-        userInfos.add ( new UserInfo () );
+        userInfos.add ( new GroupListBean.ResultBean() );
         mAdapter.setNewData ( userInfos );
-        tvGroupName.setText ( chatRoomInfo.getName () );
-        tvGroupNotice.setText ( chatRoomInfo.getNotice () );
-        tvGameRules.setText ( chatRoomInfo.getGameRules () );
-        tvGroupRules.setText ( chatRoomInfo.getGroupRules () );
     }
 
     @Override
@@ -312,7 +312,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         mAdapter.notifyDataSetChanged ();
         tvGroupNickName.setText ( nickname );
         ToastUtils.showShort ( "修改成功" );
-        EventBus.getDefault ().post ( nickname,"setRoomNickNameSuccess" );
+        //EventBus.getDefault ().post ( nickname,"setRoomNickNameSuccess" );
+    }
+
+    @Override
+    public void getGroupListSuccess(GroupListBean response) {
+        setChatRoomInfo ( response);
     }
 
     private void showProgress(final boolean show) {

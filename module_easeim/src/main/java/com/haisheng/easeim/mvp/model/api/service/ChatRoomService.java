@@ -1,6 +1,7 @@
 package com.haisheng.easeim.mvp.model.api.service;
 
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 
 import java.util.List;
 
@@ -66,6 +67,22 @@ public interface ChatRoomService {
             @Field("token") String token,
             @Field("roomid") String roomid,
             @Field("nickname") String nickname
+    );
+
+
+    /**
+     * 获取群员信息列表
+     * token	是	string	无
+     * roomid	是	int	无	房间ID
+     * page	是	int	无
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=getgrouplist")
+    Observable<GroupListBean> getGroupList(
+            @Field("token") String token,
+            @Field("roomid") String roomid,
+            @Field("page") int page
     );
 
 

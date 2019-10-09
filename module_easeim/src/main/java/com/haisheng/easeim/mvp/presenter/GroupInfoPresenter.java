@@ -5,6 +5,7 @@ import android.app.Application;
 import com.haisheng.easeim.mvp.contract.GroupInfoContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
@@ -101,6 +102,20 @@ public class GroupInfoPresenter extends BasePresenter<IModel, GroupInfoContract.
                             mRootView.setRoomNickNameSuccess (nickname);
                         }else{
                             mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
+    }
+    public void getGroupList(String roomId,int page){
+        mChatRoomModel.getGroupList(roomId,page)
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<GroupListBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(GroupListBean response) {
+                        if (response.getStatus () == 1) {
+                            mRootView.getGroupListSuccess (response);
+                        }else{
+                            mRootView.showMessage(response.getMsg ());
                         }
                     }
                 });

@@ -62,7 +62,7 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
     @BindView(R2.id.tv_money)
     TextView tvMoney;
 
-    private static final Integer REDPACKET_NUMBERS[] = {5, 6, 7, 9, 10};
+    private static final Integer REDPACKET_NUMBERS[] = {5, 6};
     private static final Integer MINE_NUMBERS[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
     TagAdapter mRedpacketNumberAdapter;

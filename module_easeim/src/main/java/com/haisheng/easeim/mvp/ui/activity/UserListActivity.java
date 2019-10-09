@@ -17,6 +17,7 @@ import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.di.component.DaggerUserListComponent;
 import com.haisheng.easeim.mvp.contract.UserListContract;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.presenter.UserListPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.GroupUserListAdapter;
 import com.jess.arms.di.component.AppComponent;
@@ -32,7 +33,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.view.SideBar;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
-import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -64,10 +64,10 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
     SideBar sidebar;
 
     private GroupUserListAdapter adapter;
-    private ArrayList<UserInfo> contactList;
-    private List <UserInfo> searchContact = new ArrayList <> (  );
+    private ArrayList<GroupListBean.ResultBean> contactList;
+    private List <GroupListBean.ResultBean> searchContact = new ArrayList <> (  );
 
-    public static void start(Context context, ArrayList <UserInfo> userInfos) {
+    public static void start(Context context, ArrayList <GroupListBean.ResultBean> userInfos) {
         Intent intent = new Intent ( context, UserListActivity.class );
         Bundle bundle = new Bundle ();
         bundle.putSerializable ( "userlist", userInfos );
@@ -98,11 +98,11 @@ public class UserListActivity extends BaseSupportActivity <UserListPresenter> im
         initRecyclerView ();
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
-            contactList = (ArrayList <UserInfo>) bundle.getSerializable ( "userlist" );
+            contactList = (ArrayList <GroupListBean.ResultBean>) bundle.getSerializable ( "userlist" );
             if (contactList!=null && contactList.size ()>0) {
-                Collections.sort ( contactList, new Comparator <UserInfo> () {
+                Collections.sort ( contactList, new Comparator <GroupListBean.ResultBean> () {
                     @Override
-                    public int compare(UserInfo userInfo, UserInfo t1) {
+                    public int compare(GroupListBean.ResultBean userInfo, GroupListBean.ResultBean t1) {
                         return userInfo.getSpelling ().compareTo ( t1.getSpelling () );
                     }
                 } );

@@ -94,6 +94,7 @@
     <!-- 红包 -->
     <string name="redpacket_detail">红包详情</string>
     <string name="mine_redpacket">扫雷红包</string>
+    <string name="shenghuang_redpacket">盛煌红包</string>
     <string name="gun_control_redpacket">禁抢红包</string>
     <string name="niuniu_redpacket">牛牛红包</string>
     <string name="welfare_redpacket">福利红包</string>

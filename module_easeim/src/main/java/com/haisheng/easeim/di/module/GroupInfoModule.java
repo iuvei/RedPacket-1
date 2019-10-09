@@ -11,6 +11,7 @@ import com.haisheng.easeim.mvp.model.ChatModel;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
 import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
 import com.jess.arms.di.scope.ActivityScope;
@@ -62,9 +63,4 @@ public class GroupInfoModule {
         return new ArrayList<>();
     }
 
-    @ActivityScope
-    @Provides
-    static UserGridAdapter provideUserGridAdapter(List<UserInfo> list){
-        return new UserGridAdapter(list);
-    }
 }

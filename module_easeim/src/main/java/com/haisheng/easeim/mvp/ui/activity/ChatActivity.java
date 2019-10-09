@@ -294,11 +294,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         }
     }
 
-    /**
+  /*  *//**
      * 修改群昵称
      * {@link GroupInfoActivity#setRoomNickNameSuccess(java.lang.String)}
      * @param nickname
-     */
+     *//*
     @Subscriber(tag = "setRoomNickNameSuccess")
     public void updateGroupNickName(String nickname){
         if (mChatRoomBean!=null){
@@ -310,7 +310,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }
             }
         }
-    }
+    }*/
 
 
     private void initInputMenu() {

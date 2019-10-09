@@ -114,19 +114,19 @@ public class ChatBasicRedpacket extends EaseChatRow {
             }
             if(mType== IMConstants.MSG_TYPE_MINE_REDPACKET){
                 tvMessage.setText(String.format("%.0f-%s",redpacketBean.getMoney(),redpacketBean.getBoomNumbers()));
-                tvRedpacketType.setText( R.string.mine_redpacket);
+                tvRedpacketType.setText( R.string.shenghuang_redpacket);
 
             }else if(mType== IMConstants.MSG_TYPE_WELFARE_REDPACKET){
 //                tvMessage.setText(String.format("%.0f-%d",redpacketBean.getMoney(),redpacketBean.getNumber()));
-                tvRedpacketType.setText( R.string.welfare_redpacket);
+                tvRedpacketType.setText( R.string.shenghuang_redpacket);
 
             }else if(mType== IMConstants.MSG_TYPE_NIUNIU_REDPACKET){
                 tvMessage.setText(String.format("%.0f-%d",redpacketBean.getMoney(),redpacketBean.getNumber()));
-                tvRedpacketType.setText( R.string.niuniu_redpacket);
+                tvRedpacketType.setText( R.string.shenghuang_redpacket);
 
             }else if(mType== IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
                 tvMessage.setText(String.format("[%s]",redpacketBean.getBoomNumbers()));
-                tvRedpacketType.setText( R.string.gun_control_redpacket);
+                tvRedpacketType.setText( R.string.shenghuang_redpacket);
             }
         }
     }

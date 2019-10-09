@@ -31,6 +31,8 @@ import com.hyphenate.easeui.widget.EaseConversationList.EaseConversationListHelp
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.util.DateUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,8 +118,26 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
             holder.name.setText(group != null ? group.getGroupName() : username);
         } else if(conversation.getType() == EMConversationType.ChatRoom){
-            holder.avatar.setImageResource(R.drawable.ease_group_icon);
             EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
+            if (room!=null && !TextUtils.isEmpty ( room.getName () )){
+                if (room.getName ().contains ( "雷" )){
+                    //扫雷房
+                    holder.avatar.setImageResource(R.drawable.icon_saolei);
+                }else if (room.getName ().contains ( "牛" )){
+                    //牛牛房
+                    holder.avatar.setImageResource(R.drawable.icon_niuniu);
+                }else if (room.getName ().contains ( "福利" )){
+                    //福利房
+                    holder.avatar.setImageResource(R.drawable.icon_fuli);
+                }else if (room.getName ().contains ( "禁" )){
+                    //禁抢房
+                    holder.avatar.setImageResource(R.drawable.icon_contral);
+                }else{
+                    holder.avatar.setImageResource(R.drawable.ease_group_icon);
+                }
+            }else{
+                holder.avatar.setImageResource(R.drawable.ease_group_icon);
+            }
             holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
             holder.motioned.setVisibility(View.GONE);
         }else {
@@ -129,8 +149,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
             EaseImageView avatarView = ((EaseImageView) holder.avatar);
-            if (avatarOptions.getAvatarShape() != 0)
-                avatarView.setShapeType(avatarOptions.getAvatarShape());
             if (avatarOptions.getAvatarBorderWidth() != 0)
                 avatarView.setBorderWidth(avatarOptions.getAvatarBorderWidth());
             if (avatarOptions.getAvatarBorderColor() != 0)

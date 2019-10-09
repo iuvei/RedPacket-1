@@ -223,6 +223,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     @Override
     public void setConversationList(List <EMConversation> conversationList) {
         for (int j = conversationList.size ()-1;j>=0;j--) {
+            //是否置顶
             boolean chatTop = SpUtils.getValue ( getActivity (), conversationList.get ( j ).conversationId (), false );
             if (chatTop) {
                 //将i，j的位置的两个元素交换
