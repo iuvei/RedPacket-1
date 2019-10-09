@@ -8,13 +8,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.app.IMModel;
 import com.haisheng.easeim.di.component.DaggerGroupInfoComponent;
@@ -25,6 +29,8 @@ import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +39,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -42,6 +50,7 @@ import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
+import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -73,9 +82,11 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     @BindView(R2.id.tv_game_rules)
     TextView tvGameRules;
     @BindView(R2.id.ll_clear_message)
-    TextView llClearMessage;
+    LinearLayout llClearMessage;
     @BindView(R2.id.switch_voice_notify)
     SwitchButton switchVoiceNotify;
+    @BindView(R2.id.tv_group_nickName)
+    TextView tvGroupNickName;
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
@@ -87,6 +98,8 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     private ChatRoomBean mChatRoomBean;
     private ProgressDialogUtils progressDialogUtils;
     private ArrayList <UserInfo> groupUserList; //群成员列表
+    private BaseDialog dialog;
+    private UserInfo myInfo;
 
     public static void start(Context context, ChatRoomBean chatRoomInfo) {
         Intent intent = new Intent ( context, GroupInfoActivity.class );
@@ -175,7 +188,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     }
 
 
-    @OnClick({R2.id.ll_group_rules, R2.id.ll_game_rules, R2.id.btn_delect_exit})
+    @OnClick({R2.id.ll_group_rules, R2.id.ll_game_rules, R2.id.btn_delect_exit,R2.id.ll_group_nickname})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.ll_group_rules) {
@@ -188,9 +201,39 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 
         } else if (i == R.id.btn_delect_exit) {
             mPresenter.quitRoom ( mChatRoomBean.getId () );
+        } else if (i == R.id.ll_group_nickname) {
+            //我在群里的昵称
+            //昵称
+            updateNickName();
         }
     }
 
+    //修改昵称
+    private void updateNickName() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_update_nickname, true, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                EditText etNickName = layout.findViewById ( R.id.et_nickname );
+                etNickName.setText ( tvGroupNickName.getText ().toString () );
+                TextView btnCancel = layout.findViewById ( R.id.btn_cancel );
+                TextView btnSure = layout.findViewById ( R.id.btn_sure );
+                btnCancel.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+                btnSure.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        mPresenter.setRoomNickName ( mChatRoomBean.getId ()+"",etNickName.getText ().toString ().trim () );
+                    }
+                } );
+            }
+        } ).create ();
+        dialog.show ();
+    }
 //    @OnClick({R2.id.ll_group_rules, R2.id.ll_game_rules, R2.id.btn_delect_exit})
 //    public void onViewClicked(View view) {
 //        int i = view.getId();
@@ -214,12 +257,21 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
                 break;
             }
         }
+        String uid = SpUtils.getValue ( this,"uid", "" );
+        for (int i = 0;i<userInfos.size ();i++){
+            if (userInfos.get ( i ).getUid ().equals ( uid )){
+                tvGroupNickName.setText ( userInfos.get ( i ).getNickname () );
+                myInfo = userInfos.get ( i );
+                break;
+            }
+        }
 
         groupUserList = new ArrayList <> ( userInfos );
         if (userInfos.size () > 14) {
             userInfos = userInfos.subList ( 0, 14 );
         }
         tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
+
         userInfos.add ( new UserInfo () );
         mAdapter.setNewData ( userInfos );
         tvGroupName.setText ( chatRoomInfo.getName () );
@@ -236,6 +288,19 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    /**
+     * {@link ChatActivity#updateGroupNickName(java.lang.String)}
+     * @param nickname
+     */
+    @Override
+    public void setRoomNickNameSuccess(String nickname) {
+        myInfo.setNickname ( nickname );
+        mAdapter.notifyDataSetChanged ();
+        tvGroupNickName.setText ( nickname );
+        ToastUtils.showShort ( "修改成功" );
+        EventBus.getDefault ().post ( nickname,"setRoomNickNameSuccess" );
     }
 
     private void showProgress(final boolean show) {

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -250,10 +251,11 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
         }
 
         @Override
-        public void loginSuccessful(String id) {
+        public void loginSuccessful(String id, long uid) {
             SpUtils.put ( this,"username",etPhone.getText ().toString ().trim () );
             SpUtils.put ( this,"password",etPassword.getText ().toString ().trim () );
             SpUtils.put ( this,"nickname", AppLifecyclesImpl.getUserinfo ().getNickname () );
+            SpUtils.put ( this,"uid", uid+"" );
             SpUtils.put ( this,"hxid", id );
             launchActivity(new Intent(this, MainActivity.class));
             mAppManager.killAll(MainActivity.class);

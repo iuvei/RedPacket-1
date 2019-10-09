@@ -24,7 +24,11 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
 
     @Column
     @SerializedName("hxid")
-    private String hxId;
+    private String hxId = "";
+
+    @Column
+    @SerializedName("uid")
+    private String uid = "";
 
     @Column
     @SerializedName("nickname")
@@ -146,6 +150,14 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getSpelling() {

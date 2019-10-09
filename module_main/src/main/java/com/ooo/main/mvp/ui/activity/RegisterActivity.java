@@ -166,7 +166,7 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
     }
 
     @Override
-    public void loginSuccessful(String id) {
+    public void loginSuccessful(String id, long uid) {
         launchActivity(new Intent(this, MainActivity.class));
         mAppManager.killAll(MainActivity.class);
     }

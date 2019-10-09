@@ -27,7 +27,7 @@ public class LoginResultInfo implements Serializable {
     private String rechangemoney; //手续费百分比
     @SerializedName("mobile")
     private String mobile; //手机号
-
+    @SerializedName("id")
     private long account;
     private double balance;
     private String username;

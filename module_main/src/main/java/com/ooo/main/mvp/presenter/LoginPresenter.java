@@ -57,6 +57,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
 
     private String mToken;
     private String id;
+    private long uid;
 
     @Inject
     public LoginPresenter(LoginContract.View rootView) {
@@ -76,11 +77,13 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     String nickname = resultInfo.getNickname();
                     String hxUsername = resultInfo.getHxUsername();
                     id = resultInfo.getHxUsername ();
+                    uid = resultInfo.getAccount ();
                     int gender = resultInfo.getGender ();
                     AppLifecyclesImpl.getUserinfo ().setAvatarUrl ( avatarUrl );
                     AppLifecyclesImpl.getUserinfo ().setNickname ( nickname );
                     AppLifecyclesImpl.getUserinfo ().setHxUsername ( hxUsername );
                     AppLifecyclesImpl.getUserinfo ().setGender ( gender );
+                    AppLifecyclesImpl.getUserinfo ().setAccount ( resultInfo.getAccount () );
                     UserPreferenceManager.getInstance().setCurrentUserHxId(hxUsername);
                     UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(avatarUrl);
                     UserPreferenceManager.getInstance().setCurrentUserNick(nickname);
@@ -93,7 +96,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                         mRootView.showMessage(response.getMessage());
                         if (response.isSuccess()) {
                             UserPreferenceManager.getInstance().setCurrentUserToken(mToken);
-                            mRootView.loginSuccessful(id);
+                            mRootView.loginSuccessful(id, uid );
                         }
                     }
                 });
@@ -142,7 +145,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                     UserPreferenceManager.getInstance().setCurrentUserHxId(hxUsername);
                     UserPreferenceManager.getInstance().setCurrentUserAvatarUrl(avatarUrl);
                     UserPreferenceManager.getInstance().setCurrentUserNick(nickname);
-
+                    uid = resultInfo.getAccount ();
                     return mIMService.loginIM(resultInfo.getHxUsername(),resultInfo.getHxPassword());
                 })
                 .compose(RxUtils.applySchedulers(mRootView))
@@ -152,7 +155,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                         mRootView.showMessage(response.getMessage());
                         if (response.isSuccess()) {
                             UserPreferenceManager.getInstance().setCurrentUserToken(mToken);
-                            mRootView.loginSuccessful( id );
+                            mRootView.loginSuccessful( id,uid );
                         }
                     }
                 });

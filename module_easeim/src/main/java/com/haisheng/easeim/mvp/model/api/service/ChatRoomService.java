@@ -51,5 +51,22 @@ public interface ChatRoomService {
             @Field("roomid") Long roomId
     );
 
+    /**
+     * 设置群昵称
+     * token	是	string	用户名
+     * roomid	是	int	房间id
+     * nickname	否	string	昵称
+     * @param token
+     * @param roomid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Game&do=Apis&m=sz_yi&op=update_group_nicknames")
+    Observable<BaseResponse> setRoomNickName(
+            @Field("token") String token,
+            @Field("roomid") String roomid,
+            @Field("nickname") String nickname
+    );
+
 
 }

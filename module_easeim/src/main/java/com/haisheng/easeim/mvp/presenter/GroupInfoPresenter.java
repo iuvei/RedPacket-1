@@ -91,6 +91,21 @@ public class GroupInfoPresenter extends BasePresenter<IModel, GroupInfoContract.
                 });
     }
 
+    public void setRoomNickName(String roomId,String nickname){
+        mChatRoomModel.setRoomNickName(roomId,nickname)
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                        if (response.isSuccess()) {
+                            mRootView.setRoomNickNameSuccess (nickname);
+                        }else{
+                            mRootView.showMessage(response.getMessage());
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

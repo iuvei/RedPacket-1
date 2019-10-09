@@ -136,7 +136,7 @@ public class ResetPasswordActivity extends BaseSupportActivity<LoginPresenter> i
     }
 
     @Override
-    public void loginSuccessful(String id) {
+    public void loginSuccessful(String id, long uid) {
 
     }
 

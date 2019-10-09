@@ -81,4 +81,11 @@ public class ChatRoomModel extends BaseModel {
             });
         });
     }
+
+
+    public Observable<BaseResponse> setRoomNickName(String roomId,String nickname) {
+        String token = UserPreferenceManager.getInstance().getCurrentUserToken();
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .setRoomNickName (token,roomId,nickname);
+    }
 }

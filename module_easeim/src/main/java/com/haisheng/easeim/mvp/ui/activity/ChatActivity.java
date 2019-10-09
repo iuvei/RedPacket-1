@@ -71,6 +71,9 @@ import com.hyphenate.util.PathUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -83,6 +86,7 @@ import me.jessyan.armscomponent.commonres.utils.AndroidBug5497Workaround;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.popupwindow.NotescontactPopupWindow;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
@@ -286,6 +290,24 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }else{
                 //群聊
                 GroupInfoActivity.start(mContext, mChatRoomBean);
+            }
+        }
+    }
+
+    /**
+     * 修改群昵称
+     * {@link GroupInfoActivity#setRoomNickNameSuccess(java.lang.String)}
+     * @param nickname
+     */
+    @Subscriber(tag = "setRoomNickNameSuccess")
+    public void updateGroupNickName(String nickname){
+        if (mChatRoomBean!=null){
+            String uid = SpUtils.getValue ( this,"uid", "" );
+            for (int i = 0;i<mChatRoomBean.getUserInfos ().size ();i++){
+                if (mChatRoomBean.getUserInfos ().get ( i ).getUid ().equals ( uid )){
+                    mChatRoomBean.getUserInfos ().get ( i ).setNickname ( nickname );
+                    break;
+                }
             }
         }
     }
@@ -785,6 +807,12 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
     protected void onResume() {
         super.onResume ();
         mPresenter.addMessageListener ();
@@ -819,7 +847,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if (mChatRoomListener != null) {
             EMClient.getInstance ().chatroomManager ().removeChatRoomListener ( mChatRoomListener );
         }
-
+        EventBus.getDefault ().unregister ( this );
 //        if(chatType == EaseConstant.CHATTYPE_CHATROOM){
 //            EMClient.getInstance().chatroomManager().leaveChatRoom(toChatUsername);
 //        }
