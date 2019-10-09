@@ -34,7 +34,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         applicationContext = this;
         instance = this;
-        if (BuildConfig.LOG_DEBUG) {//Timber日志打印
+        if (BuildConfig.DEBUG) {//Timber日志打印
             Timber.plant(new Timber.DebugTree());
             ButterKnife.setDebug(true);
             ARouter.openLog();     // 打印日志
@@ -51,7 +51,7 @@ public class MyApplication extends BaseApplication {
         startService(intent);
 
         //leakCanary内存泄露检查
-        ArmsUtils.obtainAppComponentFromContext(this).extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(this) : RefWatcher.DISABLED);
+        ArmsUtils.obtainAppComponentFromContext(this).extras().put(RefWatcher.class.getName(), BuildConfig.DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED);
     }
 
 }
