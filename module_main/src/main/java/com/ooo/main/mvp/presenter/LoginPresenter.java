@@ -25,6 +25,8 @@ import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.model.MemberModel;
 import com.ooo.main.mvp.model.entity.LoginResultInfo;
 
+import org.simple.eventbus.EventBus;
+
 
 /**
  * ================================================
@@ -69,6 +71,7 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
         mLoginModel.login(phone, password)
                 .concatMap(response -> {
                     if(!response.isSuccess()){
+                        EventBus.getDefault ().post ( "","login" );
                         throw new Exception(response.getMessage());
                     }
                     LoginResultInfo resultInfo = response.getResult();

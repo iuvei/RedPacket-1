@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/spacing_xl"
+            android:padding="@dimen/spacing_xl"
             android:src="@mipmap/icon_close"/>
         <TextView
             android:layout_width="wrap_content"
@@ -32,5 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/public_black"
-        android:padding="@dimen/spacing_xl"/>
+        android:paddingLeft="@dimen/spacing_xl"
+        android:paddingRight="@dimen/spacing_xl"
+        android:paddingTop="@dimen/spacing_xl"
+        tools:text="123"
+        android:paddingBottom="@dimen/spacing_xxxl"/>
 </RelativeLayout>

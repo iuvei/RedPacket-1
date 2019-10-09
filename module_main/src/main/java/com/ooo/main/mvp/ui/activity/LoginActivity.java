@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.RegexUtils;
@@ -25,12 +26,16 @@ import com.ooo.main.di.component.DaggerLoginComponent;
 import com.ooo.main.mvp.contract.LoginContract;
 import com.ooo.main.mvp.presenter.LoginPresenter;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
+import me.jessyan.armscomponent.commonres.view.CodeView;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -57,10 +62,16 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
     ImageView ivClearPhone;
     @BindView(R2.id.et_password)
     EditText etPassword;
+    @BindView(R2.id.et_code)
+    EditText etCode;
     @BindView(R2.id.iv_clear_password)
     ImageView ivClearPassword;
     @BindView(R2.id.tv_go_register)
     TextView ivGoRegister;
+    @BindView(R2.id.ll_code)
+    LinearLayout ll_code;
+    @BindView(R2.id.codeview)
+    CodeView codeview;
     @Inject
     AppManager mAppManager;
 
@@ -167,7 +178,7 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
             }
         } );
     }
-        @OnClick({R2.id.btn_login, R2.id.tv_forgot_pwd,R2.id.tv_go_register,R2.id.iv_clear_password,R2.id.iv_clear_phone})
+        @OnClick({R2.id.btn_login, R2.id.tv_forgot_pwd,R2.id.tv_go_register,R2.id.iv_clear_password,R2.id.iv_clear_phone,R2.id.codeview})
         public void onViewClicked(View view) {
             int i = view.getId();
             if (i == R.id.btn_login) {
@@ -181,6 +192,8 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
                 etPassword.setText ( "" );
             }else if (i==R.id.iv_clear_phone){
                 etPhone.setText ( "" );
+            } else if (i==R.id.codeview){
+                codeview.settingPaint ();
             }
         }
 
@@ -194,8 +207,22 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
             String password = etPassword.getText().toString();
             if (TextUtils.isEmpty(password)) {
                 etPassword.requestFocus();
-                showMessage("密码不能为空/不可用!");
+                showMessage("密码不能为空");
                 return;
+            }
+
+            if (ll_code.getVisibility () == View.VISIBLE){
+                String code = etCode.getText().toString().trim ();
+                if (TextUtils.isEmpty(code)) {
+                    etCode.requestFocus();
+                    showMessage("验证码不能为空");
+                    return;
+                }else{
+                    if (!code.equalsIgnoreCase ( codeview.getCode () )){
+                        ToastUtils.showShort ( "验证码不正确" );
+                        return;
+                    }
+                }
             }
 
             mPresenter.login(phoneNumber,password);
@@ -260,4 +287,21 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
             launchActivity(new Intent(this, MainActivity.class));
             mAppManager.killAll(MainActivity.class);
         }
+
+    @Subscriber(tag = "login")
+    public void loginFaile(String s){
+        ll_code.setVisibility ( View.VISIBLE );
     }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate ( savedInstanceState );
+        EventBus.getDefault ().register ( this );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy ();
+        EventBus.getDefault ().unregister ( this );
+    }
+}
