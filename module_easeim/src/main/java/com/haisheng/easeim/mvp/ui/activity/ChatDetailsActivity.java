@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.IMHelper;
@@ -33,10 +32,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
-import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -73,7 +72,6 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
     TextView tvDelectMessageTime;
     private UserInfo userInfo;
     private BaseDialog dialog;
-    private List<Long> userInfos;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -96,26 +94,15 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "聊天详情" );
         userInfo = (UserInfo) getIntent ().getSerializableExtra ( "userId" );
-        String chatTop = SpUtils.getValue ( ChatDetailsActivity.this,"chatTop","" );
-        userInfos = new Gson ().fromJson ( chatTop,new TypeToken <List<Long>> () {}.getType());
-        if (userInfo != null) {
+        if (userInfo!=null) {
+            boolean chatTop = SpUtils.getValue ( ChatDetailsActivity.this, userInfo.getHxId (), false );
+            if (chatTop) {
+                swbTopMessage.setChecked ( true );
+            } else {
+                swbTopMessage.setChecked ( false );
+            }
             tvNickname.setText ( userInfo.getNickname () );
             Glide.with ( this ).load ( userInfo.getAvatarUrl () ).into ( ivContactHead );
-            if (userInfos==null || userInfos.size ()<=0){
-                swbTopMessage.setChecked ( false );
-            }else{
-                boolean exist = false;
-                for (int i = 0;i< userInfos.size ();i++){
-                    if (userInfos.get ( i ).longValue () == userInfo.getId ()){
-                        swbTopMessage.setChecked ( true );
-                        exist = true;
-                        break;
-                    }
-                }
-                if (!exist){
-                    swbTopMessage.setChecked ( false );
-                }
-            }
         }
         setListener();
     }
@@ -131,37 +118,10 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         swbTopMessage.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-                    if (userInfo==null){
-                        return;
-                    }
-                    //置顶
-                    if (userInfos == null){
-                        userInfos = new ArrayList <> (  );
-                        userInfos.add ( userInfo.getId () );
-                    }else{
-                        boolean exist = false;
-                        for (int i = userInfos.size ()-1;i>=0;i--){
-                            if (userInfos.get ( i ).longValue () == userInfo.getId () ){
-                                exist = true;
-                                break;
-                            }
-                        }
-                        if (!exist){
-                            userInfos.add ( userInfo.getId () );
-                        }
-                    }
-                }else{
-                    if (userInfos!=null && userInfos.size ()>0){
-                        for (int i = userInfos.size ()-1;i>=0;i--){
-                            if (userInfos.get ( i ).longValue () == userInfo.getId () ){
-                                userInfos.remove ( i );
-                                break;
-                            }
-                        }
-                    }
+                if (userInfo==null){
+                    return;
                 }
-                SpUtils.put ( ChatDetailsActivity.this,"chatTop", new Gson ().toJson ( userInfos ));
+                SpUtils.put ( ChatDetailsActivity.this,userInfo.getHxId (),isChecked);
             }
         } );
     }

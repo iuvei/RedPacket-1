@@ -85,6 +85,8 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
     LinearLayout llClearMessage;
     @BindView(R2.id.switch_voice_notify)
     SwitchButton switchVoiceNotify;
+    @BindView(R2.id.switch_show_top)
+    SwitchButton switchShowTop;
     @BindView(R2.id.tv_group_nickName)
     TextView tvGroupNickName;
     @Inject
@@ -139,13 +141,22 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         List <String> disabledGroups = mIMModel.getDisabledGroups ();
         if (null != disabledGroups)
             mDisabledGroupIds.addAll ( mIMModel.getDisabledGroups () );
-        boolean isNotify = SpUtils.getValue ( this,mChatRoomBean.getHxId (),false );
+        boolean isNotify = SpUtils.getValue ( this,mChatRoomBean.getHxId ()+"isNotify",false );
+        boolean isShowTop = SpUtils.getValue ( this,mChatRoomBean.getHxId (),false );
         switchVoiceNotify.setChecked ( isNotify );
+        switchShowTop.setChecked ( isShowTop );
         switchVoiceNotify.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
                 IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
+                SpUtils.put ( GroupInfoActivity.this,mChatRoomBean.getHxId ()+"isNotify",isChecked );
+            }
+        } );
+
+        switchShowTop.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 SpUtils.put ( GroupInfoActivity.this,mChatRoomBean.getHxId (),isChecked );
             }
         } );
@@ -200,6 +211,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
             LongImageActivity.start ( mContext, mChatRoomBean.getGameRulesImgUrl () );
 
         } else if (i == R.id.btn_delect_exit) {
+            //退出群聊
             mPresenter.quitRoom ( mChatRoomBean.getId () );
         } else if (i == R.id.ll_group_nickname) {
             //我在群里的昵称

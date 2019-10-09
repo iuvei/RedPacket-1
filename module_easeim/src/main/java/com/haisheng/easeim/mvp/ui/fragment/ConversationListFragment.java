@@ -222,20 +222,13 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
 
     @Override
     public void setConversationList(List <EMConversation> conversationList) {
-        String chatTop = SpUtils.getValue (getActivity (),"chatTop","" );
-        userInfos = new Gson ().fromJson ( chatTop,new TypeToken <List<Long>> () {}.getType());
-        if (userInfos != null) {
-            for (int i = 0;i< userInfos.size ();i++){
-                for (int j = 0;j<conversationList.size ();j++)
-                    if ((userInfos.get ( i ) + "").equals ( conversationList.get ( j ).conversationId () )) {
-                        //将i，j的位置的两个元素交换
-                        Collections.swap ( conversationList, i, j );
-                        break;
-                    }
-
+        for (int j = conversationList.size ()-1;j>=0;j--) {
+            boolean chatTop = SpUtils.getValue ( getActivity (), conversationList.get ( j ).conversationId (), false );
+            if (chatTop) {
+                //将i，j的位置的两个元素交换
+                Collections.swap ( conversationList, 0, j );
             }
         }
-
         conversationListView.init ( conversationList );
         int countTotal = EMClient.getInstance ().chatManager ().getUnreadMessageCount ();
         EventBus.getDefault ().post ( countTotal, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
