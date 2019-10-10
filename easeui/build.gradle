@@ -42,6 +42,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation (rootProject.ext.dependencies["appcompat-v7"])
     implementation rootProject.ext.dependencies["glide"];
+    implementation rootProject.ext.dependencies["SwipeDelMenuLayout"];
 
     androidTestImplementation(rootProject.ext.dependencies["espresso-core"]) {
         exclude group: 'com.android.support', module: 'support-annotations'
