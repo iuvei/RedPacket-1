@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:id="@+id/rl_item"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true" >
@@ -102,12 +103,13 @@
                 android:textColor="@color/list_itease_secondary_color"
                 android:textSize="14sp" />
         </RelativeLayout>
-        <Button
+        <TextView
             android:id="@+id/btnDelete"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:background="#FF0000"
             android:text="删除"
+            android:gravity="center"
             android:textColor="@android:color/white"/>
     </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
 </RelativeLayout>

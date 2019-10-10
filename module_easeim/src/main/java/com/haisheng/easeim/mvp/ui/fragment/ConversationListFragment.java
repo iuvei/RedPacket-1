@@ -137,15 +137,9 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         if (null != bundle) {
             mTag = bundle.getInt ( "tag" );
         }
-        conversationListView.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
+        conversationListView.setOnItemClickListener ( new EaseConversationList.OnItemClickListener () {
             @Override
-            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
-//                if(0 == position){
-//                    SystemMessagesActivity.start((Activity) mContext);
-//                    return;
-//                }
-
-                EMConversation conversation = conversationListView.getItem ( position );
+            public void onItemClick(EMConversation conversation) {
                 String username = conversation.conversationId ();
                 if (username.equals ( EMClient.getInstance ().getCurrentUser () )) {
                     showMessage ( getString ( R.string.Cant_chat_with_yourself ) );
@@ -164,6 +158,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                 }
             }
         } );
+
 
         initRefreshLayout ();
 

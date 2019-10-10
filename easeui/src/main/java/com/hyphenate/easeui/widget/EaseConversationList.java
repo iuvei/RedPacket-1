@@ -74,9 +74,26 @@ public class EaseConversationList extends ListView{
         adapter.setSecondarySize(secondarySize);
         adapter.setTimeColor(timeColor);
         adapter.setTimeSize(timeSize);
+        adapter.setOnItemClickListener ( new EaseConversationAdapter.OnItemClickListener () {
+            @Override
+            public void onItemClick(EMConversation conversation) {
+                if (onItemClickListener!=null){
+                    onItemClickListener.onItemClick ( conversation );
+                }
+            }
+        } );
         setAdapter(adapter);
     }
-    
+
+    private OnItemClickListener onItemClickListener;
+    public interface OnItemClickListener{
+        void onItemClick(EMConversation conversation);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {

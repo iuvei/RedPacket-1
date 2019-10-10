@@ -101,8 +101,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.msgState = convertView.findViewById(R.id.msg_state);
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
             holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
-            holder.btnDelect = (Button) convertView.findViewById(R.id.btnDelete);
+            holder.btnDelect = (TextView) convertView.findViewById(R.id.btnDelete);
             holder.swipeMenuLayout = (SwipeMenuLayout) convertView.findViewById(R.id.swipeMenuLayout);
+            holder.rlItem = (RelativeLayout) convertView.findViewById(R.id.rl_item);
             convertView.setTag(holder);
         }
         holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
@@ -228,6 +229,15 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                            }
                        } )
                        .create ().show ();
+            }
+        } );
+
+        holder.rlItem.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener!=null){
+                    onItemClickListener.onItemClick (conversation);
+                }
             }
         } );
         return convertView;
@@ -376,8 +386,19 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         /** layout */
         RelativeLayout list_itease_layout;
         TextView motioned;
-        Button btnDelect;
+        TextView btnDelect;
         SwipeMenuLayout swipeMenuLayout;
+        RelativeLayout rlItem;
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(EMConversation conversation);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
 
