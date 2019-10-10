@@ -16,8 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -72,7 +70,6 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import org.simple.eventbus.EventBus;
-import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -619,6 +616,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         final String avatarUrl = redpacketBean.getAvatarUrl();
         final String nickname = redpacketBean.getNickname();
         final Long redpacketId = redpacketBean.getId();
+        String hxID = redpacketBean.getHxid ();
         if (builder != null) {
             builder.dismiss();
         }
@@ -655,7 +653,13 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
         });
         CommonDialog commonDialog = builder.create();
-        builder.getView(R.id.tv_red_detail).setVisibility(View.GONE);
+        String myHxID = SpUtils.getValue ( this,"hxid", "" );
+        if (myHxID.equals ( hxID )){
+            //自己发包
+            builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
+        }else {
+            builder.getView ( R.id.tv_red_detail ).setVisibility ( View.GONE );
+        }
         builder.setText(R.id.tv_message, remark);
         if (status == 0) {//红包未抢完 未过期 未参与
             builder.getView(R.id.rel_open).setVisibility(View.VISIBLE);
