@@ -164,15 +164,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                 }
             }
         } );
-        conversationListView.setOnItemLongClickListener ( new AdapterView.OnItemLongClickListener () {
-            @Override
-            public boolean onItemLongClick(AdapterView <?> parent, View view, int position, long id) {
-                EMConversation conversation = conversationListView.getItem ( position );
-                String username = conversation.conversationId ();
-                delectConversation ( username );
-                return true;
-            }
-        } );
+
         initRefreshLayout ();
 
         mPresenter.initDatas ( mTag );
@@ -258,24 +250,6 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     @Override
     public void showMessage(@NonNull String message) {
         checkNotNull ( message );
-    }
-
-    protected void delectConversation(String username) {
-        new AlertDialog.Builder ( mContext )
-                .setMessage ( R.string.delete_conversation_messages )
-                .setNegativeButton ( R.string.public_cancel, new DialogInterface.OnClickListener () {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                } )
-                .setPositiveButton ( R.string.public_confirm, new DialogInterface.OnClickListener () {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.delectConversation ( username );
-                        mPresenter.sendRefreshOrder ();
-                    }
-                } ).show ();
     }
 
     @Override

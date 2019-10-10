@@ -1,6 +1,8 @@
 package com.hyphenate.easeui.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -203,19 +205,29 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         holder.btnDelect.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                //删除和某个user会话，如果需要保留聊天记录，传false
+               new AlertDialog.Builder ( parent.getContext () )
+                       .setTitle ( "温馨提示" )
+                       .setMessage ( "是否删除该会话？" )
+                       .setNegativeButton ( "取消",null )
+                       .setPositiveButton ( "确定", new DialogInterface.OnClickListener () {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+                               //删除和某个user会话，如果需要保留聊天记录，传false
 
-                EMGroup group = EMClient.getInstance().groupManager().getGroup(conversation.conversationId());
+                               EMGroup group = EMClient.getInstance().groupManager().getGroup(conversation.conversationId());
 
-                String name = group !=null ? group.getGroupName() :conversation.conversationId();
+                               String name = group !=null ? group.getGroupName() :conversation.conversationId();
 
-                EMClient.getInstance().chatManager().deleteConversation(name, true);
+                               EMClient.getInstance().chatManager().deleteConversation(name, true);
 
-                conversationList.remove(position);
+                               conversationList.remove(position);
 
 //                holder.es.collapseSmooth();
-                finalHolder.swipeMenuLayout.quickClose();
-                notifyDataSetChanged();
+                               finalHolder.swipeMenuLayout.quickClose();
+                               notifyDataSetChanged();
+                           }
+                       } )
+                       .create ().show ();
             }
         } );
         return convertView;
