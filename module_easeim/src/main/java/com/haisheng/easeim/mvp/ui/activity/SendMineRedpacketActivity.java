@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -27,6 +29,15 @@ import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.presenter.SendRedpacketPresenter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,12 +83,20 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
     TextView tvTitle;
     @BindView(R2.id.tv_multiple)
     TextView tvMultiple;
+    @BindView(R2.id.ll_more_boom)
+    LinearLayout ll_more_boom;
+    @BindView(R2.id.ll_single_boom)
+    LinearLayout ll_single_boom;
+    @BindView(R2.id.tfl_mine_numbers)
+    TagFlowLayout tflMineNumbers;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
     private BaseDialog dialog;
     private Integer totalMoney;
-    private String sMineNumber;
+    private Integer MINE_NUMBERS[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    TagAdapter mMineNumberAdapter;
+    private StringBuilder sbBoom;
 
     public static void start(Activity context, ChatRoomBean chatRoomBean) {
         Intent intent = new Intent ( context, SendMineRedpacketActivity.class );
@@ -145,16 +164,53 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
             public void afterTextChanged(Editable s) {
             }
         } );
+        if (mChatRoomBean.getRedpacketNumber ()==9){
+            ll_more_boom.setVisibility ( View.VISIBLE );
+            ll_single_boom.setVisibility ( View.GONE );
+            List <Integer> mineNumbers = new ArrayList <> ( Arrays.asList ( MINE_NUMBERS ) );
+            mMineNumberAdapter = new TagAdapter ( mineNumbers ) {
+                @Override
+                public View getView(FlowLayout parent, int position, Object o) {
+                    int number = (int) o;
+                    TextView tv = (TextView) LayoutInflater.from ( mContext ).inflate ( R.layout.item_circle_number,
+                            tflMineNumbers, false );
+                    tv.setText ( String.valueOf ( number ) );
+                    return tv;
+                }
+            };
+            tflMineNumbers.setAdapter ( mMineNumberAdapter );
+        }else{
+            ll_single_boom.setVisibility ( View.VISIBLE );
+            ll_more_boom.setVisibility ( View.GONE );
+        }
     }
 
     @OnClick(R2.id.btn_send_redpacket)
     public void onViewClicked() {
-        if (!checkTotalMoney () || !checkMineNumber ()) {
+        if (!checkTotalMoney ()) {
             return;
         }
         String sTotalMoney = etTotalMoney.getText ().toString ();
         totalMoney = Integer.valueOf ( sTotalMoney );
-        sMineNumber = etMineNumber.getText ().toString ();
+        if (mChatRoomBean.getRedpacketNumber ()==9){
+            Set <Integer> mineNumbers = tflMineNumbers.getSelectedList ();
+            if (mineNumbers.size () == 0) {
+                showMessage ( "雷数至少选一个数!" );
+                return;
+            }
+            sbBoom = new StringBuilder ();
+            Iterator <Integer> value = mineNumbers.iterator ();
+            sbBoom.append ( MINE_NUMBERS[value.next ()] );
+            while (value.hasNext ()) {
+                sbBoom.append ( "," ).append ( MINE_NUMBERS[value.next ()] );
+            }
+        }else{
+            if(!checkMineNumber()){
+                return;
+            }
+            sbBoom = new StringBuilder ();
+            sbBoom.append ( etMineNumber.getText ().toString () );
+        }
         mPresenter.checkPayPasswrod ();
     }
 
@@ -256,7 +312,7 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
     @Override
     public void checkPayPasswordSuccessfully(CheckPayPasswordBean response) {
         if (response.isHasPayPassword ()) {
-            payDialog ( sMineNumber, totalMoney );
+            payDialog ( sbBoom.toString (), totalMoney );
         } else {
             showAuthDialog ();
         }

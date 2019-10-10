@@ -24,13 +24,13 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:background="@drawable/ic_red_title"/>
                     <ImageView
                         android:id="@+id/iv_avatar"
                         android:layout_width="@dimen/avatar_size"
                         android:layout_height="@dimen/avatar_size"
-                        android:layout_marginTop="@dimen/spacing_m"
+                        android:layout_marginTop="@dimen/spacing_xxl"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/icon_default_avatar"/>
                 </FrameLayout>
