@@ -65,6 +65,11 @@ public class UserInfoPresenter extends BasePresenter <IModel, UserInfoContract.V
     }
 
     public void updateMemberInfo(LoginResultInfo userInfo){
+        //更新信息 获取昵称头像路劲，从images开始截取后面的路劲保存到数据库里
+        String urlPath = userInfo.getAvatarUrl ();
+        int firstPos = urlPath.indexOf ( "images" );
+        String realUrl = urlPath.substring ( firstPos );
+        userInfo.setAvatarUrl ( realUrl );
         mMemberModel.updateMemberInfo(userInfo.getNickname(),userInfo.getAvatarUrl(),userInfo.getGender (),null,null)
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe(new ErrorHandleSubscriber <BaseResponse> (mErrorHandler) {
