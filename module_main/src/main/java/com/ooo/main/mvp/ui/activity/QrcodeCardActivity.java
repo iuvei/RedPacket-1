@@ -87,7 +87,7 @@ public class QrcodeCardActivity extends BaseSupportActivity {
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "二维码" );
         ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.drawable.icon_go );
+        ivRight.setImageResource ( R.mipmap.message_icon_more );
 
         Glide.with ( this )
                 .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )

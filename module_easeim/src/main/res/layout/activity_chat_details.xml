@@ -18,12 +18,12 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/spacing_xl"
             android:paddingRight="@dimen/spacing_xl"
-            android:src="@drawable/ic_group_info"/>
+            tools:src="@drawable/ic_group_info"/>
         <TextView
             android:id="@+id/tv_nickname"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="123456"
+            tools:text="123456"
             android:ellipsize="end"
             android:gravity="center_horizontal"/>
 

@@ -229,6 +229,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             public void onShowDialog(View layout) {
                 EditText etNickName = layout.findViewById ( R.id.et_nickname );
                 etNickName.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
+                etNickName.setSelection ( etNickName.getText ().toString ().length () );
                 TextView btnCancel = layout.findViewById ( R.id.btn_cancel );
                 TextView btnSure = layout.findViewById ( R.id.btn_sure );
                 btnCancel.setOnClickListener ( new View.OnClickListener () {

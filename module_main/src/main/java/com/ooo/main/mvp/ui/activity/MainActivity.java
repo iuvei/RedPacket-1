@@ -208,29 +208,19 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
             viewPager.setCurrentItem(0);
             mCurrentShowView = ivChat;
             ivChat.setVisibility(View.VISIBLE);
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.translate_scale_left_to_center);
-            ivChat.startAnimation(animation);
         } else if (i == R.id.ll_group) {
             viewPager.setCurrentItem(1);
             mCurrentShowView = ivGroup;
             ivGroup.setVisibility(View.VISIBLE);
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.translate_scale_left_to_center);
-            ivGroup.startAnimation(animation);
 
         } else if (i == R.id.ll_discover) {
             viewPager.setCurrentItem(3);
             mCurrentShowView = ivDiscover;
             ivDiscover.setVisibility(View.VISIBLE);
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.rotate_1080);
-            ivDiscover.startAnimation(animation);
-
-
         } else if (i == R.id.ll_me) {
             viewPager.setCurrentItem(4);
             mCurrentShowView = ivMe;
             ivMe.setVisibility(View.VISIBLE);
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.translate_scale_left_to_center);
-            ivMe.startAnimation(animation);
 
         } else if (i == R.id.rl_animation) {
             viewPager.setCurrentItem(2);
