@@ -118,6 +118,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int ITEM_WELFARE = 100;
     private static final int ITEM_LEAGUE = 101;
     private static final int ITEM_REDPACKET = 102;
+
     private static final int ITEM_LUCKY_DRAW = 103;
     private static final int ITEM_BALANCE = 104;
     private static final int ITEM_LIST = 105;
@@ -127,6 +128,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int ITEM_CAMEAR = 109;
     private static final int ITEM_MAKE_MONEY = 110;
     private static final int ITEM_PROFIT = 111;//盈亏记录
+    private static final int ITEM_REDPACKET_5 = 112;
+    private static final int ITEM_REDPACKET_6 = 113;
 
     private static final int MESSAGE_TYPE_SENT_VOICE_CALL = 1;
     private static final int MESSAGE_TYPE_RECV_VOICE_CALL = 2;
@@ -356,7 +359,15 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             entities.add(new ChatExtendItemEntity(ITEM_PHOTO, getString(R.string.chat_photo), R.drawable.ic_tab_photo));
             entities.add(new ChatExtendItemEntity(ITEM_CAMEAR, getString(R.string.chat_camera), R.drawable.ic_tab_camera));
         }else{
-            entities.add(new ChatExtendItemEntity(ITEM_REDPACKET, getString(R.string.chat_redpacket), R.drawable.ic_tab_red));
+            if (mChatRoomBean.getType() == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET){
+                //禁抢房
+                //发五包
+                entities.add(new ChatExtendItemEntity(ITEM_REDPACKET_5, getString(R.string.chat_redpacket_5), R.drawable.ic_tab_red));
+                //发六包
+                entities.add(new ChatExtendItemEntity(ITEM_REDPACKET_6, getString(R.string.chat_redpacket_6), R.drawable.ic_tab_red));
+            }else{
+                entities.add(new ChatExtendItemEntity(ITEM_REDPACKET, getString(R.string.chat_redpacket), R.drawable.ic_tab_red));
+            }
             entities.add(new ChatExtendItemEntity( ITEM_LUCKY_DRAW, getString(R.string.chat_recharge), R.drawable.ic_fount_lucky));
             entities.add(new ChatExtendItemEntity( ITEM_BALANCE, getString(R.string.chat_game_rules), R.drawable.ic_balance));
             entities.add(new ChatExtendItemEntity(ITEM_CUSTOMER_SERVICE, getString(R.string.chat_customer_service), R.drawable.ic_talk_service));
@@ -379,9 +390,17 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     //排行榜
                     ARouterUtils.navigation ( mContext,RouterHub.MAIN_COMMISSIONLISTACTIVITY );
                     break;
+                case ITEM_REDPACKET_5:
+                    //5红包
+                    sendRedpacket( 5 );
+                    break;
+                case ITEM_REDPACKET_6:
+                    //6红包
+                    sendRedpacket(6);
+                    break;
                 case ITEM_REDPACKET:
                     //红包
-                    sendRedpacket();
+                    sendRedpacket(0);
                     break;
                 case ITEM_LUCKY_DRAW:
                     //抽奖
@@ -755,26 +774,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         showProgress(false);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (chatType != EaseConstant.CHATTYPE_SINGLE)
-            getMenuInflater ().inflate ( R.menu.room_menu, menu );
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int i = item.getItemId ();
-        if (i == R.id.item_redpacket) {
-            sendRedpacket();
-        } else if (i == R.id.item_room_info) {
-            GroupInfoActivity.start(mContext, mChatRoomBean);
-        } else if (i == android.R.id.home) {
-            onBackPressedSupport ();
-        }
-
-        return true;
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -914,14 +913,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     }
 
-    private void sendRedpacket() {
+    private void sendRedpacket(int redpacket_num) {
         int roomType = mChatRoomBean.getType();
         if (roomType == IMConstants.ROOM_TYPE_MINE_REDPACKET) {
             //扫雷详情
             SendMineRedpacketActivity.start(mContext, mChatRoomBean);
         } else if (roomType == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
             //禁抢详情
-            SendGunControlRedpacketActivity.start(mContext, mChatRoomBean);
+            SendGunControlRedpacketActivity.start(mContext, mChatRoomBean,redpacket_num);
         } else if (roomType == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET || roomType == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
             //牛牛详情
             SendNiuniuRedpacketActivity.start(mContext, mChatRoomBean);

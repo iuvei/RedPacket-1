@@ -24,6 +24,8 @@
     <string name="chat_welfare">福利</string>
     <string name="chat_league">加盟</string>
     <string name="chat_redpacket">发红包</string>
+    <string name="chat_redpacket_5">发5包</string>
+    <string name="chat_redpacket_6">发6包</string>
     <string name="chat_recharge">幸运大转盘</string>
     <string name="chat_game_rules">余额</string>
     <string name="chat_group_rules">排行榜</string>

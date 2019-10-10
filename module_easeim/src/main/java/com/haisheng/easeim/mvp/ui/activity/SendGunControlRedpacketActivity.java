@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -55,17 +54,15 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
 
     @BindView(R2.id.et_total_money)
     EditText etTotalMoney;
-    @BindView(R2.id.tfl_redpacket_number)
-    TagFlowLayout tflRedpacketNumber;
+    @BindView(R2.id.tv_redpacket_num)
+    TextView tvRedpacketNum;
     @BindView(R2.id.tfl_mine_numbers)
     TagFlowLayout tflMineNumbers;
     @BindView(R2.id.tv_money)
     TextView tvMoney;
 
-    private static final Integer REDPACKET_NUMBERS[] = {5, 6};
     private static final Integer MINE_NUMBERS[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
-    TagAdapter mRedpacketNumberAdapter;
     TagAdapter mMineNumberAdapter;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -79,10 +76,11 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
     private Integer money;
     private BaseDialog dialog;
 
-    public static void start(Activity context, ChatRoomBean chatRoomBean) {
+    public static void start(Activity context, ChatRoomBean chatRoomBean,int redpacketNum) {
         Intent intent = new Intent ( context, SendGunControlRedpacketActivity.class );
         Bundle bundle = new Bundle ();
         bundle.putSerializable ( "chatRoom", chatRoomBean );
+        bundle.putInt ( "redpacketNum", redpacketNum );
         intent.putExtras ( bundle );
         context.startActivityForResult ( intent, IMConstants.REQUEST_CODE_SEND_REDPACKET );
     }
@@ -109,40 +107,12 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
         Bundle bundle = getIntent ().getExtras ();
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
+            mCurrentRedpacketNumber =  bundle.getInt ( "redpacketNum",5 );
             tvTitle.setText ( mChatRoomBean.getName () );
         }
         etTotalMoney.setHint ( String.format ( "%.0f-%.0f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
-        List <Integer> redpacketNumbers = new ArrayList <> ( Arrays.asList ( REDPACKET_NUMBERS ) );
-        mRedpacketNumberAdapter = new TagAdapter ( redpacketNumbers ) {
-            @Override
-            public View getView(FlowLayout parent, int position, Object o) {
-                int number = (int) o;
-                TextView tv = (TextView) LayoutInflater.from ( mContext ).inflate ( R.layout.item_circle_number,
-                        tflRedpacketNumber, false );
-                tv.setText ( String.valueOf ( number ) );
-                return tv;
-            }
-        };
-        tflRedpacketNumber.setOnSelectListener ( new TagFlowLayout.OnSelectListener () {
-            @Override
-            public void onSelected(Set <Integer> selectPosSet) {
-                Iterator <Integer> value = selectPosSet.iterator ();
-                if (!value.hasNext ()){
-                    mCurrentRedpacketNumber = 0;
-                    return;
-                }
-                int i = value.next ();
-                mCurrentRedpacketNumber = REDPACKET_NUMBERS[i];
-                tflMineNumbers.setMaxSelectCount ( mCurrentRedpacketNumber > 7 ? 7 : mCurrentRedpacketNumber );
-                if (mCurrentRedpacketNumber == 10) {
-                    tflMineNumbers.setMaxSelectCount ( 8 );
-                }
-
-                mMineNumberAdapter.setSelectedList ();
-            }
-        } );
-        tflRedpacketNumber.setAdapter ( mRedpacketNumberAdapter );
-
+        tvRedpacketNum.setText ( ""+mCurrentRedpacketNumber );
+        tflMineNumbers.setMaxSelectCount ( mCurrentRedpacketNumber );
         List <Integer> mineNumbers = new ArrayList <> ( Arrays.asList ( MINE_NUMBERS ) );
         mMineNumberAdapter = new TagAdapter ( mineNumbers ) {
             @Override
@@ -207,9 +177,8 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
             showMessage ( String.format ( "红包金额只能输入%.0f - %.0f", mChatRoomBean.getMinMoney (), mChatRoomBean.getMaxMoney () ) );
             return;
         }
-        Set <Integer> redpacketNumbers = tflRedpacketNumber.getSelectedList ();
-        if (redpacketNumbers.size () == 0) {
-            showMessage ( "请先选择红包个数!" );
+        if (mCurrentRedpacketNumber == 0) {
+            showMessage ( "红包个数不能为0" );
             return;
         }
         Set <Integer> mineNumbers = tflMineNumbers.getSelectedList ();

@@ -179,6 +179,17 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                 }
             };
             tflMineNumbers.setAdapter ( mMineNumberAdapter );
+            tflMineNumbers.setOnTagClickListener ( new TagFlowLayout.OnTagClickListener () {
+                @Override
+                public boolean onTagClick(View view, int position, FlowLayout parent) {
+                   if (!view.isSelected ()) {
+                        if (tflMineNumbers.getSelectedList ().size ()>= 5) {
+                            showMessage ( "最多只能选5个雷号" );
+                        }
+                    }
+                    return false;
+                }
+            } );
         }else{
             ll_single_boom.setVisibility ( View.VISIBLE );
             ll_more_boom.setVisibility ( View.GONE );

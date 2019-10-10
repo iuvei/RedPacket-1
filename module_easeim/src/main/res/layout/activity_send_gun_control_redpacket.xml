@@ -14,6 +14,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_l"
+                android:layout_marginLeft="@dimen/spacing_l"
+                android:layout_marginRight="@dimen/spacing_l">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_l"
+                    android:background="@color/public_white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/common_text"
+                        android:textSize="@dimen/text_normal"
+                        android:text="红包个数"/>
+
+                    <TextView
+                        android:id="@+id/tv_redpacket_num"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:gravity="right"
+                        android:background="@null"
+                        android:textColor="@color/common_text"
+                        android:textSize="@dimen/text_normal"
+                        android:maxLength="8"
+                        tools:text="111"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:textColor="@color/common_text"
+                        android:textSize="@dimen/text_normal"
+                        android:text="包"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -38,9 +79,10 @@
                     <EditText
                         android:id="@+id/et_total_money"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/spacing_m"
+                        android:paddingRight="@dimen/spacing_m"
                         android:gravity="right"
                         android:background="@null"
                         android:textColor="@color/common_text"
@@ -55,42 +97,6 @@
                         android:textColor="@color/common_text"
                         android:textSize="@dimen/text_normal"
                         android:text="元"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_l"
-                android:layout_marginLeft="@dimen/spacing_l"
-                android:layout_marginRight="@dimen/spacing_l">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_l"
-                    android:background="@color/public_white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/common_text"
-                        android:textSize="@dimen/text_normal"
-                        android:text="红包个数"/>
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/tfl_redpacket_number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="@dimen/spacing_m"
-                        app:max_select="1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/spacing_m"
-                        android:textColor="@color/common_text"
-                        android:textSize="@dimen/text_normal"
-                        android:text="包"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
