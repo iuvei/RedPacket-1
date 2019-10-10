@@ -33,52 +33,31 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
         ImageView ivAvatar = helper.getView( R.id.iv_avatar);
         ImageLoader.displayHeaderImage(mContext,item.getAvatarUrl(),ivAvatar);
         helper.setText( R.id.tv_nickname,item.getNickname())
-            .setText( R.id.tv_time,item.getTime())
-            .setVisible( R.id.iv_banker,item.getBankerStatus()!=0)
-            .setVisible( R.id.iv_bomb,item.getBombStatus() !=0)
-            .setVisible( R.id.iv_best, item.getBestStatus()!=0);
+                .setText( R.id.tv_time,item.getTime())
+                .setVisible( R.id.iv_banker,item.getBankerStatus()!=0)
+                .setVisible( R.id.iv_bomb,item.getBombStatus() !=0)
+                .setVisible( R.id.iv_best, item.getBestStatus()!=0);
 
         TextView tvMoney = helper.getView( R.id.tv_money);
 //        String sMoney = String.format("%.2f",item.getMoney());
         String sMoney = item.getMoney();
-        if(item.getBombStatus() !=0){
-            String money;
-            if (isGetAll ()){
-                money = sMoney;
-            }else{
-                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
-                    //免死抢包
-                    money = "*.**";
-                }else if (uid.equals ( item.getId () )){
-                    //自己抢的包
-                    money = sMoney;
-                }else{
-                    //别人抢包
-                    money = "0.00";
-                }
-            }
-            SpannableString spannableString = new SpannableString(money);
-            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
-            spannableString.setSpan(foregroundColorSpan, money.length()-1, money.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            helper.setText( R.id.tv_money,spannableString);
+
+        String money;
+        if (isGetAll ()){
+            money = sMoney;
         }else{
-            String money;
-            if (isGetAll ()){
+            if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
+                //免死抢包
+                money = "*.**";
+            }else if (uid.equals ( item.getId () )){
+                //自己抢的包
                 money = sMoney;
             }else{
-                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
-                    //免死抢包
-                    money = "*.**";
-                }else if (uid.equals ( item.getId () )){
-                    //自己抢的包
-                    money = sMoney;
-                }else{
-                    //别人抢包
-                    money = "0.00";
-                }
+                //别人抢包
+                money = "0.00";
             }
-            helper.setText( R.id.tv_money,money);
         }
+        helper.setText( R.id.tv_money,money);
 
         Integer niuniuNumber = item.getNiuniuNumber();
         if(null != niuniuNumber){
@@ -111,7 +90,7 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
                 case 9:
                     iconRedId = R.drawable.ic_cow_9;
                     break;
-                 case 0:
+                case 0:
                     iconRedId = R.drawable.ic_cow_10;
                     break;
             }
