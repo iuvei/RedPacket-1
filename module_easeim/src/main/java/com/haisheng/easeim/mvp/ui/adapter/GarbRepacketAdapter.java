@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ import java.util.List;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 
 public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, BaseViewHolder> {
+
+    private boolean getAll;
+    private String uid;
 
     public GarbRepacketAdapter(List<GarbRedpacketBean> infos) {
         super( R.layout.item_garb_redpacket, infos);
@@ -37,12 +42,42 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
 //        String sMoney = String.format("%.2f",item.getMoney());
         String sMoney = item.getMoney();
         if(item.getBombStatus() !=0){
-            SpannableString spannableString = new SpannableString(sMoney);
+            String money;
+            if (isGetAll ()){
+                money = sMoney;
+            }else{
+                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
+                    //免死抢包
+                    money = "*.**";
+                }else if (uid.equals ( item.getId () )){
+                    //自己抢的包
+                    money = sMoney;
+                }else{
+                    //别人抢包
+                    money = "0.00";
+                }
+            }
+            SpannableString spannableString = new SpannableString(money);
             ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
-            spannableString.setSpan(foregroundColorSpan, sMoney.length()-1, sMoney.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(foregroundColorSpan, money.length()-1, money.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             helper.setText( R.id.tv_money,spannableString);
         }else{
-            helper.setText( R.id.tv_money,sMoney);
+            String money;
+            if (isGetAll ()){
+                money = sMoney;
+            }else{
+                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
+                    //免死抢包
+                    money = "*.**";
+                }else if (uid.equals ( item.getId () )){
+                    //自己抢的包
+                    money = sMoney;
+                }else{
+                    //别人抢包
+                    money = "0.00";
+                }
+            }
+            helper.setText( R.id.tv_money,money);
         }
 
         Integer niuniuNumber = item.getNiuniuNumber();
@@ -85,5 +120,21 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
             tvMoney.setCompoundDrawables(null,null,drawable,null);
         }
 
+    }
+
+    public boolean isGetAll() {
+        return getAll;
+    }
+
+    public void setGetAll(boolean getAll) {
+        this.getAll = getAll;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.iwgang.countdownview.CountdownView;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -188,7 +189,9 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
 
         ArmsUtils.configRecyclerView ( rvGarbRedpacket, mLayoutManager );
         rvGarbRedpacket.setAdapter ( mAdapter );
-
+        //用户id
+        String uid = SpUtils.getValue ( this,"uid", "" );
+        mAdapter.setUid ( uid );
         View emptyView = LayoutInflater.from ( mContext ).inflate ( R.layout.public_empty_page, null, false );
         mAdapter.setEmptyView ( emptyView );
     }
@@ -279,7 +282,16 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                 alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
         if (!TextUtils.isEmpty ( redpacketInfo.getGetedtime () )) {
+            //已经抢完
             tvMessage.append ( "，" + redpacketInfo.getGetedtime () + "被抢光" );
+            tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
+                    alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
+            mAdapter.setGetAll ( true );
+        }else{
+            //红包还没抢完
+            tvMessage.setText ( String.format ( "已领取%d/%d个，共****/%.2f元",
+                    alreadyNumber, redpacketInfo.getNumber (), redpacketInfo.getMoney () ) );
+            mAdapter.setGetAll ( false );
         }
     }
 

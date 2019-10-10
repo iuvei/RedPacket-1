@@ -24,6 +24,8 @@ public class GarbRedpacketBean implements Serializable {
 
     @SerializedName("banker")
     private int bankerStatus;
+    @SerializedName("id")
+    private String id;
 
     public Integer getNiuniuNumber() {
         return niuniuNumber;
@@ -87,5 +89,13 @@ public class GarbRedpacketBean implements Serializable {
 
     public void setBestStatus(int bestStatus) {
         this.bestStatus = bestStatus;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
