@@ -110,13 +110,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_contact_nor" />
+                        android:src="@drawable/ic_game_nor" />
 
                     <ImageView
                         android:id="@+id/iv_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_contact_sel"
+                        android:src="@drawable/ic_game_sel"
                         android:visibility="gone" />
                 </RelativeLayout>
 

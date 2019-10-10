@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:paddingRight="@dimen/spacing_xl"
-        android:paddingLeft="@dimen/spacing_xl"
         android:background="@color/public_white">
         <ImageView
             android:id="@+id/iv_back"

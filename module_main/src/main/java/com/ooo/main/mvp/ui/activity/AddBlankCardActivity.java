@@ -20,7 +20,6 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -75,10 +74,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
     RadioButton rbNo;
     @BindView(R2.id.ll_blank)
     LinearLayout llBlank;
-    @BindView(R2.id.et_alipy)
-    EditText etAlipy;
-    @BindView(R2.id.ll_alipy)
-    LinearLayout llAlipy;
     @BindView(R2.id.btn_next)
     Button btnNext;
     @BindView(R2.id.rg_cardtype)
@@ -87,8 +82,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
     ImageView ivDelectBlankName;
     @BindView(R2.id.iv_delect_cardNum)
     ImageView ivDelectCardNum;
-    @BindView(R2.id.iv_delect_alipyNum)
-    ImageView ivDelectAlipyNum;
     private OptionsPickerView pvCustomOptions;
     private ArrayList <String> cardItem = new ArrayList <> ();
     private BaseDialog dialog;
@@ -114,8 +107,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
     enum BLANKTYPE {
         //没选中
         NONE,
-        //支付宝
-        ALIPY,
         //银行
         BLANK
     }
@@ -215,26 +206,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
 
             }
         } );
-        etAlipy.addTextChangedListener ( new TextWatcher () {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (etAlipy.getText ().toString ().trim ().length ()>0){
-                    ivDelectAlipyNum.setVisibility ( View.VISIBLE );
-                }else{
-                    ivDelectAlipyNum.setVisibility ( View.INVISIBLE );
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        } );
     }
 
     @Override
@@ -278,7 +249,7 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
         EventBus.getDefault ().unregister ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_chooseBlank, R2.id.btn_next,R2.id.iv_delect_alipyNum,
+    @OnClick({R2.id.iv_back, R2.id.tv_chooseBlank, R2.id.btn_next,
             R2.id.iv_delect_blankName,R2.id.iv_delect_cardNum})
     public void onViewClicked(View view) {
         int i = view.getId ();
@@ -291,21 +262,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
         } else if (i == R.id.btn_next) {
             //下一步
             switch (blanktype) {
-                case ALIPY:
-                    String alipyNum = etAlipy.getText ().toString ().trim ();
-                    if (TextUtils.isEmpty ( alipyNum )) {
-                        ToastUtils.showShort ( "请输入支付宝账号" );
-                    } else {
-                        //检验支付宝账号
-                        if (RegexUtils.isEmail ( alipyNum ) || RegexUtils.isMobileSimple ( alipyNum )) {
-                            //通过验证
-                            showCheckDialog ();
-                        } else {
-                            //支付宝账号不对
-                            ToastUtils.showShort ( "支付宝账号格式不正确" );
-                        }
-                    }
-                    break;
                 case NONE:
                     ToastUtils.showShort ( "请选择银行" );
                     break;
@@ -343,8 +299,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                 default:
                     break;
             }
-        }else if(i == R.id.iv_delect_alipyNum){
-            etAlipy.setText ( "" );
         }else if (i==R.id.iv_delect_blankName){
             etLowerBank.setText ( "" );
         }else if (i==R.id.iv_delect_cardNum){
@@ -362,9 +316,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                         dialog.dismiss ();
                         //确定
                         switch (blanktype) {
-                            case ALIPY:
-                                mPresenter.addBlankCard ( etAlipy.getText ().toString ().trim (),"支付宝","支付宝","1" );
-                                break;
                             case BLANK:
                                 String blankName = tvChooseBlank.getText ().toString ().trim ();
                                 String underBlankName = etLowerBank.getText ().toString ().trim ();
@@ -400,18 +351,10 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
                 //返回的分别是三个级别的选中位置
                 String tx = cardItem.get ( options1 );
                 tvChooseBlank.setText ( tx );
-                if (options1 == 0) {
-                    //选中支付宝
-                    llAlipy.setVisibility ( View.VISIBLE );
-                    llBlank.setVisibility ( View.GONE );
-                    blanktype = BLANKTYPE.ALIPY;
-                    cardtype = CARDTYPE.PAYCARD;
-                } else {
-                    //选中其他银行
-                    llBlank.setVisibility ( View.VISIBLE );
-                    llAlipy.setVisibility ( View.GONE );
-                    blanktype = BLANKTYPE.BLANK;
-                }
+                //选中其他银行
+                llBlank.setVisibility ( View.VISIBLE );
+                blanktype = BLANKTYPE.BLANK;
+
             }
         } )
                 .setLayoutRes ( R.layout.item_choose_blank, new CustomListener () {
@@ -444,7 +387,6 @@ public class AddBlankCardActivity extends BaseSupportActivity <AddBlankCardPrese
     }
 
     private void getCardData() {
-        cardItem.add ( "支付宝" );
         cardItem.add ( "中国工商银行" );
         cardItem.add ( "中国邮政储蓄银行" );
         cardItem.add ( "中国农业银行" );

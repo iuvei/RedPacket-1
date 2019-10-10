@@ -10,15 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:paddingRight="@dimen/spacing_xl"
-        android:paddingLeft="@dimen/spacing_xl"
         android:background="@color/public_color_06CB7E">
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/scanner_back_img"
+            android:src="@drawable/ease_mm_title_back"
             android:layout_centerVertical="true"
             android:paddingTop="20dp"
+            android:paddingLeft="@dimen/spacing_m"
+            android:paddingRight="@dimen/spacing_m"
             />
         <TextView
             android:id="@+id/tv_title"
