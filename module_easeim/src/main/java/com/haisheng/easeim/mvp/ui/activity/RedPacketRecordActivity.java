@@ -111,7 +111,7 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "收到的红包" );
         ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.drawable.ic_talk_add );
+        ivRight.setImageResource ( R.mipmap.message_icon_more );
         recordBeans = new ArrayList <> (  );
         redpacketBean = (RedpacketBean) getIntent ().getSerializableExtra ( "redpacketInfo" );
         getBillingRecord(page);

@@ -631,6 +631,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
         });
         builder.setText(R.id.tv_nick, nickname);
+        builder.setText(R.id.tv_message, redpacketBean.getMoney ()+"-"+redpacketBean.getBoomNumbers ());
         builder.setOnClickListener(R.id.img_open, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -661,7 +662,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         }else {
             builder.getView ( R.id.tv_red_detail ).setVisibility ( View.GONE );
         }
-        builder.setText(R.id.tv_message, remark);
         if (status == 0) {//红包未抢完 未过期 未参与
             builder.getView(R.id.rel_open).setVisibility(View.VISIBLE);
         } else if (status == 1) {//红包未抢完 未过期 已参与
