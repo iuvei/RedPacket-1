@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.view.PayPassDialog;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -140,9 +141,9 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
             return;
         }
         String sTotalMoney = etTotalMoney.getText ().toString ();
-        totalMoney = Integer.valueOf ( sTotalMoney );
+        totalMoney = ConvertNumUtils.stringToInt( sTotalMoney );
         String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
-        redpacketNumber = Integer.valueOf ( sRedpacketNumber );
+        redpacketNumber = ConvertNumUtils.stringToInt ( sRedpacketNumber );
         mPresenter.checkPayPasswrod ();
     }
 
