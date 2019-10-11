@@ -1,11 +1,13 @@
 package com.haisheng.easeim.mvp.ui.widget.message;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.IMConstants;
@@ -20,14 +22,7 @@ import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 
 public class ChatGunControlSettlement extends EaseChatRow {
 
-    TextView tvSendRedpacketUser;
-    TextView tvSendRedpacketMoney;
-    TextView tvSendRedpacketNumber;
-    TextView tvRedpacketGameRules;
-    TextView tvMineNumber;
-    TextView tvBombNumber;
-    TextView tvRedpacketOdds;
-    TextView tvAwardMoney;
+    TextView tvResult;
 
     public ChatGunControlSettlement(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -40,14 +35,7 @@ public class ChatGunControlSettlement extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tvSendRedpacketUser = findViewById( R.id.tv_send_redpacket_user);
-        tvSendRedpacketMoney = findViewById( R.id.tv_send_redpacket_money);
-        tvSendRedpacketNumber = findViewById( R.id.tv_send_redpacket_number);
-        tvRedpacketGameRules = findViewById( R.id.tv_redpacket_game_rules);
-        tvMineNumber = findViewById( R.id.tv_mine_number);
-        tvBombNumber = findViewById( R.id.tv_bomb_number);
-        tvRedpacketOdds = findViewById( R.id.tv_redpacket_odds);
-        tvAwardMoney = findViewById( R.id.tv_award_money);
+        tvResult = findViewById( R.id.tv_result);
     }
 
     @Override
@@ -55,19 +43,15 @@ public class ChatGunControlSettlement extends EaseChatRow {
         String sGunControlSettlementInfo =message.getStringAttribute( IMConstants.MESSAGE_ATTR_CONENT,"");
         if(!TextUtils.isEmpty(sGunControlSettlementInfo)){
             GunControlSettlementInfo settlementInfo = new Gson().fromJson(sGunControlSettlementInfo, GunControlSettlementInfo.class);
-            if(null != usernickView)
-                usernickView.setText(settlementInfo.getNickname());
-            if(null != userAvatarView)
-                ImageLoader.displayHeaderImage(context,settlementInfo.getAvatarUrl(),userAvatarView);
-
-            tvSendRedpacketUser.setText(String.format(context.getString( R.string.send_redpacket_user),settlementInfo.getNickname()));
-            tvSendRedpacketMoney.setText(String.format(context.getString( R.string.send_redpacket_money),settlementInfo.getMoney()));
-            tvSendRedpacketNumber.setText(String.format(context.getString( R.string.send_redpacket_number),settlementInfo.getNumber()));
-            tvRedpacketGameRules.setText(String.format(context.getString( R.string.redpacket_game_rules),settlementInfo.getGameRules()));
-            tvMineNumber.setText(String.format(context.getString( R.string.mine_number),settlementInfo.getMineNumber()));
-            tvBombNumber.setText(String.format(context.getString( R.string.bomb_number),settlementInfo.getBombNumber()));
-            tvRedpacketOdds.setText(String.format(context.getString( R.string.redpacket_odds),settlementInfo.getOdds()));
-            tvAwardMoney.setText(String.format(context.getString( R.string.award_money),settlementInfo.getAwardMoney()));
+            StringBuilder sb = new StringBuilder (  );
+            sb.append ( "恭喜" );
+            sb.append ( "<font color ='#FF0000'>"+settlementInfo.getNickname ()+"</font>," );
+            sb.append ( settlementInfo.getMoney()+"-"+ settlementInfo.getMineNumber());
+            sb.append ( "收获"+settlementInfo.getBombNumber()+"," );
+            sb.append ( "奖励" );
+            sb.append ("<font color ='#FF0000'>"+settlementInfo.getAwardMoney()+"元</font>" );
+            tvResult.setText( Html.fromHtml ( sb.toString () ) );
+            LogUtils.e ( "tag----",settlementInfo.toString () );
         }
     }
 

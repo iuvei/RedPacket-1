@@ -2,125 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:paddingTop="13dp" >
-
+    >
     <TextView
-        android:id="@+id/timestamp"
-        style="@style/chat_text_date_style"
+        android:id="@+id/tv_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_chat_activity" >
-
-        <com.hyphenate.easeui.widget.EaseImageView
-            android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:src="@drawable/ease_default_avatar"
-            android:scaleType="fitXY" />
-
-        <RelativeLayout
-            android:id="@+id/bubble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_userid"
-            android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:layout_toRightOf="@id/iv_userhead"
-            android:background="@drawable/ease_chatfrom_bg">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:minHeight="38dp"
-                android:maxWidth="225.0dip"
-                android:paddingLeft="6dp"
-                android:paddingRight="1dp"
-                android:gravity="center|left"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_send_redpacket_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/send_redpacket_user"/>
-
-                <TextView
-                    android:id="@+id/tv_send_redpacket_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/send_redpacket_money"/>
-
-                <TextView
-                    android:id="@+id/tv_send_redpacket_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/send_redpacket_number"/>
-
-                <TextView
-                    android:id="@+id/tv_redpacket_game_rules"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/redpacket_game_rules"/>
-
-                <TextView
-                    android:id="@+id/tv_mine_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/mine_number"/>
-
-                <TextView
-                    android:id="@+id/tv_bomb_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/bomb_number"/>
-
-                <TextView
-                    android:id="@+id/tv_redpacket_odds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/redpacket_odds"/>
-
-                <TextView
-                    android:id="@+id/tv_award_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/common_text"
-                    android:text="@string/award_money"/>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_userid"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/chat_nick_margin_left"
-            android:textSize="@dimen/chat_nick_text_size"
-            android:layout_toRightOf="@id/iv_userhead"
-            android:visibility="gone" />
-    </RelativeLayout>
-
+        tools:text="恭喜谁******************************************************"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/gray"
+        android:layout_marginLeft="@dimen/spacing_xxl"
+        android:layout_marginRight="@dimen/spacing_xxl"
+        android:padding="@dimen/spacing_s"/>
 </LinearLayout>

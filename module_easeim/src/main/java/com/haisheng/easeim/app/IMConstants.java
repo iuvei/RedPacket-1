@@ -76,8 +76,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_GUN_CONTROL_REDPACKET = 1;
     public static final int MSG_TYPE_NIUNIU_REDPACKET = 2;
     public static final int MSG_TYPE_WELFARE_REDPACKET = 3;
-    public static final int MSG_TYPE_GUN_CONTROL_SETTLEMENT  = 5;
-    public static final int MSG_TYPE_NIUNIU_SETTLEMENT  = 6;
+    public static final int MSG_TYPE_GUN_CONTROL_SETTLEMENT  = 5; //禁抢房结算消息
+    public static final int MSG_TYPE_NIUNIU_SETTLEMENT  = 6;  //牛牛房结算消息
     //获取红包状态
     public static final int MSG_TYPE_GET_REDPACKET  = 7;
 

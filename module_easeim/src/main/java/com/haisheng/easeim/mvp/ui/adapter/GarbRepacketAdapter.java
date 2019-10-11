@@ -35,7 +35,6 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
         helper.setText( R.id.tv_nickname,item.getNickname())
                 .setText( R.id.tv_time,item.getTime())
                 .setVisible( R.id.iv_banker,item.getBankerStatus()!=0)
-                .setVisible( R.id.iv_bomb,item.getBombStatus() !=0)
                 .setVisible( R.id.iv_best, item.getBestStatus()!=0);
 
         TextView tvMoney = helper.getView( R.id.tv_money);
@@ -45,6 +44,7 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
         String money;
         if (isGetAll ()){
             money = sMoney;
+            helper.setVisible( R.id.iv_bomb,item.getBombStatus() !=0);
         }else{
             if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
                 //免死抢包
