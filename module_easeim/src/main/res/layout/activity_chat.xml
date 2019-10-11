@@ -29,7 +29,7 @@
         android:id="@+id/ll_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ease_alert_click_bg"
+        android:background="@color/gray"
         style="@style/public_CommonPadding_s"
         android:visibility="gone"
         android:gravity="center_vertical"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_normal"
-            android:textColor="@color/text_theme"
+            android:textColor="@color/public_color_FF06CB7E"
             android:text="零钱："/>
         <TextView
             android:id="@+id/tv_balance"
@@ -47,7 +47,7 @@
             android:drawableEnd="@drawable/ic_refresh_white"
             android:gravity="center_vertical"
             android:textSize="@dimen/text_normal"
-            android:textColor="@color/text_theme"
+            android:textColor="@color/public_color_FF06CB7E"
             tools:text="0.00"/>
 
     </LinearLayout>
