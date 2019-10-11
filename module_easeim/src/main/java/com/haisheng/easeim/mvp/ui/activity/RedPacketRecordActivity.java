@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerRedPacketRecordComponent;
 import com.haisheng.easeim.mvp.contract.RedPacketRecordContract;
@@ -40,6 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.recyclerview.DividerGridItemDecoration;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -113,9 +115,10 @@ public class RedPacketRecordActivity extends BaseActivity <RedPacketRecordPresen
         recordBeans = new ArrayList <> (  );
         redpacketBean = (RedpacketBean) getIntent ().getSerializableExtra ( "redpacketInfo" );
         getBillingRecord(page);
-        tvNickname.setText ( redpacketBean.getNickname ()+"共收到" );
-        Glide.with ( this ).load ( redpacketBean.getAvatarUrl () ).into ( ivAvatar );
-        recycleAdapter = new SendRedPacketRecordAdapter ( this, recordBeans,redpacketBean.getNickname ());
+        tvNickname.setText ( AppLifecyclesImpl.getUserInfo ().getNickname ()+"共收到" );
+
+        Glide.with ( this ).load ( AppLifecyclesImpl.getUserInfo ().getAvatarUrl () ).into ( ivAvatar );
+        recycleAdapter = new SendRedPacketRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器
         recyclerView.setLayoutManager(linearLayoutManager);

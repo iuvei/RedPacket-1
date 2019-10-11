@@ -14,6 +14,8 @@ import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
 
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
+
 /**
  * creat at 2019/9/5
  * description
@@ -27,10 +29,10 @@ public class SendRedPacketRecordAdapter extends RecyclerView.Adapter <SendRedPac
     private ItemClickListener itemClickListener;
     private String nickName;
 
-    public SendRedPacketRecordAdapter(Context context, List <RedPacketRecordBean.ResultBean.ListBean> data,String nickName) {
+    public SendRedPacketRecordAdapter(Context context, List <RedPacketRecordBean.ResultBean.ListBean> data) {
         this.context = context;
         this.data = data;
-        this.nickName = nickName;
+        nickName = SpUtils.getValue ( context,"nickname", "" );
     }
 
     public void setItemClickListener(ItemClickListener listener) {

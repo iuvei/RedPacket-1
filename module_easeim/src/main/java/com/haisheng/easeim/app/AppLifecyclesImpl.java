@@ -16,6 +16,8 @@ import com.haisheng.easeim.BuildConfig;
 
 import java.text.DecimalFormat;
 
+import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
+
 
 /**
  * ================================================
@@ -75,5 +77,11 @@ public class AppLifecyclesImpl implements AppLifecycles {
     public static String getBalance(){
         DecimalFormat df = new DecimalFormat ("0.##");
         return df.format ( balance );
+    }
+
+    private static UserInfo userInfo = new UserInfo ();
+
+    public static UserInfo getUserInfo(){
+        return userInfo;
     }
 }

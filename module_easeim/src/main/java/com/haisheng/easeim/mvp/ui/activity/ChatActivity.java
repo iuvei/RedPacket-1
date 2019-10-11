@@ -31,6 +31,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
@@ -913,6 +914,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             redpacketBean.setRoomid ( mChatRoomBean.getId ()+"" );
             //发送红包消息
             mPresenter.sendRedpacketMessage(redpacketBean);
+           AppLifecyclesImpl.getUserInfo ().setAvatarUrl ( redpacketBean.getAvatarUrl () );
+           AppLifecyclesImpl.getUserInfo ().setNickname ( redpacketBean.getNickname () );
         }
 
     }

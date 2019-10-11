@@ -76,6 +76,7 @@ public class GarbRedpacketBean implements Serializable {
     }
 
     public int getBombStatus() {
+
         return bombStatus;
     }
 
