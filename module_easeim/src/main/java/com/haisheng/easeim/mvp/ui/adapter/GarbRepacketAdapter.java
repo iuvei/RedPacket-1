@@ -51,10 +51,20 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
                 money = "*.**";
             }else if (uid.equals ( item.getId () )){
                 //自己抢的包
-                money = sMoney;
+                if (isNiuNiu){
+                    //牛牛
+                    money = sMoney.substring ( 0,sMoney.length ()-2 )+"*";
+                }else {
+                    money = sMoney;
+                }
             }else{
                 //别人抢包
-                money = "0.00";
+                if (isNiuNiu){
+                    //牛牛
+                    money = sMoney;
+                }else {
+                    money = "0.00";
+                }
             }
         }
         helper.setText( R.id.tv_money,money);
@@ -115,5 +125,15 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public boolean isNiuNiu;
+
+    public boolean isNiuNiu() {
+        return isNiuNiu;
+    }
+
+    public void setNiuNiu(boolean niuNiu) {
+        isNiuNiu = niuNiu;
     }
 }

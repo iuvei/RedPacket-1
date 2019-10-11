@@ -237,35 +237,6 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         tvRight.setVisibility ( View.VISIBLE );
         tvNickname.setText ( redpacketInfo.getNickname () );
         ll_niuniu_result.setVisibility ( View.GONE );
-        int type = redpacketInfo.getType ();
-        if (type == IMConstants.MSG_TYPE_MINE_REDPACKET) {
-            tvMoneyNumber.setText ( String.format ( "￥%.2f-[%s]", redpacketInfo.getMoney (), redpacketInfo.getBoomNumbers () ) );
-
-        } else if (type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET) {
-            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包-[%s]", redpacketInfo.getMoney (), redpacketInfo.getNumber (), redpacketInfo.getBoomNumbers () ) );
-
-        } else if (type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET || type == IMConstants.MSG_TYPE_NIUNIU_SETTLEMENT) {
-            long creatTimestamp = Long.valueOf ( redpacketInfo.getCreatTime () );
-            long countDown = creatTimestamp + redpacketInfo.getCountdown () - System.currentTimeMillis () / 1000;
-            if (redpacketInfo.getStatus () == 0 && countDown > 0) {
-                llCountdown.setVisibility ( View.VISIBLE );
-                cdvTime.start ( countDown * 1000 );
-
-            } else {
-                cdvTime.stop ();
-                llCountdown.setVisibility ( View.GONE );
-                tvSettlementStatus.setVisibility ( View.VISIBLE );
-                tvSettlementStatus.setText ( "本包游戏已截止" );
-            }
-            ll_niuniu_result.setVisibility ( View.VISIBLE );
-            tv_banker_win.setText ( redpacketInfo.getVillagenums ()+"" );
-            tv_buy_win.setText ( redpacketInfo.getNotbuynums ()+"" );
-            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
-
-        } else if (type == IMConstants.MSG_TYPE_WELFARE_REDPACKET) {
-            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
-        }
-
         int alreadyNumber = 0;
         double alreadyMoney = 0;
         List <GarbRedpacketBean> garbRedpackets = redpacketInfo.getGarbRedpackets ();
@@ -293,6 +264,45 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                     alreadyNumber, redpacketInfo.getNumber (), redpacketInfo.getMoney () ) );
             mAdapter.setGetAll ( false );
         }
+
+        int type = redpacketInfo.getType ();
+        if (type == IMConstants.MSG_TYPE_MINE_REDPACKET) {
+            //扫雷房
+            tvMoneyNumber.setText ( String.format ( "￥%.2f-[%s]", redpacketInfo.getMoney (), redpacketInfo.getBoomNumbers () ) );
+
+        } else if (type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET) {
+            //禁抢房
+            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包-[%s]", redpacketInfo.getMoney (), redpacketInfo.getNumber (), redpacketInfo.getBoomNumbers () ) );
+
+        } else if (type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET || type == IMConstants.MSG_TYPE_NIUNIU_SETTLEMENT) {
+            //牛牛房
+            long creatTimestamp = Long.valueOf ( redpacketInfo.getCreatTime () );
+            long countDown = creatTimestamp + redpacketInfo.getCountdown () - System.currentTimeMillis () / 1000;
+            if (redpacketInfo.getStatus () == 0 && countDown > 0) {
+                llCountdown.setVisibility ( View.VISIBLE );
+                cdvTime.start ( countDown * 1000 );
+
+            } else {
+                cdvTime.stop ();
+                llCountdown.setVisibility ( View.GONE );
+                tvSettlementStatus.setVisibility ( View.VISIBLE );
+                tvSettlementStatus.setText ( "本包游戏已截止" );
+                tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
+                        alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
+                mAdapter.setGetAll ( true );
+            }
+            ll_niuniu_result.setVisibility ( View.VISIBLE );
+            tv_banker_win.setText ( redpacketInfo.getVillagenums ()+"" );
+            tv_buy_win.setText ( redpacketInfo.getNotbuynums ()+"" );
+            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
+            mAdapter.setNiuNiu (true);
+
+        } else if (type == IMConstants.MSG_TYPE_WELFARE_REDPACKET) {
+            //福利房
+            tvMoneyNumber.setText ( String.format ( "￥%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
+            mAdapter.setGetAll ( true );
+        }
+
     }
 
     @Override
