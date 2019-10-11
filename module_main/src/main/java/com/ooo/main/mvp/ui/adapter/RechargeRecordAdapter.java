@@ -52,10 +52,10 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter <RechargeRecordA
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvStatue.setText ( "充值成功" );
+        holder.tvStatue.setText ( data.get ( position ).getStatusValue() );
         holder.tvTaketime.setText ( data.get ( position ).getAddtime () );
-        holder.tvMoney.setText ( data.get ( position ).getGold () );
-        holder.tvTakemoney.setText ( data.get ( position ).getDetails () );
+        holder.tvMoney.setText ( data.get ( position ).getMoney () );
+        holder.tvTakemoney.setText ( data.get ( position ).getPayname () );
 
         holder.rlItem.setOnClickListener ( new View.OnClickListener () {
             @Override

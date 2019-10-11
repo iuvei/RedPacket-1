@@ -61,7 +61,7 @@ public class RechargeRecordPresenter extends BasePresenter <IModel, RechargeReco
     }
 
     public void getRechargeRecord( int page){
-        apiModel.getRechargeRecord (page,"后台充值")
+        apiModel.getRechargeRecord (page,"线下充值")
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <RechargeRecordBean> (mErrorHandler) {
                     @Override

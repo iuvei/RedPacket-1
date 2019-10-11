@@ -12,7 +12,7 @@ public class RechargeRecordBean implements Serializable {
 
     /**
      * status : 1
-     * result : {"list":[{"gold":"600.00","details":"后台充值","addtime":"2019-09-21 14:28:35","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-09 12:02:39","paytype":"0"},{"gold":"500.00","details":"后台充值","addtime":"2019-09-03 16:11:08","paytype":"0"},{"gold":"10.00","details":"后台充值","addtime":"2019-09-03 16:10:50","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-03 15:39:45","paytype":"0"}],"paytype":["后台充值","线上充值"],"allmoney":1310}
+     * result : {"list":[{"id":"58","uniacid":"1","uid":"970021","money":"300.52","paycode":"支付宝66666666","payname":"马云","payimg":"http://5949.iiio.top/attachment/images/1/2019/10/Fy67qRxuF677xTTcRHtF7KW7FFJF2k.jpg","addtime":"2019-10-11 19:09:06","restime":null,"status":"0","postscript":""}],"paytype":["后台充值","线下充值"],"allmoney":0}
      * msg :
      */
 
@@ -46,9 +46,9 @@ public class RechargeRecordBean implements Serializable {
 
     public static class ResultBean implements Serializable{
         /**
-         * list : [{"gold":"600.00","details":"后台充值","addtime":"2019-09-21 14:28:35","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-09 12:02:39","paytype":"0"},{"gold":"500.00","details":"后台充值","addtime":"2019-09-03 16:11:08","paytype":"0"},{"gold":"10.00","details":"后台充值","addtime":"2019-09-03 16:10:50","paytype":"0"},{"gold":"100.00","details":"后台充值","addtime":"2019-09-03 15:39:45","paytype":"0"}]
-         * paytype : ["后台充值","线上充值"]
-         * allmoney : 1310
+         * list : [{"id":"58","uniacid":"1","uid":"970021","money":"300.52","paycode":"支付宝66666666","payname":"马云","payimg":"http://5949.iiio.top/attachment/images/1/2019/10/Fy67qRxuF677xTTcRHtF7KW7FFJF2k.jpg","addtime":"2019-10-11 19:09:06","restime":null,"status":"0","postscript":""}]
+         * paytype : ["后台充值","线下充值"]
+         * allmoney : 0
          */
 
         private int allmoney;
@@ -79,33 +79,87 @@ public class RechargeRecordBean implements Serializable {
             this.paytype = paytype;
         }
 
-        public static class ListBean implements Serializable{
+        public static class ListBean {
             /**
-             * gold : 600.00
-             * details : 后台充值
-             * addtime : 2019-09-21 14:28:35
-             * paytype : 0
+             * id : 58
+             * uniacid : 1
+             * uid : 970021
+             * money : 300.52
+             * paycode : 支付宝66666666
+             * payname : 马云
+             * payimg : http://5949.iiio.top/attachment/images/1/2019/10/Fy67qRxuF677xTTcRHtF7KW7FFJF2k.jpg
+             * addtime : 2019-10-11 19:09:06
+             * restime : null
+             * status : 0
+             * postscript :
              */
 
-            private String gold;
-            private String details;
+            private String id;
+            private String uniacid;
+            private String uid;
+            private String money;
+            private String paycode;
+            private String payname;
+            private String payimg;
             private String addtime;
-            private String paytype;
+            private Object restime;
+            private String status;
+            private String postscript;
 
-            public String getGold() {
-                return gold;
+            public String getId() {
+                return id;
             }
 
-            public void setGold(String gold) {
-                this.gold = gold;
+            public void setId(String id) {
+                this.id = id;
             }
 
-            public String getDetails() {
-                return details;
+            public String getUniacid() {
+                return uniacid;
             }
 
-            public void setDetails(String details) {
-                this.details = details;
+            public void setUniacid(String uniacid) {
+                this.uniacid = uniacid;
+            }
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
+
+            public String getMoney() {
+                return money;
+            }
+
+            public void setMoney(String money) {
+                this.money = money;
+            }
+
+            public String getPaycode() {
+                return paycode;
+            }
+
+            public void setPaycode(String paycode) {
+                this.paycode = paycode;
+            }
+
+            public String getPayname() {
+                return payname;
+            }
+
+            public void setPayname(String payname) {
+                this.payname = payname;
+            }
+
+            public String getPayimg() {
+                return payimg;
+            }
+
+            public void setPayimg(String payimg) {
+                this.payimg = payimg;
             }
 
             public String getAddtime() {
@@ -116,12 +170,38 @@ public class RechargeRecordBean implements Serializable {
                 this.addtime = addtime;
             }
 
-            public String getPaytype() {
-                return paytype;
+            public Object getRestime() {
+                return restime;
             }
 
-            public void setPaytype(String paytype) {
-                this.paytype = paytype;
+            public void setRestime(Object restime) {
+                this.restime = restime;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+            public String getStatusValue() {
+                //0待审核 1充值成功 2拒绝审核
+                if (status.equals ( "0" )){
+                    return "待审核";
+                }else if(status.equals ( "1" )){
+                    return "充值成功";
+                }else{
+                    return "审核拒绝";
+                }
+            }
+
+            public String getPostscript() {
+                return postscript;
+            }
+
+            public void setPostscript(String postscript) {
+                this.postscript = postscript;
             }
         }
     }
