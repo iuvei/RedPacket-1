@@ -741,6 +741,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
+    public void showRedPacketDetail(RedpacketBean redpacketBean) {
+        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketBean.getId (), redpacketBean.getWelfareStatus (),mChatRoomBean.getType ());
+    }
+
+    @Override
     public void showMessage(@NonNull String message) {
 //        checkNotNull ( message );
         ToastUtils.showShort ( message );

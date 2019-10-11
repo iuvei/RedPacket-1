@@ -528,11 +528,14 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                         if (response.isSuccess()) {
                             CheckRedpacketInfo checkRedpacketInfo = response.getResult();
                             if(checkRedpacketInfo.getStatus() != 0){
+                                //已抢过红包
                                 message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,response.getStatus());
                                 EMClient.getInstance().chatManager().saveMessage(message);
                                 mRootView.refreshList();
+                                mRootView.showRedPacketDetail(redpacketBean);
+                            }else{
+                                mRootView.showRedPacket(checkRedpacketInfo,message);
                             }
-                            mRootView.showRedPacket(checkRedpacketInfo,message);
                         }else{
                             mRootView.showMessage(response.getMessage());
                         }

@@ -2,21 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="13dp" >
-
+    android:paddingTop="13dp">
     <TextView
         android:id="@+id/timestamp"
         style="@style/chat_text_date_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/chat_nick_margin_left"
+            android:textSize="@dimen/chat_nick_text_size"
+            android:layout_toLeftOf="@id/iv_userhead"
+            android:layout_marginRight="@dimen/spacing_xl"
+            tools:text="123"
+            android:visibility="visible" />
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
@@ -32,6 +41,7 @@
             android:layout_width="@dimen/mine_redpacket_width"
             android:layout_height="@dimen/mine_redpacket_height"
             android:layout_marginRight="@dimen/margin_chat_activity"
+            android:layout_below="@+id/tv_userid"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@drawable/ic_send_red_nor">
             <TextView

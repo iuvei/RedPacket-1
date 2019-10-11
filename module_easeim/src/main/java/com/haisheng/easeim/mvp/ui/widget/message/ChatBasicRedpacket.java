@@ -23,7 +23,7 @@ import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 
 public class ChatBasicRedpacket extends EaseChatRow {
 
-    private TextView tvMessage, tvRedpacketStatus, tvRedpacketType,tvCenterMessage;
+    private TextView tvMessage, tvRedpacketStatus, tvRedpacketType,tvCenterMessage,tvUserid;
     private RelativeLayout bubble;
 
     private int mType;
@@ -45,6 +45,8 @@ public class ChatBasicRedpacket extends EaseChatRow {
         tvMessage = findViewById( R.id.tv_message);
         tvRedpacketStatus = findViewById( R.id.tv_redpacket_status);
         tvRedpacketType = findViewById( R.id.tv_redpacket_type);
+        tvRedpacketType = findViewById( R.id.tv_redpacket_type);
+        tvUserid = findViewById( R.id.tv_userid);
     }
 
     @Override
@@ -107,8 +109,7 @@ public class ChatBasicRedpacket extends EaseChatRow {
         String sRedpacketInfo =message.getStringAttribute( IMConstants.MESSAGE_ATTR_CONENT,"");
         if(!TextUtils.isEmpty(sRedpacketInfo)){
             RedpacketBean redpacketBean = new Gson().fromJson(sRedpacketInfo, RedpacketBean.class);
-            if(null != usernickView)
-                usernickView.setText(redpacketBean.getNickname());
+            tvUserid.setText ( redpacketBean.getNickname () );
             if(null != userAvatarView) {
                 ImageLoader.displayHeaderImage ( context, redpacketBean.getAvatarUrl(), userAvatarView );
             }
@@ -125,7 +126,7 @@ public class ChatBasicRedpacket extends EaseChatRow {
                 tvRedpacketType.setText( R.string.shenghuang_redpacket);
 
             }else if(mType== IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
-                tvMessage.setText(String.format("[%s]",redpacketBean.getBoomNumbers()));
+                tvMessage.setText(String.format("%.0f-%d",redpacketBean.getMoney(),redpacketBean.getNumber()));
                 tvRedpacketType.setText( R.string.shenghuang_redpacket);
             }
         }

@@ -32,6 +32,8 @@ public interface ChatContract {
         void openAnimation(android.view.View view);
         void closeAnimation(android.view.View view);
         Activity getActivity();
+
+        void showRedPacketDetail(RedpacketBean redpacketBean);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
