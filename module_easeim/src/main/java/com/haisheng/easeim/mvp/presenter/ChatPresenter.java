@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
@@ -163,6 +164,9 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                         if (response.isSuccess()) {
                             mRootView.setBalanceInfo(response.getResult());
                             AppLifecyclesImpl.setBalance ( response.getResult () );
+                            if (isShowDialog) {
+                                ToastUtils.showShort ( response.getResult () + "" );
+                            }
                         }else{
                             mRootView.showMessage(response.getMessage());
                         }

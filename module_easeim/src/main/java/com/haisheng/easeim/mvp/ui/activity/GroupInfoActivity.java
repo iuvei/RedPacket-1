@@ -211,12 +211,39 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
 
         } else if (i == R.id.btn_delect_exit) {
             //退出群聊
-            mPresenter.quitRoom ( mChatRoomBean.getId () );
+            showExitDialog();
         } else if (i == R.id.ll_group_nickname) {
             //我在群里的昵称
             //昵称
             updateNickName();
         }
+    }
+
+    //退出房间
+    private void showExitDialog() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "是否删除并退出？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        mPresenter.quitRoom ( mChatRoomBean.getId () );
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
     //修改昵称

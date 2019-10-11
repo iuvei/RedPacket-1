@@ -60,6 +60,8 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:textSize="@dimen/text_small"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/spacing_m"
                     android:textColor="@color/common_text_light"
                     tools:text="测试"/>
             </LinearLayout>
@@ -87,6 +89,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/spacing_xl"
+                    android:gravity="right"
+                    android:drawablePadding="@dimen/spacing_m"
                     android:drawableRight="@drawable/ic_arrow_right"
                     />
             </LinearLayout>
@@ -116,6 +120,8 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textSize="@dimen/text_small"
+                    android:gravity="right"
+                    android:drawablePadding="@dimen/spacing_m"
                     android:textColor="@color/common_text_light"
                     tools:text="测试"/>
             </LinearLayout>
@@ -149,6 +155,8 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textSize="@dimen/text_small"
+                    android:gravity="right"
+                    android:drawablePadding="@dimen/spacing_m"
                     android:textColor="@color/common_text_light"
                     tools:text="测试"/>
 
@@ -182,6 +190,8 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textSize="@dimen/text_small"
+                    android:gravity="right"
+                    android:drawablePadding="@dimen/spacing_m"
                     android:textColor="@color/common_text_light"
                     tools:text="测试"/>
 
