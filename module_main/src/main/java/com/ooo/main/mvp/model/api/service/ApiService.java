@@ -369,6 +369,7 @@ public interface ApiService {
      * paymoney	是	int	充值金额
      * payname	是	int	转账户名
      * payimg	是	int	上传凭证
+     * postscript	是	String	充值附言
      * @return
      */
     @POST("index.php?i=1&c=entry&p=Cashvalue&do=Apis&m=sz_yi&op=gopayonline")
@@ -380,7 +381,8 @@ public interface ApiService {
             @Field("paycodeid") String paycodeid,
             @Field("paymoney") String paymoney,
             @Field("payname") String payname,
-            @Field("payimg") String payimg
+            @Field("payimg") String payimg,
+            @Field("postscript") String postscript
     );
 
 

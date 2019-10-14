@@ -91,7 +91,7 @@ public class TurnToWeiXinRechargePresenter extends BasePresenter <IModel, TurnTo
     }
 
     public void submitRechargeInfo(String uid,String paycode,String payCodeID,String payMoney,String payName,String payImg){
-        apiModel.submitRechargeInfo (uid,paycode, payCodeID,payMoney,payName,payImg )
+        apiModel.submitRechargeInfo (uid,paycode, payCodeID,payMoney,payName,payImg,"" )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <SubmitRechargeInfo> (mErrorHandler) {
                     @Override

@@ -2,6 +2,8 @@ package com.ooo.redpacketlan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.StrictMode;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 
@@ -52,6 +54,11 @@ public class MyApplication extends BaseApplication {
 
         //leakCanary内存泄露检查
         ArmsUtils.obtainAppComponentFromContext(this).extras().put(RefWatcher.class.getName(), BuildConfig.DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED);
+        //解决Uri.fromFile报错
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
     }
 
 }

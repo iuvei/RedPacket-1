@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -220,7 +222,8 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
                 return;
             }
             mPresenter.submitRechargeInfo ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"",
-                    recharge.get ( 0 ).getPaycode (),"3", payMoney, tvPayName.getText ().toString ().trim (), picUrl );
+                    recharge.get ( 0 ).getPaycode (),"3",
+                    payMoney, tvPayName.getText ().toString ().trim (), picUrl,tvMarke.getText ().toString () );
             btnSubmit.setEnabled ( false );
         } else if (i == R.id.iv_uploadPic) {
             //上传凭证
@@ -238,14 +241,22 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
             public void onClick(View view) {
                 popuWindowsUtils.dismiss ();
                 //拍照
-                Intent intent = new Intent (
+                Uri uri;
+                File file = new File ( Environment
+                        .getExternalStorageDirectory (),
+                        "xiaoma.jpg" );
+                if (Build.VERSION.SDK_INT >= 24) {
+                    uri = FileProvider.getUriForFile(TurnToYinLianRechargeActivity.this,"com.ooo.redpacketlan.provider", file);
+                } else {
+                    uri = Uri.fromFile(file);
+                }
+                Intent intentCamera = new Intent (
                         MediaStore.ACTION_IMAGE_CAPTURE );
-                //下面这句指定调用相机拍照后的照片存储的路径
-                intent.putExtra ( MediaStore.EXTRA_OUTPUT, Uri
-                        .fromFile ( new File ( Environment
-                                .getExternalStorageDirectory (),
-                                "xiaoma.jpg" ) ) );
-                startActivityForResult ( intent, 2 );
+                intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                //将拍照结果保存至photo_file的Uri中，不保留在相册中
+
+                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+                startActivityForResult ( intentCamera, 2 );
             }
         } );
         contentView.findViewById ( com.haisheng.easeim.R.id.tv_take_image ).setOnClickListener ( new View.OnClickListener () {

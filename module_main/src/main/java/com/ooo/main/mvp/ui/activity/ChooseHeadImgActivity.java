@@ -3,8 +3,6 @@ package com.ooo.main.mvp.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -126,14 +125,22 @@ public class ChooseHeadImgActivity extends BaseSupportActivity <ChooseHeadImgPre
             public void onItemClick(int[] data, int position) {
                 if (position==0){
                     //拍照
-                    Intent intent = new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE);
-                    //下面这句指定调用相机拍照后的照片存储的路径
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
-                            .fromFile(new File(Environment
-                                    .getExternalStorageDirectory(),
-                                    "xiaoma.jpg")));
-                    startActivityForResult(intent, 2);
+                    Uri uri;
+                    File file = new File ( Environment
+                            .getExternalStorageDirectory (),
+                            "xiaoma.jpg" );
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        uri = FileProvider.getUriForFile(ChooseHeadImgActivity.this,"com.ooo.redpacketlan.provider", file);
+                    } else {
+                        uri = Uri.fromFile(file);
+                    }
+                    Intent intentCamera = new Intent (
+                            MediaStore.ACTION_IMAGE_CAPTURE );
+                    intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //将拍照结果保存至photo_file的Uri中，不保留在相册中
+
+                    intentCamera.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+                    startActivityForResult(intentCamera, 2);
                 }else {
                     //选中头像
                     int imgRes = data[position];

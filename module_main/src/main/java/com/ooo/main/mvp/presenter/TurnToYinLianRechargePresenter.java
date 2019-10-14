@@ -91,8 +91,9 @@ public class TurnToYinLianRechargePresenter extends BasePresenter <IModel, TurnT
                 } );
     }
 
-    public void submitRechargeInfo(String uid,String paycode,String payCodeID,String payMoney,String payName,String payImg){
-        apiModel.submitRechargeInfo ( uid,paycode, payCodeID,payMoney,payName,payImg )
+
+    public void submitRechargeInfo(String uid,String paycode,String payCodeID,String payMoney,String payName,String payImg,String postscript){
+        apiModel.submitRechargeInfo ( uid,paycode, payCodeID,payMoney,payName,payImg,postscript )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <SubmitRechargeInfo> (mErrorHandler) {
                     @Override

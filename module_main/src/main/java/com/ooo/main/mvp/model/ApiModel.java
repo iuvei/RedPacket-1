@@ -323,11 +323,13 @@ public class ApiModel extends BaseModel{
      * paymoney	是	int	充值金额
      * payname	是	int	转账户名
      * payimg	是	int	上传凭证
+     * postscript	是	String	上传凭证
      */
-    public Observable<SubmitRechargeInfo> submitRechargeInfo(String uid,String paycode,String paycodeid, String paymoney,String payname,String payimg) {
+    public Observable<SubmitRechargeInfo> submitRechargeInfo(String uid,String paycode,String paycodeid,
+                                                             String paymoney,String payname,String payimg,String postscript) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
-                .submitRechargeInfo (token,uid,paycode,paycodeid,paymoney,payname,payimg);
+                .submitRechargeInfo (token,uid,paycode,paycodeid,paymoney,payname,payimg,postscript);
     }
 
     /**
