@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +61,8 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
     TextView tvRedpacketMoney;
     @BindView(R2.id.tv_redpacket_num)
     TextView tvRedpacketNum;
+    @BindView(R2.id.btn_send_redpacket)
+    TextView btnSendRedPacket;
 
     private ProgressDialogUtils progressDialogUtils;
     private ChatRoomBean mChatRoomBean;
@@ -112,6 +115,11 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkTotalMoney ();
+                if (etRedpacketNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                } else {
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                }
             }
 
             @Override
@@ -127,6 +135,11 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkRedpacketNumber ();
+                if (etRedpacketNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                } else {
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                }
             }
 
             @Override

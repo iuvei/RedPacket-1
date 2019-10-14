@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +61,8 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
     TagFlowLayout tflMineNumbers;
     @BindView(R2.id.tv_money)
     TextView tvMoney;
+    @BindView(R2.id.btn_send_redpacket)
+    Button btnSendRedPacket;
 
     private static final Integer MINE_NUMBERS[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
@@ -139,6 +142,11 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                         showMessage ( String.format ( "红包个数为：%d的红包只能够选：%d个雷号", mCurrentRedpacketNumber, canSelectMaxNumber ) );
                     }
                 }
+                if (tflMineNumbers.getSelectedList ().size ()>0 && etTotalMoney.getText ().toString ().length ()>0){
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                }else{
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                }
                 return false;
             }
         } );
@@ -156,6 +164,11 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                     tvMoney.setText ( String.format ( "￥%s", s ) );
                 } else {
                     tvMoney.setText ( "￥0" );
+                }
+                if (tflMineNumbers.getSelectedList ().size ()>0 && etTotalMoney.getText ().toString ().length ()>0){
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                }else{
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
                 }
             }
 

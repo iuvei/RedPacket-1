@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,6 +86,8 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
     TextView tvMultiple;
     @BindView(R2.id.ll_more_boom)
     LinearLayout ll_more_boom;
+    @BindView(R2.id.btn_send_redpacket)
+    TextView btnSendRedPacket;
     @BindView(R2.id.ll_single_boom)
     LinearLayout ll_single_boom;
     @BindView(R2.id.tfl_mine_numbers)
@@ -143,6 +146,19 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkTotalMoney ();
+                if (ll_more_boom.getVisibility () == View.VISIBLE) {
+                    if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    } else {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    }
+                }else{
+                    if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    } else {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    }
+                }
             }
 
             @Override
@@ -158,6 +174,19 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkMineNumber ();
+                if (ll_more_boom.getVisibility () == View.VISIBLE) {
+                    if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    } else {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    }
+                }else{
+                    if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    } else {
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    }
+                }
             }
 
             @Override
@@ -182,9 +211,22 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
             tflMineNumbers.setOnTagClickListener ( new TagFlowLayout.OnTagClickListener () {
                 @Override
                 public boolean onTagClick(View view, int position, FlowLayout parent) {
-                   if (!view.isSelected ()) {
+                    if (!view.isSelected ()) {
                         if (tflMineNumbers.getSelectedList ().size ()>= 5) {
                             showMessage ( "最多只能选5个雷号" );
+                        }
+                    }
+                    if (ll_more_boom.getVisibility () == View.VISIBLE) {
+                        if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        } else {
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                        }
+                    }else{
+                        if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        } else {
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
                         }
                     }
                     return false;
