@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.jess.arms.mvp.IView;
@@ -34,6 +35,8 @@ public interface ChatContract {
         Activity getActivity();
 
         void showRedPacketDetail(RedpacketBean redpacketBean);
+
+        void getUserInfoSuccess(UserInfoBean.ResultBean result);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

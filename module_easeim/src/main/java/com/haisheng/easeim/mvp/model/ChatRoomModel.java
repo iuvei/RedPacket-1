@@ -4,6 +4,7 @@ import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
 import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.GroupListBean;
+import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
@@ -94,5 +95,10 @@ public class ChatRoomModel extends BaseModel {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
                 .getGroupList (token,roomId,page);
+    }
+
+    public Observable<UserInfoBean> getUserInfo(String hxId) {
+        return mRepositoryManager.obtainRetrofitService(ChatRoomService.class)
+                .getUserInfo (hxId);
     }
 }

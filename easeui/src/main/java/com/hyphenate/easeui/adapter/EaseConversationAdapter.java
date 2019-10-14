@@ -16,6 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -40,6 +44,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 /**
  * conversation list adapter
@@ -121,38 +127,26 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 holder.motioned.setVisibility(View.GONE);
             }
             // group message, show group avatar
-            holder.avatar.setImageResource(R.drawable.ease_group_icon);
             EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
             holder.name.setText(group != null ? group.getGroupName() : username);
         } else if(conversation.getType() == EMConversationType.ChatRoom){
             EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
-            if (room!=null && !TextUtils.isEmpty ( room.getName () )){
-                if (room.getName ().contains ( "雷" )){
-                    //扫雷房
-                    holder.avatar.setImageResource(R.drawable.icon_saolei);
-                }else if (room.getName ().contains ( "牛" )){
-                    //牛牛房
-                    holder.avatar.setImageResource(R.drawable.icon_niuniu);
-                }else if (room.getName ().contains ( "福利" )){
-                    //福利房
-                    holder.avatar.setImageResource(R.drawable.icon_fuli);
-                }else if (room.getName ().contains ( "禁" )){
-                    //禁抢房
-                    holder.avatar.setImageResource(R.drawable.icon_contral);
-                }else{
-                    holder.avatar.setImageResource(R.drawable.ease_group_icon);
-                }
-            }else{
-                holder.avatar.setImageResource(R.drawable.ease_group_icon);
-            }
             holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
             holder.motioned.setVisibility(View.GONE);
         }else {
-            EaseUserUtils.setUserAvatar(getContext(), username, holder.avatar);
-            EaseUserUtils.setUserNick(username, holder.name);
+            String nickname = SpUtils.getValue ( parent.getContext (), username + "nickname", "" );
+            if (TextUtils.isEmpty ( nickname )) {
+                EaseUserUtils.setUserNick ( username, holder.name );
+            }else{
+                EaseUserUtils.setUserNick ( nickname, holder.name );
+            }
             holder.motioned.setVisibility(View.GONE);
         }
-
+        String url =  SpUtils.getValue ( parent.getContext (),username+"head","" );
+        Glide.with ( getContext () )
+                .load ( url )
+                .apply ( new RequestOptions ().placeholder ( R.drawable.ease_default_avatar ) )
+                .into ( holder.avatar );
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
             EaseImageView avatarView = ((EaseImageView) holder.avatar);

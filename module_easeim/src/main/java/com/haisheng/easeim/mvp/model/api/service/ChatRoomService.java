@@ -2,6 +2,7 @@ package com.haisheng.easeim.mvp.model.api.service;
 
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.GroupListBean;
+import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 
 import java.util.List;
 
@@ -83,6 +84,18 @@ public interface ChatRoomService {
             @Field("token") String token,
             @Field("roomid") String roomid,
             @Field("page") int page
+    );
+
+
+    /**
+     * 客服信息
+     * hxid_kf	是	string	客服环信id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=customer_service")
+    Observable<UserInfoBean> getUserInfo(
+            @Field("hxid_kf") String hxid_kf
     );
 
 

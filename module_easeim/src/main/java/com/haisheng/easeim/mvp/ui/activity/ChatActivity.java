@@ -42,6 +42,7 @@ import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.NiuniuSettlementInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.haisheng.easeim.mvp.presenter.ChatPresenter;
 import com.haisheng.easeim.mvp.ui.widget.ChatExtendMenu;
 import com.haisheng.easeim.mvp.ui.widget.ChatInputMenu;
@@ -243,6 +244,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             UserInfo userInfo = UserDao.getInstance ().getUserEntityByHxId ( toChatUsername );
+            mPresenter.getUserInfo ( toChatUsername );
             if (userInfo != null) {
                 tvTitle.setText (  userInfo.getNickname () );
             } else {
@@ -755,6 +757,17 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     public void showRedPacketDetail(RedpacketBean redpacketBean) {
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketBean.getId (), redpacketBean.getWelfareStatus (),mChatRoomBean.getType ());
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoBean.ResultBean result) {
+        if(result!=null) {
+            tvTitle.setText (result.getNickname ());
+            if (result.getThumb ()!=null) {
+                SpUtils.put ( ChatActivity.this, result.getHxid () + "head", result.getThumb () );
+                SpUtils.put ( ChatActivity.this, result.getHxid () + "nickname", result.getNickname () );
+            }
+        }
     }
 
     @Override

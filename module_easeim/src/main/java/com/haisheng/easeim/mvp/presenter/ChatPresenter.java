@@ -16,8 +16,11 @@ import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.contract.ChatContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
+import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
+import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMChatRoom;
@@ -173,6 +176,22 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                     }
                 });
     }
+
+    public void getUserInfo(String hxId){
+        mChatRoomModel.getUserInfo(hxId)
+                .compose(RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<UserInfoBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(UserInfoBean response) {
+                        if (response.getStatus ()==1) {
+                            mRootView.getUserInfoSuccess(response.getResult());
+                        }else{
+                            mRootView.showMessage(response.getMsg ());
+                        }
+                    }
+                });
+    }
+
 
     private String getMsgId(){
         if (conversation==null){

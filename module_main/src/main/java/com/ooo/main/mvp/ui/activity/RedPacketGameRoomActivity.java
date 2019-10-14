@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
 import me.jessyan.armscomponent.commonsdk.core.EventBusHub;
@@ -101,6 +102,7 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
             public void onItemClick(AdapterView <?> adapterView, View view, int i, long l) {
                 RedPacketGameRomeBean.ResultBean itemBean = (RedPacketGameRomeBean.ResultBean) lvRoom.getItemAtPosition ( i );
                 mPresenter.roomDetail ( itemBean.getId ()+"","" );
+                SpUtils.put ( RedPacketGameRoomActivity.this,itemBean.getHxgroupid ()+"head",itemBean.getSurl () );
             }
         } );
     }
