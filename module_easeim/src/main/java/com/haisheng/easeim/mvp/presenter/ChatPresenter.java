@@ -491,6 +491,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         }
         message.setAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,nickname);
         message.setAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,id);
+        message.setAttribute ( IMConstants.REDPACKET_MSG_REDID,redpacketBean.getId ());
         message.setAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,IMConstants.GET_REDPACKET_MSG_CLUES );
 //        message.setAttribute(IMConstants.MESSAGE_ATTR_CHARGE_COINS,chargeCoins);
         message.setChatType(EMMessage.ChatType.ChatRoom);

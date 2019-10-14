@@ -71,6 +71,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -685,6 +686,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         //发送领取红包消息
         mPresenter.sendGetRedPacketMessage (this,redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
+    }
+
+    @Subscriber(tag = "onSetUpView")
+    public void clickGetRedPacket(RedpacketBean redpacketBean){
+        RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketBean.getId (), redpacketBean.getWelfareStatus (),mChatRoomBean.getType ());
     }
 
     @Override
