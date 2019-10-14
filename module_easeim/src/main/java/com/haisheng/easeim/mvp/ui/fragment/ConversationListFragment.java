@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.haisheng.easeim.mvp.contract.ConversationListContract;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.presenter.ConversationListPresenter;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.EaseConstant;
@@ -209,6 +211,10 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
 
     @Override
     public void setConversationList(List <EMConversation> conversationList) {
+        int unReadMsgCount = 0;
+        for (int i = 0;i<conversationList.size ();i++){
+            unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
+        }
         for (int j = conversationList.size ()-1;j>=0;j--) {
             //是否置顶
             boolean chatTop = SpUtils.getValue ( getActivity (), conversationList.get ( j ).conversationId (), false );
@@ -218,8 +224,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
             }
         }
         conversationListView.init ( conversationList );
-        int countTotal = EMClient.getInstance ().chatManager ().getUnreadMessageCount ();
-        EventBus.getDefault ().post ( countTotal, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
+        EventBus.getDefault ().post ( unReadMsgCount, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
     }
 
     @Override

@@ -42,11 +42,14 @@
 
             <TextView
                 android:id="@+id/tv_unread_msg"
-                android:layout_width="8.0dip"
-                android:layout_height="8.0dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_s"
                 android:layout_toRightOf="@id/rl_icon_chat"
-                android:background="@drawable/red_point"
+                android:background="@drawable/ease_unread_count_bg"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
                 android:visibility="gone" />
 
             <RadioButton

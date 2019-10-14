@@ -234,7 +234,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     public void setUnreadIMMsgCountTotal(int countTotal) {
         tvUnreadMsg.setVisibility(countTotal>0 ? View.VISIBLE : View.INVISIBLE);
-//        tvMegNum.setText(String.valueOf(countTotal));
+        tvUnreadMsg.setText ( countTotal+"" );
     }
 
     @Override
