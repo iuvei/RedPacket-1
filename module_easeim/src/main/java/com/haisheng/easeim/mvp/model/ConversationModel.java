@@ -58,13 +58,15 @@ public class ConversationModel extends BaseModel{
          */
         synchronized (conversations) {
             for (EMConversation conversation : conversations.values()) {
-                if (conversation.getAllMessages().size() != 0) {
-                    if(tag ==  IMConstants.CONVERSATION_FRIEND){
-                        if(conversation.isGroup()) continue;
+                if(tag ==  IMConstants.CONVERSATION_FRIEND){
+                    if(conversation.isGroup()) continue;
 
-                    }else if(tag ==  IMConstants.CONVERSATION_GROUP){
-                        if(!conversation.isGroup()) continue;
-                    }
+                }else if(tag ==  IMConstants.CONVERSATION_GROUP){
+                    if(!conversation.isGroup()) continue;
+                }
+                if (conversation.getLastMessage () == null){
+                    sortList.add(new Pair<Long, EMConversation>(System.currentTimeMillis (), conversation));
+                }else{
                     sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
                 }
             }
