@@ -48,6 +48,7 @@ import com.haisheng.easeim.mvp.ui.widget.ChatInputMenu;
 import com.haisheng.easeim.mvp.ui.widget.EaseChatVoiceCallPresenter;
 import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedpacket;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
 import com.hyphenate.EMCallBack;
@@ -688,6 +689,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
     }
 
+    /**
+     * 点击红包跳转到详情
+     * {@link ChatGetRedpacket#onSetUpView()}
+     * @param redpacketBean
+     */
     @Subscriber(tag = "onSetUpView")
     public void clickGetRedPacket(RedpacketBean redpacketBean){
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketBean.getId (), redpacketBean.getWelfareStatus (),mChatRoomBean.getType ());

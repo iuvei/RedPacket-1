@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 
@@ -48,8 +49,8 @@ public class ChatGetRedpacket extends EaseChatRow {
 
     @Override
     protected void onSetUpView() {
-        String   getName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,"");
-        String   getHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,"");
+        String  getName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME,"");
+        String  getHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID,"");
         String  sendName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,"");
         String  sendGHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDHXID,"");
         String  redId = message.getStringAttribute ( IMConstants.REDPACKET_MSG_REDID,"");
@@ -78,6 +79,10 @@ public class ChatGetRedpacket extends EaseChatRow {
             }
         }
 
+        /**
+         * 点击红包跳转到详情
+         * {@link ChatActivity#clickGetRedPacket(com.haisheng.easeim.mvp.model.entity.RedpacketBean)}
+         */
         tvRedPacket.setOnClickListener ( new OnClickListener () {
             @Override
             public void onClick(View view) {
