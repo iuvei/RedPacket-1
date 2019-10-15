@@ -68,11 +68,15 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
         如果使用 Okhttp 将新的请求, 请求成功后, 再将 Okhttp 返回的 Response return 出去即可
         如果不需要返回新的结果, 则直接把参数 response 返回出去即可 */
         Log.e ( "Tag","onHttpResultResponse="+httpResult);
-        Gson gson = new Gson ();
-        ResponseBean responseBean = gson.fromJson ( httpResult, ResponseBean.class );
-        if (responseBean.getStatus () == 2){
-            ARouter.getInstance ().build ( RouterHub.MAIN_LOGINACTIVITY ).navigation ();
-            ToastUtils.showShort ( responseBean.getMsg () );
+        try {
+            Gson gson = new Gson ();
+            ResponseBean responseBean = gson.fromJson ( httpResult, ResponseBean.class );
+            if (responseBean.getStatus () == 2){
+                ARouter.getInstance ().build ( RouterHub.MAIN_LOGINACTIVITY ).navigation ();
+                ToastUtils.showShort ( "token失效，请重新登录" );
+            }
+        } catch (Exception e) {
+            e.printStackTrace ();
         }
         return response;
     }
