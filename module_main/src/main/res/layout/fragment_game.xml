@@ -22,187 +22,197 @@
             android:layout_centerInParent="true"
             tools:text="@string/public_app_name"/>
     </RelativeLayout>
-
-    <cn.bingoogolapple.bgabanner.BGABanner
-        android:id="@+id/banner"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        app:banner_pageChangeDuration="1000"
-        app:banner_pointContainerBackground="@android:color/transparent"
-        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-        app:banner_pointTopBottomMargin="10dp"
-        app:banner_transitionEffect="alpha" />
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray"
-        style="@style/public_CommonPadding_s"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_notice"/>
-        <TextView
-            android:id="@+id/tv_notices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_xs"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:textSize="@dimen/text_normal"
-            android:textColor="@color/common_text"
-            tools:text="测试1111111111111111111111111111111111111111111111111111111" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/public_white"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
-                android:id="@+id/round_redpacket"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:roundColor="#44FE2A40"
-                />
-            <LinearLayout
-                android:id="@+id/ll_game_redpacket"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-
-
-                <ImageView
-                    android:id="@+id/giv_game_redpacket"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/game_red_packet" />
-                <TextView
-                    android:id="@+id/tv_game_redpacket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xxs"
-                    android:textSize="@dimen/text_small"
-                    android:text="红包" />
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
-                android:id="@+id/round_electronic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:roundColor="#448481F2"
-                />
-            <LinearLayout
-                android:id="@+id/ll_game_electronic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <ImageView
-                    android:id="@+id/giv_game_electronic"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/game_chess"/>
-                <TextView
-                    android:id="@+id/tv_game_electronic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xxs"
-                    android:textSize="@dimen/text_small"
-                    android:text="棋牌" />
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
-                android:id="@+id/round_chess"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:roundColor="#4436AE5B"
-                android:visibility="gone"
-                />
-            <LinearLayout
-                android:id="@+id/ll_game_chess"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <ImageView
-                    android:id="@+id/giv_game_chess"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/game_lottery"/>
-                <TextView
-                    android:id="@+id/tv_game_chess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xxs"
-                    android:textSize="@dimen/text_small"
-                    android:text="彩票" />
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-        <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
-            android:id="@+id/round_leisure"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:roundColor="#44FA9444"
-            android:visibility="gone"
-            />
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/ll_game_leisure"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <ImageView
-                android:id="@+id/giv_game_leisure"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/game_buyu"/>
+            android:focusable="true"
+            android:focusableInTouchMode="true" >
 
-            <TextView
-                android:id="@+id/tv_game_leisure"
-                android:layout_width="wrap_content"
+            <cn.bingoogolapple.bgabanner.BGABanner
+                android:id="@+id/banner"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                app:banner_pageChangeDuration="1000"
+                app:banner_pointContainerBackground="@android:color/transparent"
+                app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                app:banner_pointTopBottomMargin="10dp"
+                app:banner_transitionEffect="alpha" />
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_xxs"
-                android:text="捕鱼"
-                android:textSize="@dimen/text_small" />
+                android:background="@color/gray"
+                style="@style/public_CommonPadding_s"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_notice"/>
+                <TextView
+                    android:id="@+id/tv_notices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/spacing_xs"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:textSize="@dimen/text_normal"
+                    android:textColor="@color/common_text"
+                    tools:text="测试1111111111111111111111111111111111111111111111111111111" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/public_white"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    >
+                    <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
+                        android:id="@+id/round_redpacket"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:roundColor="#44FE2A40"
+                        />
+                    <LinearLayout
+                        android:id="@+id/ll_game_redpacket"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/giv_game_redpacket"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@mipmap/game_red_packet" />
+                        <TextView
+                            android:id="@+id/tv_game_redpacket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xxs"
+                            android:textSize="@dimen/text_small"
+                            android:text="红包" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    >
+                    <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
+                        android:id="@+id/round_electronic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:roundColor="#448481F2"
+                        />
+                    <LinearLayout
+                        android:id="@+id/ll_game_electronic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <ImageView
+                            android:id="@+id/giv_game_electronic"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@mipmap/game_chess"/>
+                        <TextView
+                            android:id="@+id/tv_game_electronic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xxs"
+                            android:textSize="@dimen/text_small"
+                            android:text="棋牌" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    >
+                    <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
+                        android:id="@+id/round_chess"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:roundColor="#4436AE5B"
+                        android:visibility="gone"
+                        />
+                    <LinearLayout
+                        android:id="@+id/ll_game_chess"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <ImageView
+                            android:id="@+id/giv_game_chess"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@mipmap/game_lottery"/>
+                        <TextView
+                            android:id="@+id/tv_game_chess"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xxs"
+                            android:textSize="@dimen/text_small"
+                            android:text="彩票" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    >
+                    <me.jessyan.armscomponent.commonres.view.RoundBackgroudLinearyLayout
+                        android:id="@+id/round_leisure"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:roundColor="#44FA9444"
+                        android:visibility="gone"
+                        />
+                    <LinearLayout
+                        android:id="@+id/ll_game_leisure"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <ImageView
+                            android:id="@+id/giv_game_leisure"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@mipmap/game_buyu"/>
+
+                        <TextView
+                            android:id="@+id/tv_game_leisure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xxs"
+                            android:text="捕鱼"
+                            android:textSize="@dimen/text_small" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"/>
+            <FrameLayout
+                android:id="@+id/frameLayout_game"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
         </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/gray"/>
-    <FrameLayout
-        android:id="@+id/frameLayout_game"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
-
+    </ScrollView>
 </LinearLayout>

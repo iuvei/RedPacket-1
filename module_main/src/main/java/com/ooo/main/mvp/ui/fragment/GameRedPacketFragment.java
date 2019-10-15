@@ -20,6 +20,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.jessyan.armscomponent.commonres.utils.NoScrollListView;
+import me.jessyan.armscomponent.commonres.view.NoScrollViewPager;
 import me.jessyan.armscomponent.commonsdk.entity.BannerEntity;
 
 /**
@@ -29,7 +31,7 @@ public class GameRedPacketFragment extends Fragment {
 
 
     @BindView(R2.id.lv_game)
-    ListView lvGame;
+    NoScrollListView lvGame;
     Unbinder unbinder;
 
     public GameRedPacketFragment() {
