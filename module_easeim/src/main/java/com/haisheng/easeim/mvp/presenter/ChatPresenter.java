@@ -451,6 +451,17 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         sendMessage(message);
     }
 
+    /**
+     * 发送客服页面帮助信息
+     */
+    public void sendHelpMessage(String content){
+        EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
+        // 增加自己特定的属性
+        message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE);
+        message.setAttribute(IMConstants.MESSAGE_ATTR_CONENT, content);
+        sendMessage(message);
+    }
+
     public void sendRedpacketMessage(RedpacketBean redpacketInfo){
         int type = redpacketInfo.getType();
         String sMessage = "[红包]";

@@ -50,6 +50,7 @@ import com.haisheng.easeim.mvp.ui.widget.EaseChatVoiceCallPresenter;
 import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedpacket;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatHelpMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
 import com.hyphenate.EMCallBack;
@@ -766,6 +767,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             if (result.getThumb ()!=null) {
                 SpUtils.put ( ChatActivity.this, result.getHxid () + "head", result.getThumb () );
                 SpUtils.put ( ChatActivity.this, result.getHxid () + "nickname", result.getNickname () );
+                mPresenter.sendHelpMessage ( result.getContent () );
             }
         }
     }
@@ -1091,6 +1093,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }else if (type == IMConstants.MSG_TYPE_GET_REDPACKET || IMConstants.GET_REDPACKET_MSG_CLUES.equals ( clus )){
                     //领取红包信息
                     EaseChatRowPresenter presenter = new ChatGetRedPacketPresenter ();
+                    return presenter;
+                }else if (type == IMConstants.MSG_TYPE_HELP_MESSAGE){
+                    //客服帮助消息
+                    EaseChatRowPresenter presenter = new ChatHelpMessagePresenter ();
                     return presenter;
                 }
             }

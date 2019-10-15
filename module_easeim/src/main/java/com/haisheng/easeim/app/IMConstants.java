@@ -80,6 +80,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_NIUNIU_SETTLEMENT  = 6;  //牛牛房结算消息
     //获取红包状态
     public static final int MSG_TYPE_GET_REDPACKET  = 7;
+    //客服帮助信息
+    public static final int MSG_TYPE_HELP_MESSAGE  = 8;
 
 
     //
