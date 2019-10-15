@@ -54,7 +54,6 @@ import com.haisheng.easeim.mvp.ui.widget.message.ChatHelpMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
 import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
@@ -145,6 +144,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int MESSAGE_TYPE_RECV_REDPACKET = 11;
     private static final int MESSAGE_TYPE_RECV_SETTLEMENT = 12;
     private static final int MESSAGE_TYPE_HELP_MESSAGE = 13;
+    private static final int MESSAGE_TYPE_GET_REDPACKET = 14;
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -638,7 +638,12 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
         });
         builder.setText(R.id.tv_nick, nickname);
-        builder.setText(R.id.tv_message, redpacketBean.getMoney ()+"-"+redpacketBean.getBoomNumbers ());
+        if (mChatRoomBean.getType () == IMConstants.ROOM_TYPE_WELFARE_REDPACKET){
+            //福利房
+            builder.setText ( R.id.tv_message, redpacketBean.getMoney ()+"");
+        }else {
+            builder.setText ( R.id.tv_message, redpacketBean.getMoney () + "-" + redpacketBean.getBoomNumbers () );
+        }
         builder.setOnClickListener(R.id.img_open, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -692,6 +697,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         //发送领取红包消息
         mPresenter.sendGetRedPacketMessage (this,redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
+        if (null != builder && builder.isShowing()) {
+            builder.dismiss ();
+        }
     }
 
     /**
@@ -705,7 +713,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
     @Override
-    public void grabRedpacketFail() {
+    public void grabRedpacketFail(String result) {
         isRabShow = false;
     }
 
@@ -729,14 +737,15 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     // 关闭动画
     @Override
-    public void closeAnimation(View view) {
+    public void closeAnimation(View view, String message) {
         AnimationDrawable animationDrawable = (AnimationDrawable) view.getBackground();
         if (animationDrawable != null) {
             view.setVisibility(View.GONE);
             animationDrawable.stop();
         }
         if (null != builder && builder.isShowing()) {
-            builder.dismiss();
+            builder.setText ( R.id.tv_message, message );
+            builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         }
     }
 
@@ -1063,7 +1072,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                         ///结算消息
                     } else if (type == IMConstants.MSG_TYPE_GUN_CONTROL_SETTLEMENT || type == IMConstants.MSG_TYPE_NIUNIU_SETTLEMENT) {
                         return MESSAGE_TYPE_RECV_SETTLEMENT;
+                    }else if (type == IMConstants.MSG_TYPE_GET_REDPACKET) {
+                        //领取红包
+                        return MESSAGE_TYPE_GET_REDPACKET;
                     }else if (type == IMConstants.MSG_TYPE_HELP_MESSAGE) {
+                        //帮助消息
                         return MESSAGE_TYPE_HELP_MESSAGE;
                     }
 
@@ -1082,6 +1095,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     return presenter;
 
                 }
+
                 final int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
                 String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,"" );
                 //红包消息

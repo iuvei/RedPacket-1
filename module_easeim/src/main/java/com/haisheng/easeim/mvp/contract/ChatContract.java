@@ -26,12 +26,12 @@ public interface ChatContract {
         void joinRoomSuccessfully();
         void showRedPacket(CheckRedpacketInfo checkRedpacketInfo, EMMessage message);
         void grabRedpacketSuccessfully(Long redpacketId, int type, RedpacketBean redpacketBean);
-        void grabRedpacketFail();
+        void grabRedpacketFail(String result);
 
         void showRefresh();
         void finishRefresh();
         void openAnimation(android.view.View view);
-        void closeAnimation(android.view.View view);
+        void closeAnimation(android.view.View view, String message);
         Activity getActivity();
 
         void showRedPacketDetail(RedpacketBean redpacketBean);

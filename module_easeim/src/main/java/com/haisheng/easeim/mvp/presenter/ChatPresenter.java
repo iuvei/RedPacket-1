@@ -604,7 +604,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> {
-                    mRootView.closeAnimation(animView);
+
                 })
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(new ErrorHandleSubscriber<BaseResponse>(mErrorHandler) {
@@ -614,18 +614,20 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,1);
                             EMClient.getInstance().chatManager().saveMessage(message);
                             mRootView.refreshList();
-
                             mRootView.grabRedpacketSuccessfully(redpacketBean.getId(),redpacketBean.getWelfareStatus(),redpacketBean);
+                            mRootView.closeAnimation(animView,response.getMessage ());
                         }else{
-                            mRootView.grabRedpacketFail();
+                            mRootView.grabRedpacketFail(response.getMessage ());
                             mRootView.showMessage(response.getMessage());
+                            mRootView.closeAnimation(animView,response.getMessage ());
                         }
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         super.onError(t);
-                        mRootView.grabRedpacketFail();
+                        mRootView.grabRedpacketFail( "" );
+                        mRootView.closeAnimation(animView,"");
                     }
                 });
     }

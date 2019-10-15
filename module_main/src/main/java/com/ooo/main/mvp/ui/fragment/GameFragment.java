@@ -82,6 +82,8 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
     RoundBackgroudLinearyLayout roundChess;
     @BindView(R2.id.round_leisure)
     RoundBackgroudLinearyLayout roundLeisure;
+    @BindView(R2.id.ll_scrollview_top)
+    LinearLayout ll_scrollview_top;
     private View mCurrentSelectedView;
     private GameRedPacketFragment redPacketFragment;
     private GameElectronicFragment electronicFragment;
@@ -114,6 +116,9 @@ public class GameFragment extends BaseSupportFragment <AdNoticePresenter> implem
         initBanner ();
         mCurrentSelectedView = roundRedpacket;
         mCurrentSelectedView.setVisibility ( View.VISIBLE );
+        ll_scrollview_top.setFocusable(true);
+        ll_scrollview_top.setFocusableInTouchMode(true);
+        ll_scrollview_top.requestFocus();
     }
 
     private void initBanner() {
