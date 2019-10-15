@@ -16,9 +16,7 @@ import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.contract.ChatContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
-import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.hyphenate.EMCallBack;
@@ -455,11 +453,25 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
      * 发送客服页面帮助信息
      */
     public void sendHelpMessage(String content){
-        EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
-        // 增加自己特定的属性
-        message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE);
-        message.setAttribute(IMConstants.MESSAGE_ATTR_CONENT, content);
-        sendMessage(message);
+        EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername);
+        //获取此会话的所有消息
+        List<EMMessage> messages = conversation.getAllMessages();
+        if (messages!=null && messages.size ()>=0){
+            //如果最后一条消息是十分钟之前发送的，则不发送帮助消息
+            if ((System.currentTimeMillis ()-messages.get ( messages.size ()-1 ).getMsgTime ()>=10*60*1000)) {
+                EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
+                // 增加自己特定的属性
+                message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
+                message.setAttribute ( IMConstants.MESSAGE_ATTR_CONENT, content );
+                sendMessage ( message );
+            }
+        }else{
+            EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
+            // 增加自己特定的属性
+            message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
+            message.setAttribute ( IMConstants.MESSAGE_ATTR_CONENT, content );
+            sendMessage ( message );
+        }
     }
 
     public void sendRedpacketMessage(RedpacketBean redpacketInfo){
@@ -620,4 +632,5 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         this.mImageLoader = null;
         this.mApplication = null;
     }
+
 }
