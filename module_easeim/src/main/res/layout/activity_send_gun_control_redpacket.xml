@@ -22,8 +22,9 @@
                 android:layout_marginRight="@dimen/spacing_l">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_l"
+                    android:layout_height="50dp"
+                    android:paddingLeft="@dimen/spacing_l"
+                    android:paddingRight="@dimen/spacing_l"
                     android:background="@color/public_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -37,10 +38,11 @@
                     <TextView
                         android:id="@+id/tv_redpacket_num"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/spacing_m"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
+                        android:paddingLeft="@dimen/spacing_xl"
                         android:background="@null"
                         android:textColor="@color/common_text"
                         android:textSize="@dimen/text_normal"
@@ -64,8 +66,9 @@
                 android:layout_marginRight="@dimen/spacing_l">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_l"
+                    android:layout_height="50dp"
+                    android:paddingLeft="@dimen/spacing_l"
+                    android:paddingRight="@dimen/spacing_l"
                     android:background="@color/public_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -83,7 +86,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/spacing_m"
                         android:paddingRight="@dimen/spacing_m"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
+                        android:paddingLeft="@dimen/spacing_xl"
                         android:background="@null"
                         android:textColor="@color/common_text"
                         android:textSize="@dimen/text_normal"

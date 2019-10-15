@@ -144,6 +144,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int MESSAGE_TYPE_SENT_REDPACKET = 10;
     private static final int MESSAGE_TYPE_RECV_REDPACKET = 11;
     private static final int MESSAGE_TYPE_RECV_SETTLEMENT = 12;
+    private static final int MESSAGE_TYPE_HELP_MESSAGE = 13;
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -1033,7 +1034,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         public int getCustomChatRowTypeCount() {
             //here the number is the message type in EMMessage::Type
             //which is used to count the number of different chat row
-            return 17;
+            return 18;
         }
 
         @Override
@@ -1062,6 +1063,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                         ///结算消息
                     } else if (type == IMConstants.MSG_TYPE_GUN_CONTROL_SETTLEMENT || type == IMConstants.MSG_TYPE_NIUNIU_SETTLEMENT) {
                         return MESSAGE_TYPE_RECV_SETTLEMENT;
+                    }else if (type == IMConstants.MSG_TYPE_HELP_MESSAGE) {
+                        return MESSAGE_TYPE_HELP_MESSAGE;
                     }
 
                 }
@@ -1079,7 +1082,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     return presenter;
 
                 }
-                int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
+                final int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
                 String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,"" );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET

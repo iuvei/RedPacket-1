@@ -456,21 +456,27 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername);
         //获取此会话的所有消息
         List<EMMessage> messages = conversation.getAllMessages();
-        if (messages!=null && messages.size ()>=0){
+        if (messages!=null && messages.size ()>0){
             //如果最后一条消息是十分钟之前发送的，则不发送帮助消息
             if ((System.currentTimeMillis ()-messages.get ( messages.size ()-1 ).getMsgTime ()>=10*60*1000)) {
                 EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
                 // 增加自己特定的属性
-                message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
                 message.setAttribute ( IMConstants.MESSAGE_ATTR_CONENT, content );
+                message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
+                // Send message.
                 sendMessage ( message );
+                //refresh ui
+                mRootView.refreshSelectLast();
             }
         }else{
             EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
             // 增加自己特定的属性
-            message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
             message.setAttribute ( IMConstants.MESSAGE_ATTR_CONENT, content );
+            message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_HELP_MESSAGE );
+            // Send message.
             sendMessage ( message );
+            //refresh ui
+            mRootView.refreshSelectLast();
         }
     }
 
