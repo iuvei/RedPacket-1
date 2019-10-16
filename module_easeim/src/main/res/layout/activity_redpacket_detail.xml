@@ -94,6 +94,28 @@
                     tools:text="9-6"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_my_getmoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_my_getmoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_title"
+                        android:textColor="@color/common_text"
+                        android:textStyle="bold"
+                        tools:text="200"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_m"
+                        android:text="元"/>
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/ll_countdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

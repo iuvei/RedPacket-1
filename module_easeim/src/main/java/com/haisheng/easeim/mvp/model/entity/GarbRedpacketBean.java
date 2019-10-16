@@ -24,7 +24,7 @@ public class GarbRedpacketBean implements Serializable {
 
     @SerializedName("banker")
     private int bankerStatus;
-    @SerializedName("id")
+    @SerializedName("uid")
     private String id;
 
     public Integer getNiuniuNumber() {

@@ -640,9 +640,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
         });
         builder.setText(R.id.tv_nick, nickname);
-        if (mChatRoomBean.getType () == IMConstants.ROOM_TYPE_WELFARE_REDPACKET){
-            //福利房
-            builder.setText ( R.id.tv_message, redpacketBean.getMoney ()+"");
+        if (mChatRoomBean.getType () == IMConstants.ROOM_TYPE_WELFARE_REDPACKET
+                || mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET
+                || mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET){
+            //福利房 牛牛房
+            builder.setText ( R.id.tv_message, redpacketBean.getMoney ()+"-" + redpacketBean.getNumber ());
         }else {
             builder.setText ( R.id.tv_message, redpacketBean.getMoney () + "-" + redpacketBean.getBoomNumbers () );
         }

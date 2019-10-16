@@ -34,6 +34,8 @@ public class RedpacketBean implements Serializable {
 
     @SerializedName("lasttime")
     private Long countdown;
+    @SerializedName("overtime_red")
+    private int overtime_red;
     @SerializedName("villagenums")
     private String villagenums;
     @SerializedName("notbuynums")
@@ -179,5 +181,24 @@ public class RedpacketBean implements Serializable {
 
     public void setNotbuynums(String notbuynums) {
         this.notbuynums = notbuynums;
+    }
+
+    public int getOvertime_red() {
+        return overtime_red;
+    }
+
+    public void setOvertime_red(int overtime_red) {
+        this.overtime_red = overtime_red;
+    }
+
+    public boolean isOverTime(){
+        //是否过期
+        if (overtime_red==0){
+            //未过期
+            return false;
+        }
+        //已过期
+        return true;
+
     }
 }
