@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -47,6 +48,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.entity.GiftEntity;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
@@ -448,6 +450,27 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         EMMessage message = EMMessage.createFileSendMessage(filePath, toChatUsername);
         sendMessage(message);
     }
+
+    //是不是客服
+    public boolean isCustomer(String hxID){
+        if (TextUtils.isEmpty ( hxID )){
+            return false;
+        }
+        if (hxID.equals ( ConfigUtil.SERVICE_GAME_CONTROL_INSIDE )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_ROME)
+        || hxID.equals ( ConfigUtil.SERVICE_HOMEPAGE )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_INSIDE )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_ROOM )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_INSIDE )
+        || hxID.equals ( ConfigUtil.SERVICE_MYPAGE )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_CONTROL_ROOM )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_ROOM )
+        || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_INSIDE )){
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 发送客服页面帮助信息

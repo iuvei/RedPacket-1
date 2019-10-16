@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
@@ -178,6 +179,9 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         } else if (i == R.id.btn_send_message) {
             //发送消息
             if (userInfo!=null && !TextUtils.isEmpty ( userInfo.getHxId () )) {
+                //保存昵称跟头像
+                SpUtils.put ( this, userInfo.getHxId () + "head", userInfo.getAvatarUrl () );
+                SpUtils.put ( this, userInfo.getHxId () + "nickname", userInfo.getNickname () );
                 ChatActivity.start ( this, userInfo.getHxId () );
             }
         }

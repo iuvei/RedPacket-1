@@ -55,7 +55,7 @@ public class UserInfoBean implements Serializable{
 
         private String id;
         private String uniacid;
-        private String nickname;
+        private String nickname ="";
         private String hxid;
         private String thumb="";
         private String content;

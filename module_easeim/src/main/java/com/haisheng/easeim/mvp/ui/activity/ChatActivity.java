@@ -247,12 +247,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             UserInfo userInfo = UserDao.getInstance ().getUserEntityByHxId ( toChatUsername );
-            mPresenter.getUserInfo ( toChatUsername );
             if (userInfo != null) {
                 tvTitle.setText (  userInfo.getNickname () );
             } else {
-                tvTitle.setText ( toChatUsername );
+                //显示本地保存的昵称
+                tvTitle.setText ( SpUtils.getValue ( this, toChatUsername + "nickname", "" ));
             }
+            //根据id读取客服信息
+            mPresenter.getUserInfo ( toChatUsername );
         } else {
             messageList.setShowUserNick ( true );
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
@@ -682,8 +684,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         } else if (status == 3) {//红包未过期 已抢完 未参与
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
+            builder.setText ( R.id.tv_message, checkRedpacketInfo.getMessage ());
         } else if (status == 2) {//红包已过期
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
+            builder.setText ( R.id.tv_message, checkRedpacketInfo.getMessage ());
+            builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         }
         ImageView imageView = builder.getView(R.id.img_head);
         ImageLoader.displayHeaderImage(mContext, avatarUrl, imageView);
@@ -774,11 +779,13 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     public void getUserInfoSuccess(UserInfoBean.ResultBean result) {
         if(result!=null) {
-            tvTitle.setText (result.getNickname ());
-            if (result.getThumb ()!=null) {
-                SpUtils.put ( ChatActivity.this, result.getHxid () + "head", result.getThumb () );
-                SpUtils.put ( ChatActivity.this, result.getHxid () + "nickname", result.getNickname () );
-                mPresenter.sendHelpMessage ( result.getContent () );
+            if (mPresenter.isCustomer ( result.getHxid () )) {
+                tvTitle.setText ( result.getNickname () );
+                if (result.getThumb () != null) {
+                    SpUtils.put ( ChatActivity.this, result.getHxid () + "head", result.getThumb () );
+                    SpUtils.put ( ChatActivity.this, result.getHxid () + "nickname", result.getNickname () );
+                    mPresenter.sendHelpMessage ( result.getContent () );
+                }
             }
         }
     }
