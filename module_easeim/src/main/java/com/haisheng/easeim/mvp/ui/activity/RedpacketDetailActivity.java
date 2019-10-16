@@ -259,17 +259,30 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 } catch (Exception e) {
                     alreadyMoney += 0;
                 }
-                if (uid.equals ( garbRedpacket.getId () )) {
-                    ll_my_getmoney.setVisibility ( View.VISIBLE );
-                    blankMoney = garbRedpacket.getMoney ();
-                }
-                if (garbRedpacket.getBankerStatus () != 0) {
-                    //牛牛庄家
-                    tv_my_getmoney.setText ( blankMoney.substring ( 0, blankMoney.length () - 1 ) + "*" );
-                    mAdapter.setBlankId ( garbRedpacket.getId () );
-                    niuniuNum = garbRedpacket.getNiuniuNumber ();
-                } else {
-                    tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                if (paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET || paytype == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET){
+                    //牛牛房
+                    if (uid.equals ( garbRedpacket.getId () )){
+                        blankMoney = garbRedpacket.getMoney ();
+                        ll_my_getmoney.setVisibility ( View.VISIBLE );
+                        niuniuNum = garbRedpacket.getNiuniuNumber ();
+                        if (garbRedpacket.getBankerStatus ()!=0) {
+                            //牛牛庄家
+                            tv_my_getmoney.setText ( blankMoney.substring ( 0,blankMoney.length ()-1 )+"*");
+                        }else{
+                            tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                        }
+                    }
+                    if (garbRedpacket.getBankerStatus () != 0) {
+                        //牛牛庄家id
+                        mAdapter.setBlankId ( garbRedpacket.getId () );
+                    }
+                }else{
+                    //不是牛牛房 显示自己的金额
+                    if (uid.equals ( garbRedpacket.getId () )){
+                        ll_my_getmoney.setVisibility ( View.VISIBLE );
+                        blankMoney = garbRedpacket.getMoney ();
+                        tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                    }
                 }
             }
         }
