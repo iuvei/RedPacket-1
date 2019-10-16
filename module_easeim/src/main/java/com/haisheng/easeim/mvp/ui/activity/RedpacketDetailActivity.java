@@ -2,6 +2,7 @@ package com.haisheng.easeim.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -101,6 +102,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     TextView tv_banker_win;
     @BindView(R2.id.tv_buy_win)
     TextView tv_buy_win;
+    @BindView(R2.id.tv_niuniu_num)
+    TextView tv_niuniu_num;
 
 
     private Long mRoomId, mRedpacketId;
@@ -108,6 +111,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     private int paytype = 0; //红包房间类型
     private RedpacketBean redpacketInfo;
     private String blankMoney;
+    private Integer niuniuNum;
 
     public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, int redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
@@ -146,10 +150,10 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             mRedpacketId = bundle.getLong ( "redpacketId" );
             mWelfareStatus = bundle.getInt ( "welfareStatus" );
             paytype = bundle.getInt ( "paytype" );
-            if (paytype== IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
-            paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET){
+            if (paytype == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
+                    paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
                 tvRight.setText ( "账单记录" );
-            }else{
+            } else {
                 tvRight.setText ( "红包记录" );
             }
         }
@@ -174,13 +178,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         tvRight.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                if (paytype== IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
-                        paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET){
+                if (paytype == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
+                        paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
                     //盈亏记录
                     openActivity ( NiuNiuRecordActivity.class );
-                }else{
+                } else {
                     //红包记录
-                    RedPacketRecordActivity.start ( RedpacketDetailActivity.this,paytype,redpacketInfo );
+                    RedPacketRecordActivity.start ( RedpacketDetailActivity.this, paytype, redpacketInfo );
                 }
             }
         } );
@@ -195,7 +199,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         ArmsUtils.configRecyclerView ( rvGarbRedpacket, mLayoutManager );
         rvGarbRedpacket.setAdapter ( mAdapter );
         //用户id
-        String uid = SpUtils.getValue ( this,"uid", "" );
+        String uid = SpUtils.getValue ( this, "uid", "" );
         mAdapter.setUid ( uid );
         View emptyView = LayoutInflater.from ( mContext ).inflate ( R.layout.public_empty_page, null, false );
         mAdapter.setEmptyView ( emptyView );
@@ -245,7 +249,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         int alreadyNumber = 0;
         double alreadyMoney = 0;
         //用户id
-        String uid = SpUtils.getValue ( this,"uid", "" );
+        String uid = SpUtils.getValue ( this, "uid", "" );
         List <GarbRedpacketBean> garbRedpackets = redpacketInfo.getGarbRedpackets ();
         if (null != garbRedpackets && garbRedpackets.size () > 0) {
             alreadyNumber = garbRedpackets.size ();
@@ -255,15 +259,17 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 } catch (Exception e) {
                     alreadyMoney += 0;
                 }
-                if (uid.equals ( garbRedpacket.getId () )){
+                if (uid.equals ( garbRedpacket.getId () )) {
                     ll_my_getmoney.setVisibility ( View.VISIBLE );
                     blankMoney = garbRedpacket.getMoney ();
-                    if (garbRedpacket.getBankerStatus ()!=0) {
-                        //牛牛庄家
-                        tv_my_getmoney.setText ( blankMoney.substring ( 0,blankMoney.length ()-1 )+"*");
-                    }else{
-                        tv_my_getmoney.setText ( garbRedpacket.getMoney () );
-                    }
+                }
+                if (garbRedpacket.getBankerStatus () != 0) {
+                    //牛牛庄家
+                    tv_my_getmoney.setText ( blankMoney.substring ( 0, blankMoney.length () - 1 ) + "*" );
+                    mAdapter.setBlankId ( garbRedpacket.getId () );
+                    niuniuNum = garbRedpacket.getNiuniuNumber ();
+                } else {
+                    tv_my_getmoney.setText ( garbRedpacket.getMoney () );
                 }
             }
         }
@@ -275,14 +281,14 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                     alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
             mAdapter.setGetAll ( true );
-        }else{
+        } else {
             //红包还没抢完
-            if (redpacketInfo.isOverTime ()){
+            if (redpacketInfo.isOverTime ()) {
                 //已经过期
                 tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                         alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
                 mAdapter.setGetAll ( true );
-            }else{
+            } else {
                 //未过期
                 tvMessage.setText ( String.format ( "已领取%d/%d个，共****/%.2f元",
                         alreadyNumber, redpacketInfo.getNumber (), redpacketInfo.getMoney () ) );
@@ -298,6 +304,46 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             //牛牛房
             long creatTimestamp = Long.valueOf ( redpacketInfo.getCreatTime () );
             long countDown = creatTimestamp + redpacketInfo.getCountdown () - System.currentTimeMillis () / 1000;
+            if (null != niuniuNum) {
+                int iconRedId = R.drawable.ic_cow_0;
+                switch (niuniuNum) {
+                    case 1:
+                        iconRedId = R.drawable.ic_cow_1;
+                        break;
+                    case 2:
+                        iconRedId = R.drawable.ic_cow_2;
+                        break;
+                    case 3:
+                        iconRedId = R.drawable.ic_cow_3;
+                        break;
+                    case 4:
+                        iconRedId = R.drawable.ic_cow_4;
+                        break;
+                    case 5:
+                        iconRedId = R.drawable.ic_cow_5;
+                        break;
+                    case 6:
+                        iconRedId = R.drawable.ic_cow_6;
+                        break;
+                    case 7:
+                        iconRedId = R.drawable.ic_cow_7;
+                        break;
+                    case 8:
+                        iconRedId = R.drawable.ic_cow_8;
+                        break;
+                    case 9:
+                        iconRedId = R.drawable.ic_cow_9;
+                        break;
+                    case 0:
+                        iconRedId = R.drawable.ic_cow_10;
+                        break;
+                }
+
+                Drawable drawable = mContext.getResources ().getDrawable ( iconRedId );
+                drawable.setBounds ( 0, 0, drawable.getMinimumWidth (), drawable.getMinimumHeight () );
+                tv_niuniu_num.setText ( "" );
+                tv_niuniu_num.setCompoundDrawables ( null, null, drawable, null );
+            }
             if (redpacketInfo.getStatus () == 0 && countDown > 0) {
                 llCountdown.setVisibility ( View.VISIBLE );
                 cdvTime.start ( countDown * 1000 );
@@ -310,13 +356,15 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                         alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
                 tv_my_getmoney.setText ( blankMoney );
+                ll_my_getmoney.setVisibility ( View.VISIBLE );
+                tv_niuniu_num.setText ( "" );
                 mAdapter.setGetAll ( true );
             }
             ll_niuniu_result.setVisibility ( View.VISIBLE );
-            tv_banker_win.setText ( redpacketInfo.getVillagenums ()+"" );
-            tv_buy_win.setText ( redpacketInfo.getNotbuynums ()+"" );
+            tv_banker_win.setText ( redpacketInfo.getVillagenums () + "" );
+            tv_buy_win.setText ( redpacketInfo.getNotbuynums () + "" );
             tvMoneyNumber.setText ( String.format ( "%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
-            mAdapter.setNiuNiu (true);
+            mAdapter.setNiuNiu ( true );
 
         } else if (paytype == IMConstants.ROOM_TYPE_WELFARE_REDPACKET || paytype == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
             //福利房 禁抢房

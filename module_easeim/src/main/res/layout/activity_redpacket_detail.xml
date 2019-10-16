@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             style="@style/public_CommonTitleText"
             android:layout_centerInParent="true"
+            android:textColor="@color/public_white"
             tools:text="@string/public_app_name"/>
         <TextView
             android:id="@+id/tv_right"
@@ -40,6 +41,7 @@
             style="@style/public_CommonTitleText"
             android:textSize="@dimen/text_sub_title"
             android:text="确认"
+            android:textColor="@color/public_white"
             />
 
     </RelativeLayout>
@@ -108,8 +110,9 @@
                         android:textSize="@dimen/text_title"
                         android:textColor="@color/common_text"
                         android:textStyle="bold"
-                        tools:text="200"/>
+                        android:text="0.00"/>
                     <TextView
+                        android:id="@+id/tv_niuniu_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing_m"

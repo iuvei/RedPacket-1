@@ -30,6 +30,7 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, GarbRedpacketBean item) {
+        Integer niuniuNumber = item.getNiuniuNumber();
         ImageView ivAvatar = helper.getView( R.id.iv_avatar);
         ImageLoader.displayHeaderImage(mContext,item.getAvatarUrl(),ivAvatar);
         helper.setText( R.id.tv_nickname,item.getNickname())
@@ -46,30 +47,46 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
             money = sMoney;
             helper.setVisible( R.id.iv_bomb,item.getBombStatus() !=0);
         }else{
-            if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
-                //免死抢包
-                money = "*.**";
-            }else if (uid.equals ( item.getId () )){
-                //自己抢的包
-                if (isNiuNiu && item.getBankerStatus()!=0){
-                    //牛牛 庄家
-                    money = sMoney.substring ( 0,sMoney.length ()-1 )+"*";
-                }else {
-                    money = sMoney;
+            if (isNiuNiu){
+                //牛牛房
+                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
+                    //免死抢包
+                    money = "*.**";
+                }else if (uid.equals ( blankId )) {
+                    //自己是庄家
+                    if (uid.equals ( item.getId () )) {
+                        //自己抢的包
+                        money = sMoney.substring ( 0, sMoney.length () - 1 ) + "*";
+                    }else{
+                        //别人抢的包
+                        money = "0.00";
+                        niuniuNumber = -1;
+                    }
+                }else{
+                    //自己不是庄家
+                    if (blankId.equals ( item.getId () )) {
+                        //庄家抢的包
+                        money = sMoney.substring ( 0, sMoney.length () - 1 ) + "*";
+                    }else{
+                        //闲家抢的包
+                        money = sMoney;
+                    }
                 }
             }else{
-                //别人抢包
-                if (isNiuNiu){
-                    //牛牛
+                //不是牛牛房
+                if (TextUtils.isEmpty ( item.getId () ) && item.getNickname ().equals ( "免死" )){
+                    //免死抢包
+                    money = "*.**";
+                }else if (uid.equals ( item.getId () )){
+                    //自己抢的包
                     money = sMoney;
-                }else {
+                }else{
+                    //别人抢包
                     money = "0.00";
                 }
             }
         }
         helper.setText( R.id.tv_money,money);
-
-        Integer niuniuNumber = item.getNiuniuNumber();
         if(null != niuniuNumber){
             int iconRedId = R.drawable.ic_cow_0;
             switch (niuniuNumber){
@@ -101,6 +118,7 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
                     iconRedId = R.drawable.ic_cow_9;
                     break;
                 case 0:
+                case 10:
                     iconRedId = R.drawable.ic_cow_10;
                     break;
             }
@@ -135,5 +153,16 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
 
     public void setNiuNiu(boolean niuNiu) {
         isNiuNiu = niuNiu;
+    }
+
+    private String blankId = "";
+    //设置牛牛庄家id
+
+    public String getBlankId() {
+        return blankId;
+    }
+
+    public void setBlankId(String blankId) {
+        this.blankId = blankId;
     }
 }
