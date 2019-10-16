@@ -107,6 +107,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     private int mWelfareStatus;
     private int paytype = 0; //红包房间类型
     private RedpacketBean redpacketInfo;
+    private String blankMoney;
 
     public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, int redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
@@ -256,7 +257,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 }
                 if (uid.equals ( garbRedpacket.getId () )){
                     ll_my_getmoney.setVisibility ( View.VISIBLE );
-                    tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                    blankMoney = garbRedpacket.getMoney ();
+                    if (garbRedpacket.getBankerStatus ()!=0) {
+                        //牛牛庄家
+                        tv_my_getmoney.setText ( blankMoney.substring ( 0,blankMoney.length ()-1 )+"*");
+                    }else{
+                        tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                    }
                 }
             }
         }
@@ -302,6 +309,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 tvSettlementStatus.setText ( "本包游戏已截止" );
                 tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                         alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
+                tv_my_getmoney.setText ( blankMoney );
                 mAdapter.setGetAll ( true );
             }
             ll_niuniu_result.setVisibility ( View.VISIBLE );

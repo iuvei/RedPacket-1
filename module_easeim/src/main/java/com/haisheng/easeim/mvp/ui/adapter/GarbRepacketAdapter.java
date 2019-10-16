@@ -51,9 +51,9 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
                 money = "*.**";
             }else if (uid.equals ( item.getId () )){
                 //自己抢的包
-                if (isNiuNiu){
-                    //牛牛
-                    money = sMoney.substring ( 0,sMoney.length ()-2 )+"*";
+                if (isNiuNiu && item.getBankerStatus()!=0){
+                    //牛牛 庄家
+                    money = sMoney.substring ( 0,sMoney.length ()-1 )+"*";
                 }else {
                     money = sMoney;
                 }
