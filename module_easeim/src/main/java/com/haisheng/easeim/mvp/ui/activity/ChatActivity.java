@@ -53,6 +53,7 @@ import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedpacket;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatHelpMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
+import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -232,7 +233,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         boolean isService = bundle.getBoolean ( "isService" );
-        if (isService){
+        if (isService || CommontUtil.isCustomer ( toChatUsername )){
             ivRight.setVisibility ( View.GONE );
         }else {
             ivRight.setVisibility ( View.VISIBLE );

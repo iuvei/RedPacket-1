@@ -47,7 +47,7 @@ public class ChatGunControlSettlement extends EaseChatRow {
             sb.append ( "恭喜" );
             sb.append ( "<font color ='#FF0000'>"+settlementInfo.getNickname ()+"</font>," );
             sb.append ( settlementInfo.getMoney()+"-"+ settlementInfo.getMineNumber());
-            sb.append ( "收获"+settlementInfo.getBombNumber()+"," );
+            sb.append ( "收获"+settlementInfo.getBombNumber()+"个雷," );
             sb.append ( "奖励" );
             sb.append ("<font color ='#FF0000'>"+settlementInfo.getAwardMoney()+"元</font>" );
             tvResult.setText( Html.fromHtml ( sb.toString () ) );

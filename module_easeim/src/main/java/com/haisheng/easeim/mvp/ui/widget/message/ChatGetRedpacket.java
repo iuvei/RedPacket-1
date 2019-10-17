@@ -61,6 +61,7 @@ public class ChatGetRedpacket extends EaseChatRow {
 
         try {
             String getRedpacket = message.getStringAttribute( IMConstants.MESSAGE_ATTR_CONENT,"");
+            Log.e ( "tag","getRedpacket="+getRedpacket );
             if(!TextUtils.isEmpty(getRedpacket)){
                 GetRedPacketMessageBean getRedPacketMessageBean = new Gson().fromJson(getRedpacket, GetRedPacketMessageBean.class);
                 //抢包人

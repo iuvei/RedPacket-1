@@ -23,6 +23,7 @@ import com.haisheng.easeim.mvp.contract.ConversationListContract;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.presenter.ConversationListPresenter;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.EaseConstant;
@@ -206,7 +207,14 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
     public void setConversationList(List <EMConversation> conversationList) {
         int unReadMsgCount = 0;
         for (int i = 0;i<conversationList.size ();i++){
+            //未读信息条数
             unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
+        }
+        for (int j = conversationList.size ()-1;j>=0;j--) {
+            //删除客服对话，禁止客服对话在列表中显示
+            if (CommontUtil.isCustomer ( conversationList.get ( j ).conversationId () )){
+                conversationList.remove ( j );
+            }
         }
         for (int j = conversationList.size ()-1;j>=0;j--) {
             //是否置顶

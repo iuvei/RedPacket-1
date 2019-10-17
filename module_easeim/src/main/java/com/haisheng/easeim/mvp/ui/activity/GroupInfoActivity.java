@@ -25,6 +25,7 @@ import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.presenter.GroupInfoPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
+import com.hyphenate.chat.EMClient;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
