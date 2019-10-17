@@ -20,7 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:padding="@dimen/spacing_m"
-            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:src="@drawable/ease_mm_title_back"
             android:layout_centerVertical="true"
             />
         <TextView

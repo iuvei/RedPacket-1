@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="ID"
+            android:text="昵称"
             android:textColor="@color/public_black"
             android:gravity="center"
             android:textSize="@dimen/text_normal"/>

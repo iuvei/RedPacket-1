@@ -43,7 +43,7 @@ public class CommissionWeekAdapter extends BaseListAdapter <RankingBean.ResultBe
             holder.llItem.setBackgroundColor ( Color.parseColor ( "#ffffff" ) );
         }
         holder.tvNum.setText ( list.get ( position ).getRank () +"");
-        holder.tvNickName.setText ( list.get ( position ).getUid () );
+        holder.tvNickName.setText ( list.get ( position ).getNickname () );
         holder.tvCommission.setText ( list.get ( position ).getAllmoney () );
         return convertView;
     }

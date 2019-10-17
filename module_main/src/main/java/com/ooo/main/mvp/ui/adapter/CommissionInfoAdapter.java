@@ -53,7 +53,7 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvID.setText ( data.get ( position ).getSetuid () );
+        holder.tvID.setText ( data.get ( position ).getNickname () );
         holder.tvDate.setText ( data.get ( position ).getAddtime () );
         holder.tvDetail.setText ( data.get ( position ).getType () );
         holder.tvCommission.setText ( data.get ( position ).getGold () );

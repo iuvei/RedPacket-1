@@ -13,9 +13,10 @@ import java.util.List;
  */
 public class RankingBean implements Parcelable {
 
+
     /**
      * status : 1
-     * result : {"today":[{"allmoney":"6.34","uid":"970004","rank":1}],"yesterday":[{"allmoney":"28.62","uid":"970004","rank":1}],"week":[{"allmoney":"35.58","uid":"970004","rank":1}]}
+     * result : {"today":[{"allmoney":"2076.81","uid":"970013","nickname":"123456","rank":1},{"allmoney":"425.41","uid":"273486","nickname":"抢分","rank":2},{"allmoney":"247.72","uid":"569863","nickname":"177218","rank":3},{"allmoney":"195.26","uid":"101315","nickname":"小小","rank":4},{"allmoney":"182.35","uid":"970020","nickname":"dkdk","rank":5},{"allmoney":"127.24","uid":"536230","nickname":"人生巅峰","rank":6},{"allmoney":"48.96","uid":"970014","nickname":"金都酒店酒店","rank":7},{"allmoney":"47.94","uid":"229307","nickname":"恭喜发财","rank":8},{"allmoney":"19.88","uid":"970021","nickname":"hsfggg","rank":9},{"allmoney":"16.74","uid":"970004","nickname":"水","rank":10}],"yesterday":[{"allmoney":"2499.86","uid":"970013","nickname":"123456","rank":1},{"allmoney":"248.59","uid":"970014","nickname":"金都酒店酒店","rank":2},{"allmoney":"15.97","uid":"970004","nickname":"水","rank":3},{"allmoney":"9.19","uid":"970020","nickname":"dkdk","rank":4}],"week":[{"allmoney":"4576.67","uid":"970013","nickname":"123456","rank":1},{"allmoney":"957.52","uid":"970014","nickname":"金都酒店酒店","rank":2},{"allmoney":"425.41","uid":"273486","nickname":"抢分","rank":3},{"allmoney":"247.72","uid":"569863","nickname":"177218","rank":4},{"allmoney":"195.26","uid":"101315","nickname":"小小","rank":5},{"allmoney":"191.54","uid":"970020","nickname":"dkdk","rank":6},{"allmoney":"127.24","uid":"536230","nickname":"人生巅峰","rank":7},{"allmoney":"47.94","uid":"229307","nickname":"恭喜发财","rank":8},{"allmoney":"38.62","uid":"970004","nickname":"水","rank":9},{"allmoney":"19.88","uid":"970021","nickname":"hsfggg","rank":10}]}
      * msg :
      */
 
@@ -78,13 +79,15 @@ public class RankingBean implements Parcelable {
 
         public static class TodayBean {
             /**
-             * allmoney : 6.34
-             * uid : 970004
+             * allmoney : 2076.81
+             * uid : 970013
+             * nickname : 123456
              * rank : 1
              */
 
             private String allmoney;
             private String uid;
+            private String nickname;
             private int rank;
 
             public String getAllmoney() {
@@ -101,6 +104,14 @@ public class RankingBean implements Parcelable {
 
             public void setUid(String uid) {
                 this.uid = uid;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
             }
 
             public int getRank() {
@@ -114,13 +125,15 @@ public class RankingBean implements Parcelable {
 
         public static class YesterdayBean {
             /**
-             * allmoney : 28.62
-             * uid : 970004
+             * allmoney : 2499.86
+             * uid : 970013
+             * nickname : 123456
              * rank : 1
              */
 
             private String allmoney;
             private String uid;
+            private String nickname;
             private int rank;
 
             public String getAllmoney() {
@@ -137,6 +150,14 @@ public class RankingBean implements Parcelable {
 
             public void setUid(String uid) {
                 this.uid = uid;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
             }
 
             public int getRank() {
@@ -150,13 +171,15 @@ public class RankingBean implements Parcelable {
 
         public static class WeekBean {
             /**
-             * allmoney : 35.58
-             * uid : 970004
+             * allmoney : 4576.67
+             * uid : 970013
+             * nickname : 123456
              * rank : 1
              */
 
             private String allmoney;
             private String uid;
+            private String nickname;
             private int rank;
 
             public String getAllmoney() {
@@ -175,6 +198,14 @@ public class RankingBean implements Parcelable {
                 this.uid = uid;
             }
 
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+
             public int getRank() {
                 return rank;
             }
@@ -183,6 +214,7 @@ public class RankingBean implements Parcelable {
                 this.rank = rank;
             }
         }
+
 
         @Override
         public int describeContents() {
@@ -220,6 +252,7 @@ public class RankingBean implements Parcelable {
             }
         };
     }
+
 
     @Override
     public int describeContents() {

@@ -8,11 +8,12 @@ import java.util.List;
  * description
  * 佣金列表实体类
  */
-public class CommisonListBean implements Serializable {
+public class CommisonListBean implements Serializable{
+
 
     /**
      * status : 1
-     * result : {"total":"2","list":[{"id":"145","uniacid":"0","uid":"969999","setuid":"969999","gold":"10.00","level":"0","goldid":null,"type":"2","welfnums":"3","addtime":"1970-01-01 08:00"},{"id":"147","uniacid":"0","uid":"969999","setuid":"969999","gold":"5.00","level":"0","goldid":null,"type":"3","welfnums":"5","addtime":"1970-01-01 08:00"}],"pagesize":20,"beginThisweek":1568563200,"dayprofit":null}
+     * result : {"total":"11","list":[{"id":"551","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.55","level":"1","goldid":"188938","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 18:17","nickname":"hsfggg"},{"id":"550","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.19","level":"1","goldid":"188937","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 18:14","nickname":"hsfggg"},{"id":"549","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.27","level":"1","goldid":"188934","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:52","nickname":"hsfggg"},{"id":"548","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.88","level":"1","goldid":"188933","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:50","nickname":"hsfggg"},{"id":"547","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.66","level":"1","goldid":"188932","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:45","nickname":"hsfggg"},{"id":"546","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.49","level":"1","goldid":"188930","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:39","nickname":"hsfggg"},{"id":"545","uniacid":"0","uid":"970021","setuid":"970021","gold":"0.87","level":"1","goldid":"188929","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:38","nickname":"hsfggg"},{"id":"544","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.81","level":"1","goldid":"188925","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:20","nickname":"hsfggg"},{"id":"543","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.86","level":"1","goldid":"188924","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:19","nickname":"hsfggg"},{"id":"542","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.19","level":"1","goldid":"188922","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:16","nickname":"hsfggg"},{"id":"541","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.11","level":"1","goldid":"188921","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:15","nickname":"hsfggg"}],"pagesize":30,"beginThisweek":"19.88","dayprofit":"19.88"}
      * msg :
      */
 
@@ -44,18 +45,18 @@ public class CommisonListBean implements Serializable {
         this.msg = msg;
     }
 
-    public static class ResultBean implements Serializable{
+    public static class ResultBean implements Serializable {
         /**
-         * total : 2
-         * list : [{"id":"145","uniacid":"0","uid":"969999","setuid":"969999","gold":"10.00","level":"0","goldid":null,"type":"2","welfnums":"3","addtime":"1970-01-01 08:00"},{"id":"147","uniacid":"0","uid":"969999","setuid":"969999","gold":"5.00","level":"0","goldid":null,"type":"3","welfnums":"5","addtime":"1970-01-01 08:00"}]
-         * pagesize : 20
-         * beginThisweek : 1568563200
-         * dayprofit : null
+         * total : 11
+         * list : [{"id":"551","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.55","level":"1","goldid":"188938","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 18:17","nickname":"hsfggg"},{"id":"550","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.19","level":"1","goldid":"188937","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 18:14","nickname":"hsfggg"},{"id":"549","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.27","level":"1","goldid":"188934","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:52","nickname":"hsfggg"},{"id":"548","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.88","level":"1","goldid":"188933","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:50","nickname":"hsfggg"},{"id":"547","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.66","level":"1","goldid":"188932","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:45","nickname":"hsfggg"},{"id":"546","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.49","level":"1","goldid":"188930","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:39","nickname":"hsfggg"},{"id":"545","uniacid":"0","uid":"970021","setuid":"970021","gold":"0.87","level":"1","goldid":"188929","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:38","nickname":"hsfggg"},{"id":"544","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.81","level":"1","goldid":"188925","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:20","nickname":"hsfggg"},{"id":"543","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.86","level":"1","goldid":"188924","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:19","nickname":"hsfggg"},{"id":"542","uniacid":"0","uid":"970021","setuid":"970021","gold":"1.19","level":"1","goldid":"188922","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:16","nickname":"hsfggg"},{"id":"541","uniacid":"0","uid":"970021","setuid":"970021","gold":"2.11","level":"1","goldid":"188921","type":"发包返佣","welfnums":"0","addtime":"2019-10-17 17:15","nickname":"hsfggg"}]
+         * pagesize : 30
+         * beginThisweek : 19.88
+         * dayprofit : 19.88
          */
 
         private String total;
         private int pagesize;
-        private int beginThisweek;
+        private String beginThisweek;
         private String dayprofit;
         private List <ListBean> list;
 
@@ -75,11 +76,11 @@ public class CommisonListBean implements Serializable {
             this.pagesize = pagesize;
         }
 
-        public int getBeginThisweek() {
+        public String getBeginThisweek() {
             return beginThisweek;
         }
 
-        public void setBeginThisweek(int beginThisweek) {
+        public void setBeginThisweek(String beginThisweek) {
             this.beginThisweek = beginThisweek;
         }
 
@@ -101,16 +102,17 @@ public class CommisonListBean implements Serializable {
 
         public static class ListBean {
             /**
-             * id : 145
+             * id : 551
              * uniacid : 0
-             * uid : 969999
-             * setuid : 969999
-             * gold : 10.00
-             * level : 0
-             * goldid : null
-             * type : 2
-             * welfnums : 3
-             * addtime : 1970-01-01 08:00
+             * uid : 970021
+             * setuid : 970021
+             * gold : 2.55
+             * level : 1
+             * goldid : 188938
+             * type : 发包返佣
+             * welfnums : 0
+             * addtime : 2019-10-17 18:17
+             * nickname : hsfggg
              */
 
             private String id;
@@ -119,10 +121,11 @@ public class CommisonListBean implements Serializable {
             private String setuid;
             private String gold;
             private String level;
-            private Object goldid;
+            private String goldid;
             private String type;
             private String welfnums;
             private String addtime;
+            private String nickname;
 
             public String getId() {
                 return id;
@@ -172,11 +175,11 @@ public class CommisonListBean implements Serializable {
                 this.level = level;
             }
 
-            public Object getGoldid() {
+            public String getGoldid() {
                 return goldid;
             }
 
-            public void setGoldid(Object goldid) {
+            public void setGoldid(String goldid) {
                 this.goldid = goldid;
             }
 
@@ -202,6 +205,14 @@ public class CommisonListBean implements Serializable {
 
             public void setAddtime(String addtime) {
                 this.addtime = addtime;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
             }
         }
     }
