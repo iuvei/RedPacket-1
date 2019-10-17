@@ -38,5 +38,12 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/public_color_F59C23"
             android:text="红包"/>
+        <TextView
+            android:id="@+id/tv_get_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:text=",你的红包已被领完"/>
     </LinearLayout>
 </LinearLayout>

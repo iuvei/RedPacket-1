@@ -29,7 +29,7 @@ import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class ChatGetRedpacket extends EaseChatRow {
 
-    private TextView getUser,sendUser,tvRedPacket;
+    private TextView getUser,sendUser,tvRedPacket,tvGetAll;
     private LinearLayout ll_msg;
     private RedpacketBean redpacketBean;
 
@@ -48,6 +48,7 @@ public class ChatGetRedpacket extends EaseChatRow {
         sendUser = findViewById( R.id.tv_send_user);
         ll_msg = findViewById( R.id.ll_packetMsg);
         tvRedPacket = findViewById( R.id.tv_redpacket);
+        tvGetAll = findViewById( R.id.tv_get_all);
     }
 
 
@@ -76,6 +77,10 @@ public class ChatGetRedpacket extends EaseChatRow {
                 }else {
                     //别人领取了别人的包，不显示信息
                     ll_msg.setVisibility ( GONE );
+                }
+                if (getRedPacketMessageBean.isGetAllRedPacket ()){
+                    //红包已领完
+                    tvGetAll.setVisibility ( VISIBLE );
                 }
 
             }else {
@@ -113,7 +118,7 @@ public class ChatGetRedpacket extends EaseChatRow {
              * 点击红包跳转到详情
              * {@link ChatActivity#clickGetRedPacket(RedpacketBean)}
              */
-            tvRedPacket.setOnClickListener ( new OnClickListener () {
+            ll_msg.setOnClickListener ( new OnClickListener () {
                 @Override
                 public void onClick(View view) {
                     EventBus.getDefault ().post ( redpacketBean,"onSetUpView" );

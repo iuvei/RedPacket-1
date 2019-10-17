@@ -22,6 +22,7 @@ public class GetRedPacketMessageBean implements Parcelable {
     private String nickname;
     private String redid;
     private String roomid;
+    private int over;
 
     public String getHxid() {
         return hxid;
@@ -55,6 +56,23 @@ public class GetRedPacketMessageBean implements Parcelable {
         this.roomid = roomid;
     }
 
+    public int getOver() {
+        return over;
+    }
+
+    public void setOver(int over) {
+        this.over = over;
+    }
+
+    public boolean isGetAllRedPacket(){
+        if (over==1){
+            //红包已领完
+            return true;
+        }else{
+            //红包未领完
+            return false;
+        }
+    }
 
     @Override
     public int describeContents() {
