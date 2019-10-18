@@ -1,7 +1,5 @@
 package com.ooo.main.mvp.model.entity;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -155,32 +153,29 @@ public class UnderPayerBean implements Serializable {
         }
 
         public static class ListBean implements Serializable{
+
             /**
-             * fuid : 969987
-             * nickname : 2
-             * avatar : http://5761.iiio.top/attachment/images/1/2019/07/H93CeEh9A9YHg99z6hXecx9EjjEOA6.png
-             * gender : 0
-             * createtime : 1566386845
-             * agencynums : 0
-             * playernums : 1
-             * brokerage : 0
+             * id : 970010
+             * nickname : 9527v
+             * avatar : http://5949.iiio.top/attachment/images/1/2019/10/peT7754mUU3KSTSUQm3Z5KF2SZu34u.png
+             * gender : 1
+             * createtime : 1569394788
+             * count : 0
              */
 
-            private String fuid;
+            private String id;
             private String nickname;
             private String avatar;
             private String gender;
             private String createtime;
-            private int agencynums;
-            private int playernums;
-            private int brokerage;
+            private int count;
 
-            public String getFuid() {
-                return fuid;
+            public String getId() {
+                return id;
             }
 
-            public void setFuid(String fuid) {
-                this.fuid = fuid;
+            public void setId(String id) {
+                this.id = id;
             }
 
             public String getNickname() {
@@ -208,36 +203,24 @@ public class UnderPayerBean implements Serializable {
             }
 
             public String getCreatetime() {
-                SimpleDateFormat format = new SimpleDateFormat ( "MM-dd HH:mm:ss" );
-                return format.format ( new Date ( Long.parseLong ( createtime ) ) );
+                return createtime;
             }
 
             public void setCreatetime(String createtime) {
                 this.createtime = createtime;
             }
 
-            public int getAgencynums() {
-                return agencynums;
+            public int getCount() {
+                return count;
             }
 
-            public void setAgencynums(int agencynums) {
-                this.agencynums = agencynums;
+            public void setCount(int count) {
+                this.count = count;
             }
 
-            public int getPlayernums() {
-                return playernums;
-            }
-
-            public void setPlayernums(int playernums) {
-                this.playernums = playernums;
-            }
-
-            public int getBrokerage() {
-                return brokerage;
-            }
-
-            public void setBrokerage(int brokerage) {
-                this.brokerage = brokerage;
+            public String getCreatTimeFormat(){
+                SimpleDateFormat format = new SimpleDateFormat ( "MM-dd HH:mm:ss" );
+                return format.format ( new Date ( Long.parseLong ( createtime ) ) );
             }
         }
     }

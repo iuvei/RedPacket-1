@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,14 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
         holder.tvDate.setText ( data.get ( position ).getAddtime () );
         holder.tvDetail.setText ( data.get ( position ).getType () );
         holder.tvCommission.setText ( data.get ( position ).getGold () );
+        holder.llItem.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if (itemClickListener!=null){
+                    itemClickListener.onItemClick ( data,position );
+                }
+            }
+        } );
     }
 
 
@@ -71,6 +80,7 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
         TextView tvCommission;
         TextView tvDetail;
         TextView tvDate;
+        LinearLayout llItem;
 
         public ViewHolder(View itemView) {
             super ( itemView );
@@ -78,11 +88,12 @@ public class CommissionInfoAdapter extends RecyclerView.Adapter <CommissionInfoA
             tvCommission = itemView.findViewById ( R.id.tv_commission );
             tvDetail = itemView.findViewById ( R.id.tv_detail );
             tvDate = itemView.findViewById ( R.id.tv_date );
+            llItem = itemView.findViewById ( R.id.ll_item );
 
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(List <CommissionInfo> data, int position);
+        void onItemClick(List <CommisonListBean.ResultBean.ListBean> data, int position);
     }
 }

@@ -88,6 +88,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     GarbRepacketAdapter mAdapter;
     @BindView(R2.id.iv_back)
     ImageView ivBack;
+    @BindView(R2.id.iv_ping)
+    ImageView iv_ping;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
     @BindView(R2.id.tv_right)
@@ -153,8 +155,10 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             if (paytype == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET ||
                     paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
                 tvRight.setText ( "账单记录" );
+                iv_ping.setVisibility ( View.GONE );
             } else {
                 tvRight.setText ( "红包记录" );
+                iv_ping.setVisibility ( View.VISIBLE );
             }
         }
         cdvTime.setOnCountdownEndListener ( new CountdownView.OnCountdownEndListener () {

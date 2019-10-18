@@ -151,6 +151,23 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_go"/>
             </LinearLayout>
+            <View style="@style/discover_line"></View>
+            <LinearLayout
+                android:id="@+id/layout_my_earnings"
+                style="@style/discover_layout"
+                >
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/icon_skm"/>
+                <TextView
+                    android:text="我的收益"
+                    style="@style/discover_layout_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_go"/>
+            </LinearLayout>
             <View style="@style/discover_style_view"></View>
             <LinearLayout
                 android:id="@+id/layout_game_reward_info"

@@ -19,7 +19,9 @@ import com.ooo.main.R;
 import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerCommisonComponent;
 import com.ooo.main.mvp.contract.CommisonContract;
+import com.ooo.main.mvp.model.entity.BillBean;
 import com.ooo.main.mvp.model.entity.CommisonListBean;
+import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.presenter.CommisonPresenter;
 import com.ooo.main.mvp.ui.adapter.CommissionInfoAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,6 +37,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.view.recyclerview.DividerGridItemDecoration;
+import me.jessyan.armscomponent.commonsdk.core.RouterHub;
+import me.jessyan.armscomponent.commonsdk.utils.ARouterUtils;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -121,6 +125,16 @@ public class CommisonActivity extends BaseActivity <CommisonPresenter> implement
                 getCommissionInfo(pageNum);
             }
         });
+        recycleAdapter.setItemClickListener ( new CommissionInfoAdapter.ItemClickListener () {
+            @Override
+            public void onItemClick(List <CommisonListBean.ResultBean.ListBean> data, int position) {
+                CommisonListBean.ResultBean.ListBean bean = (CommisonListBean.ResultBean.ListBean) data.get ( position );
+                Bundle bundle = new Bundle();
+                bundle.putLong("roomId",ConvertNumUtils.stringToLong ( bean.getRoomid () ));
+                bundle.putLong("redpacketId",ConvertNumUtils.stringToLong ( bean.getGoldid () ));
+                ARouterUtils.navigation(CommisonActivity.this, RouterHub.IM_REDPACKETDETAILACTIVITY,bundle);
+            }
+        } );
     }
 
     private void getCommissionInfo(int pageNum){

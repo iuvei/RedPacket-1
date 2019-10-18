@@ -160,7 +160,9 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
 
     @Override
     public void getUnderLineListSuccess(UnderPayerBean underPayerBean) {
-        recycleAdapter.setDatas ( underPayerBean.getResult ().getList () );
+        if (underPayerBean.getResult ().getList ()!=null) {
+            recycleAdapter.setDatas ( underPayerBean.getResult ().getList () );
+        }
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.GameReadmeActivity;
 import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
+import com.ooo.main.mvp.ui.activity.MyEarningsActivityActivity;
 import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
@@ -121,7 +122,7 @@ public class RewardFragment extends BaseSupportFragment {
 
     @OnClick({R2.id.layout_scan, R2.id.layout_promote, R2.id.layout_underline_query, R2.id.layout_underline_list,
             R2.id.layout_luck, R2.id.layout_ommission_list, R2.id.layout_ommission_ranking, R2.id.layout_game_reward_info,
-            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info, R2.id.layout_game_niuniu_info})
+            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info, R2.id.layout_game_niuniu_info,R2.id.layout_my_earnings})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.layout_scan) {
@@ -154,6 +155,9 @@ public class RewardFragment extends BaseSupportFragment {
         } else if (i == R.id.layout_ommission_ranking) {
             //佣金排行榜
             startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
+        }else if (i == R.id.layout_my_earnings) {
+            //我的收益
+            startActivity ( new Intent ( getActivity (), MyEarningsActivityActivity.class ) );
         } else if (i == R.id.layout_game_reward_info) {
             //扫雷游戏奖励说明
             GameReadmeActivity.start ( getActivity (),0 );

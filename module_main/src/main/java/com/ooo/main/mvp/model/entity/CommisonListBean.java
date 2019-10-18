@@ -113,6 +113,7 @@ public class CommisonListBean implements Serializable{
              * welfnums : 0
              * addtime : 2019-10-17 18:17
              * nickname : hsfggg
+             * roomid:0,
              */
 
             private String id;
@@ -126,6 +127,7 @@ public class CommisonListBean implements Serializable{
             private String welfnums;
             private String addtime;
             private String nickname;
+            private String roomid;
 
             public String getId() {
                 return id;
@@ -213,6 +215,14 @@ public class CommisonListBean implements Serializable{
 
             public void setNickname(String nickname) {
                 this.nickname = nickname;
+            }
+
+            public String getRoomid() {
+                return roomid;
+            }
+
+            public void setRoomid(String roomid) {
+                this.roomid = roomid;
             }
         }
     }

@@ -53,9 +53,9 @@ public class UnderLineListAdapter extends RecyclerView.Adapter <UnderLineListAda
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvCreatDate.setText ( data.get ( position ).getCreatetime () );
+        holder.tvCreatDate.setText ( data.get ( position ).getCreatTimeFormat () );
         holder.tvNickName.setText ( data.get ( position ).getNickname () );
-        holder.tvUnderLineNum.setText ( data.get ( position ).getPlayernums ()+"" );
+        holder.tvUnderLineNum.setText ( data.get ( position ).getCount ()+"" );
     }
 
     @Override
