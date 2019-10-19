@@ -183,10 +183,6 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
             startActivity ( new Intent ( this, WithdrawalActivity.class ) );
         } else if (i == R.id.tv_recharge) {
             //充值
-            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
-                showAuthDialog ();
-                return;
-            }
             startActivity ( new Intent ( this, ChooseRechargeActivity.class ) );
         } else if (i == R.id.tv_blank_card) {
             //银行卡

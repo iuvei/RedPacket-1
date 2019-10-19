@@ -52,10 +52,10 @@ public class ApiModel extends BaseModel{
      * @param page
      * @return
      */
-    public Observable<UnderPayerBean> getUnderLineList(String status, String fuid, String page) {
+    public Observable<UnderPayerBean> getUnderLineList(String status, String fuid, int page,int level,String agentid) {
         String token = UserPreferenceManager.getInstance().getCurrentUserToken();
         return mRepositoryManager.obtainRetrofitService( ApiService.class)
-                .getUnderLineList (token,status,fuid,page);
+                .getUnderLineList (token,status,fuid,page,level,agentid);
     }
 
 

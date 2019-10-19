@@ -1,8 +1,6 @@
 package com.ooo.main.mvp.model.entity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,9 +10,10 @@ import java.util.List;
  */
 public class UnderPayerBean implements Serializable {
 
+
     /**
      * status : 1
-     * result : {"list":[{"fuid":"969987","nickname":"2","avatar":"http://5761.iiio.top/attachment/images/1/2019/07/H93CeEh9A9YHg99z6hXecx9EjjEOA6.png","gender":"0","createtime":"1566386845","agencynums":0,"playernums":1,"brokerage":0}],"team":{"allnums":4,"agencynums":0,"playernums":4},"drive":{"allnums":1,"agencynums":0,"playernums":1}}
+     * result : {"total":"2","list":[{"id":"970005","agentid":"970003","agentnickname":"你好","times":"2019-09-10 11:30:52"},{"id":"692536","agentid":"970003","agentnickname":"你好","times":"2019-09-10 11:30:52"}],"pagesize":10}
      * msg :
      */
 
@@ -48,28 +47,29 @@ public class UnderPayerBean implements Serializable {
 
     public static class ResultBean implements Serializable{
         /**
-         * list : [{"fuid":"969987","nickname":"2","avatar":"http://5761.iiio.top/attachment/images/1/2019/07/H93CeEh9A9YHg99z6hXecx9EjjEOA6.png","gender":"0","createtime":"1566386845","agencynums":0,"playernums":1,"brokerage":0}]
-         * team : {"allnums":4,"agencynums":0,"playernums":4}
-         * drive : {"allnums":1,"agencynums":0,"playernums":1}
+         * total : 2
+         * list : [{"id":"970005","agentid":"970003","agentnickname":"你好","times":"2019-09-10 11:30:52"},{"id":"692536","agentid":"970003","agentnickname":"你好","times":"2019-09-10 11:30:52"}]
+         * pagesize : 10
          */
-        private TeamBean team;
-        private DriveBean drive;
+
+        private String total;
+        private int pagesize;
         private List <ListBean> list;
 
-        public TeamBean getTeam() {
-            return team;
+        public String getTotal() {
+            return total;
         }
 
-        public void setTeam(TeamBean team) {
-            this.team = team;
+        public void setTotal(String total) {
+            this.total = total;
         }
 
-        public DriveBean getDrive() {
-            return drive;
+        public int getPagesize() {
+            return pagesize;
         }
 
-        public void setDrive(DriveBean drive) {
-            this.drive = drive;
+        public void setPagesize(int pagesize) {
+            this.pagesize = pagesize;
         }
 
         public List <ListBean> getList() {
@@ -80,95 +80,18 @@ public class UnderPayerBean implements Serializable {
             this.list = list;
         }
 
-        public static class TeamBean implements Serializable{
-            /**
-             * allnums : 4
-             * agencynums : 0
-             * playernums : 4
-             */
-
-            private int allnums;
-            private int agencynums;
-            private int playernums;
-
-            public int getAllnums() {
-                return allnums;
-            }
-
-            public void setAllnums(int allnums) {
-                this.allnums = allnums;
-            }
-
-            public int getAgencynums() {
-                return agencynums;
-            }
-
-            public void setAgencynums(int agencynums) {
-                this.agencynums = agencynums;
-            }
-
-            public int getPlayernums() {
-                return playernums;
-            }
-
-            public void setPlayernums(int playernums) {
-                this.playernums = playernums;
-            }
-        }
-
-        public static class DriveBean implements Serializable{
-            /**
-             * allnums : 1
-             * agencynums : 0
-             * playernums : 1
-             */
-
-            private int allnums;
-            private int agencynums;
-            private int playernums;
-
-            public int getAllnums() {
-                return allnums;
-            }
-
-            public void setAllnums(int allnums) {
-                this.allnums = allnums;
-            }
-
-            public int getAgencynums() {
-                return agencynums;
-            }
-
-            public void setAgencynums(int agencynums) {
-                this.agencynums = agencynums;
-            }
-
-            public int getPlayernums() {
-                return playernums;
-            }
-
-            public void setPlayernums(int playernums) {
-                this.playernums = playernums;
-            }
-        }
-
         public static class ListBean implements Serializable{
-
             /**
-             * id : 970010
-             * nickname : 9527v
-             * avatar : http://5949.iiio.top/attachment/images/1/2019/10/peT7754mUU3KSTSUQm3Z5KF2SZu34u.png
-             * gender : 1
-             * createtime : 1569394788
-             * count : 0
+             * id : 970005
+             * agentid : 970003
+             * agentnickname : 你好
+             * times : 2019-09-10 11:30:52
              */
 
             private String id;
-            private String nickname;
-            private String avatar;
-            private String gender;
-            private String createtime;
-            private int count;
+            private String agentid;
+            private String agentnickname;
+            private String times;
 
             public String getId() {
                 return id;
@@ -178,49 +101,28 @@ public class UnderPayerBean implements Serializable {
                 this.id = id;
             }
 
-            public String getNickname() {
-                return nickname;
+            public String getAgentid() {
+                return agentid;
             }
 
-            public void setNickname(String nickname) {
-                this.nickname = nickname;
+            public void setAgentid(String agentid) {
+                this.agentid = agentid;
             }
 
-            public String getAvatar() {
-                return avatar;
+            public String getAgentnickname() {
+                return agentnickname;
             }
 
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
+            public void setAgentnickname(String agentnickname) {
+                this.agentnickname = agentnickname;
             }
 
-            public String getGender() {
-                return gender;
+            public String getTimes() {
+                return times;
             }
 
-            public void setGender(String gender) {
-                this.gender = gender;
-            }
-
-            public String getCreatetime() {
-                return createtime;
-            }
-
-            public void setCreatetime(String createtime) {
-                this.createtime = createtime;
-            }
-
-            public int getCount() {
-                return count;
-            }
-
-            public void setCount(int count) {
-                this.count = count;
-            }
-
-            public String getCreatTimeFormat(){
-                SimpleDateFormat format = new SimpleDateFormat ( "MM-dd HH:mm:ss" );
-                return format.format ( new Date ( Long.parseLong ( createtime ) ) );
+            public void setTimes(String times) {
+                this.times = times;
             }
         }
     }

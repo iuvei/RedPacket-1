@@ -220,10 +220,6 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
         } else if (i == R.id.ll_recharge) {
             //充值
-            if (!AppLifecyclesImpl.getUserinfo ().isCertification ()){
-                showAuthDialog ();
-                return;
-            }
             startActivity ( new Intent ( getActivity (), ChooseRechargeActivity.class ) );
         } else if (i == R.id.ll_self_withdrawal) {
             //提现

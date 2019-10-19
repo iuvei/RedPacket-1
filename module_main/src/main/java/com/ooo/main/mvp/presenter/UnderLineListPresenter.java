@@ -62,16 +62,26 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
         this.mApplication = null;
     }
 
-    public void getUnderLineList(String status,String fuid,String page){
-        apiModel.getUnderLineList ( status,fuid,page )
+    public void getUnderLineList(String status,String fuid,int page,int level,String agentid){
+        apiModel.getUnderLineList ( status,fuid,page,level,agentid )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <UnderPayerBean> (mErrorHandler) {
                     @Override
                     public void onNext(UnderPayerBean underPayerBean) {
                         if (underPayerBean.getStatus ()==1) {
-                            mRootView.getUnderLineListSuccess(underPayerBean);
+                            if (page == 1){
+                                mRootView.getUnderLineRefrestSuccess(underPayerBean);
+                            }else{
+                                mRootView.getUnderLineLoadMoreSuccess(underPayerBean);
+                            }
+
                         }else{
-                            mRootView.getUnderLineListFail();
+                            if (page==1){
+                                mRootView.getUnderLineRefrestFail();
+                            }else{
+                                mRootView.getUnderLineLoadMoreFail();
+                            }
+
                         }
                     }
                 } );
