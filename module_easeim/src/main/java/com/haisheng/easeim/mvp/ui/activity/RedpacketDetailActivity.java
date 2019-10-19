@@ -39,6 +39,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.iwgang.countdownview.CountdownView;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -106,6 +107,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     TextView tv_buy_win;
     @BindView(R2.id.tv_niuniu_num)
     TextView tv_niuniu_num;
+    @BindView(R2.id.iv_result)
+    ImageView iv_result;
 
 
     private Long mRoomId, mRedpacketId;
@@ -113,7 +116,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     private int paytype = 0; //红包房间类型
     private RedpacketBean redpacketInfo;
     private String blankMoney;
-    private Integer niuniuNum;
+    private Integer niuniuNum = -1;
+    private Integer blankNiuNiuNum = -1; //庄家的牛牛点数
+    private String blankId; //庄家id
+    private double blankGetMoney; //庄家金额
+    private String myId; //闲家id
+    private double myGetMoney; //闲家金额
+    private Integer myNiuniuNum; //闲家的牛牛点数
 
     public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, int redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
@@ -274,12 +283,22 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                             tv_my_getmoney.setText ( blankMoney.substring ( 0,blankMoney.length ()-1 )+"*");
                         }else{
                             tv_my_getmoney.setText ( garbRedpacket.getMoney () );
+                            //闲家id
+                            myId = garbRedpacket.getId ();
+                            myGetMoney = ConvertNumUtils.stringToDouble ( garbRedpacket.getMoney ());
+                            myNiuniuNum = garbRedpacket.getNiuniuNumber ();
                         }
                     }
                     if (garbRedpacket.getBankerStatus () != 0) {
+                        blankNiuNiuNum = garbRedpacket.getNiuniuNumber ();
+                        //庄家id
+                        blankId = garbRedpacket.getId ();
+                        //庄家红包
+                        blankGetMoney = ConvertNumUtils.stringToDouble ( garbRedpacket.getMoney () );
                         //牛牛庄家id
                         mAdapter.setBlankId ( garbRedpacket.getId () );
                     }
+                    mAdapter.setNiuNiu ( true );
                 }else{
                     //不是牛牛房 显示自己的金额
                     if (uid.equals ( garbRedpacket.getId () )){
@@ -376,12 +395,43 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 ll_my_getmoney.setVisibility ( View.VISIBLE );
                 tv_niuniu_num.setText ( "" );
                 mAdapter.setGetAll ( true );
+                ll_niuniu_result.setVisibility ( View.VISIBLE );
+                tv_banker_win.setText ( redpacketInfo.getVillagenums () + "" );
+                tv_buy_win.setText ( redpacketInfo.getNotbuynums () + "" );
+                tvMoneyNumber.setText ( String.format ( "%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
+                mAdapter.setNiuNiu ( true );
+
+                if (TextUtils.isEmpty ( myId ) || TextUtils.isEmpty ( blankId ) || blankId.equals ( myId )){
+                    return;
+                }
+
+                //如果牛牛后台返回0，则将他转成10
+                if (blankNiuNiuNum==0){
+                    blankNiuNiuNum = 10;
+                }
+                //如果牛牛后台返回0，则将他转成10
+                if (myNiuniuNum==0){
+                    myNiuniuNum = 10;
+                }
+
+                //庄家点数大于闲家点数
+                if (blankNiuNiuNum > myNiuniuNum){
+                    iv_result.setBackgroundResource ( R.mipmap.icon_loser );
+                    return;
+                }
+                //庄家点数小于闲家点数
+                if (blankNiuNiuNum < myNiuniuNum){
+                    iv_result.setBackgroundResource ( R.mipmap.icon_win );
+                    return;
+                }
+                //如果庄家点数等于闲家点数
+                //庄家金额大于闲家金额
+                if (blankGetMoney>=myGetMoney){
+                    iv_result.setBackgroundResource ( R.mipmap.icon_loser );
+                }else{
+                    iv_result.setBackgroundResource ( R.mipmap.icon_win );
+                }
             }
-            ll_niuniu_result.setVisibility ( View.VISIBLE );
-            tv_banker_win.setText ( redpacketInfo.getVillagenums () + "" );
-            tv_buy_win.setText ( redpacketInfo.getNotbuynums () + "" );
-            tvMoneyNumber.setText ( String.format ( "%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
-            mAdapter.setNiuNiu ( true );
 
         } else if (paytype == IMConstants.ROOM_TYPE_WELFARE_REDPACKET || paytype == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
             //福利房 禁抢房
