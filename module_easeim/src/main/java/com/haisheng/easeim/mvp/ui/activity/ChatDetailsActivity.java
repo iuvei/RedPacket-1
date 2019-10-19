@@ -267,14 +267,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                         if (userInfo==null){
                             return;
                         }
-                        //确定
-                        EMConversation conversation = EMClient.getInstance().chatManager().getConversation(userInfo.getHxId ());
-                        //获取此会话的所有消息
-                        List <EMMessage> messages = conversation.getAllMessages();
-                        for (int i=0;i<messages.size ();i++){
-                            //删除当前会话的某条聊天记录
-                            conversation.removeMessage(messages.get (i).getMsgId ());
-                        }
+                        IMHelper.getInstance ().delectContact ( userInfo.getHxId () );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {

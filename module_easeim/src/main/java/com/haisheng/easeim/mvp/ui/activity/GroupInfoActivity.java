@@ -26,6 +26,8 @@ import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.presenter.GroupInfoPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -193,7 +195,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         llClearMessage.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                IMHelper.getInstance ().delectContact ( mChatRoomBean.getHxId () );
+                showClearMessage ();
             }
         } );
     }
@@ -218,6 +220,36 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
             //昵称
             updateNickName();
         }
+    }
+
+    //清除聊天记录
+    private void showClearMessage() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "是否清空所有聊天记录吗？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        if (mChatRoomBean==null){
+                            return;
+                        }
+                        IMHelper.getInstance ().delectContact ( mChatRoomBean.getHxId () );
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
     //退出房间

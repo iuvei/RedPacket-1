@@ -132,6 +132,8 @@ public class CommisonActivity extends BaseActivity <CommisonPresenter> implement
                 Bundle bundle = new Bundle();
                 bundle.putLong("roomId",ConvertNumUtils.stringToLong ( bean.getRoomid () ));
                 bundle.putLong("redpacketId",ConvertNumUtils.stringToLong ( bean.getGoldid () ));
+                bundle.putInt ( "welfareStatus", ConvertNumUtils.stringToInt ( bean.getWelfnums () ) );
+                bundle.putInt ( "paytype", bean.getRoomtype () );
                 ARouterUtils.navigation(CommisonActivity.this, RouterHub.IM_REDPACKETDETAILACTIVITY,bundle);
             }
         } );

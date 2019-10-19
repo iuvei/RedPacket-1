@@ -4,36 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
-import com.ooo.main.mvp.model.entity.CommissionInfo;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.GameReadmeActivity;
 import com.ooo.main.mvp.ui.activity.LuckyWheelActivity;
-import com.ooo.main.mvp.ui.activity.MyEarningsActivityActivity;
 import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
-import com.ooo.main.mvp.ui.activity.WebviewLuckDrawActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
-import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -122,7 +116,7 @@ public class RewardFragment extends BaseSupportFragment {
 
     @OnClick({R2.id.layout_scan, R2.id.layout_promote, R2.id.layout_underline_query, R2.id.layout_underline_list,
             R2.id.layout_luck, R2.id.layout_ommission_list, R2.id.layout_ommission_ranking, R2.id.layout_game_reward_info,
-            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info, R2.id.layout_game_niuniu_info,R2.id.layout_my_earnings})
+            R2.id.layout_ommission_reward_info, R2.id.layout_game_control_info, R2.id.layout_game_niuniu_info})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.layout_scan) {
@@ -155,10 +149,7 @@ public class RewardFragment extends BaseSupportFragment {
         } else if (i == R.id.layout_ommission_ranking) {
             //佣金排行榜
             startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
-        }else if (i == R.id.layout_my_earnings) {
-            //我的收益
-            startActivity ( new Intent ( getActivity (), MyEarningsActivityActivity.class ) );
-        } else if (i == R.id.layout_game_reward_info) {
+        }else if (i == R.id.layout_game_reward_info) {
             //扫雷游戏奖励说明
             GameReadmeActivity.start ( getActivity (),0 );
         } else if (i == R.id.layout_ommission_reward_info) {

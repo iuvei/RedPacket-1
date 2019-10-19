@@ -205,16 +205,16 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
 
     @Override
     public void setConversationList(List <EMConversation> conversationList) {
-        int unReadMsgCount = 0;
-        for (int i = 0;i<conversationList.size ();i++){
-            //未读信息条数
-            unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
-        }
         for (int j = conversationList.size ()-1;j>=0;j--) {
             //删除客服对话，禁止客服对话在列表中显示
             if (CommontUtil.isCustomer ( conversationList.get ( j ).conversationId () )){
                 conversationList.remove ( j );
             }
+        }
+        int unReadMsgCount = 0;
+        for (int i = 0;i<conversationList.size ();i++){
+            //未读信息条数
+            unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
         }
         for (int j = conversationList.size ()-1;j>=0;j--) {
             //是否置顶
