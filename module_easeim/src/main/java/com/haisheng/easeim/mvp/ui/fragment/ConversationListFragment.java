@@ -108,8 +108,9 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.getBoolean ( IMConstants.IS_CONFLICT, false ))
+        if (savedInstanceState != null && savedInstanceState.getBoolean ( IMConstants.IS_CONFLICT, false )){
             return;
+        }
         super.onActivityCreated ( savedInstanceState );
     }
 
@@ -216,6 +217,15 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
             //未读信息条数
             unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
         }
+
+        //红包房置顶
+        for (int j = conversationList.size ()-1;j>=0;j--) {
+            if (conversationList.get ( j ).isGroup ()) {
+                //将i，j的位置的两个元素交换
+                Collections.swap ( conversationList, 0, j );
+            }
+        }
+
         for (int j = conversationList.size ()-1;j>=0;j--) {
             //是否置顶
             boolean chatTop = SpUtils.getValue ( getActivity (), conversationList.get ( j ).conversationId (), false );
