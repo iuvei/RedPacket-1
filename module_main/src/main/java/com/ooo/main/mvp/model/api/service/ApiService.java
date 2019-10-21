@@ -43,7 +43,6 @@ public interface ApiService {
      * status	否	Int	用户级别	0全部1代理用户2会员用户
      * fuid	否	string	无	//查询账号
      * page	是	int	页数，默认1，针对返回list
-     * level	是	下线等级
      * agentid	是	下线id
      */
     @POST("index.php?i=1&c=entry&p=Agency&do=Apis&m=sz_yi&op=levellist")
@@ -53,7 +52,6 @@ public interface ApiService {
             @Field("status") String status,
             @Field("fuid") String fuid,
             @Field("page") int page,
-            @Field("level") int level,
             @Field("agentid") String agentid
             );
 

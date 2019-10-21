@@ -21,7 +21,6 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerUnderLineListComponent;
 import com.ooo.main.mvp.contract.UnderLineListContract;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
-import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.UnderLineListPresenter;
 import com.ooo.main.mvp.ui.adapter.UnderLineListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -60,19 +59,17 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
+    @BindView(R2.id.tv_nodata)
+    TextView tvNoData;
     @BindView(R2.id.btn_pre)
     Button btnPre;
-    @BindView(R2.id.btn_next)
-    Button btnNext;
     @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     private List <UnderPayerBean.ResultBean.ListBean> underLineBeans;
     private UnderLineListAdapter recycleAdapter;
-    private int page = 1;
-    private int level = 0;
-    private String agenid = "";
+    private String chooseAgenId ="";
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -95,7 +92,7 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "下线列表" );
         underLineBeans = new ArrayList <> ();
-        getUnderLine ( page, level, agenid );
+        getUnderLineRefresh (chooseAgenId );
         recycleAdapter = new UnderLineListAdapter ( this, underLineBeans );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager ( this, LinearLayoutManager.VERTICAL, false );
         //设置布局管理器
@@ -113,30 +110,31 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
         refreshLayout.setOnRefreshListener ( new OnRefreshListener () {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                page = 1;
-                getUnderLine ( page, level, agenid );
-                recycleAdapter.setDatas ( underLineBeans );
+                getUnderLineRefresh (chooseAgenId );
             }
         } );
         refreshLayout.setOnLoadMoreListener ( new OnLoadMoreListener () {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                page++;
-                getUnderLine ( page, level, agenid );
+                getUnderLineLoadMore ( chooseAgenId );
             }
         } );
 
         recycleAdapter.setItemClickListener ( new UnderLineListAdapter.ItemClickListener () {
             @Override
             public void onItemClick(List <UnderPayerBean.ResultBean.ListBean> data, int position) {
-                page = 1;
-                getUnderLine ( page, level, agenid );
+                chooseAgenId = data.get ( position ).getId ();
+                getUnderLineRefresh ( chooseAgenId );
             }
         } );
     }
 
-    public void getUnderLine(int page, int level, String agenid) {
-        mPresenter.getUnderLineList ( "", "", page, level, agenid );
+    public void getUnderLineRefresh(String agenid) {
+        mPresenter.underLineRefresh ( agenid );
+    }
+
+    public void getUnderLineLoadMore(String agenid) {
+        mPresenter.underLineloadMore ( agenid );
     }
 
     @Override
@@ -178,23 +176,24 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
         finish ();
     }
 
-    @OnClick({R2.id.btn_pre, R2.id.btn_next})
+    @OnClick({R2.id.btn_pre})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.btn_pre) {
-            page= 1;
-
-        } else if (i == R.id.btn_next) {
-            page= 1;
-
+            mPresenter.underLinePre ();
         }
     }
 
     @Override
     public void getUnderLineRefrestSuccess(UnderPayerBean underPayerBean) {
         refreshLayout.finishRefresh ();
-        if (underPayerBean.getResult ().getList () != null) {
+        if (underPayerBean.getResult ().getList () != null && underPayerBean.getResult ().getList ().size ()>0) {
             recycleAdapter.setDatas ( underPayerBean.getResult ().getList () );
+            tvNoData.setVisibility ( View.GONE );
+            refreshLayout.setVisibility ( View.VISIBLE );
+        }else{
+            tvNoData.setVisibility ( View.VISIBLE );
+            refreshLayout.setVisibility ( View.GONE );
         }
     }
 
@@ -203,8 +202,12 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
         refreshLayout.finishLoadMore ();
         if (underPayerBean.getResult ().getList () != null && underPayerBean.getResult ().getList ().size ()>0) {
             recycleAdapter.addData ( underPayerBean.getResult ().getList () );
+            tvNoData.setVisibility ( View.GONE );
+            refreshLayout.setVisibility ( View.VISIBLE );
         }else{
             ToastUtils.showShort ( "没有更多数据了" );
+            tvNoData.setVisibility ( View.VISIBLE );
+            refreshLayout.setVisibility ( View.GONE );
         }
     }
 
@@ -216,5 +219,10 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     @Override
     public void getUnderLineLoadMoreFail() {
         refreshLayout.finishLoadMore ();
+    }
+
+    @Override
+    public void hasPre(boolean b) {
+        btnPre.setEnabled ( b );
     }
 }

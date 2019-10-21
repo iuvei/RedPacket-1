@@ -31,6 +31,7 @@
     <color name="gray_normal">#ececec</color>
     <color name="gray_light">#f4f4f4</color>
     <color name="gray_dark">#999999</color>
+    <color name="gray_dark1">#88999999</color>
 
     <color name="public_white">#FFFFFF</color>
     <color name="public_transparent">@android:color/transparent</color>
