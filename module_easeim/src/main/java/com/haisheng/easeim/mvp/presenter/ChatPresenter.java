@@ -152,13 +152,15 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         mCommonModel.getBalance()
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
-                    if(isShowDialog)
-                        mRootView.showLoading();//显示下拉刷新的进度条
+                    if(isShowDialog) {
+                        mRootView.showLoading ();//显示下拉刷新的进度条
+                    }
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> {
-                    if(isShowDialog)
-                        mRootView.hideLoading();//隐藏下拉刷新的进度条
+                    if(isShowDialog) {
+                        mRootView.hideLoading ();//隐藏下拉刷新的进度条
+                    }
                 })
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<Double>>(mErrorHandler) {
@@ -605,7 +607,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             CheckRedpacketInfo checkRedpacketInfo = response.getResult();
                             if(checkRedpacketInfo.getStatus() != 0){
                                 //已抢过红包
-                                message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,response.getStatus());
+                                message.setAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS,checkRedpacketInfo.getStatus());
                                 EMClient.getInstance().chatManager().saveMessage(message);
                                 mRootView.refreshList();
                                 mRootView.showRedPacketDetail(redpacketBean);

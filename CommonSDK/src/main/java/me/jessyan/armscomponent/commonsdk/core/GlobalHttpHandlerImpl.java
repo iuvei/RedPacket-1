@@ -16,6 +16,7 @@
 package me.jessyan.armscomponent.commonsdk.core;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -72,7 +73,9 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
             Gson gson = new Gson ();
             ResponseBean responseBean = gson.fromJson ( httpResult, ResponseBean.class );
             if (responseBean.getStatus () == 2){
-                ARouter.getInstance ().build ( RouterHub.MAIN_LOGINACTIVITY ).navigation ();
+                Bundle bundle = new Bundle (  );
+                bundle.putBoolean ("logout", true);
+                ARouter.getInstance ().build ( RouterHub.MAIN_LOGINACTIVITY ).with ( bundle ).navigation ();
                 ToastUtils.showShort ( "token失效，请重新登录" );
             }
         } catch (Exception e) {

@@ -101,6 +101,13 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
         StatusBarUtils.setStatusBarDarkTheme ( this,true );
         String username = SpUtils.getValue ( this,"username","" );
         String password = SpUtils.getValue ( this,"password","" );
+        Bundle bundle = getIntent ().getExtras ();
+        if (bundle!=null) {
+            boolean isLogout = bundle.getBoolean ( "logout" );
+            if (isLogout) {
+                mPresenter.logout ();
+            }
+        }
         etPhone.setText ( username );
         etPassword.setText ( password );
         /*

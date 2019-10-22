@@ -81,8 +81,9 @@ public abstract class SelectItemPopupWindow<T> {
             itemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    if(null != mOnItemClickListener)
-                        mOnItemClickListener.onItemClick(adapter,view,position);
+                    if(null != mOnItemClickListener) {
+                        mOnItemClickListener.onItemClick ( adapter, view, position );
+                    }
                     mPopupWindow.dismiss();
                 }
             });

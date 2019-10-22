@@ -59,10 +59,14 @@ public class ConversationModel extends BaseModel{
         synchronized (conversations) {
             for (EMConversation conversation : conversations.values()) {
                 if(tag ==  IMConstants.CONVERSATION_FRIEND){
-                    if(conversation.isGroup()) continue;
+                    if(conversation.isGroup()) {
+                        continue;
+                    }
 
                 }else if(tag ==  IMConstants.CONVERSATION_GROUP){
-                    if(!conversation.isGroup()) continue;
+                    if(!conversation.isGroup()) {
+                        continue;
+                    }
                 }
                 if (conversation.getLastMessage () == null){
                     sortList.add(new Pair<Long, EMConversation>(System.currentTimeMillis (), conversation));

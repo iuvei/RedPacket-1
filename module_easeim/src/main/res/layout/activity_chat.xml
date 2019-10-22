@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include layout="@layout/title_layout"/>
-
     <LinearLayout
         android:id="@+id/ll_alert_kicked_off"
         android:layout_width="match_parent"
@@ -53,8 +52,44 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"></View>
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            tools:src="@drawable/redpacket_pin"/>
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="12345"
+            android:textColor="@color/public_black"
+            android:layout_toRightOf="@+id/iv_head"
+            android:layout_marginLeft="15dp"/>
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_close"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:animateLayoutChanges="true">
         <RelativeLayout
             android:layout_width="match_parent"

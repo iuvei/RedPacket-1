@@ -38,6 +38,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.simple.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -217,25 +218,49 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
             //未读信息条数
             unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
         }
-
-        //红包房置顶
-        for (int j = conversationList.size ()-1;j>=0;j--) {
-            if (conversationList.get ( j ).isGroup ()) {
-                //将i，j的位置的两个元素交换
-                Collections.swap ( conversationList, 0, j );
+        List <EMConversation> groupList = new ArrayList <> (  );
+        List <EMConversation> singleList = new ArrayList <> (  );
+        for (EMConversation conversation:conversationList){
+            //如果是群聊
+            if (conversation.isGroup ()){
+                groupList.add ( conversation );
+            }else{
+                //如果是单聊
+                singleList.add ( conversation );
             }
         }
 
-        for (int j = conversationList.size ()-1;j>=0;j--) {
-            //是否置顶
-            boolean chatTop = SpUtils.getValue ( getActivity (), conversationList.get ( j ).conversationId (), false );
-            if (chatTop) {
-                //将i，j的位置的两个元素交换
-                Collections.swap ( conversationList, 0, j );
-            }
-        }
-        conversationListView.init ( conversationList );
+        //将房间置顶
+        setTop ( groupList );
+        setTop ( singleList );
+        groupList.addAll ( singleList );
+        conversationListView.init ( groupList );
         EventBus.getDefault ().post ( unReadMsgCount, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
+    }
+
+    //将对象置顶
+    private void setTop(List <EMConversation> groupList) {
+        for (int i = 0,size = groupList.size (); i<size;i++) {
+            //是否置顶
+            if (!isChatTop ( groupList, i )) {
+                //将i位置的元素放到最后面
+                groupList.add ( groupList.get ( i ) );
+                groupList.set ( i,null );
+            }
+        }
+        removeNull ( groupList );
+    }
+
+    //移除空对象
+    private void removeNull(List <EMConversation> groupList) {
+        List<EMConversation> removeList = new ArrayList <> (  );
+        removeList.add ( null );
+        groupList.removeAll ( removeList );
+    }
+
+    //是否置顶
+    private boolean isChatTop(List <EMConversation> groupList, int i) {
+        return SpUtils.getValue ( getActivity (), groupList.get ( i ).conversationId (), false );
     }
 
     @Override

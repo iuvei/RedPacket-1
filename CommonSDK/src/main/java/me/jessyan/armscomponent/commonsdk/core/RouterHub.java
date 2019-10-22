@@ -85,6 +85,7 @@ public interface RouterHub {
     String IM_CALLLISTACTIVITY= IM  + "/CallListActivity";
     String IM_REDPACKETDETAILACTIVITY= IM  + "/RedpacketDetailActivity";
     String IM_CUSTOMERSERVICELISTACTIVITY= IM  + "/CustomerServiceListActivity";
+    String IM_HELPER= IM  + "/HELPER";
 
 
     String IM_ROOMLISTFRAGMENT = IM  + "/RoomListFragment";

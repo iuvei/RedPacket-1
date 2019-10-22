@@ -164,6 +164,17 @@ public class LoginPresenter extends BasePresenter<IModel, LoginContract.View> {
                 });
     }
 
+    public void logout(){
+        mIMService.logoutIM()
+                .compose( RxUtils.applySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber <BaseResponse> (mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                    }
+                });
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

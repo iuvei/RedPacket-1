@@ -89,7 +89,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
+    public void initData( Bundle savedInstanceState) {
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "聊天详情" );

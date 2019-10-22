@@ -22,17 +22,20 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.app.IMConstants;
+import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
 import com.haisheng.easeim.mvp.contract.ChatContract;
@@ -84,6 +87,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
+import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.AndroidBug5497Workaround;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
@@ -153,6 +158,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     TextView tvTitle;
     @BindView(R2.id.iv_right)
     ImageView ivRight;
+    @BindView(R2.id.iv_head)
+    ImageView ivHead;
+    @BindView(R2.id.tv_nickname)
+    TextView tvNickname;
+    @BindView(R2.id.iv_close)
+    ImageView ivClose;
+    @BindView(R2.id.rl_customer)
+    RelativeLayout rlCustomer;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressDialogUtils progressDialogUtils;
 
@@ -165,6 +178,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private boolean isMessageListInited;
     private GroupListener mGroupListener;
     private ChatRoomListener mChatRoomListener;
+    private BaseDialog dialog;
 
     public static void start(Context context, String toChatUsername) {
         start ( context, toChatUsername, EaseConstant.CHATTYPE_SINGLE );
@@ -235,9 +249,11 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         boolean isService = bundle.getBoolean ( "isService" );
         if (isService || CommontUtil.isCustomer ( toChatUsername )){
             ivRight.setVisibility ( View.GONE );
+            rlCustomer.setVisibility ( View.VISIBLE );
         }else {
             ivRight.setVisibility ( View.VISIBLE );
             ivRight.setImageResource ( R.drawable.ic_group_talking );
+            rlCustomer.setVisibility ( View.GONE );
         }
     }
 
@@ -260,8 +276,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             messageList.setShowUserNick ( true );
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 EMGroup group = EMClient.getInstance ().groupManager ().getGroup ( toChatUsername );
-                if (group != null)
-                tvTitle.setText ( group.getGroupName () );
+                if (group != null) {
+                    tvTitle.setText ( group.getGroupName () );
+                }
                 mGroupListener = new GroupListener ();
                 EMClient.getInstance ().groupManager ().addGroupChangeListener ( mGroupListener );
             } else {
@@ -284,7 +301,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     }
 
-    @OnClick({R2.id.tv_balance,R2.id.iv_back, R2.id.iv_right})
+    @OnClick({R2.id.tv_balance,R2.id.iv_back, R2.id.iv_right,R2.id.iv_close})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.tv_balance) {
@@ -296,13 +313,48 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             //聊天详情
             if (chatType == EaseConstant.CHATTYPE_SINGLE) {
                 //单聊
-                UserInfo userInfo = UserDao.getInstance ().getUserEntityByHxId ( toChatUsername );
+                String headPic = SpUtils.getValue ( this, toChatUsername + "head", "" );
+                String nickname = SpUtils.getValue ( this, toChatUsername + "nickname","" );
+                UserInfo userInfo = new UserInfo ();
+                userInfo.setNickname ( nickname );
+                userInfo.setAvatarUrl ( headPic );
+                userInfo.setHxId ( toChatUsername );
                 ChatDetailsActivity.start (this,userInfo);
             }else{
                 //群聊
                 GroupInfoActivity.start(mContext, mChatRoomBean);
             }
+        }else if (i == R.id.iv_close){
+            //退出客服
+            showClearCacheAndMessage();
         }
+    }
+
+    //退出客服
+    private void showClearCacheAndMessage() {
+        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+            @Override
+            public void onShowDialog(View layout) {
+                TextView tvMessage = layout.findViewById ( R.id.tv_message );
+                tvMessage.setText ( "您是否要结束对话？" );
+                layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                        //确定
+                        finish ();
+                    }
+                } );
+                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss ();
+                    }
+                } );
+            }
+        } )
+                .create ();
+        dialog.show ();
     }
 
   /*  *//**
@@ -589,14 +641,16 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     @Override
     public void refreshSelectLast() {
-        if (isMessageListInited)
+        if (isMessageListInited) {
             messageList.refreshSelectLast ();
+        }
     }
 
     @Override
     public void refreshList() {
-        if (isMessageListInited)
+        if (isMessageListInited) {
             messageList.refresh ();
+        }
     }
 
     @Override
@@ -620,7 +674,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     public void showRedPacket(CheckRedpacketInfo checkRedpacketInfo, EMMessage emMessage) {
         String sRedpacketInfo = emMessage.getStringAttribute(IMConstants.MESSAGE_ATTR_CONENT, "");
-        if (TextUtils.isEmpty(sRedpacketInfo)) return;
+        if (TextUtils.isEmpty(sRedpacketInfo)) {
+            return;
+        }
         RedpacketBean redpacketBean = new Gson().fromJson(sRedpacketInfo, RedpacketBean.class);
         final int status = emMessage.getIntAttribute(IMConstants.MESSAGE_ATTR_REDPACKET_STATUS, checkRedpacketInfo.getStatus());
         final String remark = checkRedpacketInfo.getMessage();
@@ -764,8 +820,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
     @Override
     public void finishRefresh() {
-        if (swipeRefreshLayout.isRefreshing())
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing ( false );
+        }
     }
 
 
@@ -784,10 +841,12 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if(result!=null) {
             if (mPresenter.isCustomer ( result.getHxid () )) {
                 tvTitle.setText ( result.getNickname () );
+                tvNickname.setText ( result.getNickname () );
                 if (result.getThumb () != null) {
                     SpUtils.put ( ChatActivity.this, result.getHxid () + "head", result.getThumb () );
                     SpUtils.put ( ChatActivity.this, result.getHxid () + "nickname", result.getNickname () );
                     mPresenter.sendHelpMessage ( result.getContent () );
+                    Glide.with ( this ).load (  result.getThumb () ).into ( ivHead );
                 }
             }
         }
@@ -837,9 +896,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     protected void onNewIntent(Intent intent) {
         // make sure only one chat activity is opened
         String username = intent.getStringExtra ( "userId" );
-        if (toChatUsername.equals ( username ))
+        if (toChatUsername.equals ( username )) {
             super.onNewIntent ( intent );
-        else {
+        }else {
             finish ();
             startActivity ( intent );
         }
@@ -913,8 +972,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult ( requestCode, resultCode, data );
-        if (resultCode != Activity.RESULT_OK)
+        if (resultCode != Activity.RESULT_OK) {
             return;
+        }
         if (requestCode == Constants.REQUEST_CODE_SYSTEM_ALBUM) {
             Uri uri = data.getData();
             String photoPath = MyFileUtils.getRealPathFromUri(mContext,uri);
