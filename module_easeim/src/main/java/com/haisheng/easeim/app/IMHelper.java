@@ -1212,5 +1212,12 @@ public class IMHelper {
             e.printStackTrace ();
         }
     }
+    /**
+     * 删除会话记录
+     */
+    public void delectMessageRecord(String username){
+            //删除和某个user会话，如果需要保留聊天记录，传false
+            EMClient.getInstance().chatManager().deleteConversation(username, true);
+    }
 
 }

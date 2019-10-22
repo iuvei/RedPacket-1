@@ -82,6 +82,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_GET_REDPACKET  = 7;
     //客服帮助信息
     public static final int MSG_TYPE_HELP_MESSAGE  = 8;
+    //奖励提醒消息
+    public static final int MSG_TYPE_REWARD_MESSAGE  = 9;
 
 
     //

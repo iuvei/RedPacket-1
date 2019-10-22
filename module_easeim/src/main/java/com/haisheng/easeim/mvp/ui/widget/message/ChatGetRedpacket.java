@@ -81,9 +81,12 @@ public class ChatGetRedpacket extends EaseChatRow {
                 if (getRedPacketMessageBean.isGetAllRedPacket ()){
                     //红包已领完
                     tvGetAll.setVisibility ( VISIBLE );
+                }else{
+                    tvGetAll.setVisibility ( GONE );
                 }
 
             }else {
+                tvGetAll.setVisibility ( GONE );
                 String getName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETNAME, "" );
                 String getHXID = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_GETHXID, "" );
                 String sendName = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME, "" );

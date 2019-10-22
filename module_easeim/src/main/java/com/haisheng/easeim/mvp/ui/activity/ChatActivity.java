@@ -55,6 +55,7 @@ import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedpacket;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatHelpMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatRedPacketPresenter;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatRewardMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatSettlementPresenter;
 import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.EMCallBack;
@@ -151,6 +152,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int MESSAGE_TYPE_RECV_SETTLEMENT = 12;
     private static final int MESSAGE_TYPE_HELP_MESSAGE = 13;
     private static final int MESSAGE_TYPE_GET_REDPACKET = 14;
+    private static final int MESSAGE_TYPE_REWARD_REDPACKET = 15;
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -1113,7 +1115,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         public int getCustomChatRowTypeCount() {
             //here the number is the message type in EMMessage::Type
             //which is used to count the number of different chat row
-            return 18;
+            return 20;
         }
 
         @Override
@@ -1148,6 +1150,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     }else if (type == IMConstants.MSG_TYPE_HELP_MESSAGE) {
                         //帮助消息
                         return MESSAGE_TYPE_HELP_MESSAGE;
+                    }else if (type == IMConstants.MSG_TYPE_REWARD_MESSAGE) {
+                        //中奖提醒
+                        return MESSAGE_TYPE_REWARD_REDPACKET;
                     }
 
                 }
@@ -1185,6 +1190,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }else if (type == IMConstants.MSG_TYPE_HELP_MESSAGE){
                     //客服帮助消息
                     EaseChatRowPresenter presenter = new ChatHelpMessagePresenter ();
+                    return presenter;
+                }else if (type == IMConstants.MSG_TYPE_REWARD_MESSAGE){
+                    //奖励提醒消息
+                    EaseChatRowPresenter presenter = new ChatRewardMessagePresenter ();
                     return presenter;
                 }
             }
