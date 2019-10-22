@@ -197,8 +197,9 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     @OnClick({R2.id.rl_chat, R2.id.ll_group, R2.id.ll_discover, R2.id.ll_me, R2.id.rl_animation})
     public void onViewClicked(View view) {
-        if(mCurrentItemView.getId() == view.getId())
+        if(mCurrentItemView.getId() == view.getId()) {
             return;
+        }
         mCurrentItemView = view;
 
         int i = view.getId();
@@ -234,7 +235,11 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     public void setUnreadIMMsgCountTotal(int countTotal) {
         tvUnreadMsg.setVisibility(countTotal>0 ? View.VISIBLE : View.INVISIBLE);
-        tvUnreadMsg.setText ( countTotal+"" );
+        if (countTotal>99){
+            tvUnreadMsg.setText ( countTotal+"" );
+        }else{
+            tvUnreadMsg.setText ( "..." );
+        }
     }
 
     @Override
