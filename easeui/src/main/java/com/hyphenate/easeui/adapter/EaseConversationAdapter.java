@@ -159,7 +159,11 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         }
         if (conversation.getUnreadMsgCount() > 0) {
             // show unread message count
-            holder.unreadLabel.setText(String.valueOf(conversation.getUnreadMsgCount()));
+            if (conversation.getUnreadMsgCount()>99){
+                holder.unreadLabel.setText("...");
+            }else {
+                holder.unreadLabel.setText ( String.valueOf ( conversation.getUnreadMsgCount () ) );
+            }
             holder.unreadLabel.setVisibility(View.VISIBLE);
         } else {
             holder.unreadLabel.setVisibility(View.INVISIBLE);
