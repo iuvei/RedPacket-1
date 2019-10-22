@@ -137,8 +137,9 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         mIMModel = IMHelper.getInstance ().getModel ();
 
         List <String> disabledGroups = mIMModel.getDisabledGroups ();
-        if (null != disabledGroups)
+        if (null != disabledGroups) {
             mDisabledGroupIds.addAll ( mIMModel.getDisabledGroups () );
+        }
         boolean isNotify = SpUtils.getValue ( this,mChatRoomBean.getHxId ()+"isNotify",false );
         boolean isShowTop = SpUtils.getValue ( this,mChatRoomBean.getHxId (),false );
         switchVoiceNotify.setChecked ( isNotify );
@@ -343,10 +344,10 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         }
 
         groupUserList = new ArrayList <> ( userInfos );
+        tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
         if (userInfos.size () > 14) {
             userInfos = userInfos.subList ( 0, 14 );
         }
-        tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
 
         userInfos.add ( new GroupListBean.ResultBean() );
         mAdapter.setNewData ( userInfos );
