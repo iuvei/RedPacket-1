@@ -267,7 +267,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                         if (userInfo==null){
                             return;
                         }
-                        IMHelper.getInstance ().delectContact ( userInfo.getHxId () );
+                        IMHelper.getInstance ().delectMessageRecord ( userInfo.getHxId () );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {

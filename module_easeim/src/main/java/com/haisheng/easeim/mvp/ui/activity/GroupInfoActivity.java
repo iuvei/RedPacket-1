@@ -238,7 +238,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
                         if (mChatRoomBean==null){
                             return;
                         }
-                        IMHelper.getInstance ().delectContact ( mChatRoomBean.getHxId () );
+                        IMHelper.getInstance ().delectMessageRecord ( mChatRoomBean.getHxId () );
                     }
                 } );
                 layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
