@@ -1,22 +1,13 @@
 package com.haisheng.easeim.mvp.ui.widget.message;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
-import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
-
-import org.simple.eventbus.EventBus;
-
-import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
-import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class ChatHelpMessage extends EaseChatRow {
 

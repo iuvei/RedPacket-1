@@ -22,7 +22,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.CallingState;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.app.IMModel;
 import com.hyphenate.EMCallBack;

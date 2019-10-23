@@ -5,13 +5,9 @@ import android.text.TextUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.model.entity.JoinRoomBean;
-import com.haisheng.easeim.mvp.model.entity.RedpacketRewardBean;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 

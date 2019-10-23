@@ -2,7 +2,7 @@ package com.haisheng.easeim.mvp.contract;
 
 import android.app.Activity;
 
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 

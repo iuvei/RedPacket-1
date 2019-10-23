@@ -13,14 +13,13 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.mvp.contract.ChatContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
-import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMChatRoom;
@@ -565,7 +564,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
 
     //发送领取红包信息
     public void sendGetRedPacketMessage(Context context,RedpacketBean redpacketBean) {
-        EMMessage message = EMMessage.createTxtSendMessage ("领取红包", toChatUsername);
+        EMMessage message = EMMessage.createTxtSendMessage (redpacketBean.getNickname ()+"领取了红包", toChatUsername);
         //领取红包的类型
         message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
         String nickname = SpUtils.getValue ( context,"nickname","" );

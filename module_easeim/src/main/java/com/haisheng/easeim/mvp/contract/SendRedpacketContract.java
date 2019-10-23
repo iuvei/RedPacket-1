@@ -1,7 +1,7 @@
 package com.haisheng.easeim.mvp.contract;
 
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 

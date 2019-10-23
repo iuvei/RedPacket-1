@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.model.entity.NiuniuSettlementInfo;
+import com.hyphenate.easeui.utils.IMConstants;
+import com.hyphenate.easeui.bean.NiuniuSettlementInfo;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;

@@ -2,19 +2,15 @@ package com.haisheng.easeim.component.service;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.Utils;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.app.IMHelper;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;

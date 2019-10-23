@@ -10,15 +10,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.model.entity.GunControlSettlementInfo;
+import com.hyphenate.easeui.utils.IMConstants;
+import com.hyphenate.easeui.bean.GunControlSettlementInfo;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 
 import java.util.List;
-
-import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 
 public class ChatGunControlSettlement extends EaseChatRow {
 

@@ -16,7 +16,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerConversationListComponent;
 import com.haisheng.easeim.di.module.ConversationListModule;
 import com.haisheng.easeim.mvp.contract.ConversationListContract;
@@ -39,7 +39,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +50,6 @@ import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
 import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
-import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;

@@ -22,7 +22,7 @@ import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerMessageComponent;
 import com.haisheng.easeim.di.module.MessageModule;
 import com.haisheng.easeim.mvp.contract.MessageContract;

@@ -3,7 +3,7 @@ package com.haisheng.easeim.mvp.ui.widget.message;
 import android.content.Context;
 import android.widget.BaseAdapter;
 
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;

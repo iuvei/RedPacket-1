@@ -3,7 +3,7 @@ package com.haisheng.easeim.mvp.contract;
 import android.app.Activity;
 
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;

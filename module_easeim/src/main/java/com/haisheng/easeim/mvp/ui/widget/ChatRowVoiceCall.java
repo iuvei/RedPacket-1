@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;

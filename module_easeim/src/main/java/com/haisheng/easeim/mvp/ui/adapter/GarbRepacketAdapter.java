@@ -1,19 +1,14 @@
 package com.haisheng.easeim.mvp.ui.adapter;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.mvp.model.entity.GarbRedpacketBean;
+import com.hyphenate.easeui.bean.GarbRedpacketBean;
 
 import java.util.List;
 

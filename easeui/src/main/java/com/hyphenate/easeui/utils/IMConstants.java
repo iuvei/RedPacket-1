@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.haisheng.easeim.app;
+package com.hyphenate.easeui.utils;
 
 import com.hyphenate.easeui.EaseConstant;
 

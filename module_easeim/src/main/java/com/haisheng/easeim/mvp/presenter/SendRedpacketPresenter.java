@@ -1,12 +1,11 @@
 package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;

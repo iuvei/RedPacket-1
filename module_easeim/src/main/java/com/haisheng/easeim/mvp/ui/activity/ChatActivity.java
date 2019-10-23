@@ -34,8 +34,7 @@ import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.app.IMHelper;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
 import com.haisheng.easeim.mvp.contract.ChatContract;
@@ -43,8 +42,8 @@ import com.haisheng.easeim.mvp.model.db.UserDao;
 import com.haisheng.easeim.mvp.model.entity.ChatExtendItemEntity;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
-import com.haisheng.easeim.mvp.model.entity.NiuniuSettlementInfo;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.NiuniuSettlementInfo;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.haisheng.easeim.mvp.presenter.ChatPresenter;
 import com.haisheng.easeim.mvp.ui.widget.ChatExtendMenu;
@@ -1071,9 +1070,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
      // make a video call
 
     protected void startVideoCall() {
-        if (!EMClient.getInstance ().isConnected ())
+        if (!EMClient.getInstance ().isConnected ()) {
             showMessage ( mContext.getString ( R.string.not_connect_to_server ) );
-        else {
+        }else {
             VideoCallActivity.start ( mContext, toChatUsername, false );
             inputMenu.hideExtendMenuContainer ();
 

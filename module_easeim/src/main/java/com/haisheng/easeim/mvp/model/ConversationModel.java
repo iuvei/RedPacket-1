@@ -3,10 +3,9 @@ package com.haisheng.easeim.mvp.model;
 import android.content.Context;
 import android.util.Pair;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.Utils;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.jess.arms.integration.IRepositoryManager;

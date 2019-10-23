@@ -1,7 +1,7 @@
-package com.haisheng.easeim.mvp.model.entity;
+package com.hyphenate.easeui.bean;
 
 import com.google.gson.annotations.SerializedName;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 
 import java.io.Serializable;
 import java.util.List;

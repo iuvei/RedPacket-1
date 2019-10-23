@@ -2,13 +2,9 @@ package com.haisheng.easeim.mvp.presenter;
 
 import android.app.Application;
 import android.os.Handler;
-import android.util.Pair;
 
-import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.db.ChatRoomDao;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.ui.adapter.RoomListAdapter;
 import com.hyphenate.EMMessageListener;
@@ -37,9 +33,7 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.utils.RxLifecycleUtils;
 
 import org.simple.eventbus.EventBus;
-import org.simple.eventbus.Subscriber;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

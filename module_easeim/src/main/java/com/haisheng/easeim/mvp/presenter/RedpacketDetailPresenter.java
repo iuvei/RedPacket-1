@@ -4,8 +4,8 @@ import android.app.Application;
 
 import com.haisheng.easeim.mvp.contract.RedpacketDetailContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.GarbRedpacketBean;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.GarbRedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.ui.adapter.GarbRepacketAdapter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;

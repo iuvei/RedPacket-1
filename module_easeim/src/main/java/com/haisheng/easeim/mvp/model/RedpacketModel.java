@@ -1,21 +1,17 @@
 package com.haisheng.easeim.mvp.model;
 
-import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
 import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
-import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckPayPasswordBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.ProfitRecordBean;
-import com.haisheng.easeim.mvp.model.entity.PublicResponseBean;
 import com.haisheng.easeim.mvp.model.entity.RedPacketRecordBean;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
 import io.reactivex.Observable;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
-import retrofit2.http.Field;
 
 
 public class RedpacketModel extends BaseModel{

@@ -23,7 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerNiuNiuRecordComponent;
 import com.haisheng.easeim.mvp.contract.NiuNiuRecordContract;
 import com.haisheng.easeim.mvp.model.entity.ProfitRecordBean;

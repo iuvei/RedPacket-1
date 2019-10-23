@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.mvp.ui.fragment.ConversationListFragment;
 import com.jess.arms.di.component.AppComponent;
 

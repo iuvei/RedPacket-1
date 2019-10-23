@@ -5,11 +5,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.haisheng.easeim.mvp.contract.RedpacketDetailContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
-import com.haisheng.easeim.mvp.model.entity.GarbRedpacketBean;
+import com.hyphenate.easeui.bean.GarbRedpacketBean;
 import com.haisheng.easeim.mvp.ui.adapter.GarbRepacketAdapter;
 import com.jess.arms.di.scope.ActivityScope;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import com.jess.arms.integration.IRepositoryManager;

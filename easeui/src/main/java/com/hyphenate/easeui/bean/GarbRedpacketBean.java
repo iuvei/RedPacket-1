@@ -1,4 +1,4 @@
-package com.haisheng.easeim.mvp.model.entity;
+package com.hyphenate.easeui.bean;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,7 +1,6 @@
 package com.haisheng.easeim.mvp.ui.widget.message;
 
 import android.content.Context;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,15 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
-import com.haisheng.easeim.mvp.model.entity.GetRedPacketMessageBean;
-import com.haisheng.easeim.mvp.model.entity.GunControlSettlementInfo;
-import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
+import com.hyphenate.easeui.utils.IMConstants;
+import com.hyphenate.easeui.bean.GetRedPacketMessageBean;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.ui.activity.ChatActivity;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;

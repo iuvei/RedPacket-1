@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.haisheng.easeim.R;
-import com.haisheng.easeim.app.IMConstants;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.mvp.model.db.CallRecordDao;
 import com.haisheng.easeim.mvp.model.entity.CallRecordEntity;
 import com.hyphenate.EMCallBack;

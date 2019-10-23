@@ -1,4 +1,4 @@
-package com.haisheng.easeim.mvp.model.entity;
+package com.hyphenate.easeui.bean;
 
 /**
  * creat at 2019/10/22
