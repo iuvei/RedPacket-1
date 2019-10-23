@@ -525,17 +525,16 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
 
     public void sendRedpacketMessage(RedpacketBean redpacketInfo){
         int type = redpacketInfo.getType();
-        String sMessage = "[红包]";
-        if(type == IMConstants.MSG_TYPE_MINE_REDPACKET){
-            sMessage = "[扫雷红包]";
-        }else if(type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
-            sMessage = "[禁抢红包]";
-        }else if(type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET){
-            sMessage = "[牛牛红包]";
-        }else if(type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
-            sMessage = "[福利红包]";
+        StringBuilder stringBuilder = new StringBuilder (  );
+        stringBuilder.append ( redpacketInfo.getNickname ()+"发送了红包" );
+        if(type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
+            //扫雷 禁抢
+            stringBuilder.append ( redpacketInfo.getMoney ()+"-"+redpacketInfo.getBoomNumbers () );
+        }else if(type == IMConstants.MSG_TYPE_NIUNIU_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET){
+            //"[牛牛红包]" 福利红包
+            stringBuilder.append ( redpacketInfo.getMoney ()+"-"+redpacketInfo.getNumber () );
         }
-        EMMessage message = EMMessage.createTxtSendMessage(sMessage, toChatUsername);
+        EMMessage message = EMMessage.createTxtSendMessage(stringBuilder.toString (), toChatUsername);
         // 增加自己特定的属性
         message.setAttribute(IMConstants.MESSAGE_ATTR_TYPE, redpacketInfo.getType());
         try {

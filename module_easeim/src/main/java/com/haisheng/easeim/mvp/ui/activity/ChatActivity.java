@@ -1005,27 +1005,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
 
         } else if (requestCode == Constants.REQUEST_CODE_VIDEO_ALBUM) {
-                       /*List<String> selectVideos = Matisse.obtainPathResult(data);
-            if (selectVideos != null && selectVideos.size() > 0) {
-                String videoPath = selectVideos.get(0);
-                File videoFile = new File(videoPath);
-                try {
-                    MediaPlayer meidaPlayer = new MediaPlayer();
-                    meidaPlayer.setDataSource(videoFile.getPath());
-                    meidaPlayer.prepare();
-                    int duration = meidaPlayer.getDuration();
 
-                    File thumbFile = new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
-                    FileOutputStream fos = new FileOutputStream(thumbFile);
-                    Bitmap ThumbBitmap = ThumbnailUtils.createVideoThumbnail(videoPath, 3);
-                    ThumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.close();
-
-                    mPresenter.sendVideoMessage(videoPath, thumbFile.getAbsolutePath(), duration);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }*/
         } else if (requestCode == IMConstants.REQUEST_CODE_SEND_REDPACKET) {
             Bundle bundle = data.getExtras();
             RedpacketBean redpacketBean = (RedpacketBean) bundle.getSerializable("redpacketInfo");
