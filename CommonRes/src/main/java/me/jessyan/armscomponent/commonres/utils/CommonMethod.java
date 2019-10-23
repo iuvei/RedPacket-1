@@ -1,8 +1,5 @@
 package me.jessyan.armscomponent.commonres.utils;
 
-import android.app.Application;
-import android.content.Context;
-
 import com.tencent.mmkv.MMKV;
 
 /**
