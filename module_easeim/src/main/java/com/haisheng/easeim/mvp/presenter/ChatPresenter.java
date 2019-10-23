@@ -20,6 +20,7 @@ import com.haisheng.easeim.mvp.model.RedpacketModel;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
 import com.haisheng.easeim.mvp.model.entity.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
+import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMChatRoom;
@@ -48,6 +49,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.entity.GiftEntity;
@@ -459,20 +461,36 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
             return false;
         }
         if (hxID.equals ( ConfigUtil.SERVICE_GAME_CONTROL_INSIDE )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_ROME)
-        || hxID.equals ( ConfigUtil.SERVICE_HOMEPAGE )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_INSIDE )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_ROOM )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_INSIDE )
-        || hxID.equals ( ConfigUtil.SERVICE_MYPAGE )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_CONTROL_ROOM )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_ROOM )
-        || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_INSIDE )){
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_ROME)
+                || hxID.equals ( ConfigUtil.SERVICE_HOMEPAGE )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_NIUNIU_INSIDE )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_ROOM )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_SAOLEI_INSIDE )
+                || hxID.equals ( ConfigUtil.SERVICE_MYPAGE )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_CONTROL_ROOM )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_ROOM )
+                || hxID.equals ( ConfigUtil.SERVICE_GAME_FULI_INSIDE )){
             return true;
         }
         return false;
     }
 
+    /**
+     * 发送xxx加入房间的信息
+     */
+    public void sendJoinRoomMessage(Context context){
+        String nickname = CommonMethod.getNickNameForLocal ( context );
+        String content = nickname+"加入房间";
+        EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
+        // 增加自己特定的属性
+        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_JOINROOM_MESSAGE );
+        message.setAttribute ( IMConstants.MESSAGE_ATTR_JOIN_ROOM_NICKNAME, nickname);
+        // Send message.
+        sendMessage ( message );
+        //refresh ui
+        mRootView.refreshSelectLast();
+
+    }
 
     /**
      * 发送客服页面帮助信息

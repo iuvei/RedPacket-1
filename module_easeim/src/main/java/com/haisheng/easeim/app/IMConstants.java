@@ -65,6 +65,8 @@ public class IMConstants extends EaseConstant {
     public static final String MESSAGE_ATTR_TYPE = "isforb";
     public static final String MESSAGE_ATTR_CONENT= "content";
     public static final String MESSAGE_ATTR_REDPACKET_STATUS= "redpacketStatus";
+    //加入房间的昵称
+    public static final String MESSAGE_ATTR_JOIN_ROOM_NICKNAME= "nickname";
 
     public static final int ROOM_TYPE_MINE_REDPACKET = 0; //扫雷房间
     public static final int ROOM_TYPE_GUN_CONTROL_REDPACKET = 1; //禁抢房间
@@ -84,6 +86,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_HELP_MESSAGE  = 8;
     //奖励提醒消息
     public static final int MSG_TYPE_REWARD_MESSAGE  = 9;
+    //加入房间提醒消息
+    public static final int MSG_TYPE_JOINROOM_MESSAGE  = 11;
 
 
     //
