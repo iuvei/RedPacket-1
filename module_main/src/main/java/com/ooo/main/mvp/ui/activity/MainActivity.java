@@ -233,6 +233,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     }
 
+    @Override
     public void setUnreadIMMsgCountTotal(int countTotal) {
         tvUnreadMsg.setVisibility(countTotal>0 ? View.VISIBLE : View.INVISIBLE);
         if (countTotal>99){

@@ -56,6 +56,11 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
 }
 
 dependencies {

@@ -25,9 +25,11 @@ import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.GroupListBean;
 import com.haisheng.easeim.mvp.presenter.GroupInfoPresenter;
 import com.haisheng.easeim.mvp.ui.adapter.UserGridAdapter;
+import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -42,6 +44,7 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
@@ -140,16 +143,14 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         if (null != disabledGroups) {
             mDisabledGroupIds.addAll ( mIMModel.getDisabledGroups () );
         }
-        boolean isNotify = SpUtils.getValue ( this,mChatRoomBean.getHxId ()+"isNotify",false );
+        boolean isNotify = CommonMethod.isNotifyFromHxid ( mChatRoomBean.getHxId () );
         boolean isShowTop = SpUtils.getValue ( this,mChatRoomBean.getHxId (),false );
         switchVoiceNotify.setChecked ( isNotify );
         switchShowTop.setChecked ( isShowTop );
         switchVoiceNotify.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
-                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
-                SpUtils.put ( GroupInfoActivity.this,mChatRoomBean.getHxId ()+"isNotify",isChecked );
+                CommonMethod.setNotifyFromHxid(mChatRoomBean.getHxId(),isChecked);
             }
         } );
 

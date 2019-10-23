@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_itease_layout"
     android:background="#fff"
     android:gravity="center_vertical">
@@ -61,8 +62,20 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="7dp"
                 android:layout_marginTop="6dp"
+                tools:text="2019年10月23日11:42:33"
                 android:textColor="@color/list_itease_secondary_color"
                 android:textSize="13sp" />
+            <ImageView
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="7dp"
+                android:layout_below="@+id/time"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/icon_notify"
+                android:visibility="gone"
+                tools:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/msg_state"
@@ -100,6 +113,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:padding="7dp"
+                tools:text = "123456"
                 android:textColor="@color/list_itease_secondary_color"
                 android:textSize="14sp" />
         </RelativeLayout>

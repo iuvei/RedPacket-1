@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 /**
@@ -110,6 +111,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.btnDelect = (TextView) convertView.findViewById(R.id.btnDelete);
             holder.swipeMenuLayout = (SwipeMenuLayout) convertView.findViewById(R.id.swipeMenuLayout);
             holder.rlItem = (RelativeLayout) convertView.findViewById(R.id.rl_item);
+            holder.ivNotify = (ImageView) convertView.findViewById(R.id.iv_notify);
             convertView.setTag(holder);
         }
         holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
@@ -147,15 +149,25 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 .load ( url )
                 .apply ( new RequestOptions ().placeholder ( R.drawable.ease_default_avatar ) )
                 .into ( holder.avatar );
+        //是否设置免打扰
+        boolean isNotify = CommonMethod.isNotifyFromHxid (username );
+        if (isNotify){
+            holder.ivNotify.setVisibility ( View.VISIBLE );
+        }else{
+            holder.ivNotify.setVisibility ( View.GONE );
+        }
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
             EaseImageView avatarView = ((EaseImageView) holder.avatar);
-            if (avatarOptions.getAvatarBorderWidth() != 0)
-                avatarView.setBorderWidth(avatarOptions.getAvatarBorderWidth());
-            if (avatarOptions.getAvatarBorderColor() != 0)
-                avatarView.setBorderColor(avatarOptions.getAvatarBorderColor());
-            if (avatarOptions.getAvatarRadius() != 0)
-                avatarView.setRadius(avatarOptions.getAvatarRadius());
+            if (avatarOptions.getAvatarBorderWidth() != 0) {
+                avatarView.setBorderWidth ( avatarOptions.getAvatarBorderWidth () );
+            }
+            if (avatarOptions.getAvatarBorderColor() != 0) {
+                avatarView.setBorderColor ( avatarOptions.getAvatarBorderColor () );
+            }
+            if (avatarOptions.getAvatarRadius() != 0) {
+                avatarView.setRadius ( avatarOptions.getAvatarRadius () );
+            }
         }
         if (conversation.getUnreadMsgCount() > 0) {
             // show unread message count
@@ -387,6 +399,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         TextView btnDelect;
         SwipeMenuLayout swipeMenuLayout;
         RelativeLayout rlItem;
+        ImageView ivNotify;
     }
 
     private OnItemClickListener onItemClickListener;

@@ -15,6 +15,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.mmkv.MMKV;
 
 import butterknife.ButterKnife;
 import me.jessyan.armscomponent.commonsdk.utils.UserPreferenceManager;
@@ -32,6 +33,8 @@ public class MyApplication extends BaseApplication {
 
     @Override
     public void onCreate() {
+        //初始化
+        MMKV.initialize(this);
         FlowManager.init(this);
         super.onCreate();
         applicationContext = this;

@@ -38,6 +38,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -65,4 +66,5 @@ dependencies {
     api rootProject.ext.dependencies["retrofit-url-manager"]
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
+    api 'com.tencent:mmkv:1.0.23'
 }

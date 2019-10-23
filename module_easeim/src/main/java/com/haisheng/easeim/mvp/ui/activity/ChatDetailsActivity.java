@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -101,6 +102,12 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
             } else {
                 swbTopMessage.setChecked ( false );
             }
+            boolean isNotify = CommonMethod.isNotifyFromHxid ( userInfo.getHxId () );
+            if (isNotify) {
+                swbMessageNotNotice.setChecked ( true );
+            } else {
+                swbMessageNotNotice.setChecked ( false );
+            }
             tvNickname.setText ( userInfo.getNickname () );
             Glide.with ( this ).load ( userInfo.getAvatarUrl () ).into ( ivContactHead );
         }
@@ -111,8 +118,10 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         swbMessageNotNotice.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
-                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
+                if (userInfo==null){
+                    return;
+                }
+                CommonMethod.setNotifyFromHxid(userInfo.getHxId (),isChecked);
             }
         } );
         swbTopMessage.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
@@ -180,7 +189,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
         } else if (i == R.id.iv_contact_head) {
             ContactInfoActivity.start ( this,userInfo );
         } else if (i == R.id.rl_delect_message) {
-            delectMessageDialgTime();
+           // delectMessageDialgTime();
         } else if (i == R.id.tv_delect_all_message) {
             showClearMessage();
         }

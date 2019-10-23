@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
@@ -32,6 +33,9 @@ import com.hyphenate.util.HanziToPinyin.Token;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
+import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class EaseCommonUtils {
 	private static final String TAG = "CommonUtils";
@@ -139,10 +143,11 @@ public class EaseCommonUtils {
 		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
 
-		if (runningTaskInfos != null)
-			return runningTaskInfos.get(0).topActivity.getClassName();
-		else
-			return "";
+		if (runningTaskInfos != null) {
+            return runningTaskInfos.get ( 0 ).topActivity.getClassName ();
+        }else {
+            return "";
+        }
 	}
 	
 	/**
@@ -217,7 +222,9 @@ public class EaseCommonUtils {
      * @return
      */
     public static boolean isSilentMessage(EMMessage message){
-        return message.getBooleanAttribute("em_ignore_notification", false);
+        boolean isNotify = CommonMethod.isNotifyFromHxid ( message.getTo () );
+        return message.getBooleanAttribute("em_ignore_notification", isNotify);
     }
+
 
 }

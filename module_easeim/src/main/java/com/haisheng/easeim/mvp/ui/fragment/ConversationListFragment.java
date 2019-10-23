@@ -49,6 +49,8 @@ import butterknife.Unbinder;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -165,7 +167,8 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         llService.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                ChatActivity.start ( getActivity (), ConfigUtil.SERVICE_HOMEPAGE,true );
+                //ChatActivity.start ( getActivity (), ConfigUtil.SERVICE_HOMEPAGE,true );
+                WebviewActivity.start ( getActivity (),"客服", CommonMethod.HOME_PAGE_SERVICE );
             }
         } );
     }
