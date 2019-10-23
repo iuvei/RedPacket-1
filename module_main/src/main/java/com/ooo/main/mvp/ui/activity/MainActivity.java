@@ -41,6 +41,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -114,7 +115,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         StatusBarUtils.setStatusBarDarkTheme ( this,true );
         initFragments();
         requestPermission();
-        AppLifecyclesImpl.getUserinfo ().setNickname ( SpUtils.getValue ( this,"nickname","" ) );
+        AppLifecyclesImpl.getUserinfo ().setNickname ( CommonMethod.getNickNameForLocal ( ) );
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
         mPresenter.getAdvertising ();

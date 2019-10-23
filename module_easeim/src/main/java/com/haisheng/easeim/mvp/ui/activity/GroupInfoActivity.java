@@ -334,7 +334,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
             }
         }
 
-        String uid = SpUtils.getValue ( this,"uid", "" );
+        String uid = CommonMethod.getUidForLocal ( );
         for (int i = 0;i<userInfos.size ();i++){
             if (userInfos.get ( i ).getUid ().equals ( uid )){
                 //显示自己在群组里的昵称

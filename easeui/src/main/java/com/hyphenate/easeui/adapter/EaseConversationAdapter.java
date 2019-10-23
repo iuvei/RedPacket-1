@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -206,7 +207,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     holder.message.setText ( content );
                 }
             }else {
-                holder.message.setText ( tips );
+                holder.message.setText (tips);
             }
             holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
             if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
@@ -272,73 +273,81 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         String sRedpacketInfo =lastMessage.getStringAttribute( "content","");
         int type =lastMessage.getIntAttribute ( "isforb",-1);
         StringBuilder tips = new StringBuilder (  );
-        if (!TextUtils.isEmpty ( sRedpacketInfo ) && type !=-1){
-            switch (type){
-                case 0:
-                    //单雷房
-                case 1:
-                    //禁抢房
-                    RedpacketBean redpacketBean = new Gson ().fromJson(sRedpacketInfo, RedpacketBean.class);
-                    tips.append ( redpacketBean.getNickname () );
-                    tips.append ( "发送了红包" );
-                    //红包金额
-                    tips.append ( redpacketBean.getMoney () );
-                    //雷数
-                    tips.append ( "-"+redpacketBean.getBoomNumbers () );
-                    break;
-                case 2:
-                    //牛牛房
-                case 3:
-                    //福利房
-                    RedpacketBean redpacketBean1 = new Gson().fromJson(sRedpacketInfo, RedpacketBean.class);
-                    tips.append ( redpacketBean1.getNickname () );
-                    tips.append ( "发送了红包" );
-                    //红包金额
-                    tips.append ( redpacketBean1.getMoney () );
-                    //雷数
-                    tips.append ( "-"+redpacketBean1.getNumber () );
-                    break;
-                case 5:
-                    //禁抢房结算消息
-                    GunControlSettlementInfo settlementInfo = new Gson().fromJson(sRedpacketInfo, GunControlSettlementInfo.class);
-                    tips.append ( "恭喜" );
-                    tips.append ( "<font color ='#FF0000'>"+settlementInfo.getNickname ()+"</font>," );
-                    tips.append ( settlementInfo.getMoney()+"-"+ settlementInfo.getMineNumber());
-                    tips.append ( "收获"+settlementInfo.getBombNumber()+"个雷," );
-                    tips.append ( "奖励" );
-                    tips.append ("<font color ='#FF0000'>"+settlementInfo.getAwardMoney()+"元</font>" );
-                    break;
-                case 6:
-                    //牛牛房结算消息
-                    tips.append ( "牛牛结算" );
-                    break;
-                case 7:
-                    //获取红包状态
-                    GetRedPacketMessageBean getRedPacketMessageBean = new Gson().fromJson(sRedpacketInfo, GetRedPacketMessageBean.class);
-                    tips.append ( getRedPacketMessageBean.getNickname () );
-                    tips.append ( "领取了红包" );
-                    break;
-                case 8:
-                    //客服帮助信息
-                    tips.append ( sRedpacketInfo );
-                    break;
-                case 9:
-                    //奖励提醒消息
-                    RedpacketRewardBean rewardBean = new Gson ().fromJson(sRedpacketInfo, RedpacketRewardBean.class);
-                    tips.append ( "恭喜" );
-                    tips.append ( rewardBean.getNickname () );
-                    tips.append ( rewardBean.getGold ()+"-"+rewardBean.getBoom () );
-                    tips.append ( "中奖，奖励" );
-                    tips.append ( "("+rewardBean.getGetnums ()+")"+"+"+rewardBean.getRewardgold ()+"元" );
-                    break;
-                case 11:
-                    //加入房间提醒消息
-                    tips.append ( sRedpacketInfo );
-                    break;
+        try {
+            if (!TextUtils.isEmpty ( sRedpacketInfo ) && type !=-1){
+                switch (type){
+                    case 0:
+                        //单雷房
+                    case 1:
+                        //禁抢房
+                        RedpacketBean redpacketBean = new Gson ().fromJson(sRedpacketInfo, RedpacketBean.class);
+                        tips.append ( redpacketBean.getNickname () );
+                        tips.append ( ":红包" );
+                        //红包金额
+                        tips.append ( redpacketBean.getMoney () );
+                        //雷数
+                        tips.append ( "-"+redpacketBean.getBoomNumbers () );
+                        break;
+                    case 2:
+                        //牛牛房
+                    case 3:
+                        //福利房
+                        RedpacketBean redpacketBean1 = new Gson().fromJson(sRedpacketInfo, RedpacketBean.class);
+                        tips.append ( redpacketBean1.getNickname () );
+                        tips.append ( ":红包" );
+                        //红包金额
+                        tips.append ( redpacketBean1.getMoney () );
+                        //雷数
+                        tips.append ( "-"+redpacketBean1.getNumber () );
+                        break;
+                    case 5:
+                        //禁抢房结算消息
+                        GunControlSettlementInfo settlementInfo = new Gson().fromJson(sRedpacketInfo, GunControlSettlementInfo.class);
+                        tips.append ( "恭喜" );
+                        tips.append ( settlementInfo.getNickname ());
+                        tips.append ( settlementInfo.getMoney()+"-"+ settlementInfo.getMineNumber());
+                        tips.append ( "收获"+settlementInfo.getBombNumber()+"个雷," );
+                        tips.append ( "奖励" );
+                        tips.append (settlementInfo.getAwardMoney()+"元" );
+                        break;
+                    case 6:
+                        //牛牛房结算消息
+                        tips.append ( "牛牛结算" );
+                        break;
+                    case 7:
+                        //获取红包状态
+                        GetRedPacketMessageBean getRedPacketMessageBean = new Gson().fromJson(sRedpacketInfo, GetRedPacketMessageBean.class);
+                        if (CommonMethod.getHxidForLocal().equals ( getRedPacketMessageBean.getHxid () )){
+                            tips.append ( getRedPacketMessageBean.getNickname () );
+                            tips.append ( "领取了红包" );
+                        }else{
+                            tips.append ( "" );
+                        }
+                        break;
+                    case 8:
+                        //客服帮助信息
+                        tips.append ( sRedpacketInfo );
+                        break;
+                    case 9:
+                        //奖励提醒消息
+                        RedpacketRewardBean rewardBean = new Gson ().fromJson(sRedpacketInfo, RedpacketRewardBean.class);
+                        tips.append ( "恭喜" );
+                        tips.append ( rewardBean.getNickname () );
+                        tips.append ( rewardBean.getGold ()+"-"+rewardBean.getBoom () );
+                        tips.append ( "中奖，奖励" );
+                        tips.append ( "("+rewardBean.getGetnums ()+")"+"+"+rewardBean.getRewardgold ()+"元" );
+                        break;
+                    case 11:
+                        //加入房间提醒消息
+                        tips.append ( sRedpacketInfo );
+                        break;
                     default:
                         tips.append ( "" );
                         break;
+                }
             }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace ();
         }
         return tips.toString ();
     }

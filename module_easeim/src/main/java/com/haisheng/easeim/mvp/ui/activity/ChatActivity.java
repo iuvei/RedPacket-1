@@ -92,6 +92,7 @@ import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.AndroidBug5497Workaround;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
@@ -732,7 +733,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             }
         });
         CommonDialog commonDialog = builder.create();
-        String myHxID = SpUtils.getValue ( this,"hxid", "" );
+        String myHxID = CommonMethod.getHxidForLocal ();
         if (myHxID.equals ( hxID )){
             //自己发包
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);

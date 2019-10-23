@@ -20,9 +20,37 @@ public class CommonMethod {
 
     //首页客服
     public final static String HOME_PAGE_SERVICE = "http://p.qiao.baidu.com/cps/chat?siteId=14041512&userId=29199082";
+
+    //从本地获取hxid
+    public static String getHxidForLocal(){
+        MMKV kv = MMKV.defaultMMKV();
+        return kv.getString ( "hxid","" );
+    }
+    //保存环信id到本地
+    public static void setHxidForLocal(String hxid){
+        MMKV kv = MMKV.defaultMMKV();
+        kv.encode ( "hxid", hxid );
+    }
     //从本地获取昵称
-    public static String getNickNameForLocal(Context context){
-        return SpUtils.getValue ( context,"nickname", "" );
+    public static String getNickNameForLocal(){
+        MMKV kv = MMKV.defaultMMKV();
+        return kv.getString ( "nickname", "" );
+    }
+    //保存昵称到本地
+    public static void setNickNameForLocal(String nickname){
+        MMKV kv = MMKV.defaultMMKV();
+        kv.encode ( "nickname", nickname);
+    }
+
+    //从本地获取uid
+    public static String getUidForLocal(){
+        MMKV kv = MMKV.defaultMMKV();
+        return kv.getString ( "uid", "" );
+    }
+    //保存uid到本地
+    public static void setUidForLocal(String uid){
+        MMKV kv = MMKV.defaultMMKV();
+        kv.encode ( "uid", uid);
     }
 
     //判断hx用户消息是否免打扰

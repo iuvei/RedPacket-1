@@ -20,6 +20,7 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 
 import org.simple.eventbus.EventBus;
 
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
@@ -64,7 +65,7 @@ public class ChatGetRedpacket extends EaseChatRow {
                 //抢包人
                 getUser.setText ( getRedPacketMessageBean.getNickname () );
                 //谁的包
-                String hxid = SpUtils.getValue ( context, "hxid", "" );
+                String hxid = CommonMethod.getHxidForLocal ( );
                 if (hxid.equals ( getRedPacketMessageBean.getHxid () )) {
                     sendUser.setText ( "你的" );
                     redpacketBean = new RedpacketBean ();
@@ -90,7 +91,7 @@ public class ChatGetRedpacket extends EaseChatRow {
                 String redId = message.getStringAttribute ( IMConstants.REDPACKET_MSG_REDID, "" );
                 redpacketBean = new RedpacketBean ();
                 redpacketBean.setId ( ConvertNumUtils.stringToLong ( redId ) );
-                String hxid = SpUtils.getValue ( context, "hxid", "" );
+                String hxid = CommonMethod.getHxidForLocal ( );
                 if (hxid.equals ( getHXID )) {
                     //你领取了红包
                     getUser.setText ( "你" );

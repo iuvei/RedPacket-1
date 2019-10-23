@@ -34,6 +34,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonres.view.CodeView;
@@ -291,9 +292,9 @@ public class LoginActivity extends BaseSupportActivity<LoginPresenter> implement
         public void loginSuccessful(String id, long uid) {
             SpUtils.put ( this,"username",etPhone.getText ().toString ().trim () );
             SpUtils.put ( this,"password",etPassword.getText ().toString ().trim () );
-            SpUtils.put ( this,"nickname", AppLifecyclesImpl.getUserinfo ().getNickname () );
-            SpUtils.put ( this,"uid", uid+"" );
-            SpUtils.put ( this,"hxid", id );
+            CommonMethod.setHxidForLocal ( id );
+            CommonMethod.setNickNameForLocal ( AppLifecyclesImpl.getUserinfo ().getNickname () );
+            CommonMethod.setUidForLocal ( uid+"" );
             launchActivity(new Intent(this, MainActivity.class));
             mAppManager.killAll(MainActivity.class);
         }

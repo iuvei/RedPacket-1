@@ -39,6 +39,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.iwgang.countdownview.CountdownView;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -212,7 +213,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         ArmsUtils.configRecyclerView ( rvGarbRedpacket, mLayoutManager );
         rvGarbRedpacket.setAdapter ( mAdapter );
         //用户id
-        String uid = SpUtils.getValue ( this, "uid", "" );
+        String uid = CommonMethod.getUidForLocal ( );
         mAdapter.setUid ( uid );
         View emptyView = LayoutInflater.from ( mContext ).inflate ( R.layout.public_empty_page, null, false );
         mAdapter.setEmptyView ( emptyView );
@@ -262,7 +263,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         int alreadyNumber = 0;
         double alreadyMoney = 0;
         //用户id
-        String uid = SpUtils.getValue ( this, "uid", "" );
+        String uid = CommonMethod.getUidForLocal ();
         List <GarbRedpacketBean> garbRedpackets = redpacketInfo.getGarbRedpackets ();
         if (null != garbRedpackets && garbRedpackets.size () > 0) {
             alreadyNumber = garbRedpackets.size ();

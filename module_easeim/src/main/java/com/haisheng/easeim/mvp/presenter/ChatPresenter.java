@@ -477,8 +477,8 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     /**
      * 发送xxx加入房间的信息
      */
-    public void sendJoinRoomMessage(Context context){
-        String nickname = CommonMethod.getNickNameForLocal ( context );
+    public void sendJoinRoomMessage(){
+        String nickname = CommonMethod.getNickNameForLocal ( );
         String content = nickname+"加入房间";
         EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
         // 增加自己特定的属性
@@ -567,8 +567,8 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
         EMMessage message = EMMessage.createTxtSendMessage (redpacketBean.getNickname ()+"领取了红包", toChatUsername);
         //领取红包的类型
         message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
-        String nickname = SpUtils.getValue ( context,"nickname","" );
-        String id = SpUtils.getValue ( context,"hxid","" );
+        String nickname = CommonMethod.getNickNameForLocal ();
+        String id = CommonMethod.getHxidForLocal ();
         if (id.equals ( redpacketBean.getHxid () )){
             //自己领取自己发出的红包
             message.setAttribute ( IMConstants.GET_REDPACKET_MSG_SENDNAME,nickname );
