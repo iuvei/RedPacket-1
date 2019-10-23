@@ -667,7 +667,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         mPresenter.onConversationInit();
         onMessageListInit();
         llAlertKickedOff.setVisibility(View.GONE);
-        mPresenter.sendJoinRoomMessage ( this );
+        mPresenter.sendJoinRoomMessage ( );
     }
 
     CommonDialog.Builder builder;

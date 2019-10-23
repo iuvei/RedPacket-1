@@ -64,4 +64,28 @@ public class CommonMethod {
         MMKV kv = MMKV.defaultMMKV();
         return kv.encode ( hxid+"isNotify",isNotify );
     }
+
+    //新消息大佬是否打开震动
+    public static boolean isVibrateFromLocal(){
+        MMKV kv = MMKV.defaultMMKV();
+        return kv.decodeBool ( "vibrate" );
+    }
+
+    //新消息是否打开震动保存到本地
+    public static void setVibrateToLocal(boolean isVibrate){
+        MMKV kv = MMKV.defaultMMKV();
+        kv.encode ( "vibrate",isVibrate );
+    }
+
+    //新消息大佬是否打开声音
+    public static boolean isVoiceFromLocal(){
+        MMKV kv = MMKV.defaultMMKV();
+        return kv.decodeBool ( "voice" );
+    }
+
+    //新消息是否打开震动保存到本地
+    public static void setVoiceToLocal(boolean isVibrate){
+        MMKV kv = MMKV.defaultMMKV();
+        kv.encode ( "voice",isVibrate );
+    }
 }

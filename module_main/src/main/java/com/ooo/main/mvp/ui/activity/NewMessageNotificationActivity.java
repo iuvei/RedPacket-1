@@ -20,6 +20,7 @@ import com.ooo.main.mvp.presenter.NewMessageNotificationPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.view.SwitchButton;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.core.Constants;
@@ -77,8 +78,8 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
         tvTitle.setText ( "新消息通知" );
         boolean newMessageNotification = SpUtils.getValue ( this,Constants.IM.SHARED_KEY_SETTING_SOUND, true);
         boolean notificationDetails = SpUtils.getValue ( this,"notificationDetails", true);
-        boolean voice = SpUtils.getValue ( this,"voice", true);
-        boolean vibrate = SpUtils.getValue ( this,"vibrate", true);
+        boolean voice = CommonMethod.isVoiceFromLocal ();
+        boolean vibrate = CommonMethod.isVibrateFromLocal ();
         swbNewmessage.setChecked ( newMessageNotification );
         swbMessageDetail.setChecked ( notificationDetails );
         swbVoice.setChecked ( voice );
@@ -103,15 +104,13 @@ public class NewMessageNotificationActivity extends BaseActivity <NewMessageNoti
         swbVibration.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                IMHelper.getInstance ().getModel ().setSettingMsgVibrate ( isChecked );
-                SpUtils.put ( NewMessageNotificationActivity.this,"vibrate", isChecked);
+                CommonMethod.setVibrateToLocal ( isChecked );
             }
         } );
         swbVoice.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                IMHelper.getInstance ().getModel ().setSettingMsgSound ( isChecked );
-                SpUtils.put ( NewMessageNotificationActivity.this,"voice", isChecked);
+                CommonMethod.setVoiceToLocal ( isChecked );
             }
         } );
     }

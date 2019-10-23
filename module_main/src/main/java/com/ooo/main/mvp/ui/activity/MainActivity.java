@@ -8,8 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,7 +40,6 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
-import me.jessyan.armscomponent.commonres.utils.SpUtils;
 import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
@@ -119,7 +116,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
         mPresenter.getAdvertising ();
-       // mPresenter.getAppVersion ();
+        // mPresenter.getAppVersion ();
 
     }
 
@@ -181,6 +178,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
                     case 4:
                         onViewClicked(llMe);
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -204,7 +203,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         mCurrentItemView = view;
 
         int i = view.getId();
-            mCurrentShowView.setVisibility(View.GONE);
+        mCurrentShowView.setVisibility(View.GONE);
 
         if (i == R.id.rl_chat) {
             viewPager.setCurrentItem(0);
@@ -256,7 +255,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     @Override
     public void getAdvertisingSuccess(AdvertisingBean.ResultBean result) {
-       showAdvertising(result);
+        showAdvertising(result);
     }
 
     private void showAdvertising(AdvertisingBean.ResultBean result) {

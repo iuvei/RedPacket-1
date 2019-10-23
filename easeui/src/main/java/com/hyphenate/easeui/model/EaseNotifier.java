@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseUI;
@@ -36,6 +37,8 @@ import com.hyphenate.util.EasyUtils;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 
 /**
  * new message notifier class
@@ -280,11 +283,16 @@ public class EaseNotifier {
                 EMLog.e(TAG, "in slient mode now");
                 return;
             }
-            if (settingsProvider.isMsgVibrateAllowed(message)) {
+            Log.e ( "tag","settingsProviderVibrate="+CommonMethod.isVibrateFromLocal () );
+            if (CommonMethod.isVibrateFromLocal ()){
                 vibrator.vibrate(VIBRATION_PATTERN, -1);
             }
 
             if (settingsProvider.isMsgSoundAllowed(message)) {
+                Log.e ( "tag","settingsProviderSound="+CommonMethod.isVoiceFromLocal () );
+                if (!CommonMethod.isVoiceFromLocal ()){
+                    return;
+                }
                 if (ringtone == null) {
                     Uri notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     ringtone = RingtoneManager.getRingtone(appContext, notificationUri);
