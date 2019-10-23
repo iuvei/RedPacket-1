@@ -3,15 +3,12 @@ package com.hyphenate.easeui.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,7 +16,6 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -33,7 +29,6 @@ import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.bean.GetRedPacketMessageBean;
 import com.hyphenate.easeui.bean.GunControlSettlementInfo;
-import com.hyphenate.easeui.bean.NiuniuSettlementInfo;
 import com.hyphenate.easeui.bean.RedpacketBean;
 import com.hyphenate.easeui.bean.RedpacketRewardBean;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;
@@ -47,12 +42,9 @@ import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.util.DateUtils;
 import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -159,7 +151,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 .apply ( new RequestOptions ().placeholder ( R.drawable.ease_default_avatar ) )
                 .into ( holder.avatar );
         //是否设置免打扰
-        boolean isNotify = CommonMethod.isNotifyFromHxid (username );
+        boolean isNotify = CommonMethod.isNotTroubleFromHxid (username );
         if (isNotify){
             holder.ivNotify.setVisibility ( View.VISIBLE );
         }else{
@@ -180,7 +172,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         }
         if (conversation.getUnreadMsgCount() > 0) {
             // show unread message count
-            if (conversation.getUnreadMsgCount()>99){
+            if (CommonMethod.isNotTroubleFromHxid ( username )){
+                //开启免打扰
+                holder.unreadLabel.setText ( "" );
+            }else if (conversation.getUnreadMsgCount()>99){
                 holder.unreadLabel.setText("...");
             }else {
                 holder.unreadLabel.setText ( String.valueOf ( conversation.getUnreadMsgCount () ) );

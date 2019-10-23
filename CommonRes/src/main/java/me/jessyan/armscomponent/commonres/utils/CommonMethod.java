@@ -54,13 +54,13 @@ public class CommonMethod {
     }
 
     //判断hx用户消息是否免打扰
-    public static boolean isNotifyFromHxid(String hxid){
+    public static boolean isNotTroubleFromHxid(String hxid){
         MMKV kv = MMKV.defaultMMKV();
         return kv.decodeBool ( hxid+"isNotify" );
     }
 
     //设置hx用户消息是否免打扰
-    public static boolean setNotifyFromHxid(String hxid,boolean isNotify){
+    public static boolean setNotTroubleFromHxid(String hxid, boolean isNotify){
         MMKV kv = MMKV.defaultMMKV();
         return kv.encode ( hxid+"isNotify",isNotify );
     }

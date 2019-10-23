@@ -20,7 +20,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
@@ -35,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
-import me.jessyan.armscomponent.commonres.utils.SpUtils;
 
 public class EaseCommonUtils {
 	private static final String TAG = "CommonUtils";
@@ -222,7 +220,7 @@ public class EaseCommonUtils {
      * @return
      */
     public static boolean isSilentMessage(EMMessage message){
-        boolean isNotify = CommonMethod.isNotifyFromHxid ( message.getTo () );
+        boolean isNotify = CommonMethod.isNotTroubleFromHxid ( message.getTo () );
         return message.getBooleanAttribute("em_ignore_notification", isNotify);
     }
 

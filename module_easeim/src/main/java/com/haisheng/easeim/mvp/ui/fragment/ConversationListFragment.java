@@ -214,10 +214,19 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
                 conversationList.remove ( j );
             }
         }
-        int unReadMsgCount = 0;
+        int unReadMsgCount = -1;
+        int notTroubleMsgCount = -1;
         for (int i = 0;i<conversationList.size ();i++){
-            //未读信息条数
-            unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
+            //如果开启免打扰，不计算未读信息条数
+            if (!CommonMethod.isNotTroubleFromHxid (conversationList.get ( i ).conversationId ())){
+                //未读信息条数
+                unReadMsgCount += conversationList.get ( i ).getUnreadMsgCount ();
+            }else {
+                //如果免打扰的未读信息不为0；
+                if (conversationList.get ( i ).getUnreadMsgCount ()>0){
+                    notTroubleMsgCount = 0;
+                }
+            }
         }
         List <EMConversation> groupList = new ArrayList <> (  );
         List <EMConversation> singleList = new ArrayList <> (  );
@@ -236,6 +245,11 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
         setTop ( singleList );
         groupList.addAll ( singleList );
         conversationListView.init ( groupList );
+        if (unReadMsgCount < 0 ){
+            unReadMsgCount = notTroubleMsgCount;
+        }else{
+            unReadMsgCount++;
+        }
         EventBus.getDefault ().post ( unReadMsgCount, EventBusHub.EVENTBUS_IM_UNREAD_COUNT );
     }
 

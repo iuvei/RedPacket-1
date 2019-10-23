@@ -283,13 +283,11 @@ public class EaseNotifier {
                 EMLog.e(TAG, "in slient mode now");
                 return;
             }
-            Log.e ( "tag","settingsProviderVibrate="+CommonMethod.isVibrateFromLocal () );
             if (CommonMethod.isVibrateFromLocal ()){
                 vibrator.vibrate(VIBRATION_PATTERN, -1);
             }
 
             if (settingsProvider.isMsgSoundAllowed(message)) {
-                Log.e ( "tag","settingsProviderSound="+CommonMethod.isVoiceFromLocal () );
                 if (!CommonMethod.isVoiceFromLocal ()){
                     return;
                 }

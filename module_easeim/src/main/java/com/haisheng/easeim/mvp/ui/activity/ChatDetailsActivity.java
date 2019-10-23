@@ -11,21 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.IMHelper;
 import com.haisheng.easeim.di.component.DaggerChatDetailsComponent;
 import com.haisheng.easeim.mvp.contract.ChatDetailsContract;
 import com.haisheng.easeim.mvp.presenter.ChatDetailsPresenter;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,7 +95,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
             } else {
                 swbTopMessage.setChecked ( false );
             }
-            boolean isNotify = CommonMethod.isNotifyFromHxid ( userInfo.getHxId () );
+            boolean isNotify = CommonMethod.isNotTroubleFromHxid ( userInfo.getHxId () );
             if (isNotify) {
                 swbMessageNotNotice.setChecked ( true );
             } else {
@@ -121,7 +114,7 @@ public class ChatDetailsActivity extends BaseSupportActivity <ChatDetailsPresent
                 if (userInfo==null){
                     return;
                 }
-                CommonMethod.setNotifyFromHxid(userInfo.getHxId (),isChecked);
+                CommonMethod.setNotTroubleFromHxid (userInfo.getHxId (),isChecked);
             }
         } );
         swbTopMessage.setOnCheckedChangeListener ( new SwitchButton.OnCheckedChangeListener () {

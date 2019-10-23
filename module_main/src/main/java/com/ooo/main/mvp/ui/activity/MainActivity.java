@@ -235,12 +235,16 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     @Override
     public void setUnreadIMMsgCountTotal(int countTotal) {
-        tvUnreadMsg.setVisibility(countTotal>0 ? View.VISIBLE : View.INVISIBLE);
+        tvUnreadMsg.setVisibility(countTotal>=0 ? View.VISIBLE : View.INVISIBLE);
+        if (countTotal == 0) {
+            tvUnreadMsg.setText("");
+            return;
+        }
         if (countTotal>99){
             tvUnreadMsg.setText ( "..." );
-        }else{
-            tvUnreadMsg.setText ( countTotal+"" );
+            return;
         }
+        tvUnreadMsg.setText ( countTotal+"" );
     }
 
     @Override
