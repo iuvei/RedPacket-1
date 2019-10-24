@@ -566,7 +566,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     public void sendGetRedPacketMessage(Context context,RedpacketBean redpacketBean) {
         EMMessage message = EMMessage.createTxtSendMessage (redpacketBean.getNickname ()+"领取了红包", toChatUsername);
         //领取红包的类型
-        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
+        //message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE,IMConstants.MSG_TYPE_GET_REDPACKET );
         String nickname = CommonMethod.getNickNameForLocal ();
         String id = CommonMethod.getHxidForLocal ();
         if (id.equals ( redpacketBean.getHxid () )){

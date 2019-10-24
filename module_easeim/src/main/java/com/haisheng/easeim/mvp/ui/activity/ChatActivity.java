@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatGetLayMessagePresenter;
 import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
@@ -155,6 +157,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     private static final int MESSAGE_TYPE_GET_REDPACKET = 14;
     private static final int MESSAGE_TYPE_REWARD_REDPACKET = 15;
     private static final int MESSAGE_TYPE_JOINROOM_REDPACKET = 16;
+    private static final int MESSAGE_TYPE_GET_LAY_REDPACKET = 17;
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -1098,7 +1101,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         public int getCustomChatRowTypeCount() {
             //here the number is the message type in EMMessage::Type
             //which is used to count the number of different chat row
-            return 21;
+            return 22;
         }
 
         @Override
@@ -1139,6 +1142,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     }else if (type == IMConstants.MSG_TYPE_JOINROOM_MESSAGE) {
                         //加入房间
                         return MESSAGE_TYPE_JOINROOM_REDPACKET;
+                    }else if (type == IMConstants.MSG_TYPE_GET_LAY_MESSAGE) {
+                        //中雷提示
+                        return MESSAGE_TYPE_GET_LAY_REDPACKET;
                     }
 
                 }
@@ -1158,6 +1164,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }
 
                 final int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
+                LogUtils.e ( "tag","type="+type );
                 String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,"" );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET
@@ -1184,6 +1191,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }else if (type == IMConstants.MSG_TYPE_JOINROOM_MESSAGE){
                     //加入房间提醒消息
                     EaseChatRowPresenter presenter = new ChatJoinRoomMessagePresenter ();
+                    return presenter;
+                }else if (type == IMConstants.MSG_TYPE_GET_LAY_MESSAGE){
+                    //中雷提醒消息
+                    EaseChatRowPresenter presenter = new ChatGetLayMessagePresenter ();
                     return presenter;
                 }
             }

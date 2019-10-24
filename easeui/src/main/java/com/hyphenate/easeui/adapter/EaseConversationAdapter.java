@@ -27,6 +27,7 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.bean.GetLayBean;
 import com.hyphenate.easeui.bean.GetRedPacketMessageBean;
 import com.hyphenate.easeui.bean.GunControlSettlementInfo;
 import com.hyphenate.easeui.bean.RedpacketBean;
@@ -335,6 +336,14 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     case 11:
                         //加入房间提醒消息
                         tips.append ( sRedpacketInfo );
+                        break;
+                    case 13:
+                        //中雷提醒
+                        GetLayBean getLayBean = new Gson ().fromJson(sRedpacketInfo, GetLayBean.class);
+                        tips.append ( getLayBean.getNickname () );
+                        tips.append ( ",中了" );
+                        tips.append ( getLayBean.getNickname_red () );
+                        tips.append ( "红包的雷" );
                         break;
                     default:
                         tips.append ( "" );

@@ -88,6 +88,8 @@ public class IMConstants extends EaseConstant {
     public static final int MSG_TYPE_REWARD_MESSAGE  = 9;
     //加入房间提醒消息
     public static final int MSG_TYPE_JOINROOM_MESSAGE  = 11;
+    //中雷提醒消息
+    public static final int MSG_TYPE_GET_LAY_MESSAGE  = 13;
 
 
     //
