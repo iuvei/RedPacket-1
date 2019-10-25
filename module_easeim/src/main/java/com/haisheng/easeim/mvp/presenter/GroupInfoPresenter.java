@@ -6,6 +6,7 @@ import com.haisheng.easeim.mvp.contract.GroupInfoContract;
 import com.haisheng.easeim.mvp.model.ChatRoomModel;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.GroupListBean;
+import com.hyphenate.chat.EMClient;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
@@ -85,6 +86,7 @@ public class GroupInfoPresenter extends BasePresenter<IModel, GroupInfoContract.
                     @Override
                     public void onNext(BaseResponse response) {
                         if (response.isSuccess()) {
+                            EMClient.getInstance().chatroomManager().leaveChatRoom(roomId+"");
                             mRootView.quitSuccessful();
                         }
                         mRootView.showMessage(response.getMessage());

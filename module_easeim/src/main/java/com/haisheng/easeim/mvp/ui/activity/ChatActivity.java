@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -36,6 +37,7 @@ import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetLayMessagePresenter;
+import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
@@ -364,7 +366,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         dialog.show ();
     }
 
-  /*  *//**
+    /*  *//**
      * 修改群昵称
      * {@link GroupInfoActivity#setRoomNickNameSuccess(java.lang.String)}
      * @param nickname
@@ -1016,8 +1018,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             redpacketBean.setRoomid ( mChatRoomBean.getId ()+"" );
             //发送红包消息
             mPresenter.sendRedpacketMessage(redpacketBean);
-           AppLifecyclesImpl.getUserInfo ().setAvatarUrl ( redpacketBean.getAvatarUrl () );
-           AppLifecyclesImpl.getUserInfo ().setNickname ( redpacketBean.getNickname () );
+            AppLifecyclesImpl.getUserInfo ().setAvatarUrl ( redpacketBean.getAvatarUrl () );
+            AppLifecyclesImpl.getUserInfo ().setNickname ( redpacketBean.getNickname () );
         }
 
     }
@@ -1072,7 +1074,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     }
 
 
-     // make a video call
+    // make a video call
 
     protected void startVideoCall() {
         if (!EMClient.getInstance ().isConnected ()) {
@@ -1165,7 +1167,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 }
 
                 final int type = message.getIntAttribute(IMConstants.MESSAGE_ATTR_TYPE, -1);
-                LogUtils.e ( "tag","type="+type );
                 String clus = message.getStringAttribute ( IMConstants.GET_REDPACKET_MSG_TYPE,"" );
                 //红包消息
                 if (type == IMConstants.MSG_TYPE_MINE_REDPACKET || type == IMConstants.MSG_TYPE_WELFARE_REDPACKET
@@ -1278,7 +1279,14 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
         @Override
         public void onMemberJoined(final String roomId, final String participant) {
-            mPresenter.sendJoinRoomMessage ( );
+            if (participant.equals ( "系统管理员" )){
+                List <String> list = EMClient.getInstance ().chatroomManager ().getChatRoom ( roomId ).getMemberList ();
+                if (list.size ()>0){
+                    mPresenter.sendJoinRoomMessage ( list.get ( 0 ) );
+                }
+            }else {
+                mPresenter.sendJoinRoomMessage ( participant );
+            }
         }
 
         @Override

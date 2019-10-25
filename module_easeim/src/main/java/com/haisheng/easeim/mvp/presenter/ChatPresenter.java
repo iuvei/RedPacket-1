@@ -477,18 +477,20 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
     /**
      * 发送xxx加入房间的信息
      */
-    public void sendJoinRoomMessage(){
-        String nickname = CommonMethod.getNickNameForLocal ( );
-        String content = nickname+"加入房间";
-        EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
-        // 增加自己特定的属性
-        message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_JOINROOM_MESSAGE );
-        message.setAttribute ( IMConstants.MESSAGE_ATTR_JOIN_ROOM_NICKNAME, nickname);
-        // Send message.
-        sendMessage ( message );
-        //refresh ui
-        mRootView.refreshSelectLast();
-
+    public void sendJoinRoomMessage(String hxid){
+        if (hxid.equals ( CommonMethod.getHxidForLocal () )) {
+            //如果自己加入了房间，则发送加入房间提示
+            String nickname = CommonMethod.getNickNameForLocal ();
+            String content = nickname + "加入房间";
+            EMMessage message = EMMessage.createTxtSendMessage ( content, toChatUsername );
+            // 增加自己特定的属性
+            message.setAttribute ( IMConstants.MESSAGE_ATTR_TYPE, IMConstants.MSG_TYPE_JOINROOM_MESSAGE );
+            message.setAttribute ( IMConstants.MESSAGE_ATTR_JOIN_ROOM_NICKNAME, nickname );
+            // Send message.
+            sendMessage ( message );
+            //refresh ui
+            mRootView.refreshSelectLast ();
+        }
     }
 
     /**

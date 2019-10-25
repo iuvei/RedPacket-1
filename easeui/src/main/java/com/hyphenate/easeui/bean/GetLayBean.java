@@ -17,6 +17,7 @@ public class GetLayBean {
     private String nickname_red;
     private String roomid;
     private String hxid;
+    private String hxid1;
 
     public String getNickname() {
         return nickname;
@@ -48,5 +49,13 @@ public class GetLayBean {
 
     public void setHxid(String hxid) {
         this.hxid = hxid;
+    }
+
+    public String getHxid1() {
+        return hxid1;
+    }
+
+    public void setHxid1(String hxid1) {
+        this.hxid1 = hxid1;
     }
 }
