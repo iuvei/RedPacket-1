@@ -110,11 +110,7 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkTotalMoney ();
-                if (etRedpacketNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
-                } else {
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
-                }
+                changeSendRedPacketBg();
             }
 
             @Override
@@ -130,17 +126,22 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkRedpacketNumber ();
-                if (etRedpacketNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
-                } else {
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
-                }
+                changeSendRedPacketBg ();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         } );
+    }
+
+    //改变红包按钮的背景
+    private void changeSendRedPacketBg() {
+        if (etRedpacketNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
+            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
+        } else {
+            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
+        }
     }
 
     @OnClick(R2.id.btn_send_redpacket)

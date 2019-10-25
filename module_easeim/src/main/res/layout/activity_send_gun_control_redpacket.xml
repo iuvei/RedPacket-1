@@ -166,7 +166,7 @@
                     android:textColor="@color/public_white"
                     android:layout_margin="@dimen/spacing_xxl"
                     android:layout_below="@+id/cv_mine_numbers"
-                    android:background="@drawable/btn_ad_shape_enable"/>
+                    android:background="@drawable/btn_sendredpacket_shape_enable"/>
 
             </RelativeLayout>
         </LinearLayout>

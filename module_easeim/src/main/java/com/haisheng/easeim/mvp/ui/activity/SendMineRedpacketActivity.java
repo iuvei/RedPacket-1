@@ -147,15 +147,15 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                 checkTotalMoney ();
                 if (ll_more_boom.getVisibility () == View.VISIBLE) {
                     if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                     } else {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                     }
                 }else{
                     if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                     } else {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                     }
                 }
             }
@@ -175,15 +175,15 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                 checkMineNumber ();
                 if (ll_more_boom.getVisibility () == View.VISIBLE) {
                     if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                     } else {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                     }
                 }else{
                     if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                     } else {
-                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                        btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                     }
                 }
             }
@@ -217,15 +217,15 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                     }
                     if (ll_more_boom.getVisibility () == View.VISIBLE) {
                         if (tflMineNumbers.getSelectedList ().size () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                         } else {
-                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                         }
                     }else{
                         if (etMineNumber.getText ().toString ().length () > 0 && etTotalMoney.getText ().toString ().length () > 0) {
-                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                         } else {
-                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                            btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                         }
                     }
                     return false;

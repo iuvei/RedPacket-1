@@ -143,9 +143,9 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                     }
                 }
                 if (tflMineNumbers.getSelectedList ().size ()>0 && etTotalMoney.getText ().toString ().length ()>0){
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                 }else{
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                 }
                 return false;
             }
@@ -166,9 +166,9 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                     tvMoney.setText ( "￥0" );
                 }
                 if (tflMineNumbers.getSelectedList ().size ()>0 && etTotalMoney.getText ().toString ().length ()>0){
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape );
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape );
                 }else{
-                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_ad_shape_enable );
+                    btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                 }
             }
 
