@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -15,10 +16,13 @@ import com.hyphenate.easeui.bean.RedpacketRewardBean;
 import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
+
 public class ChatGetLayMessage extends EaseChatRow {
 
     private TextView tvGetRedpacketNickName;
     private TextView tvSendRedpacketNickName;
+    private LinearLayout llItem;
 
     public ChatGetLayMessage(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -33,6 +37,7 @@ public class ChatGetLayMessage extends EaseChatRow {
     protected void onFindViewById() {
         tvGetRedpacketNickName = findViewById( R.id.tv_getRedPacketNickName);
         tvSendRedpacketNickName = findViewById( R.id.tv_sendRedPacketNickName);
+        llItem = findViewById( R.id.ll_item);
     }
 
 
@@ -46,10 +51,18 @@ public class ChatGetLayMessage extends EaseChatRow {
         try {
             String  getContent = message.getStringAttribute ( IMConstants.MESSAGE_ATTR_CONENT,"");
             Log.e ( "TAg","ChatGetLayMessage="+ getContent);
-            if(!TextUtils.isEmpty(getContent)){
-                GetLayBean getLayBean = new Gson ().fromJson(getContent, GetLayBean.class);
+            if(TextUtils.isEmpty(getContent)){
+                return;
+            }
+            GetLayBean getLayBean = new Gson ().fromJson(getContent, GetLayBean.class);
+            String myHxid = CommonMethod.getHxidForLocal ();
+            //如果发包人id跟自己的id一致，则显示，否则隐藏
+            if (myHxid.equals ( getLayBean.getHxid () )){
+                llItem.setVisibility ( VISIBLE );
                 tvGetRedpacketNickName.setText ( getLayBean.getNickname () );
                 tvSendRedpacketNickName.setText ( getLayBean.getNickname_red () );
+            }else{
+                llItem.setVisibility ( GONE );
             }
         } catch (JsonSyntaxException e) {
             e.printStackTrace ();

@@ -75,7 +75,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
             if (responseBean.getStatus () == 2){
                 Bundle bundle = new Bundle (  );
                 bundle.putBoolean ("logout", true);
-                ARouter.getInstance ().build ( RouterHub.MAIN_LOGINACTIVITY ).with ( bundle ).navigation ();
+                ARouter.getInstance ().build ( RouterHub.MAIN_LOGINADACTIVITY ).with ( bundle ).navigation ();
                 ToastUtils.showShort ( "token失效，请重新登录" );
             }
         } catch (Exception e) {

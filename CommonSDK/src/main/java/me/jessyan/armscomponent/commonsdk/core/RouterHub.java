@@ -60,6 +60,7 @@ public interface RouterHub {
      */
     String MAIN_SPLASHACTIVITY = MAIN + "/SplashActivity";
     String MAIN_LOGINACTIVITY = MAIN + "/LoginActivity";
+    String MAIN_LOGINADACTIVITY = MAIN + "/LoginAdActivity";
     String MAIN_MAINACTIVITY = MAIN + "/MainActivity";
     String MAIN_SELFFRAGMENT = MAIN + "/SelfFragment";
     String MAIN_RANKFRAGMENT = MAIN + "/RankFragment";

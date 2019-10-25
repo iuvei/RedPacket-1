@@ -670,7 +670,6 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         mPresenter.onConversationInit();
         onMessageListInit();
         llAlertKickedOff.setVisibility(View.GONE);
-        mPresenter.sendJoinRoomMessage ( );
     }
 
     CommonDialog.Builder builder;
@@ -765,7 +764,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
     @Override
     public void grabRedpacketSuccessfully(Long redpacketId, int welfareStatus, RedpacketBean redpacketBean) {
         isRabShow = false;
-        playSound();
+        if (CommonMethod.isVoiceFromLocal ()) {
+            playSound ();
+        }
         //发送领取红包消息
         mPresenter.sendGetRedPacketMessage (this,redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
@@ -1277,6 +1278,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
 
         @Override
         public void onMemberJoined(final String roomId, final String participant) {
+            mPresenter.sendJoinRoomMessage ( );
         }
 
         @Override

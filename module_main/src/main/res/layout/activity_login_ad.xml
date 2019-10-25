@@ -2,45 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_margin="@dimen/spacing_xxl"
     android:orientation="vertical">
-
-    <include layout="@layout/public_include_title" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/public_height_550px"
-        android:layout_margin="@dimen/spacing_xl"
-        android:background="@color/white">
-
-        <cn.bingoogolapple.bgabanner.BGABanner
-            android:id="@+id/banner"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="@dimen/spacing_m"/>
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/spacing_xxl"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/public_white"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你已经在其他地方登录"
+            android:textColor="@color/public_black"
+            android:textSize="@dimen/text_title"
+            android:layout_marginTop="@dimen/spacing_xxl"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请重新登录"
+            android:textColor="@color/btn_gray_pressed"
+            android:layout_marginTop="@dimen/spacing_l"/>
+            <View style="@style/discover_style_view"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_xxl"></View>
+        <TextView
+            android:id="@+id/tv_go_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xl"
+            android:gravity="center"
+            android:text="确定"
+            android:padding="@dimen/spacing_s"
+            android:textColor="@color/public_color_0F79FD"
+            android:textSize="@dimen/text_title" />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <Button
-        android:id="@+id/tv_go_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_xl"
-        android:layout_marginLeft="@dimen/spacing_xl"
-        android:layout_marginRight="@dimen/spacing_xl"
-        android:background="@drawable/btn_ad_shape"
-        android:gravity="center"
-        android:text="登录"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_normal" />
-
-    <Button
-        android:id="@+id/tv_go_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_xl"
-        android:background="@drawable/btn_ad_white_shape"
-        android:gravity="center"
-        android:text="注册"
-        android:textColor="@color/common_text"
-        android:textSize="@dimen/text_normal" />
 </LinearLayout>
