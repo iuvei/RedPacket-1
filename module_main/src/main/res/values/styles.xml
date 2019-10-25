@@ -110,9 +110,12 @@
     <style name="copy_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/spacing_s</item>
-        <item name="android:background">@drawable/btn_ad_shape</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">@dimen/spacing_s</item>
+        <item name="android:paddingBottom">@dimen/spacing_s</item>
+        <item name="android:paddingRight">@dimen/spacing_m</item>
+        <item name="android:paddingLeft">@dimen/spacing_m</item>
+        <item name="android:background">@drawable/btn_copy_shape</item>
+        <item name="android:textColor">@color/public_color_06CB7E</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 </resources>

@@ -242,8 +242,8 @@
                     android:layout_height="wrap_content"
                     android:text="撤销订单"
                     android:textStyle="bold"
-                    android:background="@drawable/btn_ad_shape"
-                    android:textColor="@color/white"/>
+                    android:background="@drawable/btn_cancel_pay_shape"
+                    android:textColor="@color/public_black"/>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
