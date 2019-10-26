@@ -222,7 +222,7 @@ public interface ApiService {
      * 获取安卓版本信息
      * @return
      */
-    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=android")
+    @POST("index.php?i=1&c=entry&p=Other&do=Apis&m=sz_yi&op=set")
     Observable<AppVersionBean> getAppVersion();
 
 

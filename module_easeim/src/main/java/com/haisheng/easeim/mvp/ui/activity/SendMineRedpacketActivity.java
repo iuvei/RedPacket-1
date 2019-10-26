@@ -2,6 +2,7 @@ package com.haisheng.easeim.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -131,7 +132,6 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
         if (null != bundle) {
             mChatRoomBean = (ChatRoomBean) bundle.getSerializable ( "chatRoom" );
             tvTitle.setText ( mChatRoomBean.getName () );
-            tvMultiple.setText ( mChatRoomBean.getCompensate () );
         }
         etTotalMoney.setHint ( "余额："+ AppLifecyclesImpl.getBalance () );
         etRedpacketNumber.setText ( String.valueOf ( mChatRoomBean.getRedpacketNumber () ) );
@@ -203,6 +203,8 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                     TextView tv = (TextView) LayoutInflater.from ( mContext ).inflate ( R.layout.item_circle_number,
                             tflMineNumbers, false );
                     tv.setText ( String.valueOf ( number ) );
+                    tv.setBackground ( getDrawable ( R.drawable.btn_chooseboom_selector ) );
+                    tv.setTextColor ( Color.BLACK);
                     return tv;
                 }
             };
@@ -228,12 +230,21 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
                             btnSendRedPacket.setBackgroundResource ( R.drawable.btn_sendredpacket_shape_enable );
                         }
                     }
+                    int chooseBoomSize = tflMineNumbers.getSelectedList ().size ();
+                    if (chooseBoomSize>0){
+                        if (mChatRoomBean.getBan7 ().size ()>=chooseBoomSize) {
+                            tvMultiple.setText ( mChatRoomBean.getBanFromBan7 ( chooseBoomSize ) );
+                        }
+                    }else{
+                        tvMultiple.setText ( 0.0+"" );
+                    }
                     return false;
                 }
             } );
         }else{
             ll_single_boom.setVisibility ( View.VISIBLE );
             ll_more_boom.setVisibility ( View.GONE );
+            tvMultiple.setText ( mChatRoomBean.getCompensate () );
         }
     }
 

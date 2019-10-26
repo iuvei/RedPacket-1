@@ -2,6 +2,7 @@ package com.haisheng.easeim.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -124,6 +126,8 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                 TextView tv = (TextView) LayoutInflater.from ( mContext ).inflate ( R.layout.item_circle_number,
                         tflMineNumbers, false );
                 tv.setText ( String.valueOf ( number ) );
+                tv.setBackground ( getDrawable ( R.drawable.btn_chooseboom_selector ) );
+                tv.setTextColor ( Color.BLACK);
                 return tv;
             }
         };
@@ -137,7 +141,6 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
                     if (mCurrentRedpacketNumber == 10) {
                         canSelectMaxNumber = 8;
                     }
-
                     if (canSelectMaxNumber == tflMineNumbers.getSelectedList ().size () && !tflMineNumbers.getSelectedList ().contains ( position )) {
                         showMessage ( String.format ( "红包个数为：%d的红包只能够选：%d个雷号", mCurrentRedpacketNumber, canSelectMaxNumber ) );
                     }

@@ -11,6 +11,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import me.jessyan.armscomponent.commonsdk.entity.UserInfo;
 
@@ -80,6 +81,8 @@ public class ChatRoomBean extends BaseModel implements Serializable {
     private int userNumber;
     @SerializedName("list")
     private List<UserInfo> userInfos;
+    @SerializedName("ban7")
+    private Map<String,String> ban7;
 
     public int getBannedStatus() {
         return bannedStatus;
@@ -279,5 +282,17 @@ public class ChatRoomBean extends BaseModel implements Serializable {
 
     public void setCompensate(String compensate) {
         this.compensate = compensate;
+    }
+
+    public Map<String, String>  getBan7() {
+        return ban7;
+    }
+
+    public String getBanFromBan7(int key){
+        return ban7.get ( key+"" );
+    }
+
+    public void setBan7(Map ban7) {
+        this.ban7 = ban7;
     }
 }

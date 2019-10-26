@@ -116,8 +116,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         mPresenter.initUnreadIMMsgCountTotal();
         mPresenter.requestPermission();
         mPresenter.getAdvertising ();
-        // mPresenter.getAppVersion ();
-
+        mPresenter.getAppVersion ();
     }
 
     public void requestPermission(){

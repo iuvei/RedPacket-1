@@ -124,7 +124,7 @@ public class ChatBasicRedpacket extends EaseChatRow {
                 tvRedpacketType.setText( R.string.shenghuang_redpacket);
 
             }else if(mType== IMConstants.MSG_TYPE_GUN_CONTROL_REDPACKET){
-                tvMessage.setText(String.format("%.0f-%d",redpacketBean.getMoney(),redpacketBean.getNumber()));
+                tvMessage.setText(String.format("%.0f-%s",redpacketBean.getMoney(),redpacketBean.getBoomNumbers ()));
                 tvRedpacketType.setText( R.string.shenghuang_redpacket);
             }
         }
