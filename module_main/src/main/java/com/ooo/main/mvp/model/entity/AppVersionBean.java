@@ -1,6 +1,10 @@
 package com.ooo.main.mvp.model.entity;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import java.io.Serializable;
+
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 
 /**
  * creat at 2019/9/18
@@ -8,9 +12,10 @@ import java.io.Serializable;
  */
 public class AppVersionBean implements Serializable {
 
+
     /**
      * status : 1
-     * result : {"Code":0,"Msg":"","UpdateStatus":1,"VersionCode":1,"VersionName":"1.0.0","ModifyContent":"1、优化api接口。 2、添加使用demo演示。 3、新增自定义更新服务API接口。 4、优化更新提示界面。","DownloadUrl":"http://5761.iiio.top//NewH5/Webprom.html","ApkSize":2048,"ApkMd5":""}
+     * result : {"name":"TT","copyright":"TT","levelurl":"","androidappurl":"123","iosappurl":"456","AndVersionName":"789","IosVersionName":"741","content":"66666666666666"}
      * msg :
      */
 
@@ -44,97 +49,94 @@ public class AppVersionBean implements Serializable {
 
     public static class ResultBean implements Serializable{
         /**
-         * Code : 0
-         * Msg :
-         * UpdateStatus : 1
-         * VersionCode : 1
-         * VersionName : 1.0.0
-         * ModifyContent : 1、优化api接口。 2、添加使用demo演示。 3、新增自定义更新服务API接口。 4、优化更新提示界面。
-         * DownloadUrl : http://5761.iiio.top//NewH5/Webprom.html
-         * ApkSize : 2048
-         * ApkMd5 :
+         * name : TT
+         * copyright : TT
+         * levelurl :
+         * androidappurl : 123
+         * iosappurl : 456
+         * AndVersionName : 789
+         * IosVersionName : 741
+         * content : 66666666666666
          */
 
-        private int Code;
-        private String Msg;
-        private int UpdateStatus;
-        private int VersionCode;
-        private String VersionName;
-        private String ModifyContent;
-        private String DownloadUrl;
-        private int ApkSize;
-        private String ApkMd5;
+        private String name;
+        private String copyright;
+        private String levelurl;
+        private String androidappurl;
+        private String iosappurl;
+        private String AndVersionName;
+        private String IosVersionName;
+        private String content;
 
-        public int getCode() {
-            return Code;
+        public String getName() {
+            return name;
         }
 
-        public void setCode(int Code) {
-            this.Code = Code;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getMsg() {
-            return Msg;
+        public String getCopyright() {
+            return copyright;
         }
 
-        public void setMsg(String Msg) {
-            this.Msg = Msg;
+        public void setCopyright(String copyright) {
+            this.copyright = copyright;
         }
 
-        public int getUpdateStatus() {
-            return UpdateStatus;
+        public String getLevelurl() {
+            return levelurl;
         }
 
-        public void setUpdateStatus(int UpdateStatus) {
-            this.UpdateStatus = UpdateStatus;
+        public void setLevelurl(String levelurl) {
+            this.levelurl = levelurl;
         }
 
-        public int getVersionCode() {
-            return VersionCode;
+        public String getAndroidappurl() {
+            return androidappurl;
         }
 
-        public void setVersionCode(int VersionCode) {
-            this.VersionCode = VersionCode;
+        public void setAndroidappurl(String androidappurl) {
+            this.androidappurl = androidappurl;
         }
 
-        public String getVersionName() {
-            return VersionName;
+        public String getIosappurl() {
+            return iosappurl;
         }
 
-        public void setVersionName(String VersionName) {
-            this.VersionName = VersionName;
+        public void setIosappurl(String iosappurl) {
+            this.iosappurl = iosappurl;
         }
 
-        public String getModifyContent() {
-            return ModifyContent;
+        public String getAndVersionName() {
+            return AndVersionName;
         }
 
-        public void setModifyContent(String ModifyContent) {
-            this.ModifyContent = ModifyContent;
+        public void setAndVersionName(String AndVersionName) {
+            this.AndVersionName = AndVersionName;
         }
 
-        public String getDownloadUrl() {
-            return DownloadUrl;
+        public String getIosVersionName() {
+            return IosVersionName;
         }
 
-        public void setDownloadUrl(String DownloadUrl) {
-            this.DownloadUrl = DownloadUrl;
+        public void setIosVersionName(String IosVersionName) {
+            this.IosVersionName = IosVersionName;
         }
 
-        public int getApkSize() {
-            return ApkSize;
+        public String getContent() {
+            return content;
         }
 
-        public void setApkSize(int ApkSize) {
-            this.ApkSize = ApkSize;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public String getApkMd5() {
-            return ApkMd5;
-        }
-
-        public void setApkMd5(String ApkMd5) {
-            this.ApkMd5 = ApkMd5;
+        public boolean isNeetUpdate(){
+            if (AppUtils.getAppVersionCode ()< ConvertNumUtils.stringToInt ( AndVersionName )){
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +41,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonsdk.adapter.FragmentAdapter;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -90,6 +93,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     private View mCurrentShowView,mCurrentItemView;
     private BaseDialog dialog;
+    private BaseDialog updateDialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -297,29 +301,24 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     //弹出版本更新
     private void showVersionUpdateDialog(AppVersionBean.ResultBean bean) {
-        dialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
+        if (bean.isNeetUpdate ()) {
+        updateDialog = new BaseCustomDialog.Builder ( this, R.layout.dialog_submit_blankinfo, false, new BaseCustomDialog.Builder.OnShowDialogListener () {
             @Override
             public void onShowDialog(View layout) {
                 TextView tvMessage = layout.findViewById ( R.id.tv_message );
-                tvMessage.setText ( "是否清除所有缓存与聊天记录？" );
+                tvMessage.setText ( "请更新版本" );
                 layout.findViewById ( R.id.tv_sure ).setOnClickListener ( new View.OnClickListener () {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss ();
                         //确定
-                        IMHelper.getInstance ().delectAllMessage ();
-                    }
-                } );
-                layout.findViewById ( R.id.tv_cancel ).setOnClickListener ( new View.OnClickListener () {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss ();
+                        WebviewActivity.start ( MainActivity.this,"更新版本",bean.getAndroidappurl () );
                     }
                 } );
             }
         } )
                 .create ();
-        dialog.show ();
+            updateDialog.show ();
+        }
     }
 
     @Override
@@ -338,5 +337,4 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     public void killMyself() {
         finish();
     }
-
 }

@@ -2,6 +2,8 @@ package me.jessyan.armscomponent.commonres.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,20 @@ public class BaseCustomDialog extends Dialog {
 
 
 
+        OnKeyListener keylistener = new DialogInterface.OnKeyListener(){
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode== KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        };
+
         public BaseDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,6 +65,8 @@ public class BaseCustomDialog extends Dialog {
             final BaseDialog dialog = new BaseDialog(context,
                     R.style.Dialog);
             dialog.setCanceledOnTouchOutside(OnTouchOutside);
+            dialog.setOnKeyListener(keylistener);
+            dialog.setCancelable (OnTouchOutside);
             //布局页面
             View layout = inflater.inflate(xmlLayoutId, null);
             if (listener!=null) {
