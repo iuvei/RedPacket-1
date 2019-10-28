@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,10 +20,8 @@ import com.ooo.main.R2;
 import com.ooo.main.di.component.DaggerBillingDetailsComponent;
 import com.ooo.main.mvp.contract.BillingDetailsContract;
 import com.ooo.main.mvp.model.entity.BillingDetailBean;
-import com.ooo.main.mvp.model.entity.WithdrawalRecordBean;
 import com.ooo.main.mvp.presenter.BillingDetailsPresenter;
 import com.ooo.main.mvp.ui.adapter.BillingRecordAdapter;
-import com.ooo.main.mvp.ui.adapter.WithdrawalRecordAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -69,7 +66,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
     SmartRefreshLayout refreshLayout;
     private List <BillingDetailBean.ResultBean.ListBean> recordBeans;
     private BillingRecordAdapter recycleAdapter;
-    private int page;
+    private int page = 1;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -93,6 +90,7 @@ public class BillingDetailsActivity extends BaseActivity <BillingDetailsPresente
         tvTitle.setText ( "账单" );
         recordBeans = new ArrayList <> (  );
         getBillingRecord(1);
+        refreshLayout.finishRefresh ();
         recycleAdapter = new BillingRecordAdapter ( this, recordBeans);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false );
         //设置布局管理器

@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,9 +34,6 @@ import com.google.gson.Gson;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
 import com.haisheng.easeim.app.AppLifecyclesImpl;
-import com.haisheng.easeim.mvp.ui.widget.message.ChatGetLayMessagePresenter;
-import com.hyphenate.chat.EMChatRoom;
-import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerChatComponent;
 import com.haisheng.easeim.di.module.ChatModule;
 import com.haisheng.easeim.mvp.contract.ChatContract;
@@ -46,14 +41,13 @@ import com.haisheng.easeim.mvp.model.db.UserDao;
 import com.haisheng.easeim.mvp.model.entity.ChatExtendItemEntity;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
 import com.haisheng.easeim.mvp.model.entity.CheckRedpacketInfo;
-import com.hyphenate.easeui.bean.NiuniuSettlementInfo;
-import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.model.entity.UserInfoBean;
 import com.haisheng.easeim.mvp.presenter.ChatPresenter;
 import com.haisheng.easeim.mvp.ui.widget.ChatExtendMenu;
 import com.haisheng.easeim.mvp.ui.widget.ChatInputMenu;
 import com.haisheng.easeim.mvp.ui.widget.EaseChatVoiceCallPresenter;
 import com.haisheng.easeim.mvp.ui.widget.dialog.CommonDialog;
+import com.haisheng.easeim.mvp.ui.widget.message.ChatGetLayMessagePresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedPacketPresenter;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatGetRedpacket;
 import com.haisheng.easeim.mvp.ui.widget.message.ChatHelpMessagePresenter;
@@ -69,10 +63,13 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.adapter.EMAChatRoomManagerListener;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.bean.NiuniuSettlementInfo;
+import com.hyphenate.easeui.bean.RedpacketBean;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatRoomListener;
 import com.hyphenate.easeui.ui.EaseGroupListener;
+import com.hyphenate.easeui.utils.IMConstants;
 import com.hyphenate.easeui.widget.EaseChatMessageList;
 import com.hyphenate.easeui.widget.EaseVoiceRecorderView;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
@@ -248,10 +245,10 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         mPresenter.initDatas(toChatUsername, chatType);
 
         initView();
-        if (chatType != EaseConstant.CHATTYPE_CHATROOM) {
+//        if (chatType != EaseConstant.CHATTYPE_CHATROOM) {
             onMessageListInit();
             mPresenter.onConversationInit();
-        }
+//        }
 
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
@@ -296,6 +293,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 EMClient.getInstance ().chatroomManager ().addChatRoomChangeListener ( mChatRoomListener );
                 mPresenter.joinRoom(toChatUsername);
                 inputMenu.setTalkingEnable(false);
+                if (mChatRoomBean.isNewJoin ()){
+                    mPresenter.sendJoinRoomMessage ( CommonMethod.getHxidForLocal () );
+                }
             }
             llBalance.setVisibility(View.VISIBLE);
         }
@@ -821,6 +821,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
         if (null != builder && builder.isShowing()) {
             builder.setText ( R.id.tv_message, message );
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
+            builder.getView(R.id.tv_tip).setVisibility(View.GONE);
         }
     }
 

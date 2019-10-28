@@ -83,6 +83,8 @@ public class ChatRoomBean extends BaseModel implements Serializable {
     private List<UserInfo> userInfos;
     @SerializedName("ban7")
     private Map<String,String> ban7;
+    @SerializedName("add")
+    private int add;//是否新加入房间的成员
 
     public int getBannedStatus() {
         return bannedStatus;
@@ -294,5 +296,21 @@ public class ChatRoomBean extends BaseModel implements Serializable {
 
     public void setBan7(Map ban7) {
         this.ban7 = ban7;
+    }
+
+    public int getAdd() {
+        return add;
+    }
+
+    public void setAdd(int add) {
+        this.add = add;
+    }
+
+    public boolean isNewJoin(){
+        if (add==1){
+            //新加入房间的成员
+            return true;
+        }
+        return false;
     }
 }

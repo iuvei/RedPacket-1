@@ -77,7 +77,7 @@ public class ChatRoomModel extends BaseModel {
                 @Override
                 public void onError(final int error, String errorMsg) {
                     //加入聊天室失败
-                    emitter.onError(new Throwable(errorMsg));
+                   // emitter.onError(new Throwable(errorMsg));
                     emitter.onComplete();
                 }
             });
