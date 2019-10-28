@@ -124,6 +124,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
     private String myId; //闲家id
     private double myGetMoney; //闲家金额
     private Integer myNiuniuNum; //闲家的牛牛点数
+    private boolean sort;
 
     public static void start(Activity context, Long roomId, Long redpacketId, int welfareStatus, int redType) {
         Intent intent = new Intent ( context, RedpacketDetailActivity.class );
@@ -182,7 +183,12 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
         } );
 
         initRecyclerView ();
-        mPresenter.initDatas ( mRoomId, mRedpacketId, mWelfareStatus );
+        sort = false;
+        if (paytype == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET){
+            //如果是禁抢房则排序
+            sort = true;
+        }
+        mPresenter.initDatas ( mRoomId, mRedpacketId, mWelfareStatus,sort );
         ivBack.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View view) {
@@ -222,7 +228,7 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.requestDatas ();
+        mPresenter.requestDatas (sort);
     }
 
     @Override
