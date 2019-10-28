@@ -49,6 +49,7 @@ import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.CopyUtil;
 import me.jessyan.armscomponent.commonres.utils.FileUtil;
 import me.jessyan.armscomponent.commonres.utils.PopuWindowsUtils;
+import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
 import me.jessyan.armscomponent.commonsdk.core.RouterHub;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
@@ -67,7 +68,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRechargePresenter> implements TurnToYinLianRechargeContract.View {
+public class TurnToYinLianRechargeActivity extends BaseSupportActivity <TurnToYinLianRechargePresenter> implements TurnToYinLianRechargeContract.View {
 
     @BindView(R2.id.iv_back)
     ImageView ivBack;
@@ -363,6 +364,7 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
     @Override
     public void submitRechargeInfoSuccess(String result) {
         ToastUtils.showShort ( result );
+        openActivity ( MainActivity.class );
         finish ();
     }
 

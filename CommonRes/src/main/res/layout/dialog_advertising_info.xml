@@ -36,5 +36,5 @@
         android:paddingRight="@dimen/spacing_xl"
         android:paddingTop="@dimen/spacing_xl"
         tools:text="123"
-        android:paddingBottom="100dp"/>
+        android:paddingBottom="180dp"/>
 </RelativeLayout>
