@@ -18,8 +18,6 @@ import javax.inject.Inject;
 import com.jess.arms.mvp.IModel;
 import com.ooo.main.mvp.contract.UnderLineListContract;
 import com.ooo.main.mvp.model.ApiModel;
-import com.ooo.main.mvp.model.RedPacketRoomModel;
-import com.ooo.main.mvp.model.entity.RedPacketGameRomeBean;
 import com.ooo.main.mvp.model.entity.UnderPayerBean;
 
 import java.util.ArrayList;
@@ -78,14 +76,17 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
         page = 1;
         int size = underlines.size ();
         if (size>1){
-            //将选择值为空
+            if (TextUtils.isEmpty ( preAgenId )){
+                //将选择值为空,则移除最后一位
+                preAgenId = underlines.get ( size-1 );
+            }
             //选中最后一个列表中的最后一个下线
-            getUnderLineList(underlines.get ( size-1 ),true);
+            getUnderLineList(underlines.get ( size-2 ),true);
         }
         if (underlines.size ()>1){
-            mRootView.hasPre(true);
+            mRootView.hasPre(true, underlines.size () );
         }else{
-            mRootView.hasPre(false);
+            mRootView.hasPre(false, underlines.size () );
         }
     }
 
@@ -102,6 +103,10 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
     }
 
     private void getUnderLineList(String agentid,boolean isPre){
+        Log.e ( "tag", "getUnderLineListagentid="+agentid);
+        for (String name:underlines){
+            Log.e ( "tag", "getUnderLineList="+name);
+        }
         apiModel.getUnderLineList ( "","",page,agentid )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <UnderPayerBean> (mErrorHandler) {
@@ -129,7 +134,10 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
                                     chooseAgenId = agentid;
                                 }
                             }
-                            mRootView.hasPre ( underlines.size ()>1 );
+                            for (String name:underlines){
+                                Log.e ( "tag", "getUnderLineList111="+name);
+                            }
+                            mRootView.hasPre ( underlines.size ()>1,underlines.size () );
 
                         }else{
                             if (page==1){

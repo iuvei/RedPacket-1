@@ -222,7 +222,8 @@ public class UnderLineListActivity extends BaseActivity <UnderLineListPresenter>
     }
 
     @Override
-    public void hasPre(boolean b) {
+    public void hasPre(boolean b,int level) {
         btnPre.setEnabled ( b );
+        recycleAdapter.setLevel ( level );
     }
 }
