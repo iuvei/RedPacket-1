@@ -1,6 +1,7 @@
 package com.ooo.main.mvp.presenter;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.jess.arms.integration.AppManager;
@@ -71,15 +72,15 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
         this.mApplication = null;
     }
 
+    String preAgenId = "";
     //返回上一级下线
     public void underLinePre(){
         page = 1;
         int size = underlines.size ();
         if (size>1){
-            chooseAgenId = underlines.get ( size-2 );
-            //移除最后一个下线
-            underlines.remove ( size-1 );
-            getUnderLineList(chooseAgenId);
+            //将选择值为空
+            //选中最后一个列表中的最后一个下线
+            getUnderLineList(underlines.get ( size-1 ),true);
         }
         if (underlines.size ()>1){
             mRootView.hasPre(true);
@@ -91,16 +92,16 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
     //刷新下线
     public void underLineRefresh(String agentid){
         page = 1;
-        getUnderLineList(agentid);
+        getUnderLineList(agentid,false);
     }
 
     //加载更多下线
     public void underLineloadMore(String agentid){
         page++;
-        getUnderLineList(agentid);
+        getUnderLineList(agentid,false);
     }
 
-    private void getUnderLineList(String agentid){
+    private void getUnderLineList(String agentid,boolean isPre){
         apiModel.getUnderLineList ( "","",page,agentid )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <UnderPayerBean> (mErrorHandler) {
@@ -112,11 +113,21 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
                             }else{
                                 mRootView.getUnderLineLoadMoreSuccess(underPayerBean);
                             }
-                            if (!agentid.equals ( chooseAgenId )){
-                                //如果当前选择的下线id不相等，则添加到列表中
-                                underlines.add ( agentid );
-                                //选择的下线id
-                                chooseAgenId = agentid;
+                            if (isPre){
+                                if (!agentid.equals ( preAgenId )) {
+                                    //如果当前选择的下线id不相等，则删除列表中的最后一个
+                                    underlines.remove ( underlines.size ()-1 );
+                                    //选择的下线id
+                                    chooseAgenId = agentid;
+                                    preAgenId = agentid;
+                                }
+                            }else {
+                                if (!agentid.equals ( chooseAgenId )) {
+                                    //如果当前选择的下线id不相等，则添加到列表中
+                                    underlines.add ( agentid );
+                                    //选择的下线id
+                                    chooseAgenId = agentid;
+                                }
                             }
                             mRootView.hasPre ( underlines.size ()>1 );
 

@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 /**
  * 0
  * creat at 2019/9/22
@@ -31,5 +33,6 @@ public class CopyUtil {
         ClipData mClipData = ClipData.newPlainText("Label", copyString);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
+        ToastUtils.showShort ( "复制成功："+copyString );
     }
 }

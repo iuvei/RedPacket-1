@@ -8,6 +8,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.ooo.main.R;
 
 import java.util.List;
@@ -39,7 +41,11 @@ public class RedPacketGameAdapter extends BaseListAdapter <BannerEntity> {
         }else{
             viewHolder = (ViewHolder) convertView.getTag ();
         }
-        Glide.with ( parent.getContext () ).load ( list.get ( position ).getImageUrl () ).into ( viewHolder.imageView );
+        Glide.with ( parent.getContext () )
+                .load ( list.get ( position ).getImageUrl () )
+                .apply ( new RequestOptions ().diskCacheStrategy ( DiskCacheStrategy.NONE ) )
+                .into ( viewHolder.imageView );
+        Log.e ( "tag","viewHolder.imageView="+viewHolder.imageView.getVisibility () );
         viewHolder.imageView.post ( new Runnable () {
             @Override
             public void run() {
