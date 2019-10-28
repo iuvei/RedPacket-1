@@ -96,6 +96,7 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
     private ArrayList <String> spinnerItems;
     private List <GetRechargeInfoBean.ResultBean> recharge;
     private GetRechargeInfoBean.ResultBean rechargeBean;
+    private String type;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -121,6 +122,7 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
         tvRight.setVisibility ( View.VISIBLE );
         String money = getIntent ().getStringExtra ( "money" );
         String name = getIntent ().getStringExtra ( "name" );
+        type = getIntent ().getStringExtra ( "type" );
         tvMoney.setText ( (ConvertNumUtils.stringToDouble ( money ) + (int) (Math.random () * 100) / 100.0) + "" );
         tvPayName.setText ( name );
         tvMarke.setText ( ""+(int) (Math.random () * 10)+(int) (Math.random () * 10)+(int) (Math.random () * 10)+(int) (Math.random () * 10) );
@@ -128,7 +130,7 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
         adapter = new ChooseBlankAdapter ( spinnerItems );
         spBlank.setAdapter ( adapter );
         setListener ();
-        mPresenter.onlinePayInfo ( "3" );
+        mPresenter.onlinePayInfo ( type+"" );
     }
 
     private void setListener() {
@@ -147,10 +149,11 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
         } );
     }
 
-    public static void start(Context context, String money, String name) {
+    public static void start(Context context, String money, String name,String type) {
         Intent intent = new Intent ( context, TurnToYinLianRechargeActivity.class );
         intent.putExtra ( "money", money );
         intent.putExtra ( "name", name );
+        intent.putExtra ( "type", type );
         context.startActivity ( intent );
     }
 
@@ -222,7 +225,7 @@ public class TurnToYinLianRechargeActivity extends BaseActivity <TurnToYinLianRe
                 return;
             }
             mPresenter.submitRechargeInfo ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"",
-                    recharge.get ( 0 ).getPaycode (),"3",
+                    recharge.get ( 0 ).getPaycode (),type,
                     payMoney, tvPayName.getText ().toString ().trim (), picUrl,tvMarke.getText ().toString () );
             btnSubmit.setEnabled ( false );
         } else if (i == R.id.iv_uploadPic) {

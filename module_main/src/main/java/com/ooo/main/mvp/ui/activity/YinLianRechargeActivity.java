@@ -96,7 +96,7 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
         tvTitle.setText ( "银联充值" );
         tvRight.setText ( "客服" );
         tvRight.setVisibility ( View.VISIBLE );
-        tvMoney.setText ( AppLifecyclesImpl.getUserinfo ().getBalance () + "" );
+        tvMoney.setText ( String.format("%.2f",AppLifecyclesImpl.getUserinfo ().getBalance ()) );
         mPresenter.getRechargeMoneyList ();
         setListener ();
     }
@@ -198,7 +198,7 @@ public class YinLianRechargeActivity extends BaseActivity <YinLianRechargePresen
                 ToastUtils.showShort ( "请输入付款人名字" );
                 return;
             }
-            TurnToYinLianRechargeActivity.start ( this,money,name );
+            TurnToYinLianRechargeActivity.start ( this,money,name,"3" );
 
         } else if (i == R.id.tv_right) {
             //客服
