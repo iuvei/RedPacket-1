@@ -171,7 +171,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             mRootView.setBalanceInfo(response.getResult());
                             AppLifecyclesImpl.setBalance ( response.getResult () );
                             if (isShowDialog) {
-                                ToastUtils.showShort ( response.getResult () + "" );
+                                ToastUtils.showShort ( String.format("%.2f元",response.getResult ()) );
                             }
                         }else{
                             mRootView.showMessage(response.getMessage());
