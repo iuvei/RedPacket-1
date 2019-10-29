@@ -770,7 +770,7 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
             playSound ();
         }
         //发送领取红包消息
-        mPresenter.sendGetRedPacketMessage (this,redpacketBean);
+        //mPresenter.sendGetRedPacketMessage (this,redpacketBean);
         RedpacketDetailActivity.start(mContext, mChatRoomBean.getId(), redpacketId, welfareStatus,mChatRoomBean.getType ());
         if (null != builder && builder.isShowing()) {
             builder.dismiss ();

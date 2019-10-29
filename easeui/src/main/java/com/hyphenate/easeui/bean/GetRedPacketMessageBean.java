@@ -18,11 +18,19 @@ public class GetRedPacketMessageBean implements Parcelable {
      * roomid : 2
      */
 
+
+    //发包者id
     private String hxid;
+    //抢包人昵称
     private String nickname;
     private String redid;
+    //发包人昵称
+    private String nickname1;
     private String roomid;
     private int over;
+
+    //抢包者id
+    private String hxid1;
 
     public String getHxid() {
         return hxid;
@@ -64,6 +72,22 @@ public class GetRedPacketMessageBean implements Parcelable {
         this.over = over;
     }
 
+    public String getHxid1() {
+        return hxid1;
+    }
+
+    public void setHxid1(String hxid1) {
+        this.hxid1 = hxid1;
+    }
+
+    public String getNickname1() {
+        return nickname1;
+    }
+
+    public void setNickname1(String nickname1) {
+        this.nickname1 = nickname1;
+    }
+
     public boolean isGetAllRedPacket(){
         if (over==1){
             //红包已领完
@@ -85,6 +109,8 @@ public class GetRedPacketMessageBean implements Parcelable {
         dest.writeString ( this.nickname );
         dest.writeString ( this.redid );
         dest.writeString ( this.roomid );
+        dest.writeString ( this.hxid1 );
+        dest.writeString ( this.nickname1 );
     }
 
     public GetRedPacketMessageBean() {
@@ -95,6 +121,8 @@ public class GetRedPacketMessageBean implements Parcelable {
         this.nickname = in.readString ();
         this.redid = in.readString ();
         this.roomid = in.readString ();
+        this.hxid1 = in.readString ();
+        this.nickname1 = in.readString ();
     }
 
     public static final Parcelable.Creator <GetRedPacketMessageBean> CREATOR = new Parcelable.Creator <GetRedPacketMessageBean> () {
