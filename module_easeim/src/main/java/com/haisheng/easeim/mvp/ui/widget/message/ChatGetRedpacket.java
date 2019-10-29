@@ -62,19 +62,51 @@ public class ChatGetRedpacket extends EaseChatRow {
             Log.e ( "tag","getRedpacket="+getRedpacket );
             if(!TextUtils.isEmpty(getRedpacket)){
                 GetRedPacketMessageBean getRedPacketMessageBean = new Gson().fromJson(getRedpacket, GetRedPacketMessageBean.class);
-                //抢包人
-                getUser.setText ( getRedPacketMessageBean.getNickname () );
                 //谁的包
                 String hxid = CommonMethod.getHxidForLocal ( );
-                if (hxid.equals ( getRedPacketMessageBean.getHxid () )) {
-                    sendUser.setText ( "你的" );
-                    redpacketBean = new RedpacketBean ();
-                    //红包id
-                    redpacketBean.setId (  ConvertNumUtils.stringToLong ( getRedPacketMessageBean.getRedid () ) );
-                }else {
-                    //别人领取了别人的包，不显示信息
-                    ll_msg.setVisibility ( GONE );
+                String getHXID = getRedPacketMessageBean.getHxid ();
+                String sendGHXID = getRedPacketMessageBean.getHxid1 ();
+                String getName = getRedPacketMessageBean.getNickname ();
+                String sendName = getRedPacketMessageBean.getNickname1 ();
+                if (hxid.equals ( getHXID )) {
+                    //你领取了红包
+                    getUser.setText ( "你" );
+                    if (hxid.equals ( sendGHXID )) {
+                        //领取了自己发的包
+                        sendUser.setText ( "自己发的" );
+                    } else {
+                        //领取了别人发的包
+                        sendUser.setText ( sendName + "的" );
+                    }
+                } else {
+                    //别人领取了红包
+                    if (hxid.equals ( sendGHXID )) {
+                        //领取了自己发的包
+                        sendUser.setText ( "你的" );
+                        getUser.setText ( getName );
+                    } else {
+                        //别人领取了别人的包，不显示信息
+                        ll_msg.setVisibility ( GONE );
+                    }
                 }
+//                if (hxid.equals ( getRedPacketMessageBean.getHxid () )) {
+//                    //抢包人
+//                    getUser.setText ( getRedPacketMessageBean.getNickname () );
+//                    sendUser.setText ( "你的" );
+//                    redpacketBean = new RedpacketBean ();
+//                    //红包id
+//                    redpacketBean.setId (  ConvertNumUtils.stringToLong ( getRedPacketMessageBean.getRedid () ) );
+//                }else if (hxid.equals ( getRedPacketMessageBean.getHxid1 ())){
+//                    //自己领取了别人的包
+//                    getUser.setText ( getRedPacketMessageBean.getNickname () );
+//                    sendUser.setText ( "你的" );
+//                    redpacketBean = new RedpacketBean ();
+//                    //红包id
+//                    redpacketBean.setId (  ConvertNumUtils.stringToLong ( getRedPacketMessageBean.getRedid () ) );
+//                }else{
+//                    //别人领取了别人的包，不显示信息
+//                    ll_msg.setVisibility ( GONE );
+//                }
                 if (getRedPacketMessageBean.isGetAllRedPacket ()){
                     //红包已领完
                     tvGetAll.setVisibility ( VISIBLE );
