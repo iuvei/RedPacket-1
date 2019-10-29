@@ -128,6 +128,7 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
                                     underlines.add ( agentid );
                                     //选择的下线id
                                     chooseAgenId = agentid;
+                                    preAgenId = agentid;
                                 }
                             }
                             mRootView.hasPre ( underlines.size ()>1,underlines.size () );
