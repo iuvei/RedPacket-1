@@ -167,10 +167,10 @@ public class TurnToAlipyRechargeActivity extends BaseActivity <TurnToAlipyRechar
             finish ();
         } else if (i == R.id.btn_submit) {
             String payMoney = tvMoney.getText ().toString ().trim ();
-            if (TextUtils.isEmpty ( picUrl )) {
-                ToastUtils.showShort ( "请先上传充值凭证" );
-                return;
-            }
+//            if (TextUtils.isEmpty ( picUrl )) {
+//                ToastUtils.showShort ( "请先上传充值凭证" );
+//                return;
+//            }
             if (recharge == null) {
                 ToastUtils.showShort ( "暂无充值信息" );
                 return;
