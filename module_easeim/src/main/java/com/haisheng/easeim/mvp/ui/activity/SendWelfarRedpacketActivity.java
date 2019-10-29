@@ -153,7 +153,9 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
         totalMoney = Integer.valueOf ( sTotalMoney );
         String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
         redpacketNumber = Integer.valueOf ( sRedpacketNumber );
-        mPresenter.checkPayPasswrod ();
+        //mPresenter.checkPayPasswrod ();
+        //发送红包
+        mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 1, "" );
     }
 
     //1 默认方式(推荐)

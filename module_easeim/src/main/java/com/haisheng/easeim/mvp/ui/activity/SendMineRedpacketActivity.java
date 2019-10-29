@@ -274,7 +274,9 @@ public class SendMineRedpacketActivity extends BaseSupportActivity <SendRedpacke
             sbBoom = new StringBuilder ();
             sbBoom.append ( etMineNumber.getText ().toString () );
         }
-        mPresenter.checkPayPasswrod ();
+       // mPresenter.checkPayPasswrod ();
+        //发送红包
+        mPresenter.sendRedpacket ( mChatRoomBean.getId (), sbBoom.toString (), mChatRoomBean.getRedpacketNumber (), totalMoney, 0, "" );
     }
 
     //1 默认方式(推荐)

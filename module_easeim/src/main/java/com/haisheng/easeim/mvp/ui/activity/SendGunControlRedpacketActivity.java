@@ -208,7 +208,9 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
         while (value.hasNext ()) {
             sbBoom.append ( "," ).append ( MINE_NUMBERS[value.next ()] );
         }
-        mPresenter.checkPayPasswrod ();
+        //mPresenter.checkPayPasswrod ();
+        //发送红包
+        mPresenter.sendRedpacket ( mChatRoomBean.getId (), sbBoom.toString (), mCurrentRedpacketNumber, money, 0, "" );
     }
 
     //1 默认方式(推荐)
