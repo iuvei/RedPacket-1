@@ -109,7 +109,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".mvp.ui.activity.LoginAdActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/TransparentTheme"
             />
