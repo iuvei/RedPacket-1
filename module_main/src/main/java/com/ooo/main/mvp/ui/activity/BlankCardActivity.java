@@ -60,8 +60,8 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
     ImageView ivBack;
     @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.iv_right)
-    ImageView ivRight;
+    @BindView(R2.id.tv_right)
+    TextView tvRight;
     @BindView(R2.id.lv_card)
     ListView lvCard;
     private BlankCradAdapter adapter;
@@ -88,8 +88,8 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "我的银行卡" );
-        ivRight.setVisibility ( View.VISIBLE );
-        ivRight.setImageResource ( R.mipmap.icon_vip );
+        tvRight.setVisibility ( View.VISIBLE );
+        tvRight.setText ( "添加" );
         lists = new ArrayList <> (  );
         getBlankCard ();
         adapter = new BlankCradAdapter ( lists );
@@ -200,12 +200,12 @@ public class BlankCardActivity extends BaseSupportActivity <BlankCardPresenter> 
         getBlankCard();
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_right})
+    @OnClick({R2.id.iv_back, R2.id.tv_right})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
             finish ();
-        } else if (i == R.id.iv_right) {
+        } else if (i == R.id.tv_right) {
             //添加
             openActivity ( AddBlankCardActivity.class );
         }

@@ -103,10 +103,6 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
     }
 
     private void getUnderLineList(String agentid,boolean isPre){
-        Log.e ( "tag", "getUnderLineListagentid="+agentid);
-        for (String name:underlines){
-            Log.e ( "tag", "getUnderLineList="+name);
-        }
         apiModel.getUnderLineList ( "","",page,agentid )
                 .compose( RxUtils.applySchedulers(mRootView))
                 .subscribe ( new ErrorHandleSubscriber <UnderPayerBean> (mErrorHandler) {
@@ -133,9 +129,6 @@ public class UnderLineListPresenter extends BasePresenter <IModel, UnderLineList
                                     //选择的下线id
                                     chooseAgenId = agentid;
                                 }
-                            }
-                            for (String name:underlines){
-                                Log.e ( "tag", "getUnderLineList111="+name);
                             }
                             mRootView.hasPre ( underlines.size ()>1,underlines.size () );
 

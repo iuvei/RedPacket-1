@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:background="@mipmap/yinlian_bg"
         android:paddingTop="20dp"
         android:paddingLeft="@dimen/spacing_xl"
@@ -32,7 +32,7 @@
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/iv_blank_logo"
             android:layout_below="@+id/tv_blankName"
-            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_l"
             android:layout_marginLeft="@dimen/spacing_xl"
             android:text="支付宝"/>
         <TextView
