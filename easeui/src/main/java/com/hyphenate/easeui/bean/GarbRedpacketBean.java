@@ -68,7 +68,9 @@ public class GarbRedpacketBean implements Serializable {
     }
 
     public String getTime() {
-        return time;
+        int spacePos = time.indexOf ( " " );
+        String time1 = time.substring ( spacePos );
+        return time1;
     }
 
     public void setTime(String time) {

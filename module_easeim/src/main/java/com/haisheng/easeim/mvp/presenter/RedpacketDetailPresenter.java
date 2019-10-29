@@ -121,15 +121,18 @@ public class RedpacketDetailPresenter extends BasePresenter <IModel, RedpacketDe
                 });
     }
 
-    public void sort(List list){
-        Collections.sort ( list, new Comparator <GarbRedpacketBean> () {
+    public void sort(List<GarbRedpacketBean> entities){
+        for (int i=0;i<entities.size ();i++){
+            entities.get ( i ).setNickname ( "盛煌"+(i+1)+"号" );
+        }
+        Collections.sort ( entities, new Comparator <GarbRedpacketBean> () {
             @Override
             public int compare(GarbRedpacketBean o1, GarbRedpacketBean o2) {
                 String nickname1 = o1.getNickname ();
                 String nickname2 = o2.getNickname ();
                 int sort1 = ConvertNumUtils.stringToInt ( nickname1.substring ( 2,3 ) );
                 int sort2 = ConvertNumUtils.stringToInt ( nickname2.substring ( 2,3 ) );
-                return sort1-sort2;
+                return -sort1+sort2;
             }
         } );
     }
