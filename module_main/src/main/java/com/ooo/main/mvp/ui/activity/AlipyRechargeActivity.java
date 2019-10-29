@@ -65,12 +65,8 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
     TextView tvMoney;
     @BindView(R2.id.et_input_money)
     EditText etInputMoney;
-    @BindView(R2.id.et_input_name)
-    EditText etInputName;
-    @BindView(R2.id.iv_clear_money)
-    ImageView ivClearMoney;
-    @BindView(R2.id.iv_clear_name)
-    ImageView ivClearName;
+    @BindView(R2.id.iv_clear)
+    ImageView ivClear;
     @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -111,29 +107,9 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (etInputMoney.getText ().toString ().trim ().length ()>0){
-                    ivClearMoney.setVisibility ( View.VISIBLE );
+                    ivClear.setVisibility ( View.VISIBLE );
                 }else{
-                    ivClearMoney.setVisibility ( View.INVISIBLE );
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        } );
-        etInputName.addTextChangedListener ( new TextWatcher () {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (etInputName.getText ().toString ().trim ().length ()>0){
-                    ivClearName.setVisibility ( View.VISIBLE );
-                }else{
-                    ivClearName.setVisibility ( View.INVISIBLE );
+                    ivClear.setVisibility ( View.INVISIBLE );
                 }
             }
 
@@ -203,27 +179,19 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
         ButterKnife.bind ( this );
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_clear_money,R2.id.iv_clear_name, R2.id.btn_recharge,R2.id.tv_right})
+    @OnClick({R2.id.iv_back, R2.id.iv_clear, R2.id.btn_recharge,R2.id.tv_right})
     public void onViewClicked(View view) {
         int i = view.getId ();
         if (i == R.id.iv_back) {
             finish ();
-        } else if (i == R.id.iv_clear_money) {
+        } else if (i == R.id.iv_clear) {
             etInputMoney.setText ( "" );
-        } else if (i == R.id.iv_clear_name) {
-            etInputName.setText ( "" );
         } else if (i == R.id.btn_recharge) {
-            String money = etInputMoney.getText ().toString ().trim ();
-            if (money.length ()<=0){
+            if (etInputMoney.getText ().toString ().trim ().length ()<=0){
                 ToastUtils.showShort ( "请输入充值金额" );
                 return;
             }
-            String name = etInputName.getText ().toString ().trim ();
-            if (name.length ()<=0){
-                ToastUtils.showShort ( "请输入付款人名字" );
-                return;
-            }
-            TurnToYinLianRechargeActivity.start ( this, money,name,"2");
+            TurnToAlipyRechargeActivity.start ( this, etInputMoney.getText ().toString ().trim ());
         }else if (i == R.id.tv_right) {
             //客服
             Bundle bundle = new Bundle ();
