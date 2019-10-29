@@ -25,6 +25,7 @@
         android:paddingRight="@dimen/spacing_xl"
         android:background="@color/white"
         android:hint="请输入身份证号"
+        android:visibility="gone"
         />
     <TextView
         android:layout_width="match_parent"

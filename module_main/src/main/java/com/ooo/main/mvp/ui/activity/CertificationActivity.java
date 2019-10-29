@@ -123,15 +123,15 @@ public class CertificationActivity extends BaseSupportActivity <CertificationPre
                 ToastUtils.showShort ( "请输入真实姓名" );
                 return;
             }
-            if (TextUtils.isEmpty ( idNum )){
-                ToastUtils.showShort ( "请输入身份证号" );
-                return;
-            }else {
-                if (!RegExpValidateUtils.isIDNumber ( idNum )){
-                    ToastUtils.showShort ( "请输入正确的身份证号" );
-                    return;
-                }
-            }
+//            if (TextUtils.isEmpty ( idNum )){
+//                ToastUtils.showShort ( "请输入身份证号" );
+//                return;
+//            }else {
+//                if (!RegExpValidateUtils.isIDNumber ( idNum )){
+//                    ToastUtils.showShort ( "请输入正确的身份证号" );
+//                    return;
+//                }
+//            }
             showAuthDialog ();
         }
     }
