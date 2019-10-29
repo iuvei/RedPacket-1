@@ -54,8 +54,8 @@ public class GarbRepacketAdapter extends BaseQuickAdapter <GarbRedpacketBean, Ba
                         money = sMoney.substring ( 0, sMoney.length () - 1 ) + "*";
                     }else{
                         //别人抢的包
-                        money = "0.00";
-                        niuniuNumber = -1;
+                        money = sMoney;
+                       // niuniuNumber = -1;
                     }
                 }else{
                     //自己不是庄家
