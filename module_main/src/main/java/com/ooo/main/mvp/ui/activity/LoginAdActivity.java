@@ -56,8 +56,9 @@ public class LoginAdActivity extends BaseSupportActivity {
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.tv_go_login) {
-            openActivity(LoginActivity.class);
-
+            Bundle bundle = new Bundle (  );
+            bundle.putBoolean ( "logout",true );
+            openActivity(LoginActivity.class,bundle);
         }
     }
 
