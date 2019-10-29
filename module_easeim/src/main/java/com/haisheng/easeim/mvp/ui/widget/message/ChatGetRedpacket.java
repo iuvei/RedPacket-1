@@ -64,10 +64,11 @@ public class ChatGetRedpacket extends EaseChatRow {
                 GetRedPacketMessageBean getRedPacketMessageBean = new Gson().fromJson(getRedpacket, GetRedPacketMessageBean.class);
                 //谁的包
                 String hxid = CommonMethod.getHxidForLocal ( );
-                String getHXID = getRedPacketMessageBean.getHxid ();
-                String sendGHXID = getRedPacketMessageBean.getHxid1 ();
+                String sendGHXID = getRedPacketMessageBean.getHxid ();
+                String getHXID = getRedPacketMessageBean.getHxid1 ();
                 String getName = getRedPacketMessageBean.getNickname ();
                 String sendName = getRedPacketMessageBean.getNickname1 ();
+                ll_msg.setVisibility ( VISIBLE );
                 if (hxid.equals ( getHXID )) {
                     //你领取了红包
                     getUser.setText ( "你" );
