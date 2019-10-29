@@ -134,9 +134,14 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
             holder.name.setText(group != null ? group.getGroupName() : username);
         } else if(conversation.getType() == EMConversationType.ChatRoom){
-            EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
-            holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
-            holder.motioned.setVisibility(View.GONE);
+            EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
+            if (group==null){
+                EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
+                holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
+                holder.motioned.setVisibility(View.GONE);
+            }else{
+                holder.name.setText(group != null ? group.getGroupName() : username);
+            }
         }else {
             String nickname = SpUtils.getValue ( parent.getContext (), username + "nickname", "" );
             if (TextUtils.isEmpty ( nickname )) {
