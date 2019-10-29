@@ -64,7 +64,7 @@ public class ChooseRechargeActivity extends BaseSupportActivity <ChooseRechargeP
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "选择充值方式" );
-        tvRight.setText ( "充值记录1" );
+        tvRight.setText ( "充值记录" );
         tvRight.setVisibility ( View.VISIBLE );
     }
 
