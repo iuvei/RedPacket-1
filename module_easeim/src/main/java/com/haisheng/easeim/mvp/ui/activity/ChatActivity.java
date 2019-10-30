@@ -294,9 +294,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 EMClient.getInstance ().chatroomManager ().addChatRoomChangeListener ( mChatRoomListener );
                 mPresenter.joinRoom(toChatUsername);
                 inputMenu.setTalkingEnable(false);
-                if (mChatRoomBean.isNewJoin ()){
-                    mPresenter.sendJoinRoomMessage ( CommonMethod.getHxidForLocal () );
-                }
+//                if (mChatRoomBean.isNewJoin ()){
+//                    mPresenter.sendJoinRoomMessage ( CommonMethod.getHxidForLocal () );
+//                }
             }
             llBalance.setVisibility(View.VISIBLE);
         }
