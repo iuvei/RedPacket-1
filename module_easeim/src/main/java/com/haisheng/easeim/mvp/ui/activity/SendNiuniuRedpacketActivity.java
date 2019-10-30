@@ -156,7 +156,14 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
         totalMoney = ConvertNumUtils.stringToInt( sTotalMoney );
         String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
         redpacketNumber = ConvertNumUtils.stringToInt ( sRedpacketNumber );
+        if (redpacketNumber<=0){
+            ToastUtils.showShort ( "请输入红包个数" );
+            return;
+        }
         mPresenter.checkPayPasswrod ();
+        //mPresenter.checkPayPasswrod ();
+        //发送红包
+        //mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 0, "" );
     }
 
     //1 默认方式(推荐)

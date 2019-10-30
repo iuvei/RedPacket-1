@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.view.PayPassDialog;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportActivity;
@@ -152,7 +153,11 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
         String sTotalMoney = etTotalMoney.getText ().toString ();
         totalMoney = Integer.valueOf ( sTotalMoney );
         String sRedpacketNumber = etRedpacketNumber.getText ().toString ();
-        redpacketNumber = Integer.valueOf ( sRedpacketNumber );
+        redpacketNumber = ConvertNumUtils.stringToInt ( sRedpacketNumber );
+        if (redpacketNumber<=0){
+            ToastUtils.showShort ( "请输入红包个数" );
+            return;
+        }
         mPresenter.checkPayPasswrod ();
     }
 

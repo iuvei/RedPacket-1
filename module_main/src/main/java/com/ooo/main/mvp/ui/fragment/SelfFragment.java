@@ -209,7 +209,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             //个人详情
             startActivity ( new Intent ( getActivity (), UserInfoActivity.class ) );
         }else if (i == R.id.ll_balance){
-            //余额
+            //余额按钮
             startActivity ( new Intent ( getActivity (), BalanceActivity.class ) );
         } else if (i == R.id.ll_customer_service) {
             //客服
