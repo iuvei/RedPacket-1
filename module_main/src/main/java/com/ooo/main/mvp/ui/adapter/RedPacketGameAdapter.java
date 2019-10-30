@@ -43,7 +43,6 @@ public class RedPacketGameAdapter extends BaseListAdapter <BannerEntity> {
         }
         Glide.with ( parent.getContext () )
                 .load ( list.get ( position ).getImageUrl () )
-                .apply ( new RequestOptions ().diskCacheStrategy ( DiskCacheStrategy.NONE ) )
                 .into ( viewHolder.imageView );
         Log.e ( "tag","viewHolder.imageView="+viewHolder.imageView.getVisibility () );
         viewHolder.imageView.post ( new Runnable () {
