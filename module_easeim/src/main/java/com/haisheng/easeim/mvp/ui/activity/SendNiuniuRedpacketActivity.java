@@ -158,6 +158,10 @@ public class SendNiuniuRedpacketActivity extends BaseSupportActivity <SendRedpac
         redpacketNumber = ConvertNumUtils.stringToInt ( sRedpacketNumber );
         //mPresenter.checkPayPasswrod ();
         //发送红包
+        if (redpacketNumber<=0){
+            ToastUtils.showShort ( "请输入红包个数" );
+            return;
+        }
         mPresenter.sendRedpacket ( mChatRoomBean.getId (), null, redpacketNumber, totalMoney, 0, "" );
     }
 
