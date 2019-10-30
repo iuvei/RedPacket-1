@@ -95,6 +95,7 @@ import me.jessyan.armscomponent.commonres.utils.ActionUtils;
 import me.jessyan.armscomponent.commonres.utils.AndroidBug5497Workaround;
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -710,9 +711,9 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 || mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET
                 || mChatRoomBean.getType () == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET){
             //福利房 牛牛房
-            builder.setText ( R.id.tv_message, redpacketBean.getMoney ()+"-" + redpacketBean.getNumber ());
+            builder.setText ( R.id.tv_message, ConvertNumUtils.doubleToInt ( redpacketBean.getMoney ())+"-" + redpacketBean.getNumber ());
         }else {
-            builder.setText ( R.id.tv_message, redpacketBean.getMoney () + "-" + redpacketBean.getBoomNumbers () );
+            builder.setText ( R.id.tv_message, ConvertNumUtils.doubleToInt ( redpacketBean.getMoney () ) + "-" + redpacketBean.getBoomNumbers () );
         }
         builder.setOnClickListener(R.id.img_open, new View.OnClickListener() {
             @Override
