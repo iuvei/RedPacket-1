@@ -398,8 +398,13 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 tvSettlementStatus.setText ( "本包游戏已截止" );
                 tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                         alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
+                if (TextUtils.isEmpty ( blankMoney )){
+                    //如果自己没抢包则，不显示
+                    ll_my_getmoney.setVisibility ( View.GONE );
+                }else{
+                    ll_my_getmoney.setVisibility ( View.VISIBLE );
+                }
                 tv_my_getmoney.setText ( blankMoney );
-                ll_my_getmoney.setVisibility ( View.VISIBLE );
                 tv_niuniu_num.setText ( "" );
                 mAdapter.setGetAll ( true );
                 ll_niuniu_result.setVisibility ( View.VISIBLE );
