@@ -1,5 +1,7 @@
 package com.haisheng.easeim.mvp.model;
 
+import android.util.Log;
+
 import com.haisheng.easeim.mvp.model.api.service.ChatRoomService;
 import com.haisheng.easeim.mvp.model.api.service.RedpacketService;
 import com.haisheng.easeim.mvp.model.entity.ChatRoomBean;
@@ -79,6 +81,7 @@ public class ChatRoomModel extends BaseModel {
                     //加入聊天室失败
                    // emitter.onError(new Throwable(errorMsg));
                     emitter.onComplete();
+                    Log.e ( "tag加入聊天室失败","errorMsg" );
                 }
             });
         });
