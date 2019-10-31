@@ -339,8 +339,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             }
         }
 
-        if (paytype == IMConstants.ROOM_TYPE_MINE_REDPACKET) {
-            //扫雷房
+        if (paytype == IMConstants.ROOM_TYPE_MINE_REDPACKET || paytype == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
+            //扫雷房 禁抢房
             tvMoneyNumber.setText ( String.format ( "%.2f-%s", redpacketInfo.getMoney (), redpacketInfo.getBoomNumbers () ) );
 
         } else if (paytype == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET || paytype == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET) {
@@ -445,8 +445,8 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
                 }
             }
 
-        } else if (paytype == IMConstants.ROOM_TYPE_WELFARE_REDPACKET || paytype == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
-            //福利房 禁抢房
+        } else if (paytype == IMConstants.ROOM_TYPE_WELFARE_REDPACKET) {
+            //福利房
             tvMoneyNumber.setText ( String.format ( "%.2f-%d包", redpacketInfo.getMoney (), redpacketInfo.getNumber () ) );
             tvMessage.setText ( String.format ( "已领取%d/%d个，共%.2f/%.2f元",
                     alreadyNumber, redpacketInfo.getNumber (), alreadyMoney, redpacketInfo.getMoney () ) );
