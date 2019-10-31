@@ -6,6 +6,8 @@ import com.hyphenate.easeui.utils.IMConstants;
 import java.io.Serializable;
 import java.util.List;
 
+import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
+
 public class RedpacketBean implements Serializable {
 
     @SerializedName("setid")
@@ -59,7 +61,7 @@ public class RedpacketBean implements Serializable {
     }
 
     public Long getCountdown() {
-        return countdown;
+        return ConvertNumUtils.stringToLong ( countdown+"" );
     }
 
     public void setCountdown(Long countdown) {

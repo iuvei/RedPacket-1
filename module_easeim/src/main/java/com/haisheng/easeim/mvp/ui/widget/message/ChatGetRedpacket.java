@@ -70,6 +70,10 @@ public class ChatGetRedpacket extends EaseChatRow {
                 String sendName = getRedPacketMessageBean.getNickname1 ();
                 redpacketBean = new RedpacketBean ();
                 redpacketBean.setId ( ConvertNumUtils.stringToLong ( getRedPacketMessageBean.getRedid () ) );
+                if (!TextUtils.isEmpty ( getRedPacketMessageBean.getNiuid () )){
+                    redpacketBean.setId ( ConvertNumUtils.stringToLong ( getRedPacketMessageBean.getNiuid () ) );
+                }
+
                 ll_msg.setVisibility ( VISIBLE );
                 if (hxid.equals ( getHXID )) {
                     //你领取了红包

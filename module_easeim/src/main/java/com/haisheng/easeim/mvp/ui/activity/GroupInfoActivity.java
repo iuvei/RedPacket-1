@@ -340,7 +340,7 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         }
 
         groupUserList = new ArrayList <> ( userInfos );
-        tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size () ) );
+        tvUserNumber.setText ( String.format ( "全部群成员（%d）", userInfos.size ()+mChatRoomBean.getUserNumber () ) );
         if (userInfos.size () > 14) {
             userInfos = userInfos.subList ( 0, 14 );
         }

@@ -295,8 +295,8 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                 mPresenter.joinRoom(toChatUsername);
                 inputMenu.setTalkingEnable(false);
 //                if (mChatRoomBean.isNewJoin ()){
-//                    mPresenter.sendJoinRoomMessage ( CommonMethod.getHxidForLocal () );
-//                }
+////                    mPresenter.sendJoinRoomMessage ( CommonMethod.getHxidForLocal () );
+////                }
             }
             llBalance.setVisibility(View.VISIBLE);
         }

@@ -16,6 +16,7 @@ public class GetRedPacketMessageBean implements Parcelable {
      * nickname : 有有有由于
      * redid : 167615
      * roomid : 2
+     * niuid:123
      */
 
 
@@ -31,6 +32,8 @@ public class GetRedPacketMessageBean implements Parcelable {
 
     //抢包者id
     private String hxid1;
+    //抢包者id
+    private String niuid;
 
     public String getHxid() {
         return hxid;
@@ -86,6 +89,14 @@ public class GetRedPacketMessageBean implements Parcelable {
 
     public void setNickname1(String nickname1) {
         this.nickname1 = nickname1;
+    }
+
+    public String getNiuid() {
+        return niuid;
+    }
+
+    public void setNiuid(String niuid) {
+        this.niuid = niuid;
     }
 
     public boolean isGetAllRedPacket(){
