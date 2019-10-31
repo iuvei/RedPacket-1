@@ -111,7 +111,7 @@ public class UserInfoActivity extends BaseSupportActivity <UserInfoPresenter> im
             Glide.with ( this )
                     .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )
                     .into ( ivHead );
-            tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+            tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getIncode ()+"" );
             tvUsername.setText ( AppLifecyclesImpl.getUserinfo ().getUsername () );
         }
     }

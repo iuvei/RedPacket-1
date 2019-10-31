@@ -134,7 +134,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
         mMemberInfo = memberInfo;
         ImageLoader.displayHeaderImage ( mContext, memberInfo.getAvatarUrl (), ivAvatar );
         tvNickname.setText ( memberInfo.getNickname () );
-        tvUserId.setText ( String.format ( "%d", memberInfo.getId () ) );
+        tvUserId.setText (  memberInfo.getInviteCode () );
         tvBalance.setText(String.format("%.2f",memberInfo.getBalance()));
         tvUserName.setText(memberInfo.getPhoneNumber ());
     }

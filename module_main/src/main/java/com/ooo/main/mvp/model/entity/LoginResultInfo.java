@@ -27,6 +27,8 @@ public class LoginResultInfo implements Serializable {
     private String rechangemoney; //手续费百分比
     @SerializedName("mobile")
     private String mobile; //手机号
+    @SerializedName("incode")
+    private String incode; //邀请码
     @SerializedName("id")
     private long account;
     private double balance;
@@ -140,6 +142,14 @@ public class LoginResultInfo implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public String getIncode() {
+        return incode;
+    }
+
+    public void setIncode(String incode) {
+        this.incode = incode;
     }
 
     public String getMobile() {
