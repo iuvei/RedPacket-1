@@ -93,7 +93,7 @@ public class QrcodeCardActivity extends BaseSupportActivity {
                 .load ( AppLifecyclesImpl.getUserinfo ().getAvatarUrl () )
                 .into ( ivAvatar );
         tvUsername.setText ( AppLifecyclesImpl.getUserinfo ().getNickname () );
-        tvAccountnum.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        tvAccountnum.setText ( AppLifecyclesImpl.getUserinfo ().getIncode ()+"" );
         int sexStatusResId = AppLifecyclesImpl.getUserinfo ().getGender () == MemberInfo.FAMALE ? R.drawable.ic_female : R.drawable.ic_male;
         ivSex.setImageResource ( sexStatusResId );
         qrCode = QRUtils.getInstance().createQRCode( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );

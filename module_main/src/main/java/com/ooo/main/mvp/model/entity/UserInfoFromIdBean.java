@@ -58,6 +58,7 @@ public class UserInfoFromIdBean implements Parcelable {
         private String nickname;
         private String avatar;
         private String gender;
+        private String incode;
 
         public String getId() {
             return id;
@@ -97,6 +98,14 @@ public class UserInfoFromIdBean implements Parcelable {
 
         public void setGender(String gender) {
             this.gender = gender;
+        }
+
+        public String getIncode() {
+            return incode;
+        }
+
+        public void setIncode(String incode) {
+            this.incode = incode;
         }
 
         public boolean isMan(){

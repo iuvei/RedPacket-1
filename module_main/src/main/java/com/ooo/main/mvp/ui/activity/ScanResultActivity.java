@@ -135,7 +135,7 @@ public class ScanResultActivity extends BaseActivity <ScanResultPresenter> imple
     public void getUserInfoSuccess(UserInfoFromIdBean.ResultBean bean) {
         if (bean!=null) {
             rlUser.setVisibility ( View.VISIBLE );
-            tvAccount.setText ( bean.getId () );
+            tvAccount.setText ( bean.getIncode () );
             tvNickname.setText ( bean.getNickname () );
             if (bean.isMan ()){
                 ivSex.setImageResource ( R.drawable.ic_male );

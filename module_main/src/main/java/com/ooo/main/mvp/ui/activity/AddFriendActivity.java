@@ -97,7 +97,7 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
         StatusBarUtils.setTranslucentStatus ( this );
         StatusBarUtils.setStatusBarDarkTheme ( this, true );
         tvTitle.setText ( "添加好友" );
-        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getIncode ()+"" );
     }
 
     @Override
@@ -163,6 +163,6 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
 
     @Override
     public void refreshMemberInfo(MemberInfo result) {
-        tvAccount.setText ( AppLifecyclesImpl.getUserinfo ().getAccount ()+"" );
+        tvAccount.setText ( result.getInviteCode ()+"" );
     }
 }
