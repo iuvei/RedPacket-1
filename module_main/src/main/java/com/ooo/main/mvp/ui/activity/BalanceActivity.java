@@ -170,8 +170,7 @@ public class BalanceActivity extends BaseSupportActivity <BalancePresenter> impl
                 @Override
                 public void onScanSuccess(ScanResult result) {
                     Log.e(TAG, "onScanSuccess: "+result );
-                    Toast.makeText(BalanceActivity.this, "内容："+result.getContent()
-                            +"  类型："+result.getType(), Toast.LENGTH_SHORT).show();
+                    ScanResultActivity.start (BalanceActivity.this, result.getContent());
                 }
             });
         } else if (i == R.id.tv_take_money) {

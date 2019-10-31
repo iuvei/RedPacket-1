@@ -651,7 +651,7 @@ public class ChatPresenter extends BasePresenter<ChatContract.Model, ChatContrac
                             mRootView.closeAnimation(animView,response.getMessage ());
                         }else{
                             mRootView.grabRedpacketFail(response.getMessage ());
-                            mRootView.showMessage(response.getMessage());
+                            //mRootView.showMessage(response.getMessage());
                             mRootView.closeAnimation(animView,response.getMessage ());
                         }
                     }

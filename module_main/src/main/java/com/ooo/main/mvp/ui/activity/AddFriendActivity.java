@@ -152,8 +152,7 @@ public class AddFriendActivity extends BaseSupportActivity <AddFriendPresenter> 
                 @Override
                 public void onScanSuccess(ScanResult result) {
                     Log.e ( TAG, "onScanSuccess: " + result );
-                    Toast.makeText ( AddFriendActivity.this, "内容：" + result.getContent ()
-                            + "  类型：" + result.getType (), Toast.LENGTH_SHORT ).show ();
+                    ScanResultActivity.start (AddFriendActivity.this, result.getContent());
                 }
             } );
         } else if (i == R.id.rl_contact) {
