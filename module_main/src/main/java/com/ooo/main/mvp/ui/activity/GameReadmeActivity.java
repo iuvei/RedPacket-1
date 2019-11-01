@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonsdk.utils.StatusBarUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -144,6 +145,7 @@ public class GameReadmeActivity extends BaseActivity <GameReadmePresenter> imple
                         return;
                     }
                     Glide.with ( this ).load ( result.get ( 0 ) ).into ( ivPoster );
+                    WebviewActivity.start ( this,"扫雷游戏奖励说明",result.get ( 0 ) );
                     break;
                 case 1:
                     // "佣金排行榜奖励说明" );

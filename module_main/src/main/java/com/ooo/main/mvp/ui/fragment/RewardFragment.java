@@ -15,6 +15,9 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.ooo.main.R;
 import com.ooo.main.R2;
+import com.ooo.main.di.component.DaggerRewardFragmentComponent;
+import com.ooo.main.mvp.contract.RewardFragmentContract;
+import com.ooo.main.mvp.presenter.RewardFragmentPresenter;
 import com.ooo.main.mvp.ui.activity.CommisonActivity;
 import com.ooo.main.mvp.ui.activity.CommissionListActivity;
 import com.ooo.main.mvp.ui.activity.GameReadmeActivity;
@@ -23,11 +26,15 @@ import com.ooo.main.mvp.ui.activity.PostersActivity;
 import com.ooo.main.mvp.ui.activity.ScanResultActivity;
 import com.ooo.main.mvp.ui.activity.UnderLineListActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bertsir.zbar.Qr.ScanResult;
 import cn.bertsir.zbar.QrConfig;
 import cn.bertsir.zbar.QrManager;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -46,7 +53,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  * 发现模块
  */
-public class RewardFragment extends BaseSupportFragment {
+public class RewardFragment extends BaseSupportFragment<RewardFragmentPresenter> implements RewardFragmentContract.View {
 
     @BindView(R2.id.tv_title)
     TextView tvTitle;
@@ -72,14 +79,22 @@ public class RewardFragment extends BaseSupportFragment {
     LinearLayout layoutGameControlInfo;
     @BindView(R2.id.layout_game_niuniu_info)
     LinearLayout layoutGameNiuNiuInfo;
+    List <String> result = new ArrayList (  );
 
     public static RewardFragment newInstance() {
         RewardFragment fragment = new RewardFragment ();
         return fragment;
     }
 
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerRewardFragmentComponent //如找不到该类,请编译一下项目
+                .builder ()
+                .appComponent ( appComponent )
+                .view ( this )
+                .build ()
+                .inject ( this );
     }
 
     @Override
@@ -90,6 +105,7 @@ public class RewardFragment extends BaseSupportFragment {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tvTitle.setText ( R.string.discover );
+        mPresenter.getGameRule ();
     }
 
     @Override
@@ -97,6 +113,12 @@ public class RewardFragment extends BaseSupportFragment {
 
     }
 
+    @Override
+    public void showMessage(@NonNull String message) {
+
+    }
+
+    @Override
     public void launchActivity(@NonNull Intent intent) {
         checkNotNull ( intent );
         ArmsUtils.startActivity ( intent );
@@ -151,17 +173,76 @@ public class RewardFragment extends BaseSupportFragment {
             startActivity ( new Intent ( getActivity (), CommissionListActivity.class ) );
         }else if (i == R.id.layout_game_reward_info) {
             //扫雷游戏奖励说明
-            GameReadmeActivity.start ( getActivity (),0 );
+            //GameReadmeActivity.start ( getActivity (),0 );
+            if (result.size ()>0) {
+                WebviewActivity.start ( getActivity (), "扫雷游戏奖励说明", result.get ( 0 ) );
+            }
         } else if (i == R.id.layout_ommission_reward_info) {
             //佣金排行榜奖励说明
-            GameReadmeActivity.start ( getActivity (),1 );
+            //GameReadmeActivity.start ( getActivity (),1 );
+            if (result.size ()>3) {
+                WebviewActivity.start ( getActivity (), "佣金排行榜奖励说明", result.get ( 3 ) );
+            }
         } else if (i == R.id.layout_game_control_info) {
             //禁抢游戏说明
-            GameReadmeActivity.start ( getActivity (),2 );
+            if (result.size ()>1) {
+                WebviewActivity.start ( getActivity (), "禁抢游戏说明", result.get ( 1 ) );
+            }
         }else if (i == R.id.layout_game_niuniu_info) {
             //牛牛游戏说明
-            GameReadmeActivity.start ( getActivity (),3 );
+            if (result.size ()>2) {
+                WebviewActivity.start ( getActivity (), "牛牛游戏说明", result.get ( 2 ) );
+            }
         }
+
+    }
+
+    @Override
+    public void getGameRuleSuccess(List <String> result) {
+        if (result!=null){
+            this.result = result;
+//            switch (type){
+//                case 0:
+//                    //"扫雷游戏奖励说明"
+//                    if (result.size ()<1){
+//                        ToastUtils.showShort ( "没有详细资料" );
+//                        return;
+//                    }
+//                    Glide.with ( this ).load ( result.get ( 0 ) ).into ( ivPoster );
+//                    WebviewActivity.start ( this,"扫雷游戏奖励说明",result.get ( 0 ) );
+//                    break;
+//                case 1:
+//                    // "佣金排行榜奖励说明" );
+//                    if (result.size ()<4){
+//                        ToastUtils.showShort ( "没有详细资料" );
+//                        return;
+//                    }
+//                    Glide.with ( this ).load ( result.get ( 3 ) ).into ( ivPoster );
+//                    break;
+//                case 2:
+//                    //"禁抢游戏说明" );
+//                    if (result.size ()<2){
+//                        ToastUtils.showShort ( "没有详细资料" );
+//                        return;
+//                    }
+//                    Glide.with ( this ).load ( result.get ( 1 ) ).into ( ivPoster );
+//                    break;
+//                case 3:
+//                    //"牛牛游戏说明" );
+//                    if (result.size ()<3){
+//                        ToastUtils.showShort ( "没有详细资料" );
+//                        return;
+//                    }
+//                    Glide.with ( this ).load ( result.get ( 2 ) ).into ( ivPoster );
+//                    break;
+//                default:
+//                    break;
+//            }
+        }
+    }
+
+    @Override
+    public void getGameRuleFail() {
 
     }
 }

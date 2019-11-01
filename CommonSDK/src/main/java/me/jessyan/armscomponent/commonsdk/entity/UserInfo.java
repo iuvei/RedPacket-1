@@ -47,6 +47,8 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
     @Column
     @SerializedName("gender")
     private int sexStatus;
+    @SerializedName("incode")
+    private String incode;
 
     @Column
     protected String initialLetter;
@@ -158,6 +160,14 @@ public class UserInfo extends BaseModel implements Serializable,ILetter {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getIncode() {
+        return incode;
+    }
+
+    public void setIncode(String incode) {
+        this.incode = incode;
     }
 
     public String getSpelling() {

@@ -101,7 +101,7 @@ public class ContactInfoActivity extends BaseSupportActivity <ContactInfoPresent
         tvRight.setVisibility ( View.VISIBLE );
         userInfo = (UserInfo) getIntent ().getSerializableExtra ( "userId" );
         if (userInfo!=null){
-            tvAccount.setText ( userInfo.getId ()+"" );
+            tvAccount.setText ( userInfo.getIncode ()+"" );
             tvName.setText ( userInfo.getNickname () );
             if (userInfo.getSexStatus ()==0){
                 //男
