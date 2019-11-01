@@ -57,8 +57,8 @@ public class ChatGetLayMessage extends EaseChatRow {
             GetLayBean getLayBean = new Gson ().fromJson(getContent, GetLayBean.class);
             String myHxid = CommonMethod.getHxidForLocal ();
 
-            //如果自己的id等于发包人id或者等于抢包人的id
-            if (myHxid.equals ( getLayBean.getHxid () ) || myHxid.equals ( getLayBean.getHxid1 () )){
+            //如果自己的id等于抢包人的id
+            if ( myHxid.equals ( getLayBean.getHxid1 () )){
                 llItem.setVisibility ( VISIBLE );
                 tvGetRedpacketNickName.setText ( getLayBean.getNickname () );
                 tvSendRedpacketNickName.setText ( getLayBean.getNickname_red () );
