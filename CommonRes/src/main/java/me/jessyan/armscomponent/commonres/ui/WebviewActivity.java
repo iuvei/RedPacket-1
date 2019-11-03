@@ -119,6 +119,9 @@ public class WebviewActivity extends BaseSupportActivity {
         } else {
             CookieManager.getInstance().flush();
         }
+        //设置加载进来的页面自适应手机屏幕
+        webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(mUrl);
         webView.addJavascriptInterface(new AndroidtoJs(), "app");
