@@ -163,7 +163,7 @@ public class SendWelfarRedpacketActivity extends BaseSupportActivity <SendRedpac
 
     //1 默认方式(推荐)
     private void payDialog(int redpacketNumber, int totalMoney) {
-        PayPassDialog dialog = new PayPassDialog ( this,etTotalMoney.getText ().toString () );
+        PayPassDialog dialog = new PayPassDialog ( this,AppLifecyclesImpl.getBalance() );
         dialog.setPayPasswordInputListener ( new PayPassDialog.PayPasswordInputListener () {
             @Override
             public void inputFinish(String password) {

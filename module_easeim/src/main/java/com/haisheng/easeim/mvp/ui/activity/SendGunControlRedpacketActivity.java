@@ -21,6 +21,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haisheng.easeim.R;
 import com.haisheng.easeim.R2;
+import com.haisheng.easeim.app.AppLifecyclesImpl;
 import com.hyphenate.easeui.utils.IMConstants;
 import com.haisheng.easeim.di.component.DaggerSendRedpacketComponent;
 import com.haisheng.easeim.mvp.contract.SendRedpacketContract;
@@ -213,7 +214,7 @@ public class SendGunControlRedpacketActivity extends BaseSupportActivity <SendRe
 
     //1 默认方式(推荐)
     private void payDialog(String sbBoom, double money) {
-        PayPassDialog dialog = new PayPassDialog ( this,etTotalMoney.getText ().toString () );
+        PayPassDialog dialog = new PayPassDialog ( this, AppLifecyclesImpl.getBalance() );
         dialog.setPayPasswordInputListener ( new PayPassDialog.PayPasswordInputListener () {
             @Override
             public void inputFinish(String password) {
