@@ -77,10 +77,10 @@ public class CommonMethod {
     //新消息大佬是否打开声音
     public static boolean isVoiceFromLocal(){
         MMKV kv = MMKV.defaultMMKV();
-        return kv.decodeBool ( "voice" );
+        return kv.decodeBool ( "voice",true );
     }
 
-    //新消息是否打开震动保存到本地
+    //新消息是否打开声音保存到本地
     public static void setVoiceToLocal(boolean isVibrate){
         MMKV kv = MMKV.defaultMMKV();
         kv.encode ( "voice",isVibrate );
