@@ -255,7 +255,7 @@ public class IMHelper {
     protected void setEaseUIProviders() {
         //set user avatar to circle shape
         EaseAvatarOptions avatarOptions = new EaseAvatarOptions();
-        avatarOptions.setAvatarShape(1);
+        avatarOptions.setAvatarShape(2);
         easeUI.setAvatarOptions(avatarOptions);
 
         // set profile provider if you want easeUI to handle avatar and nickname

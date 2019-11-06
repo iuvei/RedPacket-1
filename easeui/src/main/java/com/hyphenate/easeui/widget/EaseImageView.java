@@ -68,7 +68,7 @@ public class EaseImageView extends ImageView {
         pressAlpha = 0x42;
         pressColor = 0x42000000;
         radius = 16;
-        shapeType = 0;
+        shapeType = 2;
 
         // get attribute of EaseImageView
         if (attrs != null) {
@@ -78,7 +78,7 @@ public class EaseImageView extends ImageView {
             pressAlpha = array.getInteger(R.styleable.EaseImageView_ease_press_alpha, pressAlpha);
             pressColor = array.getColor(R.styleable.EaseImageView_ease_press_color, pressColor);
             radius = array.getDimensionPixelOffset(R.styleable.EaseImageView_ease_radius, radius);
-            shapeType = array.getInteger(R.styleable.EaseImageView_ease_shape_type, shapeType);
+           // shapeType = array.getInteger(R.styleable.EaseImageView_ease_shape_type, shapeType);
             array.recycle();
         }
 
