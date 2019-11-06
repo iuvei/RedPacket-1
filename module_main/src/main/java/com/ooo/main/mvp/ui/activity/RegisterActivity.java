@@ -46,6 +46,8 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
     EditText etConfirmPassword;
     @BindView(R2.id.et_nickname)
     EditText etNickName;
+    @BindView(R2.id.et_invite_code)
+    EditText etInviteCode;
     @BindView(R2.id.tv_agreement)
     TextView tvAgreement;
 
@@ -149,8 +151,13 @@ public class RegisterActivity extends BaseSupportActivity<LoginPresenter> implem
             showMessage("确认密码不一致!");
             return;
         }
+        String inviteCode= etInviteCode.getText ().toString ().trim ();
+        if(TextUtils.isEmpty ( inviteCode )){
+            showMessage("邀请码不能为空");
+            return;
+        }
         hideSoftInput();
-        mPresenter.register(phoneNumber,password,verificationCode,nickname,"");
+        mPresenter.register(phoneNumber,password,verificationCode,nickname,inviteCode);
     }
 
     @Override
