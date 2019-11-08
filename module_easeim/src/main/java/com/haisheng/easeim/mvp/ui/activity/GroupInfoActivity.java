@@ -39,6 +39,7 @@ import butterknife.OnClick;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
 import me.jessyan.armscomponent.commonres.ui.LongImageActivity;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
 import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ProgressDialogUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -203,12 +204,12 @@ public class GroupInfoActivity extends BaseSupportActivity <GroupInfoPresenter> 
         int i = view.getId ();
         if (i == R.id.ll_group_rules) {
             //群规则
-            LongImageActivity.start ( mContext, mChatRoomBean.getGroupRulesImgUrl () );
-
+            //LongImageActivity.start ( mContext, mChatRoomBean.getGroupRulesImgUrl () );
+            WebviewActivity.start ( this,"群规则", mChatRoomBean.getGroupRulesImgUrl ());
         } else if (i == R.id.ll_game_rules) {
             //群公告
-            LongImageActivity.start ( mContext, mChatRoomBean.getGameRulesImgUrl () );
-
+            //LongImageActivity.start ( mContext, mChatRoomBean.getGameRulesImgUrl () );
+            WebviewActivity.start ( this,"群公告", mChatRoomBean.getGameRulesImgUrl ());
         } else if (i == R.id.btn_delect_exit) {
             //退出群聊
             showExitDialog();

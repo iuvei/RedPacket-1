@@ -62,7 +62,7 @@ public class LongImageActivity extends BaseSupportActivity {
         imageView = findViewById ( R.id.imageView );
         imageView.setMinimumScaleType ( SubsamplingScaleImageView.SCALE_TYPE_CUSTOM );
         imageView.setMinScale ( 1.0F );//最小显示比例
-        imageView.setMaxScale ( 10.0F );//最大显示比例（太大了图片显示会失真，因为一般微博长图的宽度不会太宽）
+        imageView.setMaxScale ( 1.0F );//最大显示比例（太大了图片显示会失真，因为一般微博长图的宽度不会太宽）
 
 
 //下载图片保存到本地
