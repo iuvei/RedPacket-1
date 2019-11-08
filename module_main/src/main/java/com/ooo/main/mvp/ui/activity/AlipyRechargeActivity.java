@@ -233,7 +233,7 @@ public class AlipyRechargeActivity extends BaseActivity <AlipyRechargePresenter>
 //            bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
 //            bundle.putSerializable ( "isService", true );
 //            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
-            WebviewActivity.start ( this,"在线留言", CommonMethod.RECHARGE_SERVICE );
+            WebviewActivity.start ( this,"在线聊天", CommonMethod.RECHARGE_SERVICE );
         }
     }
 }

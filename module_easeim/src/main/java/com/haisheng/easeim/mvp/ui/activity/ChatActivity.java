@@ -487,19 +487,19 @@ public class ChatActivity extends BaseSupportActivity <ChatPresenter> implements
                     if (roomType == IMConstants.ROOM_TYPE_MINE_REDPACKET) {
                         //扫雷详情
                         //ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_SAOLEI_INSIDE,true );
-                        WebviewActivity.start ( getActivity (),"在线留言", CommonMethod.GAME_SERVICE );
+                        WebviewActivity.start ( getActivity (),"在线聊天", CommonMethod.GAME_SERVICE );
                     } else if (roomType == IMConstants.ROOM_TYPE_GUN_CONTROL_REDPACKET) {
                         //禁抢详情
                         //ChatActivity.start ( ChatActivity.this, ConfigUtil.SERVICE_GAME_CONTROL_INSIDE,true );
-                        WebviewActivity.start ( getActivity (),"在线留言", CommonMethod.GAME_SERVICE );
+                        WebviewActivity.start ( getActivity (),"在线聊天", CommonMethod.GAME_SERVICE );
                     } else if (roomType == IMConstants.ROOM_TYPE_NIUNIU_DOUBLE_REDPACKET || roomType == IMConstants.ROOM_TYPE_NIUNIU_REDPACKET) {
                         //牛牛详情
                         //ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_NIUNIU_INSIDE,true );
-                        WebviewActivity.start ( getActivity (),"在线留言", CommonMethod.GAME_SERVICE );
+                        WebviewActivity.start ( getActivity (),"在线聊天", CommonMethod.GAME_SERVICE );
                     } else if (roomType == IMConstants.ROOM_TYPE_WELFARE_REDPACKET) {
                         //福利详情
                         //ChatActivity.start ( ChatActivity.this,ConfigUtil.SERVICE_GAME_FULI_INSIDE,true );
-                        WebviewActivity.start ( getActivity (),"在线留言", CommonMethod.GAME_SERVICE );
+                        WebviewActivity.start ( getActivity (),"在线聊天", CommonMethod.GAME_SERVICE );
                     }
                     break;
                 case ITEM_PROFIT:

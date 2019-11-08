@@ -162,7 +162,7 @@ public class TurnToWeiXinRechargeActivity extends BaseSupportActivity <TurnToWei
 //            bundle.putSerializable ( "isService", true );
 //            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
 //
-            WebviewActivity.start ( this,"在线留言", CommonMethod.RECHARGE_SERVICE );
+            WebviewActivity.start ( this,"在线聊天", CommonMethod.RECHARGE_SERVICE );
         } else if (i == R.id.btn_copy_money) {
             CopyUtil.getInstance ().copyString ( this, tvMoney.getText ().toString ().trim () );
         } else if (i == R.id.btn_cancel) {
