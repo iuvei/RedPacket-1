@@ -42,6 +42,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.armscomponent.commonres.dialog.BaseCustomDialog;
 import me.jessyan.armscomponent.commonres.dialog.BaseDialog;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ImageLoader;
 import me.jessyan.armscomponent.commonsdk.base.BaseSupportFragment;
@@ -213,11 +215,12 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
             startActivity ( new Intent ( getActivity (), BalanceActivity.class ) );
         } else if (i == R.id.ll_customer_service) {
             //客服
-            Bundle bundle = new Bundle (  );
-            bundle.putString("userId", ConfigUtil.SERVICE_MYPAGE );
-            bundle.putInt("chatType", EaseConstant.CHATTYPE_SINGLE);
-            bundle.putSerializable("isService", true);
-            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
+//            Bundle bundle = new Bundle (  );
+//            bundle.putString("userId", ConfigUtil.SERVICE_MYPAGE );
+//            bundle.putInt("chatType", EaseConstant.CHATTYPE_SINGLE);
+//            bundle.putSerializable("isService", true);
+//            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
+            WebviewActivity.start ( getActivity (),true, CommonMethod.RECHARGE_SERVICE );
         } else if (i == R.id.ll_recharge) {
             //充值
             startActivity ( new Intent ( getActivity (), ChooseRechargeActivity.class ) );

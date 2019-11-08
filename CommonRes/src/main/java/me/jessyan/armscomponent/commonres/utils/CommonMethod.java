@@ -17,6 +17,12 @@ public class CommonMethod {
 
     //首页客服
     public final static String HOME_PAGE_SERVICE = "http://p.qiao.baidu.com/cps/chat?siteId=14041512&userId=29199082";
+    //游戏客服
+    public final static String GAME_SERVICE = "http://p.qiao.baidu.com/cps/chat?siteId=14103450&userId=29211734&cp=225g.cn&cr=225g.cn&cw=225g.cn";
+    //充值客服
+    public final static String RECHARGE_SERVICE = "http://p.qiao.baidu.com/cps/chat?siteId=14103461&userId=29218530&cp=225g.cn&cr=225g.cn&cw=225g.cn";
+    //平台客服
+    public final static String PLATFORM_SERVICE = "http://p.qiao.baidu.com/cps/chat?siteId=14041512&userId=29199082&cp=225g.cn&cr=225g.cn&cw=225g.cn";
 
     //从本地获取hxid
     public static String getHxidForLocal(){

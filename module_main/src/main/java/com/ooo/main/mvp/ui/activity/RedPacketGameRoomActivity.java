@@ -32,6 +32,8 @@ import org.simple.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.SpUtils;
@@ -161,19 +163,24 @@ public class RedPacketGameRoomActivity extends BaseSupportActivity <RedPacketGam
           if(bannerEntity!=null) {
               if (bannerEntity.getUrl ().equals ( "0" )) {
                  //扫雷区";
-                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_SAOLEI_ROOM,true );
+                 // ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_SAOLEI_ROOM,true );
+                  WebviewActivity.start ( this,true, CommonMethod.PLATFORM_SERVICE );
               } else if (bannerEntity.getUrl ().equals ( "1" )) {
                  // return "禁抢区";
-                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_CONTROL_ROOM,true );
+                 // ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_CONTROL_ROOM,true );
+                  WebviewActivity.start ( this,true, CommonMethod.PLATFORM_SERVICE );
               } else if (bannerEntity.getUrl ().equals ( "2" )) {
                   //return "牛牛不翻倍";
-                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+                  //ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+                  WebviewActivity.start ( this,true, CommonMethod.PLATFORM_SERVICE );
               } else if (bannerEntity.getUrl ().equals ( "3" )) {
                   //return "牛牛翻倍";
-                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+                 // ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_NIUNIU_ROME,true );
+                  WebviewActivity.start ( this,true, CommonMethod.PLATFORM_SERVICE );
               } else if (bannerEntity.getUrl ().equals ( "4" )) {
                   //return "福利区";
-                  ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_FULI_ROOM,true );
+                  //ChatActivity.start ( this, ConfigUtil.SERVICE_GAME_FULI_ROOM,true );
+                  WebviewActivity.start ( this,true, CommonMethod.PLATFORM_SERVICE );
               }
           }
         }

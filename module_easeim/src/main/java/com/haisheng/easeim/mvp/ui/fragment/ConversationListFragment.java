@@ -166,7 +166,7 @@ public class ConversationListFragment extends BaseSupportFragment <ConversationL
             @Override
             public void onClick(View view) {
                 //ChatActivity.start ( getActivity (), ConfigUtil.SERVICE_HOMEPAGE,true );
-                WebviewActivity.start ( getActivity (),"客服", CommonMethod.HOME_PAGE_SERVICE );
+                WebviewActivity.start ( getActivity (),true, CommonMethod.HOME_PAGE_SERVICE );
             }
         } );
     }
