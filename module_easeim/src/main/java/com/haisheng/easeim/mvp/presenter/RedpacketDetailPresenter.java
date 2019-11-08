@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.haisheng.easeim.mvp.contract.RedpacketDetailContract;
 import com.haisheng.easeim.mvp.model.RedpacketModel;
+import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.easeui.bean.GarbRedpacketBean;
 import com.hyphenate.easeui.bean.RedpacketBean;
 import com.haisheng.easeim.mvp.ui.adapter.GarbRepacketAdapter;
@@ -25,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonsdk.http.BaseResponse;
+import me.jessyan.armscomponent.commonsdk.utils.RxUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
@@ -117,6 +119,35 @@ public class RedpacketDetailPresenter extends BasePresenter <IModel, RedpacketDe
                     public void onError(Throwable t) {
                         super.onError(t);
                         mRootView.showMessage(t.getMessage());
+                    }
+                });
+    }
+
+    //定时请求数据，是否已经抢完包
+    public void timerRequestDatas(boolean sort) {
+        mRedpacketModel.redpacketDetail(mRoomId,mRedpacketId,mRedpacketType)
+                .compose( RxUtils.notAapplySchedulers(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<RedpacketBean>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<RedpacketBean> data) {
+                        if(data.isSuccess()){
+                            mIsInit = true;
+                            RedpacketBean redpacketInfo = data.getResult();
+                            //如果已经抢完则刷新页面
+                            mRootView.setRedpacketInfo(redpacketInfo);
+                            mDatas.clear();//如果是下拉刷新则清空列表
+                            List<GarbRedpacketBean> entities = redpacketInfo.getGarbRedpackets();
+                            if(null != entities && entities.size() >0){
+                                if (sort){
+                                    sort(entities);
+                                }
+                                mDatas.addAll(entities);
+                            }
+                            mAdapter.notifyDataSetChanged();
+
+                        }else{
+                            mRootView.showMessage(data.getMessage());
+                        }
                     }
                 });
     }

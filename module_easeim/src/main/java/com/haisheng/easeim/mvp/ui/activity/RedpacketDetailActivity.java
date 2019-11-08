@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -390,7 +391,17 @@ public class RedpacketDetailActivity extends BaseSupportActivity <RedpacketDetai
             if (redpacketInfo.getStatus () == 0 && countDown > 0) {
                 llCountdown.setVisibility ( View.VISIBLE );
                 cdvTime.start ( countDown * 1000 );
-
+                //设置每秒监听
+                cdvTime.setOnCountdownIntervalListener ( 1000, new CountdownView.OnCountdownIntervalListener () {
+                    @Override
+                    public void onInterval(CountdownView cv, long remainTime) {
+                        Log.e ( "tag","remainTime="+remainTime );
+                        if (remainTime>1500){
+                            //如果剩余时间大于一秒，则刷新数据
+                            mPresenter.timerRequestDatas (sort);
+                        }
+                    }
+                } );
             } else {
                 cdvTime.stop ();
                 llCountdown.setVisibility ( View.GONE );

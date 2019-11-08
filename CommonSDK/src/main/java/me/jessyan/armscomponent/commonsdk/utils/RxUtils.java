@@ -92,6 +92,22 @@ public class RxUtils {
                 }).compose(RxLifecycleUtils.bindToLifecycle(view));
     }
 
+    public static <T> ObservableTransformer<T, T> notAapplySchedulers(final IView view) {
+        return observable -> observable.subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() {
+                    }
+                }).compose(RxLifecycleUtils.bindToLifecycle(view));
+    }
+
 //    public static <T> ObservableTransformer<T, T> applySchedulers(final IView view) {
 //        return new ObservableTransformer<T, T>() {
 //            @Override

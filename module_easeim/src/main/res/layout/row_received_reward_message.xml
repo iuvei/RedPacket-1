@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="@dimen/spacing_m"
-    android:layout_marginRight="@dimen/spacing_xxl"
-    android:layout_marginLeft="@dimen/spacing_xxl"
+    android:layout_marginRight="@dimen/spacing_l"
+    android:layout_marginLeft="@dimen/spacing_l"
     android:gravity="center_horizontal">
     <TextView
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="xxx"
+        tools:text="xxxxxxxxxxxxxxx"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:textColor="@color/public_red"/>
@@ -24,7 +24,7 @@
         android:id="@+id/tv_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="26-8"
+        tools:text="26-8,1,2,3,"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         />
