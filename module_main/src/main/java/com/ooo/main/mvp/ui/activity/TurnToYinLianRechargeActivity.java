@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.haisheng.easeim.mvp.utils.CommontUtil;
 import com.hyphenate.easeui.EaseConstant;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -44,6 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.armscomponent.commonres.ui.WebviewActivity;
+import me.jessyan.armscomponent.commonres.utils.CommonMethod;
 import me.jessyan.armscomponent.commonres.utils.ConfigUtil;
 import me.jessyan.armscomponent.commonres.utils.ConvertNumUtils;
 import me.jessyan.armscomponent.commonres.utils.CopyUtil;
@@ -200,11 +203,12 @@ public class TurnToYinLianRechargeActivity extends BaseSupportActivity <TurnToYi
             finish ();
         } else if (i == R.id.tv_right) {
             //客服
-            Bundle bundle = new Bundle ();
-            bundle.putString ( "userId", ConfigUtil.SERVICE_HOMEPAGE );
-            bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
-            bundle.putSerializable ( "isService", true );
-            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
+//            Bundle bundle = new Bundle ();
+//            bundle.putString ( "userId", ConfigUtil.SERVICE_HOMEPAGE );
+//            bundle.putInt ( "chatType", EaseConstant.CHATTYPE_SINGLE );
+//            bundle.putSerializable ( "isService", true );
+//            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
+            WebviewActivity.start ( this,"在线留言", CommonMethod.RECHARGE_SERVICE );
         } else if (i == R.id.btn_copy_name) {
             CopyUtil.getInstance ().copyString ( this, tvName.getText ().toString ().trim () );
         } else if (i == R.id.btn_copy_card_num) {

@@ -220,7 +220,7 @@ public class SelfFragment extends BaseSupportFragment <SelfPresenter> implements
 //            bundle.putInt("chatType", EaseConstant.CHATTYPE_SINGLE);
 //            bundle.putSerializable("isService", true);
 //            ARouter.getInstance ().build ( RouterHub.IM_CHATACTIVITY ).with ( bundle ).navigation ();
-            WebviewActivity.start ( getActivity (),true, CommonMethod.RECHARGE_SERVICE );
+            WebviewActivity.start ( getActivity (),"在线留言", CommonMethod.RECHARGE_SERVICE );
         } else if (i == R.id.ll_recharge) {
             //充值
             startActivity ( new Intent ( getActivity (), ChooseRechargeActivity.class ) );
